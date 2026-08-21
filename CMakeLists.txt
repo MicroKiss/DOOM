@@ -83,6 +83,10 @@ target_include_directories(doom PRIVATE "${DOOM_SOURCE_DIR}")
 
 target_link_libraries(doom PRIVATE SDL2::SDL2main SDL2::SDL2)
 
+target_compile_definitions(doom PRIVATE
+    $<$<CONFIG:Debug>:DOOM_DEBUG>
+)
+
 set_target_properties(doom PROPERTIES
     C_STANDARD 11
     C_STANDARD_REQUIRED YES

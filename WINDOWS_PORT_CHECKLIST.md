@@ -94,19 +94,19 @@ pointer-truncation warnings.
 
 ## Milestone 4: Implement System Services
 
-- [ ] Implement `I_GetTime()` with an SDL monotonic clock.
-- [ ] Convert elapsed time to DOOM's `TICRATE` of 35 tics per second.
-- [ ] Implement `I_WaitVBL()` with `SDL_Delay()`.
-- [ ] Keep zone allocation based on `malloc()`.
-- [ ] Implement orderly initialization and shutdown.
-- [ ] Ensure errors and normal exits both release SDL resources.
-- [ ] Print diagnostic startup messages in Debug builds.
+- [x] Implement `I_GetTime()` with an SDL monotonic clock.
+- [x] Convert elapsed time to DOOM's `TICRATE` of 35 tics per second.
+- [x] Implement `I_WaitVBL()` with `SDL_Delay()`.
+- [x] Keep zone allocation based on `malloc()`.
+- [x] Implement orderly initialization and shutdown.
+- [x] Ensure errors and normal exits both release SDL resources.
+- [x] Print diagnostic startup messages in Debug builds.
 
 **Verification:**
 
-- [ ] Log the tic count for a short test.
-- [ ] Confirm approximately 35 tics pass per real-time second.
-- [ ] Confirm the timer never moves backward.
+- [x] Log the tic count for a short test.
+- [x] Confirm approximately 35 tics pass per real-time second.
+- [x] Confirm the timer never moves backward.
 
 **Done when:** Startup and shutdown are reliable and game time advances at the
 expected rate.

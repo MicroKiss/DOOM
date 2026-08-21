@@ -29,7 +29,7 @@ void I_InitGraphics(void)
 
 void I_ShutdownGraphics(void)
 {
-    I_Error("I_ShutdownGraphics is not implemented");
+    // No video resources exist until the SDL graphics backend is implemented.
 }
 
 void I_StartFrame(void)
