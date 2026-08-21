@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{35929594-5C97-3F50-9B50-77BFED642784}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>doom</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v145</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">A:\Dev\DOOM\build-windows-vs18\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">doom.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">doom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">A:\Dev\DOOM\build-windows-vs18\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">doom.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">doom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">A:\Dev\DOOM\build-windows-vs18\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">doom.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">doom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">A:\Dev\DOOM\build-windows-vs18\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">doom.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">doom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>A:/Dev/DOOM/build-windows-vs18/Debug/doom.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>A:/Dev/DOOM/build-windows-vs18/Debug/doom.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>A:/Dev/DOOM/build-windows-vs18/Release/doom.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>A:/Dev/DOOM/build-windows-vs18/Release/doom.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>A:/Dev/DOOM/build-windows-vs18/MinSizeRel/doom.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>A:/Dev/DOOM/build-windows-vs18/MinSizeRel/doom.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>A:\Dev\DOOM\linuxdoom-1.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>A:/Dev/DOOM/build-windows-vs18/RelWithDebInfo/doom.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>A:/Dev/DOOM/build-windows-vs18/RelWithDebInfo/doom.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="A:\Dev\DOOM\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule A:/Dev/DOOM/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"A:\Program Files\CMake\bin\cmake.exe" -SA:/Dev/DOOM -BA:/Dev/DOOM/build-windows-vs18 --check-stamp-file A:/Dev/DOOM/build-windows-vs18/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeCCompiler.cmake;A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeRCCompiler.cmake;A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeSystem.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCommonLanguageInclude.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeGenericSystem.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeInitializeConfigs.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeLanguageInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInitialize.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CMakeCommonCompilerMacros.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCLinkerInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCommonLinkerInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Initialize.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">A:\Dev\DOOM\build-windows-vs18\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule A:/Dev/DOOM/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"A:\Program Files\CMake\bin\cmake.exe" -SA:/Dev/DOOM -BA:/Dev/DOOM/build-windows-vs18 --check-stamp-file A:/Dev/DOOM/build-windows-vs18/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeCCompiler.cmake;A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeRCCompiler.cmake;A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeSystem.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCommonLanguageInclude.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeGenericSystem.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeInitializeConfigs.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeLanguageInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInitialize.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CMakeCommonCompilerMacros.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCLinkerInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCommonLinkerInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Initialize.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">A:\Dev\DOOM\build-windows-vs18\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule A:/Dev/DOOM/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"A:\Program Files\CMake\bin\cmake.exe" -SA:/Dev/DOOM -BA:/Dev/DOOM/build-windows-vs18 --check-stamp-file A:/Dev/DOOM/build-windows-vs18/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeCCompiler.cmake;A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeRCCompiler.cmake;A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeSystem.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCommonLanguageInclude.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeGenericSystem.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeInitializeConfigs.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeLanguageInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInitialize.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CMakeCommonCompilerMacros.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCLinkerInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCommonLinkerInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Initialize.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">A:\Dev\DOOM\build-windows-vs18\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule A:/Dev/DOOM/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"A:\Program Files\CMake\bin\cmake.exe" -SA:/Dev/DOOM -BA:/Dev/DOOM/build-windows-vs18 --check-stamp-file A:/Dev/DOOM/build-windows-vs18/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeCCompiler.cmake;A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeRCCompiler.cmake;A:\Dev\DOOM\build-windows-vs18\CMakeFiles\4.4.2\CMakeSystem.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeCommonLanguageInclude.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeGenericSystem.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeInitializeConfigs.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeLanguageInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeRCInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\CMakeSystemSpecificInitialize.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\CMakeCommonCompilerMacros.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Compiler\MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCLinkerInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Internal\CMakeCommonLinkerInformation.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Linker\MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Linker\Windows-MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-Initialize.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC-C.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows-MSVC.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\Windows.cmake;A:\Program Files\CMake\share\cmake-4.4\Modules\Platform\WindowsPaths.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">A:\Dev\DOOM\build-windows-vs18\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\doomdef.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\doomstat.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\dstrings.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\tables.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\f_finale.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\f_wipe.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\d_main.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\d_net.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\d_items.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\g_game.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\m_menu.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\m_misc.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\m_argv.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\m_bbox.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\m_fixed.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\m_swap.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\m_cheat.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\m_random.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\am_map.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_ceilng.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_doors.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_enemy.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_floor.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_inter.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_lights.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_map.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_maputl.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_plats.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_pspr.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_setup.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_sight.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_spec.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_switch.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_mobj.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_telept.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_tick.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_saveg.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\p_user.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\r_bsp.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\r_data.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\r_draw.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\r_main.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\r_plane.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\r_segs.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\r_sky.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\r_things.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\w_wad.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\wi_stuff.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\v_video.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\st_lib.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\st_stuff.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\hu_stuff.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\hu_lib.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\s_sound.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\z_zone.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\info.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\sounds.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\i_main.c" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="A:\Dev\DOOM\build-windows-vs18\ZERO_CHECK.vcxproj">
+      <Project>{E5A4973C-5EE2-3EF4-B78B-8581C8CDAB09}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

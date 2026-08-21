@@ -1,0 +1,3 @@
+A:/Dev/DOOM/sdl2-smoke-test/build/CMakeFiles/sdl2_smoke_test.dir
+A:/Dev/DOOM/sdl2-smoke-test/build/CMakeFiles/ALL_BUILD.dir
+A:/Dev/DOOM/sdl2-smoke-test/build/CMakeFiles/ZERO_CHECK.dir

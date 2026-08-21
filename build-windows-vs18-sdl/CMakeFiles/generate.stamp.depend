@@ -1,0 +1,39 @@
+# CMake generation dependency list for this directory.
+A:/Dev/DOOM/CMakeLists.txt
+A:/Dev/DOOM/build-windows-vs18-sdl/CMakeFiles/4.4.2/CMakeCCompiler.cmake
+A:/Dev/DOOM/build-windows-vs18-sdl/CMakeFiles/4.4.2/CMakeRCCompiler.cmake
+A:/Dev/DOOM/build-windows-vs18-sdl/CMakeFiles/4.4.2/CMakeSystem.cmake
+A:/Dev/Git/vcpkg/installed/x64-windows/share/sdl2/SDL2Config.cmake
+A:/Dev/Git/vcpkg/installed/x64-windows/share/sdl2/SDL2ConfigVersion.cmake
+A:/Dev/Git/vcpkg/installed/x64-windows/share/sdl2/SDL2Targets-debug.cmake
+A:/Dev/Git/vcpkg/installed/x64-windows/share/sdl2/SDL2Targets-release.cmake
+A:/Dev/Git/vcpkg/installed/x64-windows/share/sdl2/SDL2Targets.cmake
+A:/Dev/Git/vcpkg/installed/x64-windows/share/sdl2/SDL2mainTargets-debug.cmake
+A:/Dev/Git/vcpkg/installed/x64-windows/share/sdl2/SDL2mainTargets-release.cmake
+A:/Dev/Git/vcpkg/installed/x64-windows/share/sdl2/SDL2mainTargets.cmake
+A:/Dev/Git/vcpkg/installed/x64-windows/share/sdl2/sdlfind.cmake
+A:/Dev/Git/vcpkg/scripts/buildsystems/vcpkg.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/CMakeCInformation.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/CMakeCommonLanguageInclude.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDependentOption.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/CMakeGenericSystem.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/CMakeInitializeConfigs.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/CMakeLanguageInformation.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/CMakeRCInformation.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInformation.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/CMakeSystemSpecificInitialize.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Compiler/MSVC-C.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Compiler/MSVC.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/FeatureSummary.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCLinkerInformation.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Internal/CMakeCommonLinkerInformation.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Linker/MSVC-C.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Linker/MSVC.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-MSVC-C.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Platform/Linker/Windows-MSVC.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Platform/Windows-Initialize.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Platform/Windows-MSVC-C.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Platform/Windows-MSVC.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Platform/Windows.cmake
+A:/Program Files/CMake/share/cmake-4.4/Modules/Platform/WindowsPaths.cmake

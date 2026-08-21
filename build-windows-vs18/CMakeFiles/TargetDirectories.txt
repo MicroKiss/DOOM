@@ -1,0 +1,3 @@
+A:/Dev/DOOM/build-windows-vs18/CMakeFiles/doom.dir
+A:/Dev/DOOM/build-windows-vs18/CMakeFiles/ALL_BUILD.dir
+A:/Dev/DOOM/build-windows-vs18/CMakeFiles/ZERO_CHECK.dir

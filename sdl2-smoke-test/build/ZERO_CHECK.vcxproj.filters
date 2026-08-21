@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="A:\Dev\DOOM\sdl2-smoke-test\build\CMakeFiles\c78f4ba4796b055e8342fee79e585f2b\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{54B9AFA4-7AE2-32CC-8366-42BB4A59182E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

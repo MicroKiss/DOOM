@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -19,29 +19,29 @@
 //
 //-----------------------------------------------------------------------------
 
-
 #ifndef __M_FIXED__
 #define __M_FIXED__
 
+#include <limits.h>
+#include <stdint.h>
 
 #ifdef __GNUG__
 #pragma interface
 #endif
 
-
 //
 // Fixed point, 32bit as 16.16.
 //
-#define FRACBITS		16
-#define FRACUNIT		(1<<FRACBITS)
+#define FRACBITS 16
+#define FRACUNIT (1 << FRACBITS)
 
-typedef int fixed_t;
+typedef int32_t fixed_t;
 
-fixed_t FixedMul	(fixed_t a, fixed_t b);
-fixed_t FixedDiv	(fixed_t a, fixed_t b);
-fixed_t FixedDiv2	(fixed_t a, fixed_t b);
+_Static_assert(sizeof(fixed_t) * CHAR_BIT == 32, "fixed_t must be exactly 32 bits");
 
-
+fixed_t FixedMul(fixed_t a, fixed_t b);
+fixed_t FixedDiv(fixed_t a, fixed_t b);
+fixed_t FixedDiv2(fixed_t a, fixed_t b);
 
 #endif
 //-----------------------------------------------------------------------------
