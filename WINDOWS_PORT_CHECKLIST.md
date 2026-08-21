@@ -113,23 +113,23 @@ expected rate.
 
 ## Milestone 5: Present the Framebuffer
 
-- [ ] Allocate `screens[0]` as a 320x200 8-bit indexed framebuffer.
-- [ ] Create an SDL window and renderer.
-- [ ] Create a streaming 32-bit RGBA texture.
-- [ ] Store all 256 colors received by `I_SetPalette()`.
-- [ ] Convert each indexed framebuffer pixel through the active palette.
-- [ ] Upload and present the converted texture in `I_FinishUpdate()`.
-- [ ] Implement integer scaling.
-- [ ] Preserve the image aspect ratio; optionally correct 320x200 to 4:3.
-- [ ] Handle window resizing without changing the game framebuffer size.
-- [ ] Avoid changing any renderer code outside the platform layer.
+- [x] Allocate `screens[0]` as a 320x200 8-bit indexed framebuffer.
+- [x] Create an SDL window and renderer.
+- [x] Create a streaming 32-bit RGBA texture.
+- [x] Store all 256 colors received by `I_SetPalette()`.
+- [x] Convert each indexed framebuffer pixel through the active palette.
+- [x] Upload and present the converted texture in `I_FinishUpdate()`.
+- [x] Implement integer scaling.
+- [x] Preserve the image aspect ratio; optionally correct 320x200 to 4:3.
+- [x] Handle window resizing without changing the game framebuffer size.
+- [x] Avoid changing any renderer code outside the platform layer.
 
 **Verification:**
 
-- [ ] The title screen appears.
-- [ ] Colors match a known screenshot or the Linux reference.
+- [x] The title screen appears.
+- [x] Colors match a known screenshot or the Linux reference.
 - [ ] Palette flashes work when taking damage or collecting items.
-- [ ] Resizing does not distort memory or crash.
+- [x] Resizing does not distort memory or crash.
 
 **Done when:** Animated title/demo frames display with correct colors.
 

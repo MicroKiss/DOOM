@@ -56,6 +56,7 @@ A:\Dev\DOOM\linuxdoom-1.10\z_zone.c;A:\Dev\DOOM\build-windows-vs18-sdl\doom.dir\
 A:\Dev\DOOM\linuxdoom-1.10\info.c;A:\Dev\DOOM\build-windows-vs18-sdl\doom.dir\Debug\info.obj
 A:\Dev\DOOM\linuxdoom-1.10\sounds.c;A:\Dev\DOOM\build-windows-vs18-sdl\doom.dir\Debug\sounds.obj
 A:\Dev\DOOM\linuxdoom-1.10\i_main.c;A:\Dev\DOOM\build-windows-vs18-sdl\doom.dir\Debug\i_main.obj
+A:\Dev\DOOM\linuxdoom-1.10\i_main_test.c;A:\Dev\DOOM\build-windows-vs18-sdl\doom.dir\Debug\i_main_test.obj
 A:\Dev\DOOM\linuxdoom-1.10\i_video.c;A:\Dev\DOOM\build-windows-vs18-sdl\doom.dir\Debug\i_video.obj
 A:\Dev\DOOM\linuxdoom-1.10\i_sound.c;A:\Dev\DOOM\build-windows-vs18-sdl\doom.dir\Debug\i_sound.obj
 A:\Dev\DOOM\linuxdoom-1.10\i_system.c;A:\Dev\DOOM\build-windows-vs18-sdl\doom.dir\Debug\i_system.obj

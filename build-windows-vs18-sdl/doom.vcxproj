@@ -483,6 +483,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\info.c" />
     <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\sounds.c" />
     <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\i_main.c" />
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\i_main_test.c" />
     <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\i_video.c" />
     <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\i_sound.c" />
     <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\i_system.c" />

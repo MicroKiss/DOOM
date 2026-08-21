@@ -175,6 +175,9 @@
     <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\i_main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\i_main_test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="A:\Dev\DOOM\linuxdoom-1.10\i_video.c">
       <Filter>Source Files</Filter>
     </ClCompile>

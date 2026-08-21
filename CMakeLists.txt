@@ -8,6 +8,7 @@ set(DOOM_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/linuxdoom-1.10")
 
 set(DOOM_WINDOWS_SOURCES 
     ${DOOM_SOURCE_DIR}/i_main.c
+    ${DOOM_SOURCE_DIR}/i_main_test.c
     ${DOOM_SOURCE_DIR}/i_video.c
     ${DOOM_SOURCE_DIR}/i_sound.c
     ${DOOM_SOURCE_DIR}/i_system.c

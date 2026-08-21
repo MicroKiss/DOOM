@@ -31,6 +31,9 @@ static const char
 #include "m_argv.h"
 #include "d_main.h"
 #include "i_system.h"
+#include "i_video.h"
+#include "v_video.h"
+#include "i_main_test.h"
 
 int main(int argc, char **argv)
 {
@@ -40,19 +43,9 @@ int main(int argc, char **argv)
     myargv = argv;
 
 #ifdef DOOM_DEBUG
-    for (i = 1; i < argc; ++i)
-    {
-        if (!strcmp(argv[i], "-timertest"))
-        {
-            boolean passed;
-            I_Init();
-            passed = I_RunTimerTest();
-            I_Shutdown();
-            return passed ? 0 : 1;
-        }
-    }
-#else
-    (void)i;
+    int test_result = TestMain();
+    if (test_result >= 0)
+        return test_result;
 #endif
 
     D_DoomMain();
