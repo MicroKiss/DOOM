@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"A:/Dev/DOOM/build-windows-vs18-sdl/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
