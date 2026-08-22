@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------------
 //
 // DESCRIPTION:
-//     SDL2 sound-effect backend. Music is implemented separately in milestone 9.
+//     SDL2 sound and libADLMIDI music backend.
 //
 //-----------------------------------------------------------------------------
 
@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include <SDL.h>
+#include <adlmidi.h>
 
 #include "doomstat.h"
 #include "i_sound.h"
@@ -54,6 +55,12 @@ static sample_t samples[NUMSFX];
 static mix_channel_t mix_channels[MAX_MIX_CHANNELS];
 static int next_handle = 1;
 static uint64_t next_start_order;
+static struct ADL_MIDIPlayer *music_player;
+static int music_handle;
+static int next_music_handle = 1;
+static int music_volume;
+static boolean music_playing;
+static boolean music_paused;
 
 static uint16_t ReadLE16(const uint8_t *data)
 {
@@ -164,16 +171,36 @@ static void SDLCALL AudioCallback(void *userdata, Uint8 *stream, int length)
 {
     int16_t *output = (int16_t *)stream;
     int frame_count = length / (OUTPUT_CHANNELS * (int)sizeof(int16_t));
+    int sample_count = frame_count * OUTPUT_CHANNELS;
+    int music_samples = 0;
     int frame;
     int channel_index;
 
     (void)userdata;
-    SDL_memset(stream, 0, (size_t)length);
+
+    if (music_player && music_playing && !music_paused)
+    {
+        music_samples = adl_play(music_player, sample_count, output);
+        if (music_samples <= 0)
+        {
+            music_playing = false;
+            music_samples = 0;
+        }
+    }
+
+    if (music_samples < sample_count)
+    {
+        SDL_memset(output + music_samples, 0,
+                   (size_t)(sample_count - music_samples) * sizeof(*output));
+    }
+
+    for (frame = 0; frame < music_samples; ++frame)
+        output[frame] = (int16_t)((output[frame] * music_volume) / 127);
 
     for (frame = 0; frame < frame_count; ++frame)
     {
-        int left_mix = 0;
-        int right_mix = 0;
+        int left_mix = output[frame * 2];
+        int right_mix = output[frame * 2 + 1];
 
         for (channel_index = 0; channel_index < MAX_MIX_CHANNELS; ++channel_index)
         {
@@ -424,47 +451,152 @@ void I_InitMusic(void)
 
 void I_ShutdownMusic(void)
 {
+    if (audio_device)
+        SDL_LockAudioDevice(audio_device);
+
+    if (music_player)
+    {
+        adl_close(music_player);
+        music_player = NULL;
+    }
+
+    music_handle = 0;
+    music_playing = false;
+    music_paused = false;
+
+    if (audio_device)
+        SDL_UnlockAudioDevice(audio_device);
 }
 
 void I_SetMusicVolume(int volume)
 {
+    if (volume < 0)
+        volume = 0;
+    else if (volume > 127)
+        volume = 127;
+
+    if (audio_device)
+        SDL_LockAudioDevice(audio_device);
+
+    music_volume = volume;
     snd_MusicVolume = volume;
+
+    if (audio_device)
+        SDL_UnlockAudioDevice(audio_device);
 }
 
 void I_PauseSong(int handle)
 {
-    (void)handle;
+    if (!audio_device || handle != music_handle)
+        return;
+
+    SDL_LockAudioDevice(audio_device);
+    music_paused = true;
+    SDL_UnlockAudioDevice(audio_device);
 }
 
 void I_ResumeSong(int handle)
 {
-    (void)handle;
+    if (!audio_device || handle != music_handle)
+        return;
+
+    SDL_LockAudioDevice(audio_device);
+    music_paused = false;
+    SDL_UnlockAudioDevice(audio_device);
 }
 
-int I_RegisterSong(void *data)
+int I_RegisterSong(void *data, int length)
 {
-    (void)data;
-    return 0;
+    int handle = 0;
+
+    if (!audio_device || !data || length <= 0)
+        return 0;
+
+    SDL_LockAudioDevice(audio_device);
+
+    if (music_player)
+        adl_close(music_player);
+
+    music_player = adl_init(audio_spec.freq);
+    if (!music_player)
+    {
+        fprintf(stderr, "I_RegisterSong: libADLMIDI initialization failed: %s\n",
+                adl_errorString());
+    }
+    else
+    {
+        adl_setSoftPanEnabled(music_player, 1);
+        if (adl_openData(music_player, data, (unsigned long)length) < 0)
+        {
+            fprintf(stderr, "I_RegisterSong: could not load MUS data: %s\n",
+                    adl_errorInfo(music_player));
+            adl_close(music_player);
+            music_player = NULL;
+        }
+        else
+        {
+            handle = next_music_handle++;
+            if (next_music_handle <= 0)
+                next_music_handle = 1;
+        }
+    }
+
+    music_handle = handle;
+    music_playing = false;
+    music_paused = false;
+    SDL_UnlockAudioDevice(audio_device);
+    return handle;
 }
 
 void I_PlaySong(int handle, int looping)
 {
-    (void)handle;
-    (void)looping;
+    if (!audio_device || !music_player || handle != music_handle)
+        return;
+
+    SDL_LockAudioDevice(audio_device);
+    adl_positionRewind(music_player);
+    adl_setLoopEnabled(music_player, looping != 0);
+    adl_setLoopCount(music_player, looping ? -1 : 0);
+    music_paused = false;
+    music_playing = true;
+    SDL_UnlockAudioDevice(audio_device);
 }
 
 void I_StopSong(int handle)
 {
-    (void)handle;
+    if (!audio_device || !music_player || handle != music_handle)
+        return;
+
+    SDL_LockAudioDevice(audio_device);
+    music_playing = false;
+    music_paused = false;
+    adl_positionRewind(music_player);
+    SDL_UnlockAudioDevice(audio_device);
 }
 
 void I_UnRegisterSong(int handle)
 {
-    (void)handle;
+    if (!audio_device || handle != music_handle)
+        return;
+
+    SDL_LockAudioDevice(audio_device);
+    music_playing = false;
+    music_paused = false;
+    adl_close(music_player);
+    music_player = NULL;
+    music_handle = 0;
+    SDL_UnlockAudioDevice(audio_device);
 }
 
 int I_QrySongPlaying(int handle)
 {
-    (void)handle;
-    return 0;
+    int playing;
+
+    if (!audio_device || handle != music_handle)
+        return 0;
+
+    SDL_LockAudioDevice(audio_device);
+    playing = music_playing;
+    SDL_UnlockAudioDevice(audio_device);
+    return playing;
 }

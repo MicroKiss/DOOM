@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(doom_windows_port LANGUAGES C)
 
 find_package(SDL2 CONFIG REQUIRED)
+find_package(libADLMIDI CONFIG REQUIRED)
 
 set(DOOM_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/linuxdoom-1.10")
 
@@ -82,7 +83,7 @@ add_executable(doom ${DOOM_PORTABLE_SOURCES} ${DOOM_WINDOWS_SOURCES})
 
 target_include_directories(doom PRIVATE "${DOOM_SOURCE_DIR}")
 
-target_link_libraries(doom PRIVATE SDL2::SDL2main SDL2::SDL2)
+target_link_libraries(doom PRIVATE SDL2::SDL2main SDL2::SDL2 libADLMIDI::ADLMIDI)
 
 target_compile_definitions(doom PRIVATE
     $<$<CONFIG:Debug>:DOOM_DEBUG>

@@ -195,13 +195,19 @@ expected rate.
 
 ## Milestone 9: Add Music
 
-- [ ] Learn the difference between DOOM MUS data, MIDI events, and PCM audio.
-- [ ] Select an established MUS/MIDI solution such as FluidSynth or
+- [x] Learn the difference between DOOM MUS data, MIDI events, and PCM audio.
+- [x] Select an established MUS/MIDI solution such as FluidSynth or
       libADLMIDI.
-- [ ] Implement song registration and unregistration.
-- [ ] Implement play, loop, pause, resume, and stop.
-- [ ] Implement music volume.
-- [ ] Package any required legal sound font or document how to provide one.
+- [x] Implement song registration and unregistration.
+- [x] Implement play, loop, pause, resume, and stop.
+- [x] Implement music volume.
+- [x] Package any required legal sound font or document how to provide one.
+
+MUS stores DOOM's sequenced music commands, MIDI is a standardized stream of
+musical events, and PCM is the synthesized waveform sent to the audio device.
+libADLMIDI reads MUS directly and uses embedded OPL instrument banks, so no
+external SoundFont is required. Packages must include `ADLMIDI.dll` and its
+LGPL-3.0 license notice.
 
 **Verification:**
 
@@ -271,6 +277,7 @@ Add one short entry after each work session.
 |---|---:|---|---|
 | YYYY-MM-DD | 0 | Example entry | Example next step |
 | 2026-08-22 | 8 | Added callback-driven SDL sound effects with DMX lump parsing, mixing, panning, pitch, handles, and synchronized shutdown. | Complete the in-game listening and ten-minute stability checks. |
+| 2026-08-22 | 9 | Added libADLMIDI MUS playback mixed through SDL with looping, pause, transitions, and volume control. | Complete the in-game music listening checks. |
 
 ## Rules for the Port
 
