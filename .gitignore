@@ -1,0 +1,31 @@
+# Commercial IWADs must be supplied by the player and never packaged.
+[Dd][Oo][Oo][Mm].[Ww][Aa][Dd]
+[Dd][Oo][Oo][Mm][Uu].[Ww][Aa][Dd]
+[Dd][Oo][Oo][Mm]2.[Ww][Aa][Dd]
+[Dd][Oo][Oo][Mm]2[Ff].[Ww][Aa][Dd]
+[Tt][Nn][Tt].[Ww][Aa][Dd]
+[Pp][Ll][Uu][Tt][Oo][Nn][Ii][Aa].[Ww][Aa][Dd]
+
+# Generated build trees.
+/build*/
+/sdl2-smoke-test/build*/
+/.vs/
+
+# CMake-generated files.
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+*.cmake.user
+
+# Compiled Windows and MSVC outputs.
+*.exe
+*.dll
+*.lib
+*.exp
+*.obj
+*.pdb
+*.ilk
+*.idb
+*.tlog
+*.recipe

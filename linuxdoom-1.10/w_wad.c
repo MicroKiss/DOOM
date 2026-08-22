@@ -25,6 +25,7 @@ static const char
     rcsid[] = "$Id: w_wad.c,v 1.5 1997/02/03 16:47:57 b1 Exp $";
 
 #include <ctype.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <malloc.h>
 #include <stdio.h>
@@ -79,6 +80,24 @@ void W_Strupr(char *s)
         *s = toupper(*s);
         s++;
     }
+}
+
+static boolean W_HasWadExtension(const char *filename)
+{
+    const char *extension = strrchr(filename, '.');
+
+    return extension && !strcmpi(extension, ".wad");
+}
+
+static void W_ReadExact(int handle,
+                        void *buffer,
+                        int length,
+                        const char *filename,
+                        const char *description)
+{
+    if (read(handle, buffer, length) != length)
+        I_Error("Invalid WAD file \"%s\": truncated %s",
+                filename, description);
 }
 
 int W_FileLength(int handle)
@@ -147,7 +166,7 @@ void ExtractFileBase(char *path,
 int reloadlump;
 char *reloadname;
 
-void W_AddFile(char *filename)
+static void W_AddFile(char *filename, boolean require_iwad)
 {
     wadinfo_t header;
     lumpinfo_t *lump_p;
@@ -158,6 +177,9 @@ void W_AddFile(char *filename)
     filelump_t *fileinfo;
     filelump_t singleinfo;
     int storehandle;
+    int filelength;
+    boolean directory_allocated = false;
+    boolean is_wad;
 
     // open the file and add to directory
 
@@ -170,27 +192,38 @@ void W_AddFile(char *filename)
     }
 
     if ((handle = open(filename, O_RDONLY | O_BINARY)) == -1)
-    {
-        printf(" couldn't open %s\n", filename);
-        return;
-    }
+        I_Error("Could not open data file \"%s\": %s",
+                filename, strerror(errno));
 
     printf(" adding %s\n", filename);
     startlump = numlumps;
+    filelength = W_FileLength(handle);
+    is_wad = W_HasWadExtension(filename);
 
-    if (strcmpi(filename + strlen(filename) - 3, "wad"))
+    if (!is_wad)
     {
+        if (require_iwad)
+            I_Error("Invalid IWAD \"%s\": expected a .wad file", filename);
+
         // single lump file
         fileinfo = &singleinfo;
         singleinfo.filepos = 0;
-        singleinfo.size = LONG(W_FileLength(handle));
+        singleinfo.size = LONG(filelength);
         ExtractFileBase(filename, singleinfo.name);
         numlumps++;
     }
     else
     {
         // WAD file
-        read(handle, &header, sizeof(header));
+        uint64_t directory_size;
+
+        if (filelength < sizeof(header))
+            I_Error("Invalid WAD file \"%s\": truncated header", filename);
+
+        W_ReadExact(handle, &header, sizeof(header), filename, "header");
+        if (require_iwad && strncmp(header.identification, "IWAD", 4))
+            I_Error("Invalid IWAD \"%s\": expected IWAD header", filename);
+
         if (strncmp(header.identification, "IWAD", 4))
         {
             // Homebrew levels?
@@ -205,10 +238,26 @@ void W_AddFile(char *filename)
         }
         header.numlumps = LONG(header.numlumps);
         header.infotableofs = LONG(header.infotableofs);
-        length = header.numlumps * sizeof(filelump_t);
-        fileinfo = alloca(length);
-        lseek(handle, header.infotableofs, SEEK_SET);
-        read(handle, fileinfo, length);
+
+        if (header.numlumps < 0 || header.infotableofs < 0)
+            I_Error("Invalid WAD file \"%s\": negative directory values",
+                    filename);
+
+        directory_size = (uint64_t)header.numlumps * sizeof(filelump_t);
+        if ((uint64_t)header.infotableofs > (uint64_t)filelength ||
+            directory_size > (uint64_t)filelength - header.infotableofs)
+            I_Error("Invalid WAD file \"%s\": directory is outside the file",
+                    filename);
+
+        length = (int)directory_size;
+        fileinfo = malloc(length ? length : 1);
+        if (!fileinfo)
+            I_Error("Could not allocate WAD directory for \"%s\"", filename);
+        directory_allocated = true;
+
+        if (lseek(handle, header.infotableofs, SEEK_SET) == -1)
+            I_Error("Could not seek to WAD directory in \"%s\"", filename);
+        W_ReadExact(handle, fileinfo, length, filename, "directory");
         numlumps += header.numlumps;
     }
 
@@ -224,11 +273,22 @@ void W_AddFile(char *filename)
 
     for (i = startlump; i < numlumps; i++, lump_p++, fileinfo++)
     {
+        int position = LONG(fileinfo->filepos);
+        int size = LONG(fileinfo->size);
+
+        if (position < 0 || size < 0 || position > filelength ||
+            size > filelength - position)
+            I_Error("Invalid WAD file \"%s\": lump %u is outside the file",
+                    filename, i - startlump);
+
         lump_p->handle = storehandle;
-        lump_p->position = LONG(fileinfo->filepos);
-        lump_p->size = LONG(fileinfo->size);
+        lump_p->position = position;
+        lump_p->size = size;
         strncpy(lump_p->name, fileinfo->name, 8);
     }
+
+    if (directory_allocated)
+        free(fileinfo - (numlumps - startlump));
 
     if (reloadname)
         close(handle);
@@ -296,6 +356,7 @@ void W_Reload(void)
 void W_InitMultipleFiles(char **filenames)
 {
     int size;
+    boolean first_file = true;
 
     // open all the files, load headers, and count lumps
     numlumps = 0;
@@ -304,7 +365,10 @@ void W_InitMultipleFiles(char **filenames)
     lumpinfo = malloc(1);
 
     for (; *filenames; filenames++)
-        W_AddFile(*filenames);
+    {
+        W_AddFile(*filenames, first_file);
+        first_file = false;
+    }
 
     if (!numlumps)
         I_Error("W_InitFiles: no files found");

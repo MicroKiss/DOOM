@@ -155,16 +155,16 @@ expected rate.
 
 ## Milestone 7: Verify WAD and File Handling
 
-- [ ] Open WADs and save files in binary mode.
-- [ ] Test a path containing spaces.
-- [ ] Test Windows path separators and relative paths.
-- [ ] Avoid relying on case-sensitive file names.
-- [ ] Add a clear error for a missing or invalid IWAD.
-- [ ] Keep commercial IWAD files outside source control and packages.
+- [x] Open WADs and save files in binary mode.
+- [x] Test a path containing spaces.
+- [x] Test Windows path separators and relative paths.
+- [x] Avoid relying on case-sensitive file names.
+- [x] Add a clear error for a missing or invalid IWAD.
+- [x] Keep commercial IWAD files outside source control and packages.
 
 **Verification:**
 
-- [ ] Launch with an explicit IWAD argument.
+- [x] Launch with an explicit IWAD argument.
 - [ ] Start a level and reach the exit.
 - [ ] Save and load a game.
 - [ ] Restart after dying.

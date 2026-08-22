@@ -39,3 +39,20 @@ This command asks CMake to build the generated Visual Studio project.
 
 The configure command must complete successfully before running the build
 command.
+
+## Run with an IWAD
+
+Pass the IWAD explicitly with `-iwad`. Quote paths containing spaces:
+
+```powershell
+.\build-windows-vs18-sdl\Debug\doom.exe -iwad ".\IWAD files\DOOM1.WAD"
+```
+
+Relative paths and both `/` and `\` path separators are supported. Known IWAD
+file names are matched without case sensitivity. If `-iwad` is omitted, the
+game searches `DOOMWADDIR` and then the current directory for a known IWAD.
+
+Commercial IWADs such as `doom.wad`, `doomu.wad`, `doom2.wad`, `tnt.wad`, and
+`plutonia.wad` are copyrighted game data. They are ignored by Git and must not
+be included in source archives or release packages; each player supplies their
+own legal copy.

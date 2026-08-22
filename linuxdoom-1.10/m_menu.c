@@ -61,6 +61,10 @@ static const char
 
 #include "m_menu.h"
 
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
+
 extern patch_t *hu_font[HU_FONTSIZE];
 extern boolean message_dontfuckwithme;
 
@@ -490,7 +494,7 @@ void M_ReadSaveStrings(void)
         else
             sprintf(name, SAVEGAMENAME "%d.dsg", i);
 
-        handle = open(name, O_RDONLY | 0, 0666);
+        handle = open(name, O_RDONLY | O_BINARY, 0666);
         if (handle == -1)
         {
             strcpy(&savegamestrings[i][0], EMPTYSTRING);

@@ -31,6 +31,14 @@ static const char rcsid[] = "$Id: d_main.c,v 1.8 1997/02/03 22:45:09 b1 Exp $";
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
+
+#ifdef _WIN32
+#define D_strcasecmp _stricmp
+#else
+#include <strings.h>
+#define D_strcasecmp strcasecmp
+#endif
 
 #ifdef NORMALUNIX
 #include <stdio.h>
@@ -517,6 +525,52 @@ void D_AddFile(char *file)
 	wadfiles[numwadfiles] = newfile;
 }
 
+static char *D_FileBaseName(char *path)
+{
+	char *base = path;
+	char *cursor;
+
+	for (cursor = path; *cursor; cursor++)
+		if (*cursor == '/' || *cursor == '\\')
+			base = cursor + 1;
+
+	return base;
+}
+
+static void D_AddIWADFromCommandLine(void)
+{
+	char *base;
+	char *filename;
+	int p = M_CheckParm("-iwad");
+
+	if (!p)
+		return;
+
+	if (p == myargc - 1 || myargv[p + 1][0] == '-')
+		I_Error("-iwad requires a path to an IWAD file");
+
+	filename = myargv[p + 1];
+	if (access(filename, R_OK))
+		I_Error("IWAD file not found or unreadable: \"%s\"", filename);
+
+	base = D_FileBaseName(filename);
+	if (!D_strcasecmp(base, "doom2.wad") ||
+		!D_strcasecmp(base, "doom2f.wad") ||
+		!D_strcasecmp(base, "plutonia.wad") ||
+		!D_strcasecmp(base, "tnt.wad"))
+		gamemode = commercial;
+	else if (!D_strcasecmp(base, "doomu.wad"))
+		gamemode = retail;
+	else if (!D_strcasecmp(base, "doom.wad"))
+		gamemode = registered;
+	else if (!D_strcasecmp(base, "doom1.wad"))
+		gamemode = shareware;
+	else
+		gamemode = indetermined;
+
+	D_AddFile(filename);
+}
+
 //
 // IdentifyVersion
 // Checks availability of IWAD files by name,
@@ -536,6 +590,13 @@ void IdentifyVersion(void)
 	char *tntwad;
 
 	char *doomwaddir;
+
+	if (M_CheckParm("-iwad"))
+	{
+		D_AddIWADFromCommandLine();
+		return;
+	}
+
 	doomwaddir = getenv("DOOMWADDIR");
 	if (!doomwaddir)
 		doomwaddir = ".";
