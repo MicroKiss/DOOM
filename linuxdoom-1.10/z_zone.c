@@ -39,6 +39,7 @@ static const char
 //  because it will get overwritten automatically if needed.
 //
 
+#define MEM_ALIGN sizeof(void *)
 #define ZONEID 0x1d4a11
 
 typedef struct
@@ -179,7 +180,7 @@ Z_Malloc(int size,
     memblock_t *newblock;
     memblock_t *base;
 
-    size = (size + 3) & ~3;
+    size = (size + MEM_ALIGN - 1) & ~(MEM_ALIGN - 1);
 
     // scan through the block list,
     // looking for the first free block
@@ -218,7 +219,6 @@ Z_Malloc(int size,
             else
             {
                 // free the rover block (adding the size to base)
-
                 // the rover can be the base block
                 base = base->prev;
                 Z_Free((byte *)rover + sizeof(memblock_t));
@@ -374,9 +374,13 @@ void Z_FileDumpHeap(FILE *f)
 void Z_CheckHeap(void)
 {
     memblock_t *block;
+    boolean rover_found = false;
 
     for (block = mainzone->blocklist.next;; block = block->next)
     {
+        if (block == mainzone->rover)
+            rover_found = true;
+
         if (block->next == &mainzone->blocklist)
         {
             // all blocks have been hit
@@ -392,6 +396,9 @@ void Z_CheckHeap(void)
         if (!block->user && !block->next->user)
             I_Error("Z_CheckHeap: two consecutive free blocks\n");
     }
+
+    if (!rover_found)
+        I_Error("Z_CheckHeap: rover is not in the block list");
 }
 
 //

@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"A:/Dev/DOOM/build-windows-asan/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

@@ -30,7 +30,7 @@ static const char
 #include "i_system.h"
 #include "doomdef.h"
 
-int mb_used = 6;
+int mb_used = sizeof(void *) == 8 ? 32 : 6;
 
 static boolean sdl_initialized;
 static boolean shutdown_started;

@@ -165,6 +165,10 @@ extern int key_down;
 
 extern int key_strafeleft;
 extern int key_straferight;
+extern int key_up_alt;
+extern int key_down_alt;
+extern int key_strafeleft_alt;
+extern int key_straferight_alt;
 
 extern int key_fire;
 extern int key_use;
@@ -227,13 +231,16 @@ default_t defaults[] =
         DEFAULT_NUMBER("music_volume", &snd_MusicVolume, 8),
         DEFAULT_NUMBER("show_messages", &showMessages, 1),
 
-#ifdef NORMALUNIX
         DEFAULT_NUMBER("key_right", &key_right, KEY_RIGHTARROW),
         DEFAULT_NUMBER("key_left", &key_left, KEY_LEFTARROW),
         DEFAULT_NUMBER("key_up", &key_up, KEY_UPARROW),
         DEFAULT_NUMBER("key_down", &key_down, KEY_DOWNARROW),
         DEFAULT_NUMBER("key_strafeleft", &key_strafeleft, ','),
         DEFAULT_NUMBER("key_straferight", &key_straferight, '.'),
+        DEFAULT_NUMBER("key_up_alt", &key_up_alt, 'w'),
+        DEFAULT_NUMBER("key_down_alt", &key_down_alt, 's'),
+        DEFAULT_NUMBER("key_strafeleft_alt", &key_strafeleft_alt, 'a'),
+        DEFAULT_NUMBER("key_straferight_alt", &key_straferight_alt, 'd'),
 
         DEFAULT_NUMBER("key_fire", &key_fire, KEY_RCTRL),
         DEFAULT_NUMBER("key_use", &key_use, ' '),
@@ -241,11 +248,9 @@ default_t defaults[] =
         DEFAULT_NUMBER("key_speed", &key_speed, KEY_RSHIFT),
 
 // UNIX hack, to be removed.
-#ifdef SNDSERV
+#if defined(NORMALUNIX) && defined(SNDSERV)
         DEFAULT_STRING("sndserver", &sndserver_filename, "sndserver"),
         DEFAULT_NUMBER("mb_used", &mb_used, 2),
-#endif
-
 #endif
 
 #ifdef LINUX

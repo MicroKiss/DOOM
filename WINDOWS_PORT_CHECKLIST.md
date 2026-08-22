@@ -135,21 +135,21 @@ expected rate.
 
 ## Milestone 6: Add Input
 
-- [ ] Poll SDL events from `I_StartTic()`.
-- [ ] Translate SDL keyboard events to DOOM `KEY_*` values.
-- [ ] Post `ev_keydown` and `ev_keyup` with `D_PostEvent()`.
-- [ ] Post mouse buttons and relative movement as `ev_mouse`.
-- [ ] Enable relative mouse mode during gameplay.
-- [ ] Release input state when the window loses focus.
-- [ ] Convert a window-close event into a clean quit.
-- [ ] Verify Escape, Enter, arrows, function keys, Ctrl, Alt, and Shift.
+- [x] Poll SDL events from `I_StartTic()`.
+- [x] Translate SDL keyboard events to DOOM `KEY_*` values.
+- [x] Post `ev_keydown` and `ev_keyup` with `D_PostEvent()`.
+- [x] Post mouse buttons and relative movement as `ev_mouse`.
+- [x] Enable relative mouse mode during gameplay.
+- [x] Release input state when the window loses focus.
+- [x] Convert a window-close event into a clean quit.
+- [x] Verify Escape, Enter, arrows, function keys, Ctrl, Alt, and Shift.
 
 **Verification:**
 
-- [ ] Navigate every main menu using the keyboard.
-- [ ] Start a game and move, turn, fire, use, and switch weapons.
-- [ ] Alt-tab away and back without stuck keys or mouse buttons.
-- [ ] Close the window without a crash.
+- [x] Navigate every main menu using the keyboard.
+- [x] Start a game and move, turn, fire, use, and switch weapons.
+- [x] Alt-tab away and back without stuck keys or mouse buttons.
+- [x] Close the window without a crash.
 
 **Done when:** The game is controllable with keyboard and mouse.
 
