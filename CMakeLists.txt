@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(doom_windows_port LANGUAGES C)
+project(doom_windows_port LANGUAGES C CXX)
 
 find_package(SDL2 CONFIG REQUIRED)
 find_package(libADLMIDI CONFIG REQUIRED)
 
 set(DOOM_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/linuxdoom-1.10")
+set(DOOM_CPP_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 set(DOOM_WINDOWS_SOURCES 
     ${DOOM_SOURCE_DIR}/i_main.c
@@ -32,7 +33,6 @@ set(DOOM_PORTABLE_SOURCES
     m_argv.c
     m_bbox.c
     m_fixed.c
-    m_swap.c
     m_cheat.c
     m_random.c
     am_map.c
@@ -65,7 +65,6 @@ set(DOOM_PORTABLE_SOURCES
     r_things.c
     w_wad.c
     wi_stuff.c
-    v_video.c
     st_lib.c
     st_stuff.c
     hu_stuff.c
@@ -79,9 +78,18 @@ set(DOOM_PORTABLE_SOURCES
 
 list(TRANSFORM DOOM_PORTABLE_SOURCES PREPEND "${DOOM_SOURCE_DIR}/")
 
-add_executable(doom ${DOOM_PORTABLE_SOURCES} ${DOOM_WINDOWS_SOURCES})
+set(DOOM_CPP_SOURCES
+    ${DOOM_CPP_SOURCE_DIR}/m_swap.cpp
+    ${DOOM_CPP_SOURCE_DIR}/v_video.cpp
 
-target_include_directories(doom PRIVATE "${DOOM_SOURCE_DIR}")
+)
+
+add_executable(doom ${DOOM_PORTABLE_SOURCES} ${DOOM_WINDOWS_SOURCES} ${DOOM_CPP_SOURCES})
+
+target_include_directories(doom PRIVATE
+    "${DOOM_SOURCE_DIR}"
+    "${DOOM_CPP_SOURCE_DIR}"
+)
 
 target_link_libraries(doom PRIVATE SDL2::SDL2main SDL2::SDL2 libADLMIDI::ADLMIDI)
 
@@ -92,5 +100,6 @@ target_compile_definitions(doom PRIVATE
 set_target_properties(doom PROPERTIES
     C_STANDARD 11
     C_STANDARD_REQUIRED YES
-    C_EXTENSIONS NO
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED YES
 )

@@ -54,7 +54,7 @@ static const char
 #endif
 
 #include "doomtype.h"
-#include "m_swap.h"
+#include "m_swap.hpp"
 #include "i_system.h"
 #include "z_zone.h"
 

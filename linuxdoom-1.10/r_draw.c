@@ -32,10 +32,10 @@ static const char
 #include "z_zone.h"
 #include "w_wad.h"
 
-#include "r_local.h"
+#include "r_local.hpp"
 
 // Needs access to LFB (guess what).
-#include "v_video.h"
+#include "v_video.hpp"
 
 // State.
 #include "doomstat.h"

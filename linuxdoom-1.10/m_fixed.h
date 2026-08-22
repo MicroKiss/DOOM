@@ -37,7 +37,7 @@
 
 typedef int32_t fixed_t;
 
-_Static_assert(sizeof(fixed_t) * CHAR_BIT == 32, "fixed_t must be exactly 32 bits");
+static_assert(sizeof(fixed_t) * CHAR_BIT == 32, "fixed_t must be exactly 32 bits");
 
 fixed_t FixedMul(fixed_t a, fixed_t b);
 fixed_t FixedDiv(fixed_t a, fixed_t b);

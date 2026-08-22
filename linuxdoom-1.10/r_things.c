@@ -28,13 +28,13 @@ static const char
 #include <stdlib.h>
 
 #include "doomdef.h"
-#include "m_swap.h"
+#include "m_swap.hpp"
 
 #include "i_system.h"
 #include "z_zone.h"
 #include "w_wad.h"
 
-#include "r_local.h"
+#include "r_local.hpp"
 
 #include "doomstat.h"
 

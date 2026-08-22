@@ -26,7 +26,7 @@
 #include "doomdef.h"
 #include "i_system.h"
 #include "i_video.h"
-#include "v_video.h"
+#include "v_video.hpp"
 
 #define DISPLAY_WIDTH SCREENWIDTH
 #define DISPLAY_HEIGHT (SCREENHEIGHT * 6 / 5)

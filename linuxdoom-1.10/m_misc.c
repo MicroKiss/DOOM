@@ -39,14 +39,14 @@ static const char
 
 #include "z_zone.h"
 
-#include "m_swap.h"
+#include "m_swap.hpp"
 #include "m_argv.h"
 
 #include "w_wad.h"
 
 #include "i_system.h"
 #include "i_video.h"
-#include "v_video.h"
+#include "v_video.hpp"
 
 #include "hu_stuff.h"
 

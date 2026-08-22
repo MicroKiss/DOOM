@@ -40,17 +40,17 @@ static const char
 #include "i_system.h"
 #include "i_video.h"
 #include "z_zone.h"
-#include "v_video.h"
+#include "v_video.hpp"
 #include "w_wad.h"
 
-#include "r_local.h"
+#include "r_local.hpp"
 
 #include "hu_stuff.h"
 
 #include "g_game.h"
 
 #include "m_argv.h"
-#include "m_swap.h"
+#include "m_swap.hpp"
 
 #include "s_sound.h"
 

@@ -41,7 +41,7 @@ typedef enum
 typedef uint8_t byte;
 #endif
 
-_Static_assert(sizeof(byte) * CHAR_BIT == 8, "byte must be exactly 8 bits");
+static_assert(sizeof(byte) * CHAR_BIT == 8, "byte must be exactly 8 bits");
 
 #define MAXCHAR CHAR_MAX
 #define MAXSHORT SHRT_MAX

@@ -195,14 +195,14 @@ typedef struct
   int16_t options;
 } mapthing_t;
 
-_Static_assert(sizeof(mapvertex_t) == 4, "mapvertex_t must match the WAD format");
-_Static_assert(sizeof(mapsidedef_t) == 30, "mapsidedef_t must match the WAD format");
-_Static_assert(sizeof(maplinedef_t) == 14, "maplinedef_t must match the WAD format");
-_Static_assert(sizeof(mapsector_t) == 26, "mapsector_t must match the WAD format");
-_Static_assert(sizeof(mapsubsector_t) == 4, "mapsubsector_t must match the WAD format");
-_Static_assert(sizeof(mapseg_t) == 12, "mapseg_t must match the WAD format");
-_Static_assert(sizeof(mapnode_t) == 28, "mapnode_t must match the WAD format");
-_Static_assert(sizeof(mapthing_t) == 10, "mapthing_t must match the WAD format");
+static_assert(sizeof(mapvertex_t) == 4, "mapvertex_t must match the WAD format");
+static_assert(sizeof(mapsidedef_t) == 30, "mapsidedef_t must match the WAD format");
+static_assert(sizeof(maplinedef_t) == 14, "maplinedef_t must match the WAD format");
+static_assert(sizeof(mapsector_t) == 26, "mapsector_t must match the WAD format");
+static_assert(sizeof(mapsubsector_t) == 4, "mapsubsector_t must match the WAD format");
+static_assert(sizeof(mapseg_t) == 12, "mapseg_t must match the WAD format");
+static_assert(sizeof(mapnode_t) == 28, "mapnode_t must match the WAD format");
+static_assert(sizeof(mapthing_t) == 10, "mapthing_t must match the WAD format");
 
 #endif // __DOOMDATA__
 //-----------------------------------------------------------------------------

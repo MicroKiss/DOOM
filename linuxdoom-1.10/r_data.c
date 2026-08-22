@@ -31,12 +31,12 @@ static const char
 #include "i_system.h"
 #include "z_zone.h"
 
-#include "m_swap.h"
+#include "m_swap.hpp"
 
 #include "w_wad.h"
 
 #include "doomdef.h"
-#include "r_local.h"
+#include "r_local.hpp"
 #include "p_local.h"
 
 #include "doomstat.h"

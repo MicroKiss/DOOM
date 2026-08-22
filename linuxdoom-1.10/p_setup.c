@@ -29,7 +29,7 @@ static const char
 
 #include "z_zone.h"
 
-#include "m_swap.h"
+#include "m_swap.hpp"
 #include "m_bbox.h"
 
 #include "g_game.h"

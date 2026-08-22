@@ -32,7 +32,7 @@ static const char
 #include "d_main.h"
 #include "i_system.h"
 #include "i_video.h"
-#include "v_video.h"
+#include "v_video.hpp"
 #include "i_main_test.h"
 
 int main(int argc, char **argv)

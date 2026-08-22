@@ -49,7 +49,7 @@ static const char
 #include "am_map.h"
 
 // Needs access to LFB.
-#include "v_video.h"
+#include "v_video.hpp"
 
 #include "w_wad.h"
 
@@ -1421,6 +1421,10 @@ void G_InitNew(skill_t skill,
 // DEMO RECORDING
 //
 #define DEMOMARKER 0x80
+enum
+{
+    DOOM_19_DEMO_VERSION = 109
+};
 
 void G_ReadDemoTiccmd(ticcmd_t *cmd)
 {
@@ -1512,10 +1516,12 @@ void G_DoPlayDemo(void)
 {
     skill_t skill;
     int i, episode, map;
+    int demo_version;
 
     gameaction = ga_nothing;
     demobuffer = demo_p = W_CacheLumpName(defdemoname, PU_STATIC);
-    if (*demo_p++ != VERSION)
+    demo_version = *demo_p++;
+    if (demo_version != VERSION && demo_version != DOOM_19_DEMO_VERSION)
     {
         fprintf(stderr, "Demo is from a different game version!\n");
         gameaction = ga_nothing;
