@@ -1,3 +1,6 @@
+# Keep the shareware IWAD used for testing in source control.
+!/[Dd][Oo][Oo][Mm]1.[Ww][Aa][Dd]
+
 # Commercial IWADs must be supplied by the player and never packaged.
 [Dd][Oo][Oo][Mm].[Ww][Aa][Dd]
 [Dd][Oo][Oo][Mm][Uu].[Ww][Aa][Dd]

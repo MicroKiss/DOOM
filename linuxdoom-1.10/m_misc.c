@@ -226,7 +226,7 @@ typedef struct
 
 default_t defaults[] =
     {
-        DEFAULT_NUMBER("mouse_sensitivity", &mouseSensitivity, 5),
+        DEFAULT_NUMBER("mouse_sensitivity", &mouseSensitivity, 99),
         DEFAULT_NUMBER("sfx_volume", &snd_SfxVolume, 8),
         DEFAULT_NUMBER("music_volume", &snd_MusicVolume, 8),
         DEFAULT_NUMBER("show_messages", &showMessages, 1),

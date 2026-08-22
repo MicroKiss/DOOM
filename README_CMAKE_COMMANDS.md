@@ -45,7 +45,7 @@ command.
 Pass the IWAD explicitly with `-iwad`. Quote paths containing spaces:
 
 ```powershell
-.\build-windows-vs18-sdl\Debug\doom.exe -iwad ".\IWAD files\DOOM1.WAD"
+.\build-windows-vs18-sdl\Debug\doom.exe -iwad ".\DOOM1.WAD"
 ```
 
 Relative paths and both `/` and `\` path separators are supported. Known IWAD

@@ -168,26 +168,26 @@ expected rate.
 - [ ] Start a level and reach the exit.
 - [ ] Save and load a game.
 - [ ] Restart after dying.
-- [ ] Transition between two levels.
+- [x] Transition between two levels.
 
 **Done when:** A complete single-player session works without sound.
 
 ## Milestone 8: Add Sound Effects
 
-- [ ] Study how `s_sound.c` calls the `I_Sound*` interface.
-- [ ] Parse DOOM sound lumps into PCM samples.
-- [ ] Open an SDL audio device with a known output format.
-- [ ] Implement multiple mixing channels.
-- [ ] Implement volume and stereo separation.
-- [ ] Implement pitch changes or document a temporary omission.
-- [ ] Implement start, stop, parameter update, and playing-status functions.
-- [ ] Synchronize game-thread and audio-thread access safely.
-- [ ] Shut down audio without callback use-after-free errors.
+- [x] Study how `s_sound.c` calls the `I_Sound*` interface.
+- [x] Parse DOOM sound lumps into PCM samples.
+- [x] Open an SDL audio device with a known output format.
+- [x] Implement multiple mixing channels.
+- [x] Implement volume and stereo separation.
+- [x] Implement pitch changes or document a temporary omission.
+- [x] Implement start, stop, parameter update, and playing-status functions.
+- [x] Synchronize game-thread and audio-thread access safely.
+- [x] Shut down audio without callback use-after-free errors.
 
 **Verification:**
 
-- [ ] Fire several weapons and hear distinct effects.
-- [ ] Trigger multiple enemies and sounds simultaneously.
+- [x] Fire several weapons and hear distinct effects.
+- [x] Trigger multiple enemies and sounds simultaneously.
 - [ ] Change sound volume from the menu.
 - [ ] Play for ten minutes without pops, hangs, or crashes.
 
@@ -270,6 +270,7 @@ Add one short entry after each work session.
 | Date | Milestone | What I learned or changed | Next action |
 |---|---:|---|---|
 | YYYY-MM-DD | 0 | Example entry | Example next step |
+| 2026-08-22 | 8 | Added callback-driven SDL sound effects with DMX lump parsing, mixing, panning, pitch, handles, and synchronized shutdown. | Complete the in-game listening and ten-minute stability checks. |
 
 ## Rules for the Port
 
