@@ -26,7 +26,7 @@ static const char
 
 #include "doomdef.h"
 
-#include "m_bbox.h"
+#include "m_bbox.hpp"
 
 #include "i_system.h"
 
@@ -344,16 +344,16 @@ int checkcoord[12][4] =
         {2, 1, 3, 1},
         {2, 1, 3, 0}};
 
-boolean R_CheckBBox(fixed_t *bspcoord)
+boolean R_CheckBBox(int32_t *bspcoord)
 {
     int boxx;
     int boxy;
     int boxpos;
 
-    fixed_t x1;
-    fixed_t y1;
-    fixed_t x2;
-    fixed_t y2;
+    int32_t x1;
+    int32_t y1;
+    int32_t x2;
+    int32_t y2;
 
     angle_t angle1;
     angle_t angle2;

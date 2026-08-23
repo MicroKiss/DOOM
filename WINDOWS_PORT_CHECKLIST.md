@@ -73,7 +73,7 @@ a controlled error instead of failing to link or crashing immediately.
 
 - [x] Replace obsolete headers such as `values.h`.
 - [x] Introduce `stdint.h` types where file formats require exact widths.
-- [x] Confirm `byte` is 8 bits and `fixed_t` is exactly 32 bits.
+- [x] Confirm `byte` is 8 bits and `int32_t` is exactly 32 bits.
 - [x] Replace pointer-to-`int` casts with `intptr_t` or `uintptr_t`.
 - [x] Fix pointer alignment code in `r_data.c` and `r_draw.c`.
 - [x] Redesign pointer-as-integer defaults in `m_misc.c`.

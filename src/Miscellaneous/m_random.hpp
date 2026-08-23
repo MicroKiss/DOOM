@@ -1,0 +1,21 @@
+#pragma once
+
+#include "doomtype.h"
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+    extern int rndindex;
+
+    int M_Random(void);
+
+    // As M_Random, but used only by the play simulation.
+    int P_Random(void);
+
+    // Fix randoms for demos.
+    void M_ClearRandom(void);
+
+#ifdef __cplusplus
+}
+#endif

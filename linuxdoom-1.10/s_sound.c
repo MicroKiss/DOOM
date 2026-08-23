@@ -32,7 +32,7 @@ static const char
 #include "s_sound.h"
 
 #include "z_zone.h"
-#include "m_random.h"
+#include "m_random.hpp"
 #include "w_wad.h"
 
 #include "doomdef.h"
@@ -609,9 +609,9 @@ int S_AdjustSoundParams(mobj_t *listener,
                         int *sep,
                         int *pitch)
 {
-    fixed_t approx_dist;
-    fixed_t adx;
-    fixed_t ady;
+    int32_t approx_dist;
+    int32_t adx;
+    int32_t ady;
     angle_t angle;
 
     // calculate the distance to sound origin

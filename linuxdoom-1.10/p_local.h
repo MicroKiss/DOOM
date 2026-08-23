@@ -97,17 +97,17 @@ extern int iquetail;
 void P_RespawnSpecials(void);
 
 mobj_t *
-P_SpawnMobj(fixed_t x,
-            fixed_t y,
-            fixed_t z,
+P_SpawnMobj(int32_t x,
+            int32_t y,
+            int32_t z,
             mobjtype_t type);
 
 void P_RemoveMobj(mobj_t *th);
 boolean P_SetMobjState(mobj_t *mobj, statenum_t state);
 void P_MobjThinker(mobj_t *mobj);
 
-void P_SpawnPuff(fixed_t x, fixed_t y, fixed_t z);
-void P_SpawnBlood(fixed_t x, fixed_t y, fixed_t z, int damage);
+void P_SpawnPuff(int32_t x, int32_t y, int32_t z);
+void P_SpawnBlood(int32_t x, int32_t y, int32_t z, int damage);
 mobj_t *P_SpawnMissile(mobj_t *source, mobj_t *dest, mobjtype_t type);
 void P_SpawnPlayerMissile(mobj_t *source, mobjtype_t type);
 
@@ -121,16 +121,16 @@ void P_NoiseAlert(mobj_t *target, mobj_t *emmiter);
 //
 typedef struct
 {
-    fixed_t x;
-    fixed_t y;
-    fixed_t dx;
-    fixed_t dy;
+    int32_t x;
+    int32_t y;
+    int32_t dx;
+    int32_t dy;
 
 } divline_t;
 
 typedef struct
 {
-    fixed_t frac; // along trace line
+    int32_t frac; // along trace line
     boolean isaline;
     union
     {
@@ -146,17 +146,17 @@ extern intercept_t *intercept_p;
 
 typedef boolean (*traverser_t)(intercept_t *in);
 
-fixed_t P_AproxDistance(fixed_t dx, fixed_t dy);
-int P_PointOnLineSide(fixed_t x, fixed_t y, line_t *line);
-int P_PointOnDivlineSide(fixed_t x, fixed_t y, divline_t *line);
+int32_t P_AproxDistance(int32_t dx, int32_t dy);
+int P_PointOnLineSide(int32_t x, int32_t y, line_t *line);
+int P_PointOnDivlineSide(int32_t x, int32_t y, divline_t *line);
 void P_MakeDivline(line_t *li, divline_t *dl);
-fixed_t P_InterceptVector(divline_t *v2, divline_t *v1);
-int P_BoxOnLineSide(fixed_t *tmbox, line_t *ld);
+int32_t P_InterceptVector(divline_t *v2, divline_t *v1);
+int P_BoxOnLineSide(int32_t *tmbox, line_t *ld);
 
-extern fixed_t opentop;
-extern fixed_t openbottom;
-extern fixed_t openrange;
-extern fixed_t lowfloor;
+extern int32_t opentop;
+extern int32_t openbottom;
+extern int32_t openrange;
+extern int32_t lowfloor;
 
 void P_LineOpening(line_t *linedef);
 
@@ -170,10 +170,10 @@ boolean P_BlockThingsIterator(int x, int y, boolean (*func)(mobj_t *));
 extern divline_t trace;
 
 boolean
-P_PathTraverse(fixed_t x1,
-               fixed_t y1,
-               fixed_t x2,
-               fixed_t y2,
+P_PathTraverse(int32_t x1,
+               int32_t y1,
+               int32_t x2,
+               int32_t y2,
                int flags,
                boolean (*trav)(intercept_t *));
 
@@ -187,14 +187,14 @@ void P_SetThingPosition(mobj_t *thing);
 // If "floatok" true, move would be ok
 // if within "tmfloorz - tmceilingz".
 extern boolean floatok;
-extern fixed_t tmfloorz;
-extern fixed_t tmceilingz;
+extern int32_t tmfloorz;
+extern int32_t tmceilingz;
 
 extern line_t *ceilingline;
 
-boolean P_CheckPosition(mobj_t *thing, fixed_t x, fixed_t y);
-boolean P_TryMove(mobj_t *thing, fixed_t x, fixed_t y);
-boolean P_TeleportMove(mobj_t *thing, fixed_t x, fixed_t y);
+boolean P_CheckPosition(mobj_t *thing, int32_t x, int32_t y);
+boolean P_TryMove(mobj_t *thing, int32_t x, int32_t y);
+boolean P_TeleportMove(mobj_t *thing, int32_t x, int32_t y);
 void P_SlideMove(mobj_t *mo);
 boolean P_CheckSight(mobj_t *t1, mobj_t *t2);
 void P_UseLines(player_t *player);
@@ -203,15 +203,15 @@ boolean P_ChangeSector(sector_t *sector, boolean crunch);
 
 extern mobj_t *linetarget; // who got hit (or NULL)
 
-fixed_t
+int32_t
 P_AimLineAttack(mobj_t *t1,
                 angle_t angle,
-                fixed_t distance);
+                int32_t distance);
 
 void P_LineAttack(mobj_t *t1,
                   angle_t angle,
-                  fixed_t distance,
-                  fixed_t slope,
+                  int32_t distance,
+                  int32_t slope,
                   int damage);
 
 void P_RadiusAttack(mobj_t *spot,
@@ -226,8 +226,8 @@ extern short *blockmaplump; // offsets in blockmap are from here
 extern short *blockmap;
 extern int bmapwidth;
 extern int bmapheight; // in mapblocks
-extern fixed_t bmaporgx;
-extern fixed_t bmaporgy;    // origin of block map
+extern int32_t bmaporgx;
+extern int32_t bmaporgy;    // origin of block map
 extern mobj_t **blocklinks; // for thing chains
 
 //

@@ -143,7 +143,7 @@ texture_t **textures;
 
 int *texturewidthmask;
 // needed for texture pegging
-fixed_t *textureheight;
+int32_t *textureheight;
 int *texturecompositesize;
 short **texturecolumnlump;
 unsigned short **texturecolumnofs;
@@ -154,9 +154,9 @@ int *flattranslation;
 int *texturetranslation;
 
 // needed for pre rendering
-fixed_t *spritewidth;
-fixed_t *spriteoffset;
-fixed_t *spritetopoffset;
+int32_t *spritewidth;
+int32_t *spriteoffset;
+int32_t *spritetopoffset;
 
 lighttable_t *colormaps;
 

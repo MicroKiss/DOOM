@@ -34,7 +34,7 @@ static const char
 #include "m_argv.h"
 #include "m_misc.h"
 #include "m_menu.h"
-#include "m_random.h"
+#include "m_random.hpp"
 #include "i_system.h"
 
 #include "p_setup.h"
@@ -166,9 +166,9 @@ int joybspeed;
 
 #define TURBOTHRESHOLD 0x32
 
-fixed_t forwardmove[2] = {0x19, 0x32};
-fixed_t sidemove[2] = {0x18, 0x28};
-fixed_t angleturn[3] = {640, 1280, 320}; // + slow turn
+int32_t forwardmove[2] = {0x19, 0x32};
+int32_t sidemove[2] = {0x18, 0x28};
+int32_t angleturn[3] = {640, 1280, 320}; // + slow turn
 
 #define SLOWTURNTICS 6
 
@@ -330,10 +330,6 @@ void G_BuildTiccmd(ticcmd_t *cmd)
             break;
         }
 
-    // mouse
-    if (mousebuttons[mousebforward])
-        forward += forwardmove[speed];
-
     // forward double click
     if (mousebuttons[mousebforward] != dclickstate && dclicktime > 1)
     {
@@ -384,7 +380,6 @@ void G_BuildTiccmd(ticcmd_t *cmd)
         }
     }
 
-    forward += mousey;
     if (strafe)
         side += mousex * 2;
     else
@@ -809,8 +804,8 @@ boolean
 G_CheckSpot(int playernum,
             mapthing_t *mthing)
 {
-    fixed_t x;
-    fixed_t y;
+    int32_t x;
+    int32_t y;
     subsector_t *ss;
     unsigned an;
     mobj_t *mo;

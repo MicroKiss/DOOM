@@ -2,6 +2,7 @@
 #include "doomtype.h"
 
 #include "doomdef.h"
+#include "m_bbox.hpp"
 
 // Needed because we are refering to patches.
 #include "r_data.h"
@@ -18,7 +19,7 @@ extern "C"
 
     extern byte *screens[5];
 
-    extern int dirtybox[4];
+    extern BBox dirtybox;
 
     extern byte gammatable[5][256];
     extern int usegamma;

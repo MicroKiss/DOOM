@@ -135,7 +135,7 @@ typedef struct
 
 typedef struct
 {
-	fixed_t x, y;
+	int32_t x, y;
 } mpoint_t;
 
 typedef struct
@@ -145,7 +145,7 @@ typedef struct
 
 typedef struct
 {
-	fixed_t slp, islp;
+	int32_t slp, islp;
 } islope_t;
 
 //
@@ -224,45 +224,45 @@ static byte *fb;	 // pseudo-frame buffer
 static int amclock;
 
 static mpoint_t m_paninc;	 // how far the window pans each tic (map coords)
-static fixed_t mtof_zoommul; // how far the window zooms in each tic (map coords)
-static fixed_t ftom_zoommul; // how far the window zooms in each tic (fb coords)
+static int32_t mtof_zoommul; // how far the window zooms in each tic (map coords)
+static int32_t ftom_zoommul; // how far the window zooms in each tic (fb coords)
 
-static fixed_t m_x, m_y;   // LL x,y where the window is on the map (map coords)
-static fixed_t m_x2, m_y2; // UR x,y where the window is on the map (map coords)
+static int32_t m_x, m_y;   // LL x,y where the window is on the map (map coords)
+static int32_t m_x2, m_y2; // UR x,y where the window is on the map (map coords)
 
 //
 // width/height of window on map (map coords)
 //
-static fixed_t m_w;
-static fixed_t m_h;
+static int32_t m_w;
+static int32_t m_h;
 
 // based on level size
-static fixed_t min_x;
-static fixed_t min_y;
-static fixed_t max_x;
-static fixed_t max_y;
+static int32_t min_x;
+static int32_t min_y;
+static int32_t max_x;
+static int32_t max_y;
 
-static fixed_t max_w; // max_x-min_x,
-static fixed_t max_h; // max_y-min_y
+static int32_t max_w; // max_x-min_x,
+static int32_t max_h; // max_y-min_y
 
 // based on player size
-static fixed_t min_w;
-static fixed_t min_h;
+static int32_t min_w;
+static int32_t min_h;
 
-static fixed_t min_scale_mtof; // used to tell when to stop zooming out
-static fixed_t max_scale_mtof; // used to tell when to stop zooming in
+static int32_t min_scale_mtof; // used to tell when to stop zooming out
+static int32_t max_scale_mtof; // used to tell when to stop zooming in
 
 // old stuff for recovery later
-static fixed_t old_m_w, old_m_h;
-static fixed_t old_m_x, old_m_y;
+static int32_t old_m_w, old_m_h;
+static int32_t old_m_x, old_m_y;
 
 // old location used by the Follower routine
 static mpoint_t f_oldloc;
 
 // used by MTOF to scale from map-to-frame-buffer coords
-static fixed_t scale_mtof = INITSCALEMTOF;
+static int32_t scale_mtof = INITSCALEMTOF;
 // used by FTOM to scale from frame-buffer-to-map coords (=1/scale_mtof)
-static fixed_t scale_ftom;
+static int32_t scale_ftom;
 
 static player_t *plr; // the player represented by an arrow
 
@@ -375,8 +375,8 @@ void AM_addMark(void)
 void AM_findMinMaxBoundaries(void)
 {
 	int i;
-	fixed_t a;
-	fixed_t b;
+	int32_t a;
+	int32_t b;
 
 	min_x = min_y = MAXINT;
 	max_x = max_y = -MAXINT;
@@ -1042,8 +1042,8 @@ void AM_drawMline(mline_t *ml,
 //
 void AM_drawGrid(int color)
 {
-	fixed_t x, y;
-	fixed_t start, end;
+	int32_t x, y;
+	int32_t start, end;
 	mline_t ml;
 
 	// Figure out start of vertical gridlines
@@ -1141,11 +1141,11 @@ void AM_drawWalls(void)
 // Rotation in 2D.
 // Used to rotate player arrow line character.
 //
-void AM_rotate(fixed_t *x,
-			   fixed_t *y,
+void AM_rotate(int32_t *x,
+			   int32_t *y,
 			   angle_t a)
 {
-	fixed_t tmpx;
+	int32_t tmpx;
 
 	tmpx =
 		FixedMul(*x, finecosine[a >> ANGLETOFINESHIFT]) - FixedMul(*y, finesine[a >> ANGLETOFINESHIFT]);
@@ -1158,11 +1158,11 @@ void AM_rotate(fixed_t *x,
 
 void AM_drawLineCharacter(mline_t *lineguy,
 						  int lineguylines,
-						  fixed_t scale,
+						  int32_t scale,
 						  angle_t angle,
 						  int color,
-						  fixed_t x,
-						  fixed_t y)
+						  int32_t x,
+						  int32_t y)
 {
 	int i;
 	mline_t l;

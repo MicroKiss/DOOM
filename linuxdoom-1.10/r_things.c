@@ -62,8 +62,8 @@ typedef struct
 //  which increases counter clockwise (protractor).
 // There was a lot of stuff grabbed wrong, so I changed it...
 //
-fixed_t pspritescale;
-fixed_t pspriteiscale;
+int32_t pspritescale;
+int32_t pspriteiscale;
 
 lighttable_t **spritelights;
 
@@ -319,14 +319,14 @@ vissprite_t *R_NewVisSprite(void)
 short *mfloorclip;
 short *mceilingclip;
 
-fixed_t spryscale;
-fixed_t sprtopscreen;
+int32_t spryscale;
+int32_t sprtopscreen;
 
 void R_DrawMaskedColumn(column_t *column)
 {
     int topscreen;
     int bottomscreen;
-    fixed_t basetexturemid;
+    int32_t basetexturemid;
 
     basetexturemid = dc_texturemid;
 
@@ -371,7 +371,7 @@ void R_DrawVisSprite(vissprite_t *vis,
 {
     column_t *column;
     int texturecolumn;
-    fixed_t frac;
+    int32_t frac;
     patch_t *patch;
 
     patch = W_CacheLumpNum(vis->patch + firstspritelump, PU_CACHE);
@@ -418,16 +418,16 @@ void R_DrawVisSprite(vissprite_t *vis,
 //
 void R_ProjectSprite(mobj_t *thing)
 {
-    fixed_t tr_x;
-    fixed_t tr_y;
+    int32_t tr_x;
+    int32_t tr_y;
 
-    fixed_t gxt;
-    fixed_t gyt;
+    int32_t gxt;
+    int32_t gyt;
 
-    fixed_t tx;
-    fixed_t tz;
+    int32_t tx;
+    int32_t tz;
 
-    fixed_t xscale;
+    int32_t xscale;
 
     int x1;
     int x2;
@@ -444,7 +444,7 @@ void R_ProjectSprite(mobj_t *thing)
     vissprite_t *vis;
 
     angle_t ang;
-    fixed_t iscale;
+    int32_t iscale;
 
     // transform the origin point
     tr_x = thing->x - viewx;
@@ -608,7 +608,7 @@ void R_AddSprites(sector_t *sec)
 //
 void R_DrawPSprite(pspdef_t *psp)
 {
-    fixed_t tx;
+    int32_t tx;
     int x1;
     int x2;
     spritedef_t *sprdef;
@@ -746,7 +746,7 @@ void R_SortVisSprites(void)
     vissprite_t *ds;
     vissprite_t *best;
     vissprite_t unsorted;
-    fixed_t bestscale;
+    int32_t bestscale;
 
     count = vissprite_p - vissprites;
 
@@ -800,8 +800,8 @@ void R_DrawSprite(vissprite_t *spr)
     int x;
     int r1;
     int r2;
-    fixed_t scale;
-    fixed_t lowscale;
+    int32_t scale;
+    int32_t lowscale;
     int silhouette;
 
     for (x = spr->x1; x <= spr->x2; x++)

@@ -31,10 +31,8 @@ set(DOOM_PORTABLE_SOURCES
     m_menu.c
     m_misc.c
     m_argv.c
-    m_bbox.c
     m_fixed.c
     m_cheat.c
-    m_random.c
     am_map.c
     p_ceilng.c
     p_doors.c
@@ -79,7 +77,9 @@ set(DOOM_PORTABLE_SOURCES
 list(TRANSFORM DOOM_PORTABLE_SOURCES PREPEND "${DOOM_SOURCE_DIR}/")
 
 set(DOOM_CPP_SOURCES
-    ${DOOM_CPP_SOURCE_DIR}/m_swap.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_swap.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_bbox.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_random.cpp
     ${DOOM_CPP_SOURCE_DIR}/v_video.cpp
 
 )
@@ -89,6 +89,7 @@ add_executable(doom ${DOOM_PORTABLE_SOURCES} ${DOOM_WINDOWS_SOURCES} ${DOOM_CPP_
 target_include_directories(doom PRIVATE
     "${DOOM_SOURCE_DIR}"
     "${DOOM_CPP_SOURCE_DIR}"
+    "${DOOM_CPP_SOURCE_DIR}/Miscellaneous"
 )
 
 target_link_libraries(doom PRIVATE SDL2::SDL2main SDL2::SDL2 libADLMIDI::ADLMIDI)

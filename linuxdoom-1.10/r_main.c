@@ -31,7 +31,7 @@ static const char rcsid[] = "$Id: r_main.c,v 1.5 1997/02/03 22:45:12 b1 Exp $";
 #include "doomdef.h"
 #include "d_net.h"
 
-#include "m_bbox.h"
+#include "m_bbox.hpp"
 
 #include "r_local.hpp"
 #include "r_sky.h"
@@ -50,9 +50,9 @@ extern lighttable_t **walllights;
 int centerx;
 int centery;
 
-fixed_t centerxfrac;
-fixed_t centeryfrac;
-fixed_t projection;
+int32_t centerxfrac;
+int32_t centeryfrac;
+int32_t projection;
 
 // just for profiling purposes
 int framecount;
@@ -61,14 +61,14 @@ int sscount;
 int linecount;
 int loopcount;
 
-fixed_t viewx;
-fixed_t viewy;
-fixed_t viewz;
+int32_t viewx;
+int32_t viewy;
+int32_t viewz;
 
 angle_t viewangle;
 
-fixed_t viewcos;
-fixed_t viewsin;
+int32_t viewcos;
+int32_t viewsin;
 
 player_t *viewplayer;
 
@@ -93,12 +93,12 @@ angle_t xtoviewangle[SCREENWIDTH + 1];
 
 // UNUSED.
 // The finetangentgent[angle+FINEANGLES/4] table
-// holds the fixed_t tangent values for view angles,
+// holds the int32_t tangent values for view angles,
 // ranging from MININT to 0 to MAXINT.
-// fixed_t		finetangent[FINEANGLES/2];
+// int32_t		finetangent[FINEANGLES/2];
 
-// fixed_t		finesine[5*FINEANGLES/4];
-fixed_t *finecosine = &finesine[FINEANGLES / 4];
+// int32_t		finesine[5*FINEANGLES/4];
+int32_t *finecosine = &finesine[FINEANGLES / 4];
 
 lighttable_t *scalelight[LIGHTLEVELS][MAXLIGHTSCALE];
 lighttable_t *scalelightfixed[MAXLIGHTSCALE];
@@ -120,7 +120,7 @@ void (*spanfunc)(void);
 //
 void R_AddPointToBox(int x,
                      int y,
-                     fixed_t *box)
+                     int32_t *box)
 {
     if (x < box[BOXLEFT])
         box[BOXLEFT] = x;
@@ -138,14 +138,14 @@ void R_AddPointToBox(int x,
 //  check point against partition plane.
 // Returns side 0 (front) or 1 (back).
 //
-int R_PointOnSide(fixed_t x,
-                  fixed_t y,
+int R_PointOnSide(int32_t x,
+                  int32_t y,
                   node_t *node)
 {
-    fixed_t dx;
-    fixed_t dy;
-    fixed_t left;
-    fixed_t right;
+    int32_t dx;
+    int32_t dy;
+    int32_t left;
+    int32_t right;
 
     if (!node->dx)
     {
@@ -188,18 +188,18 @@ int R_PointOnSide(fixed_t x,
     return 1;
 }
 
-int R_PointOnSegSide(fixed_t x,
-                     fixed_t y,
+int R_PointOnSegSide(int32_t x,
+                     int32_t y,
                      seg_t *line)
 {
-    fixed_t lx;
-    fixed_t ly;
-    fixed_t ldx;
-    fixed_t ldy;
-    fixed_t dx;
-    fixed_t dy;
-    fixed_t left;
-    fixed_t right;
+    int32_t lx;
+    int32_t ly;
+    int32_t ldx;
+    int32_t ldy;
+    int32_t dx;
+    int32_t dy;
+    int32_t left;
+    int32_t right;
 
     lx = line->v1->x;
     ly = line->v1->y;
@@ -260,8 +260,8 @@ int R_PointOnSegSide(fixed_t x,
 //
 
 angle_t
-R_PointToAngle(fixed_t x,
-               fixed_t y)
+R_PointToAngle(int32_t x,
+               int32_t y)
 {
     x -= viewx;
     y -= viewy;
@@ -344,10 +344,10 @@ R_PointToAngle(fixed_t x,
 }
 
 angle_t
-R_PointToAngle2(fixed_t x1,
-                fixed_t y1,
-                fixed_t x2,
-                fixed_t y2)
+R_PointToAngle2(int32_t x1,
+                int32_t y1,
+                int32_t x2,
+                int32_t y2)
 {
     viewx = x1;
     viewy = y1;
@@ -355,15 +355,15 @@ R_PointToAngle2(fixed_t x1,
     return R_PointToAngle(x2, y2);
 }
 
-fixed_t
-R_PointToDist(fixed_t x,
-              fixed_t y)
+int32_t
+R_PointToDist(int32_t x,
+              int32_t y)
 {
     int angle;
-    fixed_t dx;
-    fixed_t dy;
-    fixed_t temp;
-    fixed_t dist;
+    int32_t dx;
+    int32_t dy;
+    int32_t temp;
+    int32_t dist;
 
     dx = abs(x - viewx);
     dy = abs(y - viewy);
@@ -412,23 +412,23 @@ void R_InitPointToAngle(void)
 //  at the given angle.
 // rw_distance must be calculated first.
 //
-fixed_t R_ScaleFromGlobalAngle(angle_t visangle)
+int32_t R_ScaleFromGlobalAngle(angle_t visangle)
 {
-    fixed_t scale;
+    int32_t scale;
     int anglea;
     int angleb;
     int sinea;
     int sineb;
-    fixed_t num;
+    int32_t num;
     int den;
 
     // UNUSED
 #if 0
 {
-    fixed_t		dist;
-    fixed_t		z;
-    fixed_t		sinv;
-    fixed_t		cosv;
+    int32_t		dist;
+    int32_t		z;
+    int32_t		sinv;
+    int32_t		cosv;
 	
     sinv = finesine[(visangle-rw_normalangle)>>ANGLETOFINESHIFT];	
     dist = FixedDiv (rw_distance, sinv);
@@ -503,7 +503,7 @@ void R_InitTextureMapping(void)
     int i;
     int x;
     int t;
-    fixed_t focallength;
+    int32_t focallength;
 
     // Use tangent table to generate viewangletox:
     //  viewangletox will give the next greatest x
@@ -619,8 +619,8 @@ void R_SetViewSize(int blocks,
 //
 void R_ExecuteSetViewSize(void)
 {
-    fixed_t cosadj;
-    fixed_t dy;
+    int32_t cosadj;
+    int32_t dy;
     int i;
     int j;
     int level;
@@ -742,8 +742,8 @@ void R_Init(void)
 // R_PointInSubsector
 //
 subsector_t *
-R_PointInSubsector(fixed_t x,
-                   fixed_t y)
+R_PointInSubsector(int32_t x,
+                   int32_t y)
 {
     node_t *node;
     int side;

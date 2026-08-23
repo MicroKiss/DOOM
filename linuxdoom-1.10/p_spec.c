@@ -36,7 +36,7 @@ static const char
 #include "i_system.h"
 #include "z_zone.h"
 #include "m_argv.h"
-#include "m_random.h"
+#include "m_random.hpp"
 #include "w_wad.h"
 
 #include "r_local.hpp"
@@ -242,12 +242,12 @@ getNextSector(line_t *line,
 // P_FindLowestFloorSurrounding()
 // FIND LOWEST FLOOR HEIGHT IN SURROUNDING SECTORS
 //
-fixed_t P_FindLowestFloorSurrounding(sector_t *sec)
+int32_t P_FindLowestFloorSurrounding(sector_t *sec)
 {
 	int i;
 	line_t *check;
 	sector_t *other;
-	fixed_t floor = sec->floorheight;
+	int32_t floor = sec->floorheight;
 
 	for (i = 0; i < sec->linecount; i++)
 	{
@@ -267,12 +267,12 @@ fixed_t P_FindLowestFloorSurrounding(sector_t *sec)
 // P_FindHighestFloorSurrounding()
 // FIND HIGHEST FLOOR HEIGHT IN SURROUNDING SECTORS
 //
-fixed_t P_FindHighestFloorSurrounding(sector_t *sec)
+int32_t P_FindHighestFloorSurrounding(sector_t *sec)
 {
 	int i;
 	line_t *check;
 	sector_t *other;
-	fixed_t floor = -500 * FRACUNIT;
+	int32_t floor = -500 * FRACUNIT;
 
 	for (i = 0; i < sec->linecount; i++)
 	{
@@ -296,7 +296,7 @@ fixed_t P_FindHighestFloorSurrounding(sector_t *sec)
 // 20 adjoining sectors max!
 #define MAX_ADJOINING_SECTORS 20
 
-fixed_t
+int32_t
 P_FindNextHighestFloor(sector_t *sec,
 					   int currentheight)
 {
@@ -305,9 +305,9 @@ P_FindNextHighestFloor(sector_t *sec,
 	int min;
 	line_t *check;
 	sector_t *other;
-	fixed_t height = currentheight;
+	int32_t height = currentheight;
 
-	fixed_t heightlist[MAX_ADJOINING_SECTORS];
+	int32_t heightlist[MAX_ADJOINING_SECTORS];
 
 	for (i = 0, h = 0; i < sec->linecount; i++)
 	{
@@ -346,13 +346,13 @@ P_FindNextHighestFloor(sector_t *sec,
 //
 // FIND LOWEST CEILING IN THE SURROUNDING SECTORS
 //
-fixed_t
+int32_t
 P_FindLowestCeilingSurrounding(sector_t *sec)
 {
 	int i;
 	line_t *check;
 	sector_t *other;
-	fixed_t height = MAXINT;
+	int32_t height = MAXINT;
 
 	for (i = 0; i < sec->linecount; i++)
 	{
@@ -371,12 +371,12 @@ P_FindLowestCeilingSurrounding(sector_t *sec)
 //
 // FIND HIGHEST CEILING IN THE SURROUNDING SECTORS
 //
-fixed_t P_FindHighestCeilingSurrounding(sector_t *sec)
+int32_t P_FindHighestCeilingSurrounding(sector_t *sec)
 {
 	int i;
 	line_t *check;
 	sector_t *other;
-	fixed_t height = 0;
+	int32_t height = 0;
 
 	for (i = 0; i < sec->linecount; i++)
 	{

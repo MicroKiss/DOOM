@@ -4,7 +4,11 @@
             "name": "Win32",
             "includePath": [
                 "${default}",
-                "${workspaceFolder}/src"
+                "${workspaceFolder}/linuxdoom-1.10",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/Miscellaneous",
+                "A:/Dev/Git/vcpkg/installed/x64-windows/include",
+                "A:/Dev/Git/vcpkg/installed/x64-windows/include/SDL2"
             ],
             "defines": [
                 "_DEBUG",

@@ -4,7 +4,7 @@
 #include "doomdef.h"
 #include "doomdata.h"
 
-#include "m_bbox.h"
+#include "m_bbox.hpp"
 #include "m_swap.hpp"
 
 #include "v_video.hpp"
@@ -12,7 +12,7 @@
 // Each screen is [SCREENWIDTH*SCREENHEIGHT];
 byte *screens[5];
 
-int dirtybox[4];
+BBox dirtybox;
 
 // Now where did these came from?
 byte gammatable[5][256] =
@@ -105,8 +105,8 @@ int usegamma;
 //
 void V_MarkRect(int x, int y, int width, int height)
 {
-    M_AddToBox(dirtybox, x, y);
-    M_AddToBox(dirtybox, x + width - 1, y + height - 1);
+    M_AddToBox(&dirtybox, x, y);
+    M_AddToBox(&dirtybox, x + width - 1, y + height - 1);
 }
 
 //

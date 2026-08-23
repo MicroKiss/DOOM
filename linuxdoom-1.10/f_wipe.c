@@ -26,7 +26,7 @@ static const char rcsid[] = "$Id: f_wipe.c,v 1.2 1997/02/03 22:45:09 b1 Exp $";
 #include "z_zone.h"
 #include "i_video.h"
 #include "v_video.hpp"
-#include "m_random.h"
+#include "m_random.hpp"
 
 #include "doomdef.h"
 

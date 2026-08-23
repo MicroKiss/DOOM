@@ -30,7 +30,7 @@ static const char
 #include "z_zone.h"
 
 #include "m_swap.hpp"
-#include "m_bbox.h"
+#include "m_bbox.hpp"
 
 #include "g_game.h"
 
@@ -85,8 +85,8 @@ short *blockmap; // int for larger maps
 // offsets in blockmap are from here
 short *blockmaplump;
 // origin of block map
-fixed_t bmaporgx;
-fixed_t bmaporgy;
+int32_t bmaporgx;
+int32_t bmaporgy;
 // for thing chains
 mobj_t **blocklinks;
 
@@ -484,7 +484,7 @@ void P_GroupLines(void)
     sector_t *sector;
     subsector_t *ss;
     seg_t *seg;
-    fixed_t bbox[4];
+    BBox bbox;
     int block;
 
     // look up sector number for each subsector
@@ -515,7 +515,7 @@ void P_GroupLines(void)
     sector = sectors;
     for (i = 0; i < numsectors; i++, sector++)
     {
-        M_ClearBox(bbox);
+        M_ClearBox(&bbox);
         sector->lines = linebuffer;
         li = lines;
         for (j = 0; j < numlines; j++, li++)
@@ -523,31 +523,31 @@ void P_GroupLines(void)
             if (li->frontsector == sector || li->backsector == sector)
             {
                 *linebuffer++ = li;
-                M_AddToBox(bbox, li->v1->x, li->v1->y);
-                M_AddToBox(bbox, li->v2->x, li->v2->y);
+                M_AddToBox(&bbox, li->v1->x, li->v1->y);
+                M_AddToBox(&bbox, li->v2->x, li->v2->y);
             }
         }
         if (linebuffer - sector->lines != sector->linecount)
             I_Error("P_GroupLines: miscounted");
 
         // set the degenmobj_t to the middle of the bounding box
-        sector->soundorg.x = (bbox[BOXRIGHT] + bbox[BOXLEFT]) / 2;
-        sector->soundorg.y = (bbox[BOXTOP] + bbox[BOXBOTTOM]) / 2;
+        sector->soundorg.x = (bbox.right + bbox.left) / 2;
+        sector->soundorg.y = (bbox.top + bbox.bottom) / 2;
 
         // adjust bounding box to map blocks
-        block = (bbox[BOXTOP] - bmaporgy + MAXRADIUS) >> MAPBLOCKSHIFT;
+        block = (bbox.top - bmaporgy + MAXRADIUS) >> MAPBLOCKSHIFT;
         block = block >= bmapheight ? bmapheight - 1 : block;
         sector->blockbox[BOXTOP] = block;
 
-        block = (bbox[BOXBOTTOM] - bmaporgy - MAXRADIUS) >> MAPBLOCKSHIFT;
+        block = (bbox.bottom - bmaporgy - MAXRADIUS) >> MAPBLOCKSHIFT;
         block = block < 0 ? 0 : block;
         sector->blockbox[BOXBOTTOM] = block;
 
-        block = (bbox[BOXRIGHT] - bmaporgx + MAXRADIUS) >> MAPBLOCKSHIFT;
+        block = (bbox.right - bmaporgx + MAXRADIUS) >> MAPBLOCKSHIFT;
         block = block >= bmapwidth ? bmapwidth - 1 : block;
         sector->blockbox[BOXRIGHT] = block;
 
-        block = (bbox[BOXLEFT] - bmaporgx - MAXRADIUS) >> MAPBLOCKSHIFT;
+        block = (bbox.left - bmaporgx - MAXRADIUS) >> MAPBLOCKSHIFT;
         block = block < 0 ? 0 : block;
         sector->blockbox[BOXLEFT] = block;
     }
