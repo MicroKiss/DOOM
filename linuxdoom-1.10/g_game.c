@@ -29,7 +29,7 @@ static const char
 #include "doomdef.h"
 #include "doomstat.h"
 
-#include "z_zone.h"
+#include "z_zone.hpp"
 #include "f_finale.h"
 #include "m_argv.hpp"
 #include "m_misc.hpp"

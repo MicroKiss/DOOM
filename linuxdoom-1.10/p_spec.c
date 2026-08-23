@@ -34,7 +34,7 @@ static const char
 #include "doomstat.h"
 
 #include "i_system.h"
-#include "z_zone.h"
+#include "z_zone.hpp"
 #include "m_argv.hpp"
 #include "m_random.hpp"
 #include "w_wad.h"

@@ -19,7 +19,7 @@
 #include "i_sound.h"
 #include "sounds.h"
 #include "w_wad.h"
-#include "z_zone.h"
+#include "z_zone.hpp"
 
 #define OUTPUT_RATE 44100
 #define OUTPUT_CHANNELS 2

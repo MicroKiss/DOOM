@@ -28,19 +28,18 @@
 
 #ifndef __BYTEBOOL__
 #define __BYTEBOOL__
-// Fixed to use builtin bool type with C++.
-#ifdef __cplusplus
-typedef bool boolean;
-#else
-typedef enum
+#ifndef __cplusplus
+enum
 {
     false,
     true
-} boolean;
+};
 #endif
+typedef int32_t boolean;
 typedef uint8_t byte;
 #endif
 
+static_assert(sizeof(boolean) * CHAR_BIT == 32, "boolean must be exactly 32 bits");
 static_assert(sizeof(byte) * CHAR_BIT == 8, "byte must be exactly 8 bits");
 
 #define MAXCHAR CHAR_MAX

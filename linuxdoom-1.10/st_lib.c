@@ -28,7 +28,7 @@ static const char
 
 #include "doomdef.h"
 
-#include "z_zone.h"
+#include "z_zone.hpp"
 #include "v_video.hpp"
 
 #include "m_swap.hpp"

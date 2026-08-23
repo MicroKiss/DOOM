@@ -288,3 +288,21 @@ Add one short entry after each work session.
 - [ ] Keep file-format widths separate from native C type widths.
 - [ ] Commit each completed, working milestone separately.
 - [ ] Do not begin networking until single-player audio is stable.
+
+
+
+
+
+
+
+DOOM uses filename/function prefixes to group subsystems:
+
+M_ — miscellaneous utilities
+V_ — video drawing
+G_ — game logic
+P_ — play simulation
+R_ — renderer
+S_ — sound management
+I_ — platform/system interface
+W_ — WAD access
+Z_ — zone memory

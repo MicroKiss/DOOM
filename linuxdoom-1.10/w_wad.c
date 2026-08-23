@@ -57,7 +57,7 @@ static const char
 #include "doomtype.h"
 #include "m_swap.hpp"
 #include "i_system.h"
-#include "z_zone.h"
+#include "z_zone.hpp"
 
 #ifdef __GNUG__
 #pragma implementation "w_wad.h"

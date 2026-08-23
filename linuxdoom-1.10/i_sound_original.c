@@ -48,7 +48,7 @@ static const char
 #include <time.h>
 #include <signal.h>
 
-#include "z_zone.h"
+#include "z_zone.hpp"
 
 #include "i_system.h"
 #include "i_sound.h"

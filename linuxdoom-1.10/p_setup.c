@@ -27,7 +27,7 @@ static const char
 
 #include <math.h>
 
-#include "z_zone.h"
+#include "z_zone.hpp"
 
 #include "m_swap.hpp"
 #include "m_bbox.hpp"

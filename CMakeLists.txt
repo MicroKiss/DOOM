@@ -63,7 +63,6 @@ set(DOOM_PORTABLE_SOURCES
     hu_stuff.c
     hu_lib.c
     s_sound.c
-    z_zone.c
     info.c
     sounds.c
     i_main.c
@@ -80,6 +79,7 @@ set(DOOM_CPP_SOURCES
     ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_fixed.cpp
     ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_menu.cpp
     ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_misc.cpp
+    ${DOOM_CPP_SOURCE_DIR}/ZoneMemory/z_zone.cpp
     ${DOOM_CPP_SOURCE_DIR}/v_video.cpp
 
 )
@@ -90,6 +90,7 @@ target_include_directories(doom PRIVATE
     "${DOOM_SOURCE_DIR}"
     "${DOOM_CPP_SOURCE_DIR}"
     "${DOOM_CPP_SOURCE_DIR}/Miscellaneous"
+    "${DOOM_CPP_SOURCE_DIR}/ZoneMemory"
 )
 
 target_link_libraries(doom PRIVATE SDL2::SDL2main SDL2::SDL2 libADLMIDI::ADLMIDI)

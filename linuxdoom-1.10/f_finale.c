@@ -29,7 +29,7 @@ static const char
 // Functions.
 #include "i_system.h"
 #include "m_swap.hpp"
-#include "z_zone.h"
+#include "z_zone.hpp"
 #include "v_video.hpp"
 #include "w_wad.h"
 #include "s_sound.h"

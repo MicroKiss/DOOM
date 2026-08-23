@@ -14,7 +14,7 @@ extern "C"
 
 #include "i_system.h"
 #include "i_video.h"
-#include "z_zone.h"
+#include "z_zone.hpp"
 #include "v_video.hpp"
 #include "w_wad.h"
 
@@ -554,7 +554,6 @@ extern "C"
     void M_DrawSave(void)
     {
         int i;
-
         V_DrawPatchDirect(72, 28, 0, reinterpret_cast<patch_t *>(W_CacheLumpName("M_SAVEG", PU_CACHE)));
         for (i = 0; i < load_end; i++)
         {

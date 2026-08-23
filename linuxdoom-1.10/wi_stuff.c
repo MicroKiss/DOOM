@@ -26,7 +26,7 @@ static const char
 
 #include <stdio.h>
 
-#include "z_zone.h"
+#include "z_zone.hpp"
 
 #include "m_random.hpp"
 #include "m_swap.hpp"

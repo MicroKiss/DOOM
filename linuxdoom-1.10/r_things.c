@@ -31,7 +31,7 @@ static const char
 #include "m_swap.hpp"
 
 #include "i_system.h"
-#include "z_zone.h"
+#include "z_zone.hpp"
 #include "w_wad.h"
 
 #include "r_local.hpp"

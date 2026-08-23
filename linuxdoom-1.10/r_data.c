@@ -29,7 +29,7 @@ static const char
 #include <stdint.h>
 
 #include "i_system.h"
-#include "z_zone.h"
+#include "z_zone.hpp"
 
 #include "m_swap.hpp"
 
