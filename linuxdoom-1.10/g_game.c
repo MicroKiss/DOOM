@@ -31,9 +31,9 @@ static const char
 
 #include "z_zone.h"
 #include "f_finale.h"
-#include "m_argv.h"
-#include "m_misc.h"
-#include "m_menu.h"
+#include "m_argv.hpp"
+#include "m_misc.hpp"
+#include "m_menu.hpp"
 #include "m_random.hpp"
 #include "i_system.h"
 

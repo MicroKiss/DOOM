@@ -31,7 +31,7 @@ static const char rcsid[] = "$Id: am_map.c,v 1.4 1997/02/03 21:24:33 b1 Exp $";
 #include "p_local.h"
 #include "w_wad.h"
 
-#include "m_cheat.h"
+#include "m_cheat.hpp"
 #include "i_system.h"
 
 // Needs access to LFB.

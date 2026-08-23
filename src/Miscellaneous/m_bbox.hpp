@@ -2,7 +2,7 @@
 
 #include "doomtype.h"
 
-#include "m_fixed.h"
+#include "m_fixed.hpp"
 
 // Bounding box coordinate storage.
 enum

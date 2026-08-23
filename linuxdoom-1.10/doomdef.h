@@ -266,7 +266,7 @@ typedef enum
 // #include "doomtype.h"
 
 // Fixed point.
-// #include "m_fixed.h"
+// #include "m_fixed.hpp"
 
 // Endianess handling.
 // #include "m_swap.hpp"

@@ -46,7 +46,7 @@ static const char
 #include "p_inter.h"
 
 #include "am_map.h"
-#include "m_cheat.h"
+#include "m_cheat.hpp"
 
 #include "s_sound.h"
 

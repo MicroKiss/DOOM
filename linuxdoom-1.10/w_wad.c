@@ -33,6 +33,7 @@ static const char
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include "r_defs.h"
 
 #ifdef _WIN32
 #include <io.h>
@@ -513,8 +514,6 @@ void *
 W_CacheLumpNum(int lump,
                int tag)
 {
-    byte *ptr;
-
     if ((unsigned)lump >= numlumps)
         I_Error("W_CacheLumpNum: %i >= numlumps", lump);
 
@@ -523,7 +522,7 @@ W_CacheLumpNum(int lump,
         // read the lump in
 
         // printf ("cache miss on lump %i\n",lump);
-        ptr = Z_Malloc(W_LumpLength(lump), tag, &lumpcache[lump]);
+        Z_Malloc(W_LumpLength(lump), tag, &lumpcache[lump]);
         W_ReadLump(lump, lumpcache[lump]);
     }
     else

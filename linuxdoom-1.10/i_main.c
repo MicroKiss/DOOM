@@ -28,7 +28,7 @@ static const char
 
 #include <string.h>
 
-#include "m_argv.h"
+#include "m_argv.hpp"
 #include "d_main.h"
 #include "i_system.h"
 #include "i_video.h"

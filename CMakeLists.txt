@@ -28,11 +28,6 @@ set(DOOM_PORTABLE_SOURCES
     d_net.c
     d_items.c
     g_game.c
-    m_menu.c
-    m_misc.c
-    m_argv.c
-    m_fixed.c
-    m_cheat.c
     am_map.c
     p_ceilng.c
     p_doors.c
@@ -80,6 +75,11 @@ set(DOOM_CPP_SOURCES
     ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_swap.cpp
     ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_bbox.cpp
     ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_random.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_argv.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_cheat.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_fixed.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_menu.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_misc.cpp
     ${DOOM_CPP_SOURCE_DIR}/v_video.cpp
 
 )

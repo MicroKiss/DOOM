@@ -28,7 +28,7 @@ static const char
 
 // Data.
 #include "sounds.h"
-#include "m_fixed.h"
+#include "m_fixed.hpp"
 
 #ifdef __GNUG__
 #pragma implementation "info.h"

@@ -35,7 +35,7 @@ static const char
 
 #include "i_system.h"
 #include "z_zone.h"
-#include "m_argv.h"
+#include "m_argv.hpp"
 #include "m_random.hpp"
 #include "w_wad.h"
 

@@ -23,7 +23,7 @@
 #define __W_WAD__
 
 #include <stdint.h>
-
+#include "r_defs.h"
 #ifdef __GNUG__
 #pragma interface
 #endif
@@ -48,8 +48,8 @@ typedef struct
 
 } filelump_t;
 
-_Static_assert(sizeof(wadinfo_t) == 12, "wadinfo_t must match the WAD format");
-_Static_assert(sizeof(filelump_t) == 16, "filelump_t must match the WAD format");
+static_assert(sizeof(wadinfo_t) == 12, "wadinfo_t must match the WAD format");
+static_assert(sizeof(filelump_t) == 16, "filelump_t must match the WAD format");
 
 //
 // WADFILE I/O related stuff.
