@@ -7,8 +7,6 @@
 
 #include <ctype.h>
 
-extern "C"
-{
 #include "doomdef.hpp"
 
 #include "z_zone.hpp"
@@ -486,4 +484,3 @@ extern "C"
 
         players[consoleplayer].message = "screen shot";
     }
-}

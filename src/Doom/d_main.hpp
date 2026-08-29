@@ -30,10 +30,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #define MAXWADFILES 20
     extern char *wadfiles[MAXWADFILES];
@@ -59,8 +55,5 @@ extern "C"
     void D_AdvanceDemo(void);
     void D_StartTitle(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif

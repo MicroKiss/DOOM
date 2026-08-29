@@ -21,8 +21,6 @@
 
 #include <string.h>
 
-extern "C"
-{
 #include "doomstat.hpp"
 #include "d_net.hpp"
 #include "i_net.hpp"
@@ -49,4 +47,3 @@ extern "C"
     {
         I_Error("I_NetCmd called while networking is disabled");
     }
-}

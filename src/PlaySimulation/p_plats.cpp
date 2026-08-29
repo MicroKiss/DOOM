@@ -21,8 +21,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "i_system.hpp"
 #include "z_zone.hpp"
 #include "m_random.hpp"
@@ -38,7 +36,6 @@ extern "C"
 
 // Data.
 #include "sounds.hpp"
-}
 
 plat_t *activeplats[MAXPLATS];
 

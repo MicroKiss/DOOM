@@ -23,15 +23,12 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "doomdef.hpp"
 #include "d_event.hpp"
 
 #include "p_local.hpp"
 
 #include "doomstat.hpp"
-}
 
 // Index of the special effects (INVUL inverse) map.
 #define INVERSECOLORMAP 32

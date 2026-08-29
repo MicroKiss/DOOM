@@ -26,10 +26,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // Persistent storage/archiving.
     // These are the load / save game routines.
@@ -44,9 +40,6 @@ extern "C"
 
     extern byte *save_p;
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

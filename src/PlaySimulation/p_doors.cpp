@@ -20,8 +20,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "z_zone.hpp"
 #include "doomdef.hpp"
 #include "p_local.hpp"
@@ -35,7 +33,6 @@ extern "C"
 // Data.
 #include "dstrings.hpp"
 #include "sounds.hpp"
-}
 
 #if 0
 //

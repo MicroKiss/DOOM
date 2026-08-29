@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-extern "C"
-{
 #include "doomdef.hpp"
 #include "dstrings.hpp"
 
@@ -35,14 +33,11 @@ extern "C"
 #include "sounds.hpp"
 
 #include "m_menu.hpp"
-}
 
 #ifndef O_BINARY
 #define O_BINARY 0
 #endif
 
-extern "C"
-{
     extern patch_t *hu_font[HU_FONTSIZE];
     extern boolean message_dontfuckwithme;
 
@@ -1739,4 +1734,3 @@ extern "C"
             break;
         }
     }
-}

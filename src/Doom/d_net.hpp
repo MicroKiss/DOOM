@@ -28,10 +28,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     //
     // Network play related stuff.
@@ -133,9 +129,6 @@ extern "C"
     //? how many ticks to run?
     void TryRunTics(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 

@@ -23,8 +23,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include <stdlib.h>
 
 #include "m_random.hpp"
@@ -43,10 +41,7 @@ extern "C"
 
 // Data.
 #include "sounds.hpp"
-}
 
-extern "C"
-{
     typedef enum
     {
         DI_EAST,
@@ -1879,4 +1874,3 @@ extern "C"
 
         S_StartSound(mo, sound);
     }
-}

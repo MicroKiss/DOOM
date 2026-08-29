@@ -23,8 +23,6 @@
 
 #include <stdlib.h>
 
-extern "C"
-{
 #include "i_system.hpp"
 
 #include "doomdef.hpp"
@@ -705,4 +703,3 @@ extern "C"
 		}
 		ds_p++;
 	}
-}

@@ -1,9 +1,5 @@
 #pragma once
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #define SCRAMBLE(a) \
     ((((a) & 1) << 7) + (((a) & 2) << 5) + ((a) & 4) + (((a) & 8) << 1) + (((a) & 16) >> 1) + ((a) & 32) + (((a) & 64) >> 5) + (((a) & 128) >> 7))
@@ -22,7 +18,3 @@ extern "C"
     void
     cht_GetParam(cheatseq_t *cht,
                  char *buffer);
-
-#ifdef __cplusplus
-}
-#endif

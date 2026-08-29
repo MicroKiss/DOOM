@@ -25,8 +25,6 @@
 
 #include <stdint.h>
 
-extern "C"
-{
 #include "i_system.hpp"
 #include "z_zone.hpp"
 
@@ -359,7 +357,6 @@ extern "C"
             }
         }
     }
-}
 
 //
 // R_GetColumn

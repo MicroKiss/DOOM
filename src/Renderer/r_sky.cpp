@@ -26,8 +26,6 @@
 //-----------------------------------------------------------------------------
 
 // Needed for FRACUNIT.
-extern "C"
-{
 #include "m_fixed.hpp"
 
 // Needed for Flat retrieval.
@@ -37,7 +35,6 @@ extern "C"
 #pragma implementation "r_sky.hpp"
 #endif
 #include "r_sky.hpp"
-}
 
 //
 // sky mapping

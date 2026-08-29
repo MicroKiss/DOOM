@@ -24,8 +24,6 @@
 
 #include <stddef.h>
 
-extern "C"
-{
 #include "m_menu.hpp"
 #include "i_system.hpp"
 #include "i_video.hpp"
@@ -743,4 +741,3 @@ extern "C"
 			NetUpdate(); // check for new console commands
 		}
 	}
-}

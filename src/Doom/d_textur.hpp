@@ -25,10 +25,6 @@
 
 #include "doomtype.hpp"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     //
     // Flats?
@@ -41,9 +37,6 @@ extern "C"
         byte data;
     } pic_t;
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

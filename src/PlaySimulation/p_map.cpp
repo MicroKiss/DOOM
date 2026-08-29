@@ -22,8 +22,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include <stdlib.h>
 
 #include "m_bbox.hpp"
@@ -40,7 +38,6 @@ extern "C"
 #include "r_state.hpp"
 // Data.
 #include "sounds.hpp"
-}
 
 int32_t tmbbox[4];
 mobj_t *tmthing;

@@ -2,10 +2,6 @@
 #include <limits.h>
 #include <stdint.h>
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 //
 // Fixed point, 32bit as 16.16.
@@ -16,7 +12,3 @@ extern "C"
     int32_t FixedMul(int32_t a, int32_t b);
     int32_t FixedDiv(int32_t a, int32_t b);
     int32_t FixedDiv2(int32_t a, int32_t b);
-
-#ifdef __cplusplus
-}
-#endif

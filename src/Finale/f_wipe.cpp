@@ -21,8 +21,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "z_zone.hpp"
 #include "i_video.hpp"
 #include "v_video.hpp"
@@ -273,5 +271,4 @@ int wipe_ScreenWipe(int wipeno,
     }
 
     return !go;
-}
 }

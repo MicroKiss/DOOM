@@ -23,10 +23,6 @@
 #ifndef __S_SOUND__
 #define __S_SOUND__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 
 #ifdef __GNUG__
@@ -107,9 +103,6 @@ void S_SetSfxVolume(int volume);
 
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 //-----------------------------------------------------------------------------
 //

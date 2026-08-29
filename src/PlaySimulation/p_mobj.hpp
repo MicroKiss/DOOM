@@ -42,10 +42,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     //
     // NOTES: mobj_t
@@ -284,9 +280,6 @@ extern "C"
 
     } mobj_t;
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

@@ -1,10 +1,6 @@
 #pragma once
 #include "doomtype.hpp"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
     boolean M_WriteFile(char const *name, void *source, int length);
 
     int M_ReadFile(char const *name, byte **buffer);
@@ -20,7 +16,3 @@ extern "C"
                int y,
                boolean direct,
                char *string);
-
-#ifdef __cplusplus
-}
-#endif

@@ -26,19 +26,12 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // Called by D_DoomMain.
 
     void I_InitNetwork(void);
     void I_NetCmd(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

@@ -28,10 +28,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // The data sampled per tick (single player)
     // and transmitted to other peers (multiplayer).
@@ -47,9 +43,6 @@ extern "C"
         byte buttons;
     } ticcmd_t;
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

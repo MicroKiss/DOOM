@@ -26,19 +26,12 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     void
     R_RenderMaskedSegRange(drawseg_t *ds,
                            int x1,
                            int x2);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

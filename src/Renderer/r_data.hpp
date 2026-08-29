@@ -30,10 +30,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // Retrieve column data for span blitting.
     byte *
@@ -54,9 +50,6 @@ extern "C"
     int R_TextureNumForName(char *name);
     int R_CheckTextureNumForName(char *name);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

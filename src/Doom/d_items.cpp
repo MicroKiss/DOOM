@@ -21,15 +21,12 @@
 //-----------------------------------------------------------------------------
 
 // We are referring to sprite numbers.
-extern "C"
-{
 #include "info.hpp"
 
 #ifdef __GNUG__
 #pragma implementation "d_items.hpp"
 #endif
 #include "d_items.hpp"
-}
 
 //
 // PSPRITE ACTIONS for waepons.

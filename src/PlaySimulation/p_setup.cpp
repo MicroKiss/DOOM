@@ -22,8 +22,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include <math.h>
 
 #include "z_zone.hpp"
@@ -43,9 +41,8 @@ extern "C"
 #include "s_sound.hpp"
 
 #include "doomstat.hpp"
-}
 
-extern "C" void P_SpawnMapThing(mapthing_t *mthing);
+void P_SpawnMapThing(mapthing_t *mthing);
 
 //
 // MAP related Lookup tables.

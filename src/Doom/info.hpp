@@ -24,10 +24,6 @@
 #ifndef __INFO__
 #define __INFO__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 // Needed for action function pointer handling.
 #include "d_think.hpp"
@@ -1336,9 +1332,6 @@ typedef struct
 extern mobjinfo_t mobjinfo[NUMMOBJTYPES];
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 //-----------------------------------------------------------------------------
 //

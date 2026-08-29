@@ -39,10 +39,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 // Silhouette, needed for clipping Segs (mainly)
 // and sprites representing things.
@@ -434,9 +430,6 @@ extern "C"
 
     } visplane_t;
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

@@ -26,10 +26,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #define MAXVISSPRITES 128
 
@@ -66,9 +62,6 @@ extern "C"
                          int xl,
                          int xh);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

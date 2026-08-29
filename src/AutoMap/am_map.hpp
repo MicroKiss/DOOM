@@ -27,10 +27,6 @@
 #define AM_MSGENTERED (AM_MSGHEADER | ('e' << 8))
 #define AM_MSGEXITED (AM_MSGHEADER | ('x' << 8))
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // Called by main loop.
     boolean AM_Responder(event_t *ev);
@@ -46,9 +42,6 @@ extern "C"
     // if the level is completed while it is up.
     void AM_Stop(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

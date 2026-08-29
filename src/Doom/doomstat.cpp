@@ -25,8 +25,6 @@
 #ifdef __GNUG__
 #pragma implementation "doomstat.hpp"
 #endif
-extern "C"
-{
 #include "doomstat.hpp"
 
 
@@ -39,4 +37,3 @@ Language_t   language = english;
 
 // Set if homebrew PWAD stuff has been added.
 boolean	modifiedgame;
-}

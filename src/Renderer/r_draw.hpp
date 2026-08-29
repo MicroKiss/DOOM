@@ -26,10 +26,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     extern lighttable_t *dc_colormap;
     extern int dc_x;
@@ -97,9 +93,6 @@ extern "C"
     // If the view size is not full screen, draws a border around it.
     void R_DrawViewBorder(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

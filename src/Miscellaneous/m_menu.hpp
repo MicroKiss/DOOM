@@ -1,9 +1,5 @@
 #pragma once
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #include "d_event.hpp"
 
@@ -32,7 +28,3 @@ extern "C"
     // Called by intro code to force menu up upon a keypress,
     // does nothing if menu is already up.
     void M_StartControlPanel(void);
-
-#ifdef __cplusplus
-}
-#endif

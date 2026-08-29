@@ -12,10 +12,6 @@
 // Screen 0 is the screen updated by I_Update screen.
 // Screen 1 is an extra buffer.
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     extern byte *screens[5];
 
@@ -42,7 +38,3 @@ extern "C"
     void V_GetBlock(int x, int y, int scrn, int width, int height, byte *dest);
 
     void V_MarkRect(int x, int y, int width, int height);
-
-#ifdef __cplusplus
-}
-#endif

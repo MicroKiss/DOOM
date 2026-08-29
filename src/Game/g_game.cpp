@@ -23,8 +23,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-extern "C"
-{
 #include "doomdef.hpp"
 #include "doomstat.hpp"
 
@@ -1612,4 +1610,3 @@ extern "C"
 
         return false;
     }
-}

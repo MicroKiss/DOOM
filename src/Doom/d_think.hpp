@@ -28,10 +28,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
   //
   // Experimental stuff.
@@ -65,9 +61,6 @@ extern "C"
 
   } thinker_t;
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

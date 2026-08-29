@@ -27,10 +27,6 @@
 #ifndef __D_STATE__
 #define __D_STATE__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 // We need globally shared data structures,
 //  for defining the global state variables.
@@ -251,9 +247,6 @@ extern ticcmd_t netcmds[MAXPLAYERS][BACKUPTICS];
 extern int ticdup;
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 //-----------------------------------------------------------------------------
 //

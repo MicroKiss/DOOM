@@ -25,10 +25,6 @@
 #ifndef __DSTRINGS__
 #define __DSTRINGS__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 // All important printed strings.
 // Language selection (message strings).
@@ -59,9 +55,6 @@ extern "C"
 extern char *endmsg[];
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 //-----------------------------------------------------------------------------
 //

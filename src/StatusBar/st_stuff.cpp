@@ -25,8 +25,6 @@
 
 #include <stdio.h>
 
-extern "C"
-{
 #include "i_system.hpp"
 #include "i_video.hpp"
 #include "z_zone.hpp"
@@ -1412,4 +1410,3 @@ extern "C"
 		ST_loadData();
 		screens[4] = (byte *)Z_Malloc(ST_WIDTH * ST_HEIGHT, PU_STATIC, 0);
 	}
-}

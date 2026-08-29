@@ -549,11 +549,7 @@ void UploadNewPalette(Colormap cmap, byte *palette)
 	register int c;
 	static boolean firstcall = true;
 
-#ifdef __cplusplus
 	if (X_visualinfo.c_class == PseudoColor && X_visualinfo.depth == 8)
-#else
-	if (X_visualinfo.class == PseudoColor && X_visualinfo.depth == 8)
-#endif
 	{
 		// initialize the colormap
 		if (firstcall)

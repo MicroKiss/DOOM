@@ -24,8 +24,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include <stdlib.h>
 
 #include "m_bbox.hpp"
@@ -35,7 +33,6 @@ extern "C"
 
 // State.
 #include "r_state.hpp"
-}
 
 //
 // P_AproxDistance

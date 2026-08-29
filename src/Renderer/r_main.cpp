@@ -26,8 +26,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-extern "C"
-{
 #include "doomdef.hpp"
 #include "d_net.hpp"
 
@@ -834,4 +832,3 @@ extern "C"
         // Check for new console commands.
         NetUpdate();
     }
-}

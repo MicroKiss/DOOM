@@ -22,11 +22,8 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "p_local.hpp"
 #include "doomstat.hpp"
-}
 
 #include "z_zone.hpp"
 #include "p_tick.hpp"

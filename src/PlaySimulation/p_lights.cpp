@@ -22,8 +22,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "z_zone.hpp"
 #include "m_random.hpp"
 
@@ -32,7 +30,6 @@ extern "C"
 
 // State.
 #include "r_state.hpp"
-}
 
 //
 // FIRELIGHT FLICKER

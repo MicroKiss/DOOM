@@ -21,8 +21,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "doomdef.hpp"
 
 #include "i_system.hpp"
@@ -30,7 +28,6 @@ extern "C"
 
 // State.
 #include "r_state.hpp"
-}
 
 //
 // P_CheckSight

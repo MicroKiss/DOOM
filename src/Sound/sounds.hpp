@@ -23,10 +23,6 @@
 #ifndef __SOUNDS__
 #define __SOUNDS__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     //
     // SoundFX struct.
@@ -285,9 +281,6 @@ extern "C"
         NUMSFX
     } sfxenum_t;
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

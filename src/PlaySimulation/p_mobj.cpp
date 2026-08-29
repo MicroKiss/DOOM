@@ -21,8 +21,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "i_system.hpp"
 #include "z_zone.hpp"
 #include "m_random.hpp"
@@ -40,10 +38,7 @@ extern "C"
 
     void G_PlayerReborn(int player);
     void P_SpawnMapThing(mapthing_t *mthing);
-}
 
-extern "C"
-{
     //
     // P_SetMobjState
     // Returns true if the mobj is still present.
@@ -925,4 +920,3 @@ extern "C"
 
         P_CheckMissileSpawn(th);
     }
-}

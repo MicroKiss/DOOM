@@ -25,8 +25,6 @@
 
 #include <stdlib.h>
 
-extern "C"
-{
 #include "i_system.hpp"
 #include "z_zone.hpp"
 #include "w_wad.hpp"
@@ -422,4 +420,3 @@ extern "C"
             Z_ChangeTag(ds_source, PU_CACHE);
         }
     }
-}

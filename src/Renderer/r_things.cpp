@@ -24,8 +24,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern "C"
-{
 #include "doomdef.hpp"
 #include "m_swap.hpp"
 
@@ -926,4 +924,3 @@ extern "C"
         if (!viewangleoffset)
             R_DrawPlayerSprites();
     }
-}

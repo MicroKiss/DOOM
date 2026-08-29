@@ -1,9 +1,5 @@
 #pragma once
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #include <stdio.h>
 
@@ -53,7 +49,3 @@ extern "C"
                     __LINE__);                                                  \
         Z_ChangeTag2(p, t);                                                     \
     };
-
-#ifdef __cplusplus
-}
-#endif

@@ -22,8 +22,6 @@
 
 #include <ctype.h>
 
-extern "C"
-{
 #include "doomdef.hpp"
 
 #include "v_video.hpp"
@@ -321,5 +319,4 @@ void HUlib_eraseIText(hu_itext_t *it)
         it->l.needsupdate = 4;
     HUlib_eraseTextLine(&it->l);
     it->laston = *it->on;
-}
 }

@@ -26,10 +26,6 @@
 #include "r_local.hpp"
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #define FLOATSPEED (FRACUNIT * 4)
 
@@ -257,9 +253,6 @@ extern "C"
 //
 #include "p_spec.hpp"
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif // __P_LOCAL__
 //-----------------------------------------------------------------------------

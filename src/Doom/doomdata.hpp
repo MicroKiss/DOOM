@@ -24,10 +24,6 @@
 #ifndef __DOOMDATA__
 #define __DOOMDATA__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #include <stdint.h>
 
@@ -210,9 +206,6 @@ static_assert(sizeof(mapnode_t) == 28, "mapnode_t must match the WAD format");
 static_assert(sizeof(mapthing_t) == 10, "mapthing_t must match the WAD format");
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif // __DOOMDATA__
 //-----------------------------------------------------------------------------
 //

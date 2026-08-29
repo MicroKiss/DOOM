@@ -40,10 +40,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 //
 // Frame flags:
@@ -74,9 +70,6 @@ extern "C"
 
     } pspdef_t;
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

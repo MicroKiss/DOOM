@@ -22,8 +22,6 @@
 //-----------------------------------------------------------------------------
 
 // Data.
-extern "C"
-{
 #include "doomdef.hpp"
 #include "dstrings.hpp"
 #include "sounds.hpp"
@@ -43,7 +41,6 @@ extern "C"
 #pragma implementation "p_inter.hpp"
 #endif
 #include "p_inter.hpp"
-}
 
 #define BONUSADD 6
 

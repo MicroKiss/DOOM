@@ -22,8 +22,6 @@
 #include <SDL.h>
 #include <string.h>
 
-extern "C"
-{
 #include "d_main.hpp"
 #include "doomdef.hpp"
 #include "i_system.hpp"
@@ -390,4 +388,3 @@ extern "C"
             rgba_palette[i] = (red << 24) | (green << 16) | (blue << 8) | 0xff;
         }
     }
-}

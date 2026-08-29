@@ -22,10 +22,6 @@
 #ifndef __G_GAME__
 #define __G_GAME__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #include "doomdef.hpp"
 #include "d_event.hpp"
@@ -73,9 +69,6 @@ boolean G_Responder(event_t *ev);
 void G_ScreenShot(void);
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 //-----------------------------------------------------------------------------
 //

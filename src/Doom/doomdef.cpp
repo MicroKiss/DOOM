@@ -26,11 +26,8 @@
 #ifdef __GNUG__
 #pragma implementation "doomdef.hpp"
 #endif
-extern "C"
-{
 #include "doomdef.hpp"
 
 // Location for any defines turned variables.
 
 // None.
-}

@@ -24,10 +24,6 @@
 
 #include "doomtype.hpp"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     //
     // Event handling.
@@ -109,9 +105,6 @@ extern "C"
 
     extern gameaction_t gameaction;
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

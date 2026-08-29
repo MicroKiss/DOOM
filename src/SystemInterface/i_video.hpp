@@ -28,10 +28,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // Called by D_DoomMain,
     // determines the hardware configuration
@@ -54,9 +50,6 @@ extern "C"
     void I_BeginRead(void);
     void I_EndRead(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

@@ -22,8 +22,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "i_system.hpp"
 #include "doomdef.hpp"
 #include "p_local.hpp"
@@ -38,7 +36,6 @@ extern "C"
 // State.
 #include "doomstat.hpp"
 #include "r_state.hpp"
-}
 
 //
 // CHANGE THE TEXTURE OF A WALL SWITCH TO ITS OPPOSITE

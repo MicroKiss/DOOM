@@ -21,8 +21,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "i_system.hpp"
 #include "z_zone.hpp"
 #include "p_local.hpp"
@@ -31,7 +29,6 @@ extern "C"
 // State.
 #include "doomstat.hpp"
 #include "r_state.hpp"
-}
 
 byte *save_p;
 

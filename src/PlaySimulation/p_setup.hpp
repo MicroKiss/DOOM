@@ -26,10 +26,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // NOT called by W_Ticker. Fixme.
     void
@@ -41,9 +37,6 @@ extern "C"
     // Called by startup code.
     void P_Init(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

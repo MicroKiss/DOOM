@@ -29,10 +29,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // Called by DoomMain.
     void I_Init(void);
@@ -92,9 +88,6 @@ extern "C"
 
     void I_Error(char *error, ...);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

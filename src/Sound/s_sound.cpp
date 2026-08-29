@@ -23,8 +23,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern "C"
-{
 #include "i_system.hpp"
 #include "i_sound.hpp"
 #include "sounds.hpp"
@@ -715,4 +713,3 @@ extern "C"
 
         return cnum;
     }
-}

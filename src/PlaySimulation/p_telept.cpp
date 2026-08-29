@@ -21,8 +21,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "doomdef.hpp"
 
 #include "s_sound.hpp"
@@ -34,7 +32,6 @@ extern "C"
 
 // State.
 #include "r_state.hpp"
-}
 
 //
 // TELEPORTATION

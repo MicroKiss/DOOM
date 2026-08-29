@@ -26,10 +26,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     extern seg_t *curline;
     extern side_t *sidedef;
@@ -63,9 +59,6 @@ extern "C"
 
     void R_RenderBSPNode(int bspnum);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

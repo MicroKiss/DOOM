@@ -21,17 +21,9 @@ typedef struct
     int32_t right;
 } BBox;
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     void M_ClearBox(BBox *box);
 
     void M_AddToBox(BBox *box,
                     int32_t x,
                     int32_t y);
-
-#ifdef __cplusplus
-}
-#endif

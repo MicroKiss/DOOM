@@ -46,8 +46,6 @@
 #include <fcntl.h>
 #endif
 
-extern "C"
-{
 #include "unistd.hpp"
 #include "doomdef.hpp"
 #include "doomstat.hpp"
@@ -1182,4 +1180,3 @@ extern "C"
 
 		D_DoomLoop(); // never returns
 	}
-}

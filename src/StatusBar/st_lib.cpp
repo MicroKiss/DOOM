@@ -23,8 +23,6 @@
 
 #include <ctype.h>
 
-extern "C"
-{
 #include "doomdef.hpp"
 
 #include "z_zone.hpp"
@@ -247,5 +245,4 @@ void STlib_updateBinIcon(st_binicon_t *bi,
 
         bi->oldval = *bi->val;
     }
-}
 }

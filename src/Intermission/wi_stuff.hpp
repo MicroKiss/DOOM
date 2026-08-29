@@ -22,10 +22,6 @@
 #ifndef __WI_STUFF__
 #define __WI_STUFF__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 // #include "v_video.hpp"
 
@@ -52,9 +48,6 @@ void WI_Drawer(void);
 void WI_Start(wbstartstruct_t *wbstartstruct);
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 //-----------------------------------------------------------------------------
 //

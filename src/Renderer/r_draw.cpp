@@ -23,8 +23,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "doomdef.hpp"
 
 #include "i_system.hpp"
@@ -812,4 +810,3 @@ void R_DrawSpan (void)
         // ?
         V_MarkRect(0, 0, SCREENWIDTH, SCREENHEIGHT - SBARHEIGHT);
     }
-}

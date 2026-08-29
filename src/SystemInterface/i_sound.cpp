@@ -15,8 +15,6 @@
 #include <SDL.h>
 #include <adlmidi.h>
 
-extern "C"
-{
 #include "doomstat.hpp"
 #include "i_sound.hpp"
 #include "sounds.hpp"
@@ -602,4 +600,3 @@ extern "C"
         SDL_UnlockAudioDevice(audio_device);
         return playing;
     }
-}

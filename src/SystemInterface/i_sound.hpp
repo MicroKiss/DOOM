@@ -35,10 +35,6 @@ extern char *sndserver_filename;
 #include "doomstat.hpp"
 #include "sounds.hpp"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // Init at program start...
     void I_InitSound();
@@ -105,9 +101,6 @@ extern "C"
     // See above (register), then think backwards
     void I_UnRegisterSong(int handle);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

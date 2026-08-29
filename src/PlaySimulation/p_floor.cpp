@@ -21,8 +21,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "z_zone.hpp"
 #include "doomdef.hpp"
 #include "p_local.hpp"
@@ -34,7 +32,6 @@ extern "C"
 #include "r_state.hpp"
 // Data.
 #include "sounds.hpp"
-}
 
 //
 // FLOORS

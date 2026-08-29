@@ -28,10 +28,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // Visplane related.
     extern short *lastopening;
@@ -72,9 +68,6 @@ extern "C"
                  int start,
                  int stop);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------

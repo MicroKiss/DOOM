@@ -22,10 +22,6 @@
 #ifndef __STLIB__
 #define __STLIB__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 // We are referring to patches.
 #include "r_defs.hpp"
@@ -188,9 +184,6 @@ void STlib_updateBinIcon(st_binicon_t *bi,
                          boolean refresh);
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 //-----------------------------------------------------------------------------
 //

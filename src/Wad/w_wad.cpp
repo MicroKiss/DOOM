@@ -30,8 +30,6 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-extern "C"
-{
 #include "r_defs.hpp"
 
 #ifdef _WIN32
@@ -601,4 +599,3 @@ extern "C"
         }
         fclose(f);
     }
-}

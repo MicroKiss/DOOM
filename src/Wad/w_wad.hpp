@@ -22,10 +22,6 @@
 #ifndef __W_WAD__
 #define __W_WAD__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 #include <stdint.h>
 #include "r_defs.hpp"
@@ -84,9 +80,6 @@ void *W_CacheLumpNum(int lump, int tag);
 void *W_CacheLumpName(char *name, int tag);
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif
 //-----------------------------------------------------------------------------
 //

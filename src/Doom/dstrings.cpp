@@ -24,8 +24,6 @@
 #ifdef __GNUG__
 #pragma implementation "dstrings.hpp"
 #endif
-extern "C"
-{
 #include "dstrings.hpp"
 
 
@@ -63,4 +61,3 @@ char* endmsg[NUM_QUITMESSAGES+1]=
   // Internal debug. Different style, too.
   "THIS IS NO MESSAGE!\nPage intentionally left blank."
 };
-}

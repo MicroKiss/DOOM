@@ -21,8 +21,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "doomdef.hpp"
 
 #include "m_bbox.hpp"
@@ -533,4 +531,3 @@ extern "C"
         if (R_CheckBBox(bsp->bbox[side ^ 1]))
             R_RenderBSPNode(bsp->children[side ^ 1]);
     }
-}

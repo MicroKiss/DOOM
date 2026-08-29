@@ -22,8 +22,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include "doomdef.hpp"
 #include "d_event.hpp"
 
@@ -38,10 +36,7 @@ extern "C"
 #include "sounds.hpp"
 
 #include "p_pspr.hpp"
-}
 
-extern "C"
-{
 #define LOWERSPEED FRACUNIT * 6
 #define RAISESPEED FRACUNIT * 6
 
@@ -777,4 +772,3 @@ extern "C"
         player->psprites[ps_flash].sx = player->psprites[ps_weapon].sx;
         player->psprites[ps_flash].sy = player->psprites[ps_weapon].sy;
     }
-}

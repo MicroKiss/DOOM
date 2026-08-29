@@ -23,8 +23,6 @@
 
 #include <stdio.h>
 
-extern "C"
-{
 #include "z_zone.hpp"
 
 #include "m_random.hpp"
@@ -1779,4 +1777,3 @@ extern "C"
 		else
 			WI_initStats();
 	}
-}

@@ -25,8 +25,6 @@
 //
 //-----------------------------------------------------------------------------
 
-extern "C"
-{
 #include <stdlib.h>
 
 #include "doomdef.hpp"
@@ -50,7 +48,6 @@ extern "C"
 
 // Data.
 #include "sounds.hpp"
-}
 
 //
 // Animating textures and planes

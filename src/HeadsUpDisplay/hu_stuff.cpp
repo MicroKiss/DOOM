@@ -22,8 +22,6 @@
 
 #include <ctype.h>
 
-extern "C"
-{
 #include "doomdef.hpp"
 
 #include "z_zone.hpp"
@@ -729,5 +727,4 @@ boolean HU_Responder(event_t *ev)
     }
 
     return eatkey;
-}
 }

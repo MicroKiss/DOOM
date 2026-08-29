@@ -23,8 +23,6 @@
 #include <ctype.h>
 
 // Functions.
-extern "C"
-{
 #include "i_system.hpp"
 #include "m_swap.hpp"
 #include "z_zone.hpp"
@@ -740,4 +738,3 @@ extern "C"
 			}
 		}
 	}
-}

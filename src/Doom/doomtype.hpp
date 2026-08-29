@@ -23,23 +23,11 @@
 #ifndef __DOOMTYPE__
 #define __DOOMTYPE__
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 #include <limits.h>
 #include <stdint.h>
 
 #ifndef __BYTEBOOL__
 #define __BYTEBOOL__
-#ifndef __cplusplus
-enum
-{
-    false,
-    true
-};
-#endif
 typedef int32_t boolean;
 typedef uint8_t byte;
 #endif
@@ -56,10 +44,6 @@ static_assert(sizeof(byte) * CHAR_BIT == 8, "byte must be exactly 8 bits");
 #define MININT INT_MIN
 #define MINLONG LONG_MIN
 
-
-#ifdef __cplusplus
-}
-#endif
 #endif
 //-----------------------------------------------------------------------------
 //

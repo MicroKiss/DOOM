@@ -23,8 +23,6 @@
 
 #include <stdio.h>
 
-extern "C"
-{
 #include "doomdef.hpp"
 #include "st_stuff.hpp"
 #include "p_local.hpp"
@@ -37,7 +35,6 @@ extern "C"
 
 	// Data.
 #include "dstrings.hpp"
-}
 
 #include "z_zone.hpp"
 #include "m_cheat.hpp"

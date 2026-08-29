@@ -29,10 +29,6 @@
 #pragma interface
 #endif
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     //
     // POV related.
@@ -146,9 +142,6 @@ extern "C"
     // Called by M_Responder.
     void R_SetViewSize(int blocks, int detail);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 //-----------------------------------------------------------------------------
