@@ -29,7 +29,7 @@ int32_t tmy;
 
 // If "floatok" true, move would be ok
 // if within "tmfloorz - tmceilingz".
-boolean floatok;
+bool floatok;
 
 int32_t tmfloorz;
 int32_t tmceilingz;
@@ -49,7 +49,7 @@ int numspechit;
 // TELEPORT MOVE
 
 // PIT_StompThing
-boolean PIT_StompThing(mobj_t *thing)
+bool PIT_StompThing(mobj_t *thing)
 {
     int32_t blockdist;
 
@@ -78,10 +78,9 @@ boolean PIT_StompThing(mobj_t *thing)
 }
 
 // P_TeleportMove
-boolean
-P_TeleportMove(mobj_t *thing,
-               int32_t x,
-               int32_t y)
+bool P_TeleportMove(mobj_t *thing,
+                    int32_t x,
+                    int32_t y)
 {
     int xl;
     int xh;
@@ -146,7 +145,7 @@ P_TeleportMove(mobj_t *thing,
 
 // PIT_CheckLine
 // Adjusts tmfloorz and tmceilingz as lines are contacted
-boolean PIT_CheckLine(line_t *ld)
+bool PIT_CheckLine(line_t *ld)
 {
     if (tmbbox[BOXRIGHT] <= ld->bbox[BOXLEFT] || tmbbox[BOXLEFT] >= ld->bbox[BOXRIGHT] || tmbbox[BOXTOP] <= ld->bbox[BOXBOTTOM] || tmbbox[BOXBOTTOM] >= ld->bbox[BOXTOP])
         return true;
@@ -204,10 +203,10 @@ boolean PIT_CheckLine(line_t *ld)
 }
 
 // PIT_CheckThing
-boolean PIT_CheckThing(mobj_t *thing)
+bool PIT_CheckThing(mobj_t *thing)
 {
     int32_t blockdist;
-    boolean solid;
+    bool solid;
     int damage;
 
     if (!(thing->flags & (MF_SOLID | MF_SPECIAL | MF_SHOOTABLE)))
@@ -315,10 +314,9 @@ boolean PIT_CheckThing(mobj_t *thing)
 //   (monsters won't move to a dropoff)
 //  speciallines[]
 //  numspeciallines
-boolean
-P_CheckPosition(mobj_t *thing,
-                int32_t x,
-                int32_t y)
+bool P_CheckPosition(mobj_t *thing,
+                     int32_t x,
+                     int32_t y)
 {
     int xl;
     int xh;
@@ -387,10 +385,9 @@ P_CheckPosition(mobj_t *thing,
 // P_TryMove
 // Attempt to move to a new position,
 // crossing special lines unless MF_TELEPORT is set.
-boolean
-P_TryMove(mobj_t *thing,
-          int32_t x,
-          int32_t y)
+bool P_TryMove(mobj_t *thing,
+               int32_t x,
+               int32_t y)
 {
     int32_t oldx;
     int32_t oldy;
@@ -460,9 +457,9 @@ P_TryMove(mobj_t *thing,
 // If the thing doesn't fit,
 // the z will be set to the lowest value
 // and false will be returned.
-boolean P_ThingHeightClip(mobj_t *thing)
+bool P_ThingHeightClip(mobj_t *thing)
 {
-    boolean onfloor;
+    bool onfloor;
 
     onfloor = (thing->z == thing->floorz);
 
@@ -554,7 +551,7 @@ void P_HitSlideLine(line_t *ld)
 }
 
 // PTR_SlideTraverse
-boolean PTR_SlideTraverse(intercept_t *in)
+bool PTR_SlideTraverse(intercept_t *in)
 {
     line_t *li;
 
@@ -721,8 +718,7 @@ extern int32_t bottomslope;
 
 // PTR_AimTraverse
 // Sets linetaget and aimslope when a target is aimed at.
-boolean
-PTR_AimTraverse(intercept_t *in)
+bool PTR_AimTraverse(intercept_t *in)
 {
     line_t *li;
     mobj_t *th;
@@ -802,7 +798,7 @@ PTR_AimTraverse(intercept_t *in)
 }
 
 // PTR_ShootTraverse
-boolean PTR_ShootTraverse(intercept_t *in)
+bool PTR_ShootTraverse(intercept_t *in)
 {
     int32_t x;
     int32_t y;
@@ -982,7 +978,7 @@ void P_LineAttack(mobj_t *t1,
 // USE LINES
 mobj_t *usething;
 
-boolean PTR_UseTraverse(intercept_t *in)
+bool PTR_UseTraverse(intercept_t *in)
 {
     int side;
 
@@ -1042,7 +1038,7 @@ int bombdamage;
 // PIT_RadiusAttack
 // "bombsource" is the creature
 // that caused the explosion at "bombspot".
-boolean PIT_RadiusAttack(mobj_t *thing)
+bool PIT_RadiusAttack(mobj_t *thing)
 {
     int32_t dx;
     int32_t dy;
@@ -1117,11 +1113,11 @@ void P_RadiusAttack(mobj_t *spot,
 // If Crunch is false, you should set the sector height back
 //  the way it was and call P_ChangeSector again
 //  to undo the changes.
-boolean crushchange;
-boolean nofit;
+bool crushchange;
+bool nofit;
 
 // PIT_ChangeSector
-boolean PIT_ChangeSector(mobj_t *thing)
+bool PIT_ChangeSector(mobj_t *thing)
 {
     mobj_t *mo;
 
@@ -1179,9 +1175,8 @@ boolean PIT_ChangeSector(mobj_t *thing)
 }
 
 // P_ChangeSector
-boolean
-P_ChangeSector(sector_t *sector,
-               boolean crunch)
+bool P_ChangeSector(sector_t *sector,
+                    bool crunch)
 {
     int x;
     int y;

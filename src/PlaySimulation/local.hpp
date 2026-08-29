@@ -20,7 +20,6 @@
 #include "Renderer/local.hpp"
 #endif
 
-
 #define FLOATSPEED (FRACUNIT * 4)
 
 #define MAXHEALTH 100
@@ -52,22 +51,22 @@
 // follow a player exlusively for 3 seconds
 #define BASETHRESHOLD 100
 
-        // P_TICK
-    
-    // both the head and tail of the thinker list
-    extern thinker_t thinkercap;
+// P_TICK
 
-    void P_InitThinkers(void);
-    void P_AddThinker(thinker_t *thinker);
-    void P_RemoveThinker(thinker_t *thinker);
+// both the head and tail of the thinker list
+extern thinker_t thinkercap;
 
-        // P_PSPR
-        void P_SetupPsprites(player_t *curplayer);
-    void P_MovePsprites(player_t *curplayer);
-    void P_DropWeapon(player_t *player);
+void P_InitThinkers(void);
+void P_AddThinker(thinker_t *thinker);
+void P_RemoveThinker(thinker_t *thinker);
 
-        // P_USER
-        void P_PlayerThink(player_t *player);
+// P_PSPR
+void P_SetupPsprites(player_t *curplayer);
+void P_MovePsprites(player_t *curplayer);
+void P_DropWeapon(player_t *player);
+
+// P_USER
+void P_PlayerThink(player_t *player);
 
 // P_MOBJ
 #define ONFLOORZ MININT
@@ -76,157 +75,155 @@
 // Time interval for item respawning.
 #define ITEMQUESIZE 128
 
-    extern mapthing_t itemrespawnque[ITEMQUESIZE];
-    extern int itemrespawntime[ITEMQUESIZE];
-    extern int iquehead;
-    extern int iquetail;
+extern mapthing_t itemrespawnque[ITEMQUESIZE];
+extern int itemrespawntime[ITEMQUESIZE];
+extern int iquehead;
+extern int iquetail;
 
-    void P_RespawnSpecials(void);
+void P_RespawnSpecials(void);
 
-    mobj_t *
-    P_SpawnMobj(int32_t x,
-                int32_t y,
-                int32_t z,
-                mobjtype_t type);
+mobj_t *
+P_SpawnMobj(int32_t x,
+            int32_t y,
+            int32_t z,
+            mobjtype_t type);
 
-    void P_RemoveMobj(mobj_t *th);
-    boolean P_SetMobjState(mobj_t *mobj, statenum_t state);
-    void P_MobjThinker(mobj_t *mobj);
+void P_RemoveMobj(mobj_t *th);
+bool P_SetMobjState(mobj_t *mobj, statenum_t state);
+void P_MobjThinker(mobj_t *mobj);
 
-    void P_SpawnPuff(int32_t x, int32_t y, int32_t z);
-    void P_SpawnBlood(int32_t x, int32_t y, int32_t z, int damage);
-    mobj_t *P_SpawnMissile(mobj_t *source, mobj_t *dest, mobjtype_t type);
-    void P_SpawnPlayerMissile(mobj_t *source, mobjtype_t type);
+void P_SpawnPuff(int32_t x, int32_t y, int32_t z);
+void P_SpawnBlood(int32_t x, int32_t y, int32_t z, int damage);
+mobj_t *P_SpawnMissile(mobj_t *source, mobj_t *dest, mobjtype_t type);
+void P_SpawnPlayerMissile(mobj_t *source, mobjtype_t type);
 
-        // P_ENEMY
-        void P_NoiseAlert(mobj_t *target, mobj_t *emmiter);
+// P_ENEMY
+void P_NoiseAlert(mobj_t *target, mobj_t *emmiter);
 
-        // P_MAPUTL
-        typedef struct
+// P_MAPUTL
+typedef struct
+{
+    int32_t x;
+    int32_t y;
+    int32_t dx;
+    int32_t dy;
+
+} divline_t;
+
+typedef struct
+{
+    int32_t frac; // along trace line
+    bool isaline;
+    union
     {
-        int32_t x;
-        int32_t y;
-        int32_t dx;
-        int32_t dy;
-
-    } divline_t;
-
-    typedef struct
-    {
-        int32_t frac; // along trace line
-        boolean isaline;
-        union
-        {
-            mobj_t *thing;
-            line_t *line;
-        } d;
-    } intercept_t;
+        mobj_t *thing;
+        line_t *line;
+    } d;
+} intercept_t;
 
 #define MAXINTERCEPTS 128
 
-    extern intercept_t intercepts[MAXINTERCEPTS];
-    extern intercept_t *intercept_p;
+extern intercept_t intercepts[MAXINTERCEPTS];
+extern intercept_t *intercept_p;
 
-    typedef boolean (*traverser_t)(intercept_t *in);
+typedef bool (*traverser_t)(intercept_t *in);
 
-    int32_t P_AproxDistance(int32_t dx, int32_t dy);
-    int P_PointOnLineSide(int32_t x, int32_t y, line_t *line);
-    int P_PointOnDivlineSide(int32_t x, int32_t y, divline_t *line);
-    void P_MakeDivline(line_t *li, divline_t *dl);
-    int32_t P_InterceptVector(divline_t *v2, divline_t *v1);
-    int P_BoxOnLineSide(int32_t *tmbox, line_t *ld);
+int32_t P_AproxDistance(int32_t dx, int32_t dy);
+int P_PointOnLineSide(int32_t x, int32_t y, line_t *line);
+int P_PointOnDivlineSide(int32_t x, int32_t y, divline_t *line);
+void P_MakeDivline(line_t *li, divline_t *dl);
+int32_t P_InterceptVector(divline_t *v2, divline_t *v1);
+int P_BoxOnLineSide(int32_t *tmbox, line_t *ld);
 
-    extern int32_t opentop;
-    extern int32_t openbottom;
-    extern int32_t openrange;
-    extern int32_t lowfloor;
+extern int32_t opentop;
+extern int32_t openbottom;
+extern int32_t openrange;
+extern int32_t lowfloor;
 
-    void P_LineOpening(line_t *linedef);
+void P_LineOpening(line_t *linedef);
 
-    boolean P_BlockLinesIterator(int x, int y, boolean (*func)(line_t *));
-    boolean P_BlockThingsIterator(int x, int y, boolean (*func)(mobj_t *));
+bool P_BlockLinesIterator(int x, int y, bool (*func)(line_t *));
+bool P_BlockThingsIterator(int x, int y, bool (*func)(mobj_t *));
 
 #define PT_ADDLINES 1
 #define PT_ADDTHINGS 2
 #define PT_EARLYOUT 4
 
-    extern divline_t trace;
+extern divline_t trace;
 
-    boolean
-    P_PathTraverse(int32_t x1,
-                   int32_t y1,
-                   int32_t x2,
-                   int32_t y2,
-                   int flags,
-                   boolean (*trav)(intercept_t *));
+bool P_PathTraverse(int32_t x1,
+                    int32_t y1,
+                    int32_t x2,
+                    int32_t y2,
+                    int flags,
+                    bool (*trav)(intercept_t *));
 
-    void P_UnsetThingPosition(mobj_t *thing);
-    void P_SetThingPosition(mobj_t *thing);
+void P_UnsetThingPosition(mobj_t *thing);
+void P_SetThingPosition(mobj_t *thing);
 
-        // P_MAP
-    
-    // If "floatok" true, move would be ok
-    // if within "tmfloorz - tmceilingz".
-    extern boolean floatok;
-    extern int32_t tmfloorz;
-    extern int32_t tmceilingz;
-    extern line_t *spechit[];
-    extern int numspechit;
-    extern int32_t attackrange;
+// P_MAP
 
-    extern line_t *ceilingline;
+// If "floatok" true, move would be ok
+// if within "tmfloorz - tmceilingz".
+extern bool floatok;
+extern int32_t tmfloorz;
+extern int32_t tmceilingz;
+extern line_t *spechit[];
+extern int numspechit;
+extern int32_t attackrange;
 
-    boolean P_CheckPosition(mobj_t *thing, int32_t x, int32_t y);
-    boolean P_TryMove(mobj_t *thing, int32_t x, int32_t y);
-    boolean P_TeleportMove(mobj_t *thing, int32_t x, int32_t y);
-    void P_SlideMove(mobj_t *mo);
-    boolean P_CheckSight(mobj_t *t1, mobj_t *t2);
-    void P_UseLines(player_t *player);
+extern line_t *ceilingline;
 
-    boolean P_ChangeSector(sector_t *sector, boolean crunch);
+bool P_CheckPosition(mobj_t *thing, int32_t x, int32_t y);
+bool P_TryMove(mobj_t *thing, int32_t x, int32_t y);
+bool P_TeleportMove(mobj_t *thing, int32_t x, int32_t y);
+void P_SlideMove(mobj_t *mo);
+bool P_CheckSight(mobj_t *t1, mobj_t *t2);
+void P_UseLines(player_t *player);
 
-    extern mobj_t *linetarget; // who got hit (or NULL)
+bool P_ChangeSector(sector_t *sector, bool crunch);
 
-    int32_t
-    P_AimLineAttack(mobj_t *t1,
-                    angle_t angle,
-                    int32_t distance);
+extern mobj_t *linetarget; // who got hit (or NULL)
 
-    void P_LineAttack(mobj_t *t1,
-                      angle_t angle,
-                      int32_t distance,
-                      int32_t slope,
-                      int damage);
+int32_t
+P_AimLineAttack(mobj_t *t1,
+                angle_t angle,
+                int32_t distance);
 
-    void P_RadiusAttack(mobj_t *spot,
-                        mobj_t *source,
-                        int damage);
+void P_LineAttack(mobj_t *t1,
+                  angle_t angle,
+                  int32_t distance,
+                  int32_t slope,
+                  int damage);
 
-        // P_SETUP
-        extern byte *rejectmatrix;  // for fast sight rejection
-    extern short *blockmaplump; // offsets in blockmap are from here
-    extern short *blockmap;
-    extern int bmapwidth;
-    extern int bmapheight; // in mapblocks
-    extern int32_t bmaporgx;
-    extern int32_t bmaporgy;    // origin of block map
-    extern mobj_t **blocklinks; // for thing chains
+void P_RadiusAttack(mobj_t *spot,
+                    mobj_t *source,
+                    int damage);
 
-        // P_INTER
-        extern int maxammo[NUMAMMO];
-    extern int clipammo[NUMAMMO];
+// P_SETUP
+extern byte *rejectmatrix;  // for fast sight rejection
+extern short *blockmaplump; // offsets in blockmap are from here
+extern short *blockmap;
+extern int bmapwidth;
+extern int bmapheight; // in mapblocks
+extern int32_t bmaporgx;
+extern int32_t bmaporgy;    // origin of block map
+extern mobj_t **blocklinks; // for thing chains
 
-    void P_TouchSpecialThing(mobj_t *special,
-                             mobj_t *toucher);
+// P_INTER
+extern int maxammo[NUMAMMO];
+extern int clipammo[NUMAMMO];
 
-    void P_DamageMobj(mobj_t *target,
-                      mobj_t *inflictor,
-                      mobj_t *source,
-                      int damage);
+void P_TouchSpecialThing(mobj_t *special,
+                         mobj_t *toucher);
+
+void P_DamageMobj(mobj_t *target,
+                  mobj_t *inflictor,
+                  mobj_t *source,
+                  int damage);
 
 // P_SPEC
 #include "PlaySimulation/spec.hpp"
-
 
 #endif // __P_LOCAL__
 //-----------------------------------------------------------------------------

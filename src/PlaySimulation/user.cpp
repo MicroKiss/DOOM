@@ -20,7 +20,7 @@
 // 16 pixels of bob
 #define MAXBOB 0x100000
 
-boolean onground;
+bool onground;
 
 // P_Thrust
 // Moves the given origin along a given angle.

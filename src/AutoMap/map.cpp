@@ -21,11 +21,11 @@
 #include "Wad/wad.hpp"
 #include "SystemInterface/system.hpp"
 
-	// State.
+// State.
 #include "doomstat.hpp"
 #include "Renderer/state.hpp"
 
-	// Data.
+// Data.
 #include "dstrings.hpp"
 
 #include "ZoneMemory/zone.hpp"
@@ -195,7 +195,7 @@ static int grid = 0;
 
 static int leveljuststarted = 1; // kluge until AM_LevelInit() is called
 
-boolean automapactive = false;
+bool automapactive = false;
 static int finit_width = SCREENWIDTH;
 static int finit_height = SCREENHEIGHT - 32;
 
@@ -261,9 +261,9 @@ static int followplayer = 1; // specifies whether to follow the player around
 static unsigned char cheat_amap_seq[] = {0xb2, 0x26, 0x26, 0x2e, 0xff};
 static cheatseq_t cheat_amap = {cheat_amap_seq, 0};
 
-static boolean stopped = true;
+static bool stopped = true;
 
-extern boolean viewactive;
+extern bool viewactive;
 // extern byte screens[][SCREENWIDTH*SCREENHEIGHT];
 
 void V_MarkRect(int x,
@@ -537,8 +537,7 @@ void AM_maxOutWindowScale(void)
 }
 
 // Handle events (user inputs) in automap mode
-boolean
-AM_Responder(event_t *ev)
+bool AM_Responder(event_t *ev)
 {
 
 	int rc;
@@ -758,9 +757,8 @@ void AM_clearFB(int color)
 // Based on Cohen-Sutherland clipping algorithm but with a slightly
 // faster reject and precalculated slopes.  If the speed is needed,
 // use a hash algorithm to handle  the common cases.
-boolean
-AM_clipMline(mline_t *ml,
-			 fline_t *fl)
+bool AM_clipMline(mline_t *ml,
+				  fline_t *fl)
 {
 	enum
 	{

@@ -230,10 +230,9 @@ void P_ChangeSwitchTexture(line_t *line,
 // P_UseSpecialLine
 // Called when a thing uses a special line.
 // Only the front sides of lines are usable.
-boolean
-P_UseSpecialLine(mobj_t *thing,
-				 line_t *line,
-				 int side)
+bool P_UseSpecialLine(mobj_t *thing,
+					  line_t *line,
+					  int side)
 {
 
 	// Err...

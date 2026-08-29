@@ -13,7 +13,7 @@
 
 int TimerTest()
 {
-    boolean passed;
+    bool passed;
     I_Init();
     passed = I_RunTimerTest();
     I_Shutdown();

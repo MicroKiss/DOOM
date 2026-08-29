@@ -85,7 +85,7 @@ int snd_SfxVolume = 15;
 int snd_MusicVolume = 15;
 
 // whether songs are mus_paused
-static boolean mus_paused;
+static bool mus_paused;
 
 // music currently being played
 static musicinfo_t *mus_playing = 0;
@@ -291,10 +291,10 @@ void S_StartSoundAtVolume(void *origin_p,
     if (cnum < 0)
         return;
 
-        // This is supposed to handle the loading/caching.
+    // This is supposed to handle the loading/caching.
     // For some odd reason, the caching is done nearly
     //  each time the sound is needed?
-    
+
     // get lumpnum if necessary
     if (sfx->lumpnum < 0)
         sfx->lumpnum = I_GetSfxLumpNum(sfx);

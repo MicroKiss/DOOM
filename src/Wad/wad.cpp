@@ -60,7 +60,7 @@ void W_Strupr(char *s)
     }
 }
 
-static boolean W_HasWadExtension(const char *filename)
+static bool W_HasWadExtension(const char *filename)
 {
     const char *extension = strrchr(filename, '.');
 
@@ -140,7 +140,7 @@ void ExtractFileBase(char *path,
 int reloadlump;
 char *reloadname;
 
-static void W_AddFile(char *filename, boolean require_iwad)
+static void W_AddFile(char *filename, bool require_iwad)
 {
     wadinfo_t header;
     lumpinfo_t *lump_p;
@@ -152,8 +152,8 @@ static void W_AddFile(char *filename, boolean require_iwad)
     filelump_t singleinfo;
     int storehandle;
     int filelength;
-    boolean directory_allocated = false;
-    boolean is_wad;
+    bool directory_allocated = false;
+    bool is_wad;
 
     // open the file and add to directory
 
@@ -326,7 +326,7 @@ void W_Reload(void)
 void W_InitMultipleFiles(char **filenames)
 {
     int size;
-    boolean first_file = true;
+    bool first_file = true;
 
     // open all the files, load headers, and count lumps
     numlumps = 0;

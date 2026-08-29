@@ -22,11 +22,11 @@ result_e
 T_MovePlane(sector_t *sector,
 			int32_t speed,
 			int32_t dest,
-			boolean crush,
+			bool crush,
 			int floorOrCeiling,
 			int direction)
 {
-	boolean flag;
+	bool flag;
 	int32_t lastpos;
 
 	switch (floorOrCeiling)

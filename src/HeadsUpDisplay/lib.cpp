@@ -13,10 +13,10 @@
 #include "Renderer/local.hpp"
 #include "Renderer/draw.hpp"
 
-// boolean : whether the screen is always erased
+// bool : whether the screen is always erased
 #define noterased viewwindowx
 
-extern boolean automapactive; // in AM_map.c
+extern bool automapactive; // in AM_map.c
 
 void HUlib_init(void)
 {
@@ -42,9 +42,8 @@ void HUlib_initTextLine(hu_textline_t *t,
     HUlib_clearTextLine(t);
 }
 
-boolean
-HUlib_addCharToTextLine(hu_textline_t *t,
-                        char ch)
+bool HUlib_addCharToTextLine(hu_textline_t *t,
+                             char ch)
 {
 
     if (t->len == HU_MAXLINELENGTH)
@@ -58,7 +57,7 @@ HUlib_addCharToTextLine(hu_textline_t *t,
     }
 }
 
-boolean HUlib_delCharFromTextLine(hu_textline_t *t)
+bool HUlib_delCharFromTextLine(hu_textline_t *t)
 {
 
     if (!t->len)
@@ -72,7 +71,7 @@ boolean HUlib_delCharFromTextLine(hu_textline_t *t)
 }
 
 void HUlib_drawTextLine(hu_textline_t *l,
-                        boolean drawcursor)
+                        bool drawcursor)
 {
 
     int i;
@@ -114,7 +113,7 @@ void HUlib_eraseTextLine(hu_textline_t *l)
     int lh;
     int y;
     int yoffset;
-    static boolean lastautomapactive = true;
+    static bool lastautomapactive = true;
 
     // Only erases when NOT in automap and the screen is reduced,
     // and the text must either need updating or refreshing
@@ -148,7 +147,7 @@ void HUlib_initSText(hu_stext_t *s,
                      int h,
                      patch_t **font,
                      int startchar,
-                     boolean *on)
+                     bool *on)
 {
 
     int i;
@@ -232,7 +231,7 @@ void HUlib_initIText(hu_itext_t *it,
                      int y,
                      patch_t **font,
                      int startchar,
-                     boolean *on)
+                     bool *on)
 {
     it->lm = 0; // default left margin is start of text
     it->on = on;
@@ -270,9 +269,8 @@ void HUlib_addPrefixToIText(hu_itext_t *it,
 
 // wrapper function for handling general keyed input.
 // returns true if it ate the key
-boolean
-HUlib_keyInIText(hu_itext_t *it,
-                 unsigned char ch)
+bool HUlib_keyInIText(hu_itext_t *it,
+                      unsigned char ch)
 {
 
     if (ch >= ' ' && ch <= '_')

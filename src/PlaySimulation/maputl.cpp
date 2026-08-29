@@ -386,10 +386,9 @@ void P_SetThingPosition(mobj_t *thing)
 // so increment validcount before the first call
 // to P_BlockLinesIterator, then make one or more calls
 // to it.
-boolean
-P_BlockLinesIterator(int x,
-                     int y,
-                     boolean (*func)(line_t *))
+bool P_BlockLinesIterator(int x,
+                          int y,
+                          bool (*func)(line_t *))
 {
     int offset;
     short *list;
@@ -420,10 +419,9 @@ P_BlockLinesIterator(int x,
 }
 
 // P_BlockThingsIterator
-boolean
-P_BlockThingsIterator(int x,
-                      int y,
-                      boolean (*func)(mobj_t *))
+bool P_BlockThingsIterator(int x,
+                           int y,
+                           bool (*func)(mobj_t *))
 {
     mobj_t *mobj;
 
@@ -447,7 +445,7 @@ intercept_t intercepts[MAXINTERCEPTS];
 intercept_t *intercept_p;
 
 divline_t trace;
-boolean earlyout;
+bool earlyout;
 int ptflags;
 
 // PIT_AddLineIntercepts.
@@ -457,8 +455,7 @@ int ptflags;
 // A line is crossed if its endpoints
 // are on opposite sides of the trace.
 // Returns true if earlyout and a solid line hit.
-boolean
-PIT_AddLineIntercepts(line_t *ld)
+bool PIT_AddLineIntercepts(line_t *ld)
 {
     int s1;
     int s2;
@@ -502,7 +499,7 @@ PIT_AddLineIntercepts(line_t *ld)
 }
 
 // PIT_AddThingIntercepts
-boolean PIT_AddThingIntercepts(mobj_t *thing)
+bool PIT_AddThingIntercepts(mobj_t *thing)
 {
     int32_t x1;
     int32_t y1;
@@ -512,7 +509,7 @@ boolean PIT_AddThingIntercepts(mobj_t *thing)
     int s1;
     int s2;
 
-    boolean tracepositive;
+    bool tracepositive;
 
     divline_t dl;
 
@@ -565,9 +562,8 @@ boolean PIT_AddThingIntercepts(mobj_t *thing)
 // P_TraverseIntercepts
 // Returns true if the traverser function returns true
 // for all lines.
-boolean
-P_TraverseIntercepts(traverser_t func,
-                     int32_t maxfrac)
+bool P_TraverseIntercepts(traverser_t func,
+                          int32_t maxfrac)
 {
     int count;
     int32_t dist;
@@ -619,13 +615,12 @@ P_TraverseIntercepts(traverser_t func,
 // calling the traverser function for each.
 // Returns true if the traverser function returns true
 // for all lines.
-boolean
-P_PathTraverse(int32_t x1,
-               int32_t y1,
-               int32_t x2,
-               int32_t y2,
-               int flags,
-               boolean (*trav)(intercept_t *))
+bool P_PathTraverse(int32_t x1,
+                    int32_t y1,
+                    int32_t x2,
+                    int32_t y2,
+                    int flags,
+                    bool (*trav)(intercept_t *))
 {
     int32_t xt1;
     int32_t yt1;

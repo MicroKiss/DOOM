@@ -51,7 +51,7 @@ int X_width;
 int X_height;
 
 // MIT SHared Memory extension.
-boolean doShm;
+bool doShm;
 
 XShmSegmentInfo X_shminfo;
 int X_shmeventtype;
@@ -59,7 +59,7 @@ int X_shmeventtype;
 // Fake mouse handling.
 // This cannot work properly w/o DGA.
 // Needs an invisible mouse cursor at least.
-boolean grabMouse;
+bool grabMouse;
 int doPointerWarp = POINTER_WARP_COUNTDOWN;
 
 // Blocky mode,
@@ -204,8 +204,8 @@ void I_StartFrame(void)
 
 static int lastmousex = 0;
 static int lastmousey = 0;
-boolean mousemoved = false;
-boolean shmFinished;
+bool mousemoved = false;
+bool shmFinished;
 
 void I_GetEvent(void)
 {
@@ -515,7 +515,7 @@ void UploadNewPalette(Colormap cmap, byte *palette)
 
 	register int i;
 	register int c;
-	static boolean firstcall = true;
+	static bool firstcall = true;
 
 	if (X_visualinfo.c_class == PseudoColor && X_visualinfo.depth == 8)
 	{

@@ -15,7 +15,6 @@
 #ifndef __HULIB__
 #define __HULIB__
 
-
 // We are referring to patches.
 #include "Renderer/defs.hpp"
 
@@ -58,9 +57,9 @@ typedef struct
     int h;                        // height in lines
     int cl;                       // current line number
 
-    // pointer to boolean stating whether to update window
-    boolean *on;
-    boolean laston; // last value of *->on.
+    // pointer to bool stating whether to update window
+    bool *on;
+    bool laston; // last value of *->on.
 
 } hu_stext_t;
 
@@ -73,9 +72,9 @@ typedef struct
     // left margin past which I am not to delete characters
     int lm;
 
-    // pointer to boolean stating whether to update window
-    boolean *on;
-    boolean laston; // last value of *->on;
+    // pointer to bool stating whether to update window
+    bool *on;
+    bool laston; // last value of *->on;
 
 } hu_itext_t;
 
@@ -92,13 +91,13 @@ void HUlib_clearTextLine(hu_textline_t *t);
 void HUlib_initTextLine(hu_textline_t *t, int x, int y, patch_t **f, int sc);
 
 // returns success
-boolean HUlib_addCharToTextLine(hu_textline_t *t, char ch);
+bool HUlib_addCharToTextLine(hu_textline_t *t, char ch);
 
 // returns success
-boolean HUlib_delCharFromTextLine(hu_textline_t *t);
+bool HUlib_delCharFromTextLine(hu_textline_t *t);
 
 // draws tline
-void HUlib_drawTextLine(hu_textline_t *l, boolean drawcursor);
+void HUlib_drawTextLine(hu_textline_t *l, bool drawcursor);
 
 // erases text line
 void HUlib_eraseTextLine(hu_textline_t *l);
@@ -112,7 +111,7 @@ void HUlib_initSText(hu_stext_t *s,
                      int h,
                      patch_t **font,
                      int startchar,
-                     boolean *on);
+                     bool *on);
 
 // add a new line
 void HUlib_addLineToSText(hu_stext_t *s);
@@ -134,7 +133,7 @@ void HUlib_initIText(hu_itext_t *it,
                      int y,
                      patch_t **font,
                      int startchar,
-                     boolean *on);
+                     bool *on);
 
 // enforces left margin
 void HUlib_delCharFromIText(hu_itext_t *it);
@@ -150,15 +149,13 @@ void HUlib_addPrefixToIText(hu_itext_t *it,
                             char *str);
 
 // whether eaten
-boolean
-HUlib_keyInIText(hu_itext_t *it,
-                 unsigned char ch);
+bool HUlib_keyInIText(hu_itext_t *it,
+                      unsigned char ch);
 
 void HUlib_drawIText(hu_itext_t *it);
 
 // erases all itext lines
 void HUlib_eraseIText(hu_itext_t *it);
-
 
 #endif
 //-----------------------------------------------------------------------------

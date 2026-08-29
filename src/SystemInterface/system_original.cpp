@@ -115,7 +115,7 @@ byte *I_AllocLow(int length)
 }
 
 // I_Error
-extern boolean demorecording;
+extern bool demorecording;
 
 void I_Error(char *error, ...)
 {

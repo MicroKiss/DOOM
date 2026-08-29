@@ -15,8 +15,8 @@
 
 int mb_used = sizeof(void *) == 8 ? 32 : 6;
 
-static boolean sdl_initialized;
-static boolean shutdown_started;
+static bool sdl_initialized;
+static bool shutdown_started;
 
 void I_Shutdown(void)
 {
@@ -68,7 +68,7 @@ int I_GetTime(void)
 {
     static Uint64 basetime;
     static Uint64 frequency;
-    static boolean initialized;
+    static bool initialized;
     Uint64 now = SDL_GetPerformanceCounter();
 
     if (!initialized)
@@ -120,7 +120,7 @@ void I_Quit(void)
 }
 
 #ifdef DOOM_DEBUG
-boolean I_RunTimerTest(void)
+bool I_RunTimerTest(void)
 {
     Uint64 frequency = SDL_GetPerformanceFrequency();
     Uint64 start_counter = SDL_GetPerformanceCounter();
@@ -128,7 +128,7 @@ boolean I_RunTimerTest(void)
     int start_tic = I_GetTime();
     int previous_tic = start_tic;
     int end_tic;
-    boolean monotonic = true;
+    bool monotonic = true;
     double elapsed_seconds;
     double measured_rate;
 

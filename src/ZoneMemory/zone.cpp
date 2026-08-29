@@ -328,7 +328,7 @@ void Z_FileDumpHeap(FILE *f)
 void Z_CheckHeap(void)
 {
     memblock_t *block;
-    boolean rover_found = false;
+    bool rover_found = false;
 
     for (block = mainzone->blocklist.next;; block = block->next)
     {

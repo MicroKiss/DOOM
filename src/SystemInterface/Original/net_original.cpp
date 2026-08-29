@@ -41,7 +41,7 @@
 #define htons(x) ntohs(x)
 
 void NetSend(void);
-boolean NetListen(void);
+bool NetListen(void);
 
 // NETWORKING
 
@@ -194,7 +194,7 @@ int GetLocalAddress(void)
 // I_InitNetwork
 void I_InitNetwork(void)
 {
-    boolean trueval = true;
+    bool trueval = true;
     int i;
     int p;
     struct hostent *hostentry; // host information entry

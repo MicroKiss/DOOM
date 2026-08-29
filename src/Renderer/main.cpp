@@ -230,7 +230,6 @@ int R_PointOnSegSide(int32_t x,
 //  tangent (slope) value which is looked up in the
 //  tantoangle[] table.
 
-
 angle_t
 R_PointToAngle(int32_t x,
                int32_t y)
@@ -470,7 +469,7 @@ void R_InitTextureMapping(void)
     // Use tangent table to generate viewangletox:
     //  viewangletox will give the next greatest x
     //  after the view angle.
-        // Calc focallength
+    // Calc focallength
     //  so FIELDOFVIEW angles covers SCREENWIDTH.
     focallength = FixedDiv(centerxfrac,
                            finetangent[FINEANGLES / 4 + FIELDOFVIEW / 2]);
@@ -559,7 +558,7 @@ void R_InitLightTables(void)
 // Do not really change anything here,
 //  because it might be in the middle of a refresh.
 // The change will take effect next refresh.
-boolean setsizeneeded;
+bool setsizeneeded;
 int setblocks;
 int setdetail;
 

@@ -309,7 +309,7 @@ int checkcoord[12][4] =
         {2, 1, 3, 1},
         {2, 1, 3, 0}};
 
-boolean R_CheckBBox(int32_t *bspcoord)
+bool R_CheckBBox(int32_t *bspcoord)
 {
     int boxx;
     int boxy;
