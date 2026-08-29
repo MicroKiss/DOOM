@@ -26,7 +26,7 @@
 
 
 // Needed for action function pointer handling.
-#include "d_think.hpp"
+#include "Doom/think.hpp"
 
 typedef enum
 {

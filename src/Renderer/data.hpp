@@ -14,45 +14,41 @@
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
 //
-//
-// $Log:$
-//
 // DESCRIPTION:
-//	DOOM strings, by language.
+//  Refresh module, data I/O, caching, retrieval of graphics
+//  by name.
 //
 //-----------------------------------------------------------------------------
 
-#ifndef __DSTRINGS__
-#define __DSTRINGS__
+#ifndef __R_DATA__
+#define __R_DATA__
 
+#include "Renderer/defs.hpp"
+#include "Renderer/state.hpp"
 
-// All important printed strings.
-// Language selection (message strings).
-// Use -DFRENCH etc.
-
-#ifdef FRENCH
-#include "Doom/french.hpp"
-#else
-#include "Doom/englsh.hpp"
+#ifdef __GNUG__
+#pragma interface
 #endif
 
-// Misc. other strings.
-#define SAVEGAMENAME "doomsav"
 
-//
-// File locations,
-//  relative to current position.
-// Path names are OS-sensitive.
-//
-#define DEVMAPS "devmaps"
-#define DEVDATA "devdata"
+    // Retrieve column data for span blitting.
+    byte *
+    R_GetColumn(int tex,
+                int col);
 
-// Not done in french?
+    // I/O, setting up the stuff.
+    void R_InitData(void);
+    void R_PrecacheLevel(void);
 
-// QuitDOOM messages
-#define NUM_QUITMESSAGES 22
+    // Retrieval.
+    // Floor/ceiling opaque texture tiles,
+    // lookup by name. For animation?
+    int R_FlatNumForName(char *name);
 
-extern char *endmsg[];
+    // Called by P_Ticker for switches and animations,
+    // returns the texture number for the texture name.
+    int R_TextureNumForName(char *name);
+    int R_CheckTextureNumForName(char *name);
 
 
 #endif

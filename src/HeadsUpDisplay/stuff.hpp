@@ -14,45 +14,48 @@
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
 //
-//
-// $Log:$
-//
-// DESCRIPTION:
-//	DOOM strings, by language.
+// DESCRIPTION:  Head up display
 //
 //-----------------------------------------------------------------------------
 
-#ifndef __DSTRINGS__
-#define __DSTRINGS__
+#ifndef __HU_STUFF_H__
+#define __HU_STUFF_H__
 
 
-// All important printed strings.
-// Language selection (message strings).
-// Use -DFRENCH etc.
-
-#ifdef FRENCH
-#include "Doom/french.hpp"
-#else
-#include "Doom/englsh.hpp"
-#endif
-
-// Misc. other strings.
-#define SAVEGAMENAME "doomsav"
+#include "Doom/event.hpp"
 
 //
-// File locations,
-//  relative to current position.
-// Path names are OS-sensitive.
+// Globally visible constants.
 //
-#define DEVMAPS "devmaps"
-#define DEVDATA "devdata"
+#define HU_FONTSTART '!' // the first font characters
+#define HU_FONTEND '_'   // the last font characters
 
-// Not done in french?
+// Calculate # of glyphs in font.
+#define HU_FONTSIZE (HU_FONTEND - HU_FONTSTART + 1)
 
-// QuitDOOM messages
-#define NUM_QUITMESSAGES 22
+#define HU_BROADCAST 5
 
-extern char *endmsg[];
+#define HU_MSGREFRESH KEY_ENTER
+#define HU_MSGX 0
+#define HU_MSGY 0
+#define HU_MSGWIDTH 64 // in characters
+#define HU_MSGHEIGHT 1 // in lines
+
+#define HU_MSGTIMEOUT (4 * TICRATE)
+
+//
+// HEADS UP TEXT
+//
+
+void HU_Init(void);
+void HU_Start(void);
+
+boolean HU_Responder(event_t *ev);
+
+void HU_Ticker(void);
+void HU_Drawer(void);
+char HU_dequeueChatChar(void);
+void HU_Erase(void);
 
 
 #endif

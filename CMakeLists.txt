@@ -8,69 +8,69 @@ find_package(libADLMIDI CONFIG REQUIRED)
 set(DOOM_CPP_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 set(DOOM_CPP_SOURCES
-    ${DOOM_CPP_SOURCE_DIR}/AutoMap/am_map.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Doom/d_items.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Doom/d_main.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Doom/d_net.cpp
+    ${DOOM_CPP_SOURCE_DIR}/AutoMap/map.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Doom/items.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Doom/main.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Doom/net.cpp
     ${DOOM_CPP_SOURCE_DIR}/Doom/doomdef.cpp
     ${DOOM_CPP_SOURCE_DIR}/Doom/doomstat.cpp
     ${DOOM_CPP_SOURCE_DIR}/Doom/dstrings.cpp
     ${DOOM_CPP_SOURCE_DIR}/Doom/info.cpp
     ${DOOM_CPP_SOURCE_DIR}/Doom/tables.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Finale/f_finale.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Finale/f_wipe.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Game/g_game.cpp
-    ${DOOM_CPP_SOURCE_DIR}/HeadsUpDisplay/hu_lib.cpp
-    ${DOOM_CPP_SOURCE_DIR}/HeadsUpDisplay/hu_stuff.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Intermission/wi_stuff.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Renderer/r_bsp.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Renderer/r_data.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Renderer/r_draw.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Renderer/r_main.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Renderer/r_plane.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Renderer/r_segs.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Renderer/r_sky.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Renderer/r_things.cpp
-    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_main.cpp
-    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_main_test.cpp
-    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_net.cpp
-    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_sound.cpp
-    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_system.cpp
-    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_video.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Finale/finale.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Finale/wipe.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Game/game.cpp
+    ${DOOM_CPP_SOURCE_DIR}/HeadsUpDisplay/lib.cpp
+    ${DOOM_CPP_SOURCE_DIR}/HeadsUpDisplay/stuff.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Intermission/stuff.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Renderer/bsp.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Renderer/data.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Renderer/draw.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Renderer/main.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Renderer/plane.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Renderer/segs.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Renderer/sky.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Renderer/things.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/main.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/main_test.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/net.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/sound.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/system.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/video.cpp
     ${DOOM_CPP_SOURCE_DIR}/Sound/sounds.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Sound/s_sound.cpp
-    ${DOOM_CPP_SOURCE_DIR}/StatusBar/st_lib.cpp
-    ${DOOM_CPP_SOURCE_DIR}/StatusBar/st_stuff.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_ceilng.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_doors.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_enemy.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_floor.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_inter.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_lights.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_map.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_maputl.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_mobj.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_plats.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_pspr.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_saveg.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_setup.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_sight.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_spec.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_switch.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_telept.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_tick.cpp
-    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_user.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_swap.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_bbox.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_random.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_argv.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_cheat.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_fixed.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_menu.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_misc.cpp
-    ${DOOM_CPP_SOURCE_DIR}/ZoneMemory/z_zone.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Renderer/v_video.cpp
-    ${DOOM_CPP_SOURCE_DIR}/Wad/w_wad.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Sound/sound.cpp
+    ${DOOM_CPP_SOURCE_DIR}/StatusBar/lib.cpp
+    ${DOOM_CPP_SOURCE_DIR}/StatusBar/stuff.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/ceilng.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/doors.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/enemy.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/floor.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/inter.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/lights.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/map.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/maputl.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/mobj.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/plats.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/pspr.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/saveg.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/setup.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/sight.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/spec.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/switch.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/telept.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/tick.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/user.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/swap.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/bbox.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/random.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/argv.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/cheat.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/fixed.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/menu.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/misc.cpp
+    ${DOOM_CPP_SOURCE_DIR}/ZoneMemory/zone.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Renderer/video.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Wad/wad.cpp
 
 )
 

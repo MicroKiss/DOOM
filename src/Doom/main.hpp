@@ -14,50 +14,46 @@
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
 //
-//
 // $Log:$
 //
 // DESCRIPTION:
-//	DOOM strings, by language.
+//	System specific interface stuff.
 //
 //-----------------------------------------------------------------------------
 
-#ifndef __DSTRINGS__
-#define __DSTRINGS__
+#ifndef __D_MAIN__
+#define __D_MAIN__
 
+#include "Doom/event.hpp"
 
-// All important printed strings.
-// Language selection (message strings).
-// Use -DFRENCH etc.
-
-#ifdef FRENCH
-#include "Doom/french.hpp"
-#else
-#include "Doom/englsh.hpp"
+#ifdef __GNUG__
+#pragma interface
 #endif
 
-// Misc. other strings.
-#define SAVEGAMENAME "doomsav"
 
-//
-// File locations,
-//  relative to current position.
-// Path names are OS-sensitive.
-//
-#define DEVMAPS "devmaps"
-#define DEVDATA "devdata"
+#define MAXWADFILES 20
+    extern char *wadfiles[MAXWADFILES];
 
-// Not done in french?
+    void D_AddFile(char *file);
 
-// QuitDOOM messages
-#define NUM_QUITMESSAGES 22
+    //
+    // D_DoomMain()
+    // Not a globally visible function, just included for source reference,
+    // calls all startup code, parses command line options.
+    // If not overrided by user input, calls N_AdvanceDemo.
+    //
+    void D_DoomMain(void);
 
-extern char *endmsg[];
+    // Called by IO functions when input is detected.
+    void D_PostEvent(event_t *ev);
+
+    //
+    // BASE LEVEL
+    //
+    void D_PageTicker(void);
+    void D_PageDrawer(void);
+    void D_AdvanceDemo(void);
+    void D_StartTitle(void);
 
 
 #endif
-//-----------------------------------------------------------------------------
-//
-// $Log:$
-//
-//-----------------------------------------------------------------------------

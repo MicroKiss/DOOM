@@ -25,15 +25,15 @@
 
 // Data.
 #include "sounds.hpp"
-#include "m_fixed.hpp"
+#include "Miscellaneous/fixed.hpp"
 
 #ifdef __GNUG__
 #pragma implementation "info.hpp"
 #endif
 #include "info.hpp"
 
-#include "p_mobj.hpp"
-#include "d_player.hpp"
+#include "PlaySimulation/mobj.hpp"
+#include "Doom/player.hpp"
 
 char *sprnames[NUMSPRITES + 1] = {
 	"TROO", "SHTG", "PUNG", "PISG", "PISF", "SHTF", "SHT2", "CHGG", "CHGF", "MISG",

@@ -42,7 +42,7 @@
 #define PI 3.141592657
 #endif
 
-#include "m_fixed.hpp"
+#include "Miscellaneous/fixed.hpp"
 
 #define FINEANGLES 8192
 #define FINEMASK (FINEANGLES - 1)
