@@ -25,14 +25,17 @@
 static const char
     rcsid[] = "$Id: p_lights.c,v 1.5 1997/02/03 22:45:11 b1 Exp $";
 
+extern "C"
+{
 #include "z_zone.hpp"
 #include "m_random.hpp"
 
 #include "doomdef.h"
-#include "p_local.h"
+#include "p_local.hpp"
 
 // State.
 #include "r_state.h"
+}
 
 //
 // FIRELIGHT FLICKER
@@ -69,7 +72,7 @@ void P_SpawnFireFlicker(sector_t *sector)
     // Nothing special about it during gameplay.
     sector->special = 0;
 
-    flick = Z_Malloc(sizeof(*flick), PU_LEVSPEC, 0);
+    flick = static_cast<decltype(flick)>(Z_Malloc(sizeof(*flick), PU_LEVSPEC, 0));
 
     P_AddThinker(&flick->thinker);
 
@@ -117,7 +120,7 @@ void P_SpawnLightFlash(sector_t *sector)
     // nothing special about it during gameplay
     sector->special = 0;
 
-    flash = Z_Malloc(sizeof(*flash), PU_LEVSPEC, 0);
+    flash = static_cast<decltype(flash)>(Z_Malloc(sizeof(*flash), PU_LEVSPEC, 0));
 
     P_AddThinker(&flash->thinker);
 
@@ -166,7 +169,7 @@ void P_SpawnStrobeFlash(sector_t *sector,
 {
     strobe_t *flash;
 
-    flash = Z_Malloc(sizeof(*flash), PU_LEVSPEC, 0);
+    flash = static_cast<decltype(flash)>(Z_Malloc(sizeof(*flash), PU_LEVSPEC, 0));
 
     P_AddThinker(&flash->thinker);
 
@@ -315,7 +318,7 @@ void P_SpawnGlowingLight(sector_t *sector)
 {
     glow_t *g;
 
-    g = Z_Malloc(sizeof(*g), PU_LEVSPEC, 0);
+    g = static_cast<decltype(g)>(Z_Malloc(sizeof(*g), PU_LEVSPEC, 0));
 
     P_AddThinker(&g->thinker);
 

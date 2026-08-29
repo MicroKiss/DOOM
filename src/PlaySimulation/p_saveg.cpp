@@ -24,13 +24,17 @@
 static const char
 	rcsid[] = "$Id: p_tick.c,v 1.4 1997/02/03 16:47:55 b1 Exp $";
 
+extern "C"
+{
 #include "i_system.h"
 #include "z_zone.hpp"
-#include "p_local.h"
+#include "p_local.hpp"
+#include "p_saveg.hpp"
 
 // State.
 #include "doomstat.h"
 #include "r_state.h"
+}
 
 byte *save_p;
 
@@ -169,7 +173,7 @@ void P_UnArchivePlayers(void)
 		PADSAVEP();
 		player_t *player = &players[i];
 		SaveRead32();
-		player->playerstate = SaveRead32();
+		player->playerstate = static_cast<decltype(player->playerstate)>(SaveRead32());
 		player->cmd.forwardmove = SaveRead8();
 		player->cmd.sidemove = SaveRead8();
 		player->cmd.angleturn = SaveRead16();
@@ -190,8 +194,8 @@ void P_UnArchivePlayers(void)
 		player->backpack = SaveRead32();
 		for (j = 0; j < MAXPLAYERS; j++)
 			player->frags[j] = SaveRead32();
-		player->readyweapon = SaveRead32();
-		player->pendingweapon = SaveRead32();
+		player->readyweapon = static_cast<decltype(player->readyweapon)>(SaveRead32());
+		player->pendingweapon = static_cast<decltype(player->pendingweapon)>(SaveRead32());
 		for (j = 0; j < NUMWEAPONS; j++)
 			player->weaponowned[j] = SaveRead32();
 		for (j = 0; j < NUMAMMO; j++)
@@ -392,7 +396,7 @@ static void SaveReadMobj(mobj_t *mobj)
 	SaveRead32();
 	mobj->snext = mobj->sprev = NULL;
 	mobj->angle = SaveRead32();
-	mobj->sprite = SaveRead32();
+	mobj->sprite = static_cast<decltype(mobj->sprite)>(SaveRead32());
 	mobj->frame = SaveRead32();
 	SaveRead32();
 	SaveRead32();
@@ -407,7 +411,7 @@ static void SaveReadMobj(mobj_t *mobj)
 	mobj->momy = SaveRead32();
 	mobj->momz = SaveRead32();
 	mobj->validcount = SaveRead32();
-	mobj->type = SaveRead32();
+	mobj->type = static_cast<decltype(mobj->type)>(SaveRead32());
 	SaveRead32();
 	mobj->info = NULL;
 	mobj->tics = SaveRead32();
@@ -502,7 +506,7 @@ void P_UnArchiveThinkers(void)
 
 		case tc_mobj:
 			PADSAVEP();
-			mobj = Z_Malloc(sizeof(*mobj), PU_LEVEL, NULL);
+			mobj = static_cast<decltype(mobj)>(Z_Malloc(sizeof(*mobj), PU_LEVEL, NULL));
 			SaveReadMobj(mobj);
 			P_SetThingPosition(mobj);
 			mobj->info = &mobjinfo[mobj->type];
@@ -538,7 +542,7 @@ static void SaveWriteCeiling(const ceiling_t *value)
 static void SaveReadCeiling(ceiling_t *value)
 {
 	SaveReadThinker(&value->thinker);
-	value->type = SaveRead32();
+	value->type = static_cast<decltype(value->type)>(SaveRead32());
 	value->sector = &sectors[SaveRead32()];
 	value->bottomheight = SaveRead32();
 	value->topheight = SaveRead32();
@@ -564,7 +568,7 @@ static void SaveWriteDoor(const vldoor_t *value)
 static void SaveReadDoor(vldoor_t *value)
 {
 	SaveReadThinker(&value->thinker);
-	value->type = SaveRead32();
+	value->type = static_cast<decltype(value->type)>(SaveRead32());
 	value->sector = &sectors[SaveRead32()];
 	value->topheight = SaveRead32();
 	value->speed = SaveRead32();
@@ -589,7 +593,7 @@ static void SaveWriteFloor(const floormove_t *value)
 static void SaveReadFloor(floormove_t *value)
 {
 	SaveReadThinker(&value->thinker);
-	value->type = SaveRead32();
+	value->type = static_cast<decltype(value->type)>(SaveRead32());
 	value->crush = SaveRead32();
 	value->sector = &sectors[SaveRead32()];
 	value->direction = SaveRead32();
@@ -624,11 +628,11 @@ static void SaveReadPlat(plat_t *value)
 	value->high = SaveRead32();
 	value->wait = SaveRead32();
 	value->count = SaveRead32();
-	value->status = SaveRead32();
-	value->oldstatus = SaveRead32();
+	value->status = static_cast<decltype(value->status)>(SaveRead32());
+	value->oldstatus = static_cast<decltype(value->oldstatus)>(SaveRead32());
 	value->crush = SaveRead32();
 	value->tag = SaveRead32();
-	value->type = SaveRead32();
+	value->type = static_cast<decltype(value->type)>(SaveRead32());
 }
 
 static void SaveWriteFlash(const lightflash_t *value)
@@ -833,7 +837,7 @@ void P_UnArchiveSpecials(void)
 
 		case tc_ceiling:
 			PADSAVEP();
-			ceiling = Z_Malloc(sizeof(*ceiling), PU_LEVEL, NULL);
+			ceiling = static_cast<decltype(ceiling)>(Z_Malloc(sizeof(*ceiling), PU_LEVEL, NULL));
 			SaveReadCeiling(ceiling);
 			ceiling->sector->specialdata = ceiling;
 
@@ -846,7 +850,7 @@ void P_UnArchiveSpecials(void)
 
 		case tc_door:
 			PADSAVEP();
-			door = Z_Malloc(sizeof(*door), PU_LEVEL, NULL);
+			door = static_cast<decltype(door)>(Z_Malloc(sizeof(*door), PU_LEVEL, NULL));
 			SaveReadDoor(door);
 			door->sector->specialdata = door;
 			door->thinker.function.acp1 = (actionf_p1)T_VerticalDoor;
@@ -855,7 +859,7 @@ void P_UnArchiveSpecials(void)
 
 		case tc_floor:
 			PADSAVEP();
-			floor = Z_Malloc(sizeof(*floor), PU_LEVEL, NULL);
+			floor = static_cast<decltype(floor)>(Z_Malloc(sizeof(*floor), PU_LEVEL, NULL));
 			SaveReadFloor(floor);
 			floor->sector->specialdata = floor;
 			floor->thinker.function.acp1 = (actionf_p1)T_MoveFloor;
@@ -864,7 +868,7 @@ void P_UnArchiveSpecials(void)
 
 		case tc_plat:
 			PADSAVEP();
-			plat = Z_Malloc(sizeof(*plat), PU_LEVEL, NULL);
+			plat = static_cast<decltype(plat)>(Z_Malloc(sizeof(*plat), PU_LEVEL, NULL));
 			SaveReadPlat(plat);
 			plat->sector->specialdata = plat;
 
@@ -877,7 +881,7 @@ void P_UnArchiveSpecials(void)
 
 		case tc_flash:
 			PADSAVEP();
-			flash = Z_Malloc(sizeof(*flash), PU_LEVEL, NULL);
+			flash = static_cast<decltype(flash)>(Z_Malloc(sizeof(*flash), PU_LEVEL, NULL));
 			SaveReadFlash(flash);
 			flash->thinker.function.acp1 = (actionf_p1)T_LightFlash;
 			P_AddThinker(&flash->thinker);
@@ -885,7 +889,7 @@ void P_UnArchiveSpecials(void)
 
 		case tc_strobe:
 			PADSAVEP();
-			strobe = Z_Malloc(sizeof(*strobe), PU_LEVEL, NULL);
+			strobe = static_cast<decltype(strobe)>(Z_Malloc(sizeof(*strobe), PU_LEVEL, NULL));
 			SaveReadStrobe(strobe);
 			strobe->thinker.function.acp1 = (actionf_p1)T_StrobeFlash;
 			P_AddThinker(&strobe->thinker);
@@ -893,7 +897,7 @@ void P_UnArchiveSpecials(void)
 
 		case tc_glow:
 			PADSAVEP();
-			glow = Z_Malloc(sizeof(*glow), PU_LEVEL, NULL);
+			glow = static_cast<decltype(glow)>(Z_Malloc(sizeof(*glow), PU_LEVEL, NULL));
 			SaveReadGlow(glow);
 			glow->thinker.function.acp1 = (actionf_p1)T_Glow;
 			P_AddThinker(&glow->thinker);

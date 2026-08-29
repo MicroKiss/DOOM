@@ -537,9 +537,8 @@ W_CacheLumpNum(int lump,
 //
 // W_CacheLumpName
 //
-void *
-W_CacheLumpName(char *name,
-                int tag)
+void *W_CacheLumpName(char *name,
+                      int tag)
 {
     return W_CacheLumpNum(W_GetNumForName(name), tag);
 }

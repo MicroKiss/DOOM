@@ -27,15 +27,18 @@
 static const char
     rcsid[] = "$Id: p_maputl.c,v 1.5 1997/02/03 22:45:11 b1 Exp $";
 
+extern "C"
+{
 #include <stdlib.h>
 
 #include "m_bbox.hpp"
 
 #include "doomdef.h"
-#include "p_local.h"
+#include "p_local.hpp"
 
 // State.
 #include "r_state.h"
+}
 
 //
 // P_AproxDistance

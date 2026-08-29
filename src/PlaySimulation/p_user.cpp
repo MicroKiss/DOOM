@@ -26,12 +26,15 @@
 static const char
 	rcsid[] = "$Id: p_user.c,v 1.3 1997/01/28 22:08:29 b1 Exp $";
 
+extern "C"
+{
 #include "doomdef.h"
 #include "d_event.h"
 
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "doomstat.h"
+}
 
 // Index of the special effects (INVUL inverse) map.
 #define INVERSECOLORMAP 32
@@ -263,7 +266,7 @@ void P_PlayerThink(player_t *player)
 		// The actual changing of the weapon is done
 		//  when the weapon psprite can do it
 		//  (read: not in the middle of an attack).
-		newweapon = (cmd->buttons & BT_WEAPONMASK) >> BT_WEAPONSHIFT;
+		newweapon = static_cast<decltype(newweapon)>((cmd->buttons & BT_WEAPONMASK) >> BT_WEAPONSHIFT);
 
 		if (newweapon == wp_fist && player->weaponowned[wp_chainsaw] && !(player->readyweapon == wp_chainsaw && player->powers[pw_strength]))
 		{

@@ -42,10 +42,10 @@ static const char
 #include "st_lib.h"
 #include "r_local.hpp"
 
-#include "p_local.h"
-#include "p_inter.h"
+#include "p_local.hpp"
+#include "p_inter.hpp"
 
-#include "am_map.h"
+#include "am_map.hpp"
 #include "m_cheat.hpp"
 
 #include "s_sound.h"

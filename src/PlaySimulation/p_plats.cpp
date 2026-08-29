@@ -24,12 +24,14 @@
 static const char
 	rcsid[] = "$Id: p_plats.c,v 1.5 1997/02/03 22:45:12 b1 Exp $";
 
+extern "C"
+{
 #include "i_system.h"
 #include "z_zone.hpp"
 #include "m_random.hpp"
 
 #include "doomdef.h"
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "s_sound.h"
 
@@ -39,6 +41,7 @@ static const char
 
 // Data.
 #include "sounds.h"
+}
 
 plat_t *activeplats[MAXPLATS];
 
@@ -160,7 +163,7 @@ int EV_DoPlat(line_t *line,
 
 		// Find lowest & highest floors around sector
 		rtn = 1;
-		plat = Z_Malloc(sizeof(*plat), PU_LEVSPEC, 0);
+		plat = static_cast<decltype(plat)>(Z_Malloc(sizeof(*plat), PU_LEVSPEC, 0));
 		P_AddThinker(&plat->thinker);
 
 		plat->type = type;
@@ -233,7 +236,7 @@ int EV_DoPlat(line_t *line,
 				plat->high = sec->floorheight;
 
 			plat->wait = 35 * PLATWAIT;
-			plat->status = P_Random() & 1;
+			plat->status = static_cast<plat_e>(P_Random() & 1);
 
 			S_StartSound((mobj_t *)&sec->soundorg, sfx_pstart);
 			break;

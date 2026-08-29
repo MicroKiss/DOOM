@@ -25,6 +25,8 @@
 static const char
     rcsid[] = "$Id: p_map.c,v 1.5 1997/02/03 22:45:11 b1 Exp $";
 
+extern "C"
+{
 #include <stdlib.h>
 
 #include "m_bbox.hpp"
@@ -32,7 +34,7 @@ static const char
 #include "i_system.h"
 
 #include "doomdef.h"
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "s_sound.h"
 
@@ -41,6 +43,7 @@ static const char
 #include "r_state.h"
 // Data.
 #include "sounds.h"
+}
 
 int32_t tmbbox[4];
 mobj_t *tmthing;
@@ -268,7 +271,7 @@ boolean PIT_CheckThing(mobj_t *thing)
         tmthing->flags &= ~MF_SKULLFLY;
         tmthing->momx = tmthing->momy = tmthing->momz = 0;
 
-        P_SetMobjState(tmthing, tmthing->info->spawnstate);
+        P_SetMobjState(tmthing, static_cast<statenum_t>(tmthing->info->spawnstate));
 
         return false; // stop moving
     }

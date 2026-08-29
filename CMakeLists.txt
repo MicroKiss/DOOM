@@ -28,26 +28,6 @@ set(DOOM_PORTABLE_SOURCES
     d_net.c
     d_items.c
     g_game.c
-    am_map.c
-    p_ceilng.c
-    p_doors.c
-    p_enemy.c
-    p_floor.c
-    p_inter.c
-    p_lights.c
-    p_map.c
-    p_maputl.c
-    p_plats.c
-    p_pspr.c
-    p_setup.c
-    p_sight.c
-    p_spec.c
-    p_switch.c
-    p_mobj.c
-    p_telept.c
-    p_tick.c
-    p_saveg.c
-    p_user.c
     r_bsp.c
     r_data.c
     r_draw.c
@@ -71,6 +51,26 @@ set(DOOM_PORTABLE_SOURCES
 list(TRANSFORM DOOM_PORTABLE_SOURCES PREPEND "${DOOM_SOURCE_DIR}/")
 
 set(DOOM_CPP_SOURCES
+    ${DOOM_CPP_SOURCE_DIR}/AutoMap/am_map.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_ceilng.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_doors.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_enemy.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_floor.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_inter.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_lights.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_map.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_maputl.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_mobj.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_plats.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_pspr.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_saveg.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_setup.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_sight.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_spec.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_switch.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_telept.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_tick.cpp
+    ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_user.cpp
     ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_swap.cpp
     ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_bbox.cpp
     ${DOOM_CPP_SOURCE_DIR}/Miscellaneous/m_random.cpp
@@ -89,6 +89,8 @@ add_executable(doom ${DOOM_PORTABLE_SOURCES} ${DOOM_WINDOWS_SOURCES} ${DOOM_CPP_
 target_include_directories(doom PRIVATE
     "${DOOM_SOURCE_DIR}"
     "${DOOM_CPP_SOURCE_DIR}"
+    "${DOOM_CPP_SOURCE_DIR}/AutoMap"
+    "${DOOM_CPP_SOURCE_DIR}/PlaySimulation"
     "${DOOM_CPP_SOURCE_DIR}/Miscellaneous"
     "${DOOM_CPP_SOURCE_DIR}/ZoneMemory"
 )

@@ -37,23 +37,23 @@ static const char
 #include "m_random.hpp"
 #include "i_system.h"
 
-#include "p_setup.h"
-#include "p_saveg.h"
-#include "p_tick.h"
+#include "p_setup.hpp"
+#include "p_saveg.hpp"
+#include "p_tick.hpp"
 
 #include "d_main.h"
 
 #include "wi_stuff.h"
 #include "hu_stuff.h"
 #include "st_stuff.h"
-#include "am_map.h"
+#include "am_map.hpp"
 
 // Needs access to LFB.
 #include "v_video.hpp"
 
 #include "w_wad.h"
 
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "s_sound.h"
 

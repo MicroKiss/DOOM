@@ -25,26 +25,29 @@ static const char rcsid[] = "$Id: am_map.c,v 1.4 1997/02/03 21:24:33 b1 Exp $";
 
 #include <stdio.h>
 
-#include "z_zone.hpp"
+extern "C"
+{
 #include "doomdef.h"
 #include "st_stuff.h"
-#include "p_local.h"
+#include "p_local.hpp"
 #include "w_wad.h"
-
-#include "m_cheat.hpp"
 #include "i_system.h"
+
+	// State.
+#include "doomstat.h"
+#include "r_state.h"
+
+	// Data.
+#include "dstrings.h"
+}
+
+#include "z_zone.hpp"
+#include "m_cheat.hpp"
 
 // Needs access to LFB.
 #include "v_video.hpp"
 
-// State.
-#include "doomstat.h"
-#include "r_state.h"
-
-// Data.
-#include "dstrings.h"
-
-#include "am_map.h"
+#include "am_map.hpp"
 
 // For use if I do walls with outsides/insides
 #define REDS (256 - 5 * 16)
@@ -125,7 +128,7 @@ static const char rcsid[] = "$Id: am_map.c,v 1.4 1997/02/03 21:24:33 b1 Exp $";
 
 typedef struct
 {
-	int x, y;
+	int32_t x, y;
 } fpoint_t;
 
 typedef struct
@@ -489,7 +492,7 @@ void AM_loadPics(void)
 	for (i = 0; i < 10; i++)
 	{
 		sprintf(namebuf, "AMMNUM%d", i);
-		marknums[i] = W_CacheLumpName(namebuf, PU_STATIC);
+		marknums[i] = static_cast<patch_t *>(W_CacheLumpName(namebuf, PU_STATIC));
 	}
 }
 
@@ -536,7 +539,7 @@ void AM_LevelInit(void)
 //
 void AM_Stop(void)
 {
-	static event_t st_notify = {0, ev_keyup, AM_MSGEXITED};
+	static event_t st_notify = {ev_keydown, ev_keyup, AM_MSGEXITED};
 
 	AM_unloadPics();
 	automapactive = false;
@@ -767,7 +770,7 @@ void AM_doFollowPlayer(void)
 //
 void AM_updateLightLev(void)
 {
-	static nexttic = 0;
+	static int nexttic = 0;
 	// static int litelevels[] = { 0, 3, 5, 6, 6, 7, 7, 7 };
 	static int litelevels[] = {0, 4, 7, 10, 12, 14, 15, 15};
 	static int litelevelscnt = 0;
@@ -835,9 +838,9 @@ AM_clipMline(mline_t *ml,
 		TOP = 8
 	};
 
-	register outcode1 = 0;
-	register outcode2 = 0;
-	register outside;
+	int outcode1 = 0;
+	int outcode2 = 0;
+	int outside;
 
 	fpoint_t tmp;
 	int dx;
@@ -957,17 +960,17 @@ AM_clipMline(mline_t *ml,
 void AM_drawFline(fline_t *fl,
 				  int color)
 {
-	register int x;
-	register int y;
-	register int dx;
-	register int dy;
-	register int sx;
-	register int sy;
-	register int ax;
-	register int ay;
-	register int d;
+	int x;
+	int y;
+	int dx;
+	int dy;
+	int sx;
+	int sy;
+	int ax;
+	int ay;
+	int d;
 
-	static fuck = 0;
+	static int fuck = 0;
 
 	// For debugging only
 	if (fl->a.x < 0 || fl->a.x >= f_w || fl->a.y < 0 || fl->a.y >= f_h || fl->b.x < 0 || fl->b.x >= f_w || fl->b.y < 0 || fl->b.y >= f_h)

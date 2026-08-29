@@ -23,9 +23,11 @@
 static const char
 	rcsid[] = "$Id: p_doors.c,v 1.4 1997/02/03 16:47:53 b1 Exp $";
 
+extern "C"
+{
 #include "z_zone.hpp"
 #include "doomdef.h"
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "s_sound.h"
 
@@ -36,6 +38,7 @@ static const char
 // Data.
 #include "dstrings.h"
 #include "sounds.h"
+}
 
 #if 0
 //
@@ -271,7 +274,7 @@ int EV_DoDoor(line_t *line,
 
 		// new door thinker
 		rtn = 1;
-		door = Z_Malloc(sizeof(*door), PU_LEVSPEC, 0);
+		door = static_cast<decltype(door)>(Z_Malloc(sizeof(*door), PU_LEVSPEC, 0));
 		P_AddThinker(&door->thinker);
 		sec->specialdata = door;
 
@@ -401,7 +404,7 @@ void EV_VerticalDoor(line_t *line,
 
 	if (sec->specialdata)
 	{
-		door = sec->specialdata;
+		door = static_cast<decltype(door)>(sec->specialdata);
 		switch (line->special)
 		{
 		case 1: // ONLY FOR "RAISE" DOORS, NOT "OPEN"s
@@ -441,7 +444,7 @@ void EV_VerticalDoor(line_t *line,
 	}
 
 	// new door thinker
-	door = Z_Malloc(sizeof(*door), PU_LEVSPEC, 0);
+	door = static_cast<decltype(door)>(Z_Malloc(sizeof(*door), PU_LEVSPEC, 0));
 	P_AddThinker(&door->thinker);
 	sec->specialdata = door;
 	door->thinker.function.acp1 = (actionf_p1)T_VerticalDoor;
@@ -490,7 +493,7 @@ void P_SpawnDoorCloseIn30(sector_t *sec)
 {
 	vldoor_t *door;
 
-	door = Z_Malloc(sizeof(*door), PU_LEVSPEC, 0);
+	door = static_cast<decltype(door)>(Z_Malloc(sizeof(*door), PU_LEVSPEC, 0));
 
 	P_AddThinker(&door->thinker);
 
@@ -513,7 +516,7 @@ void P_SpawnDoorRaiseIn5Mins(sector_t *sec,
 {
 	vldoor_t *door;
 
-	door = Z_Malloc(sizeof(*door), PU_LEVSPEC, 0);
+	door = static_cast<decltype(door)>(Z_Malloc(sizeof(*door), PU_LEVSPEC, 0));
 
 	P_AddThinker(&door->thinker);
 
@@ -722,7 +725,7 @@ EV_SlidingDoor
     // Init sliding door vars
     if (!door)
     {
-	door = Z_Malloc (sizeof(*door), PU_LEVSPEC, 0);
+	door = static_cast<decltype(door)>(Z_Malloc(sizeof(*door), PU_LEVSPEC, 0));
 	P_AddThinker (&door->thinker);
 	sec->specialdata = door;
 		

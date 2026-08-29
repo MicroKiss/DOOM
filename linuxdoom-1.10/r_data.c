@@ -37,7 +37,7 @@ static const char
 
 #include "doomdef.h"
 #include "r_local.hpp"
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "doomstat.h"
 #include "r_sky.h"

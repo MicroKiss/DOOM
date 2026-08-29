@@ -25,6 +25,8 @@ static const char
 	rcsid[] = "$Id: p_inter.c,v 1.4 1997/02/03 22:45:11 b1 Exp $";
 
 // Data.
+extern "C"
+{
 #include "doomdef.h"
 #include "dstrings.h"
 #include "sounds.h"
@@ -34,16 +36,17 @@ static const char
 #include "m_random.hpp"
 #include "i_system.h"
 
-#include "am_map.h"
+#include "am_map.hpp"
 
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "s_sound.h"
 
 #ifdef __GNUG__
-#pragma implementation "p_inter.h"
+#pragma implementation "p_inter.hpp"
 #endif
-#include "p_inter.h"
+#include "p_inter.hpp"
+}
 
 #define BONUSADD 6
 
@@ -559,7 +562,7 @@ void P_TouchSpecialThing(mobj_t *special,
 			player->backpack = true;
 		}
 		for (i = 0; i < NUMAMMO; i++)
-			P_GiveAmmo(player, i, 1);
+			P_GiveAmmo(player, static_cast<ammotype_t>(i), 1);
 		player->message = GOTBACKPACK;
 		break;
 
@@ -678,10 +681,10 @@ void P_KillMobj(mobj_t *source,
 
 	if (target->health < -target->info->spawnhealth && target->info->xdeathstate)
 	{
-		P_SetMobjState(target, target->info->xdeathstate);
+		P_SetMobjState(target, static_cast<statenum_t>(target->info->xdeathstate));
 	}
 	else
-		P_SetMobjState(target, target->info->deathstate);
+		P_SetMobjState(target, static_cast<statenum_t>(target->info->deathstate));
 	target->tics -= P_Random() & 3;
 
 	if (target->tics < 1)
@@ -836,7 +839,7 @@ void P_DamageMobj(mobj_t *target,
 	{
 		target->flags |= MF_JUSTHIT; // fight back!
 
-		P_SetMobjState(target, target->info->painstate);
+		P_SetMobjState(target, static_cast<statenum_t>(target->info->painstate));
 	}
 
 	target->reactiontime = 0; // we're awake now...
@@ -848,6 +851,6 @@ void P_DamageMobj(mobj_t *target,
 		target->target = source;
 		target->threshold = BASETHRESHOLD;
 		if (target->state == &states[target->info->spawnstate] && target->info->seestate != S_NULL)
-			P_SetMobjState(target, target->info->seestate);
+			P_SetMobjState(target, static_cast<statenum_t>(target->info->seestate));
 	}
 }

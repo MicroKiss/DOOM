@@ -24,17 +24,20 @@
 static const char
 	rcsid[] = "$Id: p_telept.c,v 1.3 1997/01/28 22:08:29 b1 Exp $";
 
+extern "C"
+{
 #include "doomdef.h"
 
 #include "s_sound.h"
 
-#include "p_local.h"
+#include "p_local.hpp"
 
 // Data.
 #include "sounds.h"
 
 // State.
 #include "r_state.h"
+}
 
 //
 // TELEPORTATION

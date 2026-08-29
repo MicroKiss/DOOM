@@ -24,9 +24,11 @@
 static const char
 	rcsid[] = "$Id: p_floor.c,v 1.4 1997/02/03 16:47:54 b1 Exp $";
 
+extern "C"
+{
 #include "z_zone.hpp"
 #include "doomdef.h"
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "s_sound.h"
 
@@ -35,6 +37,7 @@ static const char
 #include "r_state.h"
 // Data.
 #include "sounds.h"
+}
 
 //
 // FLOORS
@@ -271,7 +274,7 @@ int EV_DoFloor(line_t *line,
 
 		// new floor thinker
 		rtn = 1;
-		floor = Z_Malloc(sizeof(*floor), PU_LEVSPEC, 0);
+		floor = static_cast<decltype(floor)>(Z_Malloc(sizeof(*floor), PU_LEVSPEC, 0));
 		P_AddThinker(&floor->thinker);
 		sec->specialdata = floor;
 		floor->thinker.function.acp1 = (actionf_p1)T_MoveFloor;
@@ -469,7 +472,7 @@ int EV_BuildStairs(line_t *line,
 
 		// new floor thinker
 		rtn = 1;
-		floor = Z_Malloc(sizeof(*floor), PU_LEVSPEC, 0);
+		floor = static_cast<decltype(floor)>(Z_Malloc(sizeof(*floor), PU_LEVSPEC, 0));
 		P_AddThinker(&floor->thinker);
 		sec->specialdata = floor;
 		floor->thinker.function.acp1 = (actionf_p1)T_MoveFloor;
@@ -522,7 +525,7 @@ int EV_BuildStairs(line_t *line,
 
 				sec = tsec;
 				secnum = newsecnum;
-				floor = Z_Malloc(sizeof(*floor), PU_LEVSPEC, 0);
+				floor = static_cast<decltype(floor)>(Z_Malloc(sizeof(*floor), PU_LEVSPEC, 0));
 
 				P_AddThinker(&floor->thinker);
 

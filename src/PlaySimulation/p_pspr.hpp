@@ -40,6 +40,11 @@
 #pragma interface
 #endif
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 //
 // Frame flags:
 // handles maximum brightness (torches, muzzle flare, light sources)
@@ -47,27 +52,31 @@
 #define FF_FULLBRIGHT 0x8000 // flag in thing->frame
 #define FF_FRAMEMASK 0x7fff
 
-//
-// Overlay psprites are scaled shapes
-// drawn directly on the view screen,
-// coordinates are given for a 320*200 view screen.
-//
-typedef enum
-{
-    ps_weapon,
-    ps_flash,
-    NUMPSPRITES
+    //
+    // Overlay psprites are scaled shapes
+    // drawn directly on the view screen,
+    // coordinates are given for a 320*200 view screen.
+    //
+    typedef enum
+    {
+        ps_weapon,
+        ps_flash,
+        NUMPSPRITES
 
-} psprnum_t;
+    } psprnum_t;
 
-typedef struct
-{
-    state_t *state; // a NULL state means not active
-    int tics;
-    int32_t sx;
-    int32_t sy;
+    typedef struct
+    {
+        state_t *state; // a NULL state means not active
+        int tics;
+        int32_t sx;
+        int32_t sy;
 
-} pspdef_t;
+    } pspdef_t;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 //-----------------------------------------------------------------------------

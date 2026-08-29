@@ -35,7 +35,7 @@ static const char
 #endif
 #include "info.h"
 
-#include "p_mobj.h"
+#include "p_mobj.hpp"
 
 char *sprnames[NUMSPRITES + 1] = {
 	"TROO", "SHTG", "PUNG", "PISG", "PISF", "SHTF", "SHT2", "CHGG", "CHGF", "MISG",

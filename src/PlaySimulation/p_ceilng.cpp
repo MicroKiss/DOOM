@@ -23,9 +23,11 @@
 static const char
 	rcsid[] = "$Id: p_ceilng.c,v 1.4 1997/02/03 16:47:53 b1 Exp $";
 
+extern "C"
+{
 #include "z_zone.hpp"
 #include "doomdef.h"
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "s_sound.h"
 
@@ -35,6 +37,7 @@ static const char
 
 // Data.
 #include "sounds.h"
+}
 
 //
 // CEILINGS
@@ -194,7 +197,7 @@ int EV_DoCeiling(line_t *line,
 
 		// new door thinker
 		rtn = 1;
-		ceiling = Z_Malloc(sizeof(*ceiling), PU_LEVSPEC, 0);
+		ceiling = static_cast<decltype(ceiling)>(Z_Malloc(sizeof(*ceiling), PU_LEVSPEC, 0));
 		P_AddThinker(&ceiling->thinker);
 		sec->specialdata = ceiling;
 		ceiling->thinker.function.acp1 = (actionf_p1)T_MoveCeiling;

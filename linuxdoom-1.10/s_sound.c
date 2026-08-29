@@ -36,7 +36,7 @@ static const char
 #include "w_wad.h"
 
 #include "doomdef.h"
-#include "p_local.h"
+#include "p_local.hpp"
 
 #include "doomstat.h"
 
