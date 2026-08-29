@@ -22,11 +22,9 @@
 
 #ifndef __BYTEBOOL__
 #define __BYTEBOOL__
-typedef int32_t bool;
 typedef uint8_t byte;
 #endif
 
-static_assert(sizeof(bool) * CHAR_BIT == 32, "bool must be exactly 32 bits");
 static_assert(sizeof(byte) * CHAR_BIT == 8, "byte must be exactly 8 bits");
 
 #define MAXCHAR CHAR_MAX
