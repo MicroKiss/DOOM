@@ -1,81 +1,65 @@
+# DOOM: Modern Windows Port
 
-Here it is, at long last.  The DOOM source code is released for your
-non-profit use.  You still need real DOOM data to work with this code.
-If you don't actually own a real copy of one of the DOOMs, you should
-still be able to find them at software stores.
-
-Many thanks to Bernd Kreimeier for taking the time to clean up the
-project and make sure that it actually works.  Projects tends to rot if
-you leave it alone for a few years, and it takes effort for someone to
-deal with it again.
-
-The bad news:  this code only compiles and runs on linux.  We couldn't
-release the dos code because of a copyrighted sound library we used
-(wow, was that a mistake -- I write my own sound code now), and I
-honestly don't even know what happened to the port that microsoft did
-to windows.
-
-Still, the code is quite portable, and it should be straightforward to
-bring it up on just about any platform.
-
-I wrote this code a long, long time ago, and there are plenty of things
-that seem downright silly in retrospect (using polar coordinates for
-clipping comes to mind), but overall it should still be a usefull base
-to experiment and build on.
-
-The basic rendering concept -- horizontal and vertical lines of constant
-Z with fixed light shading per band was dead-on, but the implementation
-could be improved dramatically from the original code if it were
-revisited.  The way the rendering proceded from walls to floors to
-sprites could be collapsed into a single front-to-back walk of the bsp
-tree to collect information, then draw all the contents of a subsector
-on the way back up the tree.  It requires treating floors and ceilings
-as polygons, rather than just the gaps between walls, and it requires
-clipping sprite billboards into subsector fragments, but it would be
-The Right Thing.
-
-The movement and line of sight checking against the lines is one of the
-bigger misses that I look back on.  It is messy code that had some
-failure cases, and there was a vastly simpler (and faster) solution
-sitting in front of my face.  I used the BSP tree for rendering things,
-but I didn't realize at the time that it could also be used for
-environment testing.  Replacing the line of sight test with a bsp line
-clip would be pretty easy.  Sweeping volumes for movement gets a bit
-tougher, and touches on many of the challenges faced in quake / quake2
-with edge bevels on polyhedrons.
-
-Some project ideas:
-
-Port it to your favorite operating system.
-
-Add some rendering features -- transparency, look up / down, slopes,
-etc.
-
-Add some game features -- weapons, jumping, ducking, flying, etc.
-
-Create a packet server based internet game.
-
-Create a client / server based internet game.
-
-Do a 3D accelerated version.  On modern hardware (fast pentium + 3DFX)
-you probably wouldn't even need to be clever -- you could just draw the
-entire level and get reasonable speed.  With a touch of effort, it should
-easily lock at 60 fps (well, there are some issues with DOOM's 35 hz
-timebase...).  The biggest issues would probably be the non-power of two
-texture sizes and the walls composed of multiple textures.
+This project is a personal modernization of the original DOOM source release,
+forked from [id Software's DOOM repository](https://github.com/id-Software/DOOM).
+Its goal is to make the classic engine straightforward to build and run on
+modern 64-bit Windows while preserving the original software renderer and game
+logic. It also serves as a foundation for further improvements and experiments.
 
 
-I don't have a real good guess at how many people are going to be
-playing with this, but if significant projects are undertaken, it would
-be cool to see a level of community cooperation.  I know that most early
-projects are going to be rough hacks done in isolation, but I would be
-very pleased to see a coordinated 'net release of an improved, backwards
-compatable version of DOOM on multiple platforms next year.
+## Requirements
 
-Have fun.
+- Windows 10 or later (64-bit)
+- Visual Studio with the **Desktop development with C++** workload
+- CMake 3.20 or later
+- [vcpkg](https://github.com/microsoft/vcpkg)
+- A legally obtained DOOM IWAD
 
-John Carmack
-12-23-97
+Install the required libraries with vcpkg:
 
-Copyright (c) ZeniMax Media Inc.
-Licensed under the GNU General Public License 2.0.
+```powershell
+vcpkg install sdl2:x64-windows libadlmidi:x64-windows
+```
+
+## Build
+
+From the repository root, configure the project with the path to your vcpkg
+toolchain file:
+
+```powershell
+cmake -S . -B build -A x64 `
+	-DCMAKE_TOOLCHAIN_FILE=C:/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
+cmake --build build --config Release --parallel
+```
+
+The executable is written to `build/Release/doom.exe`. CMake also copies the
+required libADLMIDI runtime library beside the executable.
+
+For the exact commands used by this repository's development environment, see
+[README_CMAKE_COMMANDS.md](README_CMAKE_COMMANDS.md).
+
+## Run
+
+Pass the path to your IWAD with `-iwad`:
+
+```powershell
+.\build\Release\doom.exe -iwad "C:\path\to\DOOM1.WAD"
+```
+
+If `-iwad` is omitted, the engine searches the directory specified by
+`DOOMWADDIR` and then the current directory.
+
+## Game Data
+
+This repository contains engine source code, not a license to distribute DOOM
+game data. Commercial IWADs such as `doom.wad`, `doom2.wad`, `tnt.wad`, and
+`plutonia.wad` remain copyrighted by their respective owners. Supply your own
+legally obtained IWAD and do not include it in source archives or release
+packages.
+
+## License
+
+The original DOOM source code and this derivative work are distributed under
+the GNU General Public License v2. See [LICENSE.TXT](LICENSE.TXT) for the full
+license text. Distributed builds must also include the license notices required
+by SDL2 and libADLMIDI.
