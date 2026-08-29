@@ -29,7 +29,7 @@
 #include "i_video.hpp"
 #include "d_net.hpp"
 #include "m_misc.hpp"
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 int mb_used = sizeof(void *) == 8 ? 32 : 6;
 

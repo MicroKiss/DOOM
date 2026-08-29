@@ -56,7 +56,7 @@
 
 // Data.
 #include "dstrings.h"
-#include "sounds.h"
+#include "sounds.hpp"
 
 // SKY handling - still the wrong place.
 #include "r_data.hpp"

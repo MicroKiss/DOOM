@@ -23,7 +23,7 @@
 
 extern "C"
 {
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 #include "i_system.hpp"
 #include "p_local.hpp"

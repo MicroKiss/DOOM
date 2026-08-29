@@ -3,32 +3,32 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <unistd.hpp>
 
 #include <ctype.h>
 
 extern "C"
 {
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 #include "z_zone.hpp"
 
 #include "m_swap.hpp"
 #include "m_argv.hpp"
 
-#include "w_wad.h"
+#include "w_wad.hpp"
 
 #include "i_system.hpp"
 #include "i_video.hpp"
 #include "v_video.hpp"
 
-#include "hu_stuff.h"
+#include "hu_stuff.hpp"
 
 // State.
-#include "doomstat.h"
+#include "doomstat.hpp"
 
 // Data.
-#include "dstrings.h"
+#include "dstrings.hpp"
 
 #include "m_misc.hpp"
     //

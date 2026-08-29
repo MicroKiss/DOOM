@@ -35,7 +35,7 @@
 #endif
 
 #include <fcntl.h>
-#include <unistd.h>
+#include <unistd.hpp>
 #include <sys/ioctl.h>
 
 // Linux voxware output.
@@ -51,9 +51,9 @@
 #include "i_sound.hpp"
 #include "m_argv.hpp"
 #include "m_misc.hpp"
-#include "w_wad.h"
+#include "w_wad.hpp"
 
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 // UNIX hack, to be removed.
 #ifdef SNDSERV

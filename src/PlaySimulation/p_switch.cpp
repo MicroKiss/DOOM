@@ -25,18 +25,18 @@
 extern "C"
 {
 #include "i_system.hpp"
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "p_local.hpp"
 
-#include "g_game.h"
+#include "g_game.hpp"
 
-#include "s_sound.h"
+#include "s_sound.hpp"
 
 // Data.
-#include "sounds.h"
+#include "sounds.hpp"
 
 // State.
-#include "doomstat.h"
+#include "doomstat.hpp"
 #include "r_state.hpp"
 }
 

@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 
 #include <stdlib.h>
-#include <unistd.h>
+#include <unistd.hpp>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 
@@ -46,13 +46,13 @@ int XShmGetEventBase(Display *dpy); // problems with g++?
 #include <errnos.h>
 #include <signal.h>
 
-#include "doomstat.h"
+#include "doomstat.hpp"
 #include "i_system.hpp"
 #include "v_video.hpp"
 #include "m_argv.hpp"
 #include "d_main.hpp"
 
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 #define POINTER_WARP_COUNTDOWN 1
 

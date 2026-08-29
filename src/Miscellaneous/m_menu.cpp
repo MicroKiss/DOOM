@@ -1,4 +1,4 @@
-#include <unistd.h>
+#include <unistd.hpp>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -7,8 +7,8 @@
 
 extern "C"
 {
-#include "doomdef.h"
-#include "dstrings.h"
+#include "doomdef.hpp"
+#include "dstrings.hpp"
 
 #include "d_main.hpp"
 
@@ -16,23 +16,23 @@ extern "C"
 #include "i_video.hpp"
 #include "z_zone.hpp"
 #include "v_video.hpp"
-#include "w_wad.h"
+#include "w_wad.hpp"
 
 #include "r_local.hpp"
 
-#include "hu_stuff.h"
+#include "hu_stuff.hpp"
 
-#include "g_game.h"
+#include "g_game.hpp"
 
 #include "m_argv.hpp"
 #include "m_swap.hpp"
 
-#include "s_sound.h"
+#include "s_sound.hpp"
 
-#include "doomstat.h"
+#include "doomstat.hpp"
 
 // Data.
-#include "sounds.h"
+#include "sounds.hpp"
 
 #include "m_menu.hpp"
 }

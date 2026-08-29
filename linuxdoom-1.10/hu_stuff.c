@@ -38,7 +38,7 @@
 
 // Data.
 #include "dstrings.h"
-#include "sounds.h"
+#include "sounds.hpp"
 
 //
 // Locally used constants, shortcuts.

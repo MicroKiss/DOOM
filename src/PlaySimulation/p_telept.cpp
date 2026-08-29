@@ -23,14 +23,14 @@
 
 extern "C"
 {
-#include "doomdef.h"
+#include "doomdef.hpp"
 
-#include "s_sound.h"
+#include "s_sound.hpp"
 
 #include "p_local.hpp"
 
 // Data.
-#include "sounds.h"
+#include "sounds.hpp"
 
 // State.
 #include "r_state.hpp"

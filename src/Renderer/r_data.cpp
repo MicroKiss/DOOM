@@ -32,13 +32,13 @@ extern "C"
 
 #include "m_swap.hpp"
 
-#include "w_wad.h"
+#include "w_wad.hpp"
 
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "r_local.hpp"
 #include "p_local.hpp"
 
-#include "doomstat.h"
+#include "doomstat.hpp"
 #include "r_sky.hpp"
 
 #ifdef _WIN32

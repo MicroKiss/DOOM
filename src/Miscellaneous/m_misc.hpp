@@ -1,5 +1,5 @@
 #pragma once
-#include "doomtype.h"
+#include "doomtype.hpp"
 
 #ifdef __cplusplus
 extern "C"

@@ -23,7 +23,7 @@
 #define __R_DEFS__
 
 // Screenwidth.
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 // Some more or less basic data types
 // we depend on.

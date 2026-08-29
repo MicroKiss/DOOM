@@ -24,7 +24,7 @@
 //-----------------------------------------------------------------------------
 
 // Data.
-#include "sounds.h"
+#include "sounds.hpp"
 #include "m_fixed.hpp"
 
 #ifdef __GNUG__

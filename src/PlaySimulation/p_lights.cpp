@@ -27,7 +27,7 @@ extern "C"
 #include "z_zone.hpp"
 #include "m_random.hpp"
 
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "p_local.hpp"
 
 // State.

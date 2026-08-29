@@ -23,7 +23,7 @@
 
 extern "C"
 {
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 #include "m_bbox.hpp"
 
@@ -34,7 +34,7 @@ extern "C"
 #include "r_things.hpp"
 
 // State.
-#include "doomstat.h"
+#include "doomstat.hpp"
 #include "r_state.hpp"
 
     // #include "r_local.hpp"

@@ -1,6 +1,6 @@
 #include "z_zone.hpp"
 #include "i_system.hpp"
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 //
 // ZONE MEMORY ALLOCATION

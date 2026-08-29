@@ -31,18 +31,18 @@ extern "C"
 #include "m_swap.hpp"
 #include "m_bbox.hpp"
 
-#include "g_game.h"
+#include "g_game.hpp"
 
 #include "i_system.hpp"
-#include "w_wad.h"
+#include "w_wad.hpp"
 
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "p_local.hpp"
 #include "p_setup.hpp"
 
-#include "s_sound.h"
+#include "s_sound.hpp"
 
-#include "doomstat.h"
+#include "doomstat.hpp"
 }
 
 extern "C" void P_SpawnMapThing(mapthing_t *mthing);

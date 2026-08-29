@@ -28,7 +28,7 @@
 
 extern "C"
 {
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "d_net.hpp"
 
 #include "m_bbox.hpp"

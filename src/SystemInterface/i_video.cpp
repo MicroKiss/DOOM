@@ -25,7 +25,7 @@
 extern "C"
 {
 #include "d_main.hpp"
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "i_system.hpp"
 #include "i_video.hpp"
 #include "v_video.hpp"

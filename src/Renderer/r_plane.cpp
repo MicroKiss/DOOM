@@ -29,10 +29,10 @@ extern "C"
 {
 #include "i_system.hpp"
 #include "z_zone.hpp"
-#include "w_wad.h"
+#include "w_wad.hpp"
 
-#include "doomdef.h"
-#include "doomstat.h"
+#include "doomdef.hpp"
+#include "doomstat.hpp"
 
 #include "r_local.hpp"
 #include "r_sky.hpp"

@@ -55,7 +55,7 @@
 
 // Data.
 #include "dstrings.h"
-#include "sounds.h"
+#include "sounds.hpp"
 
 //
 // STATUS BAR DATA

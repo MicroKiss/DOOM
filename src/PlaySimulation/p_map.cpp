@@ -30,16 +30,16 @@ extern "C"
 #include "m_random.hpp"
 #include "i_system.hpp"
 
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "p_local.hpp"
 
-#include "s_sound.h"
+#include "s_sound.hpp"
 
 // State.
-#include "doomstat.h"
+#include "doomstat.hpp"
 #include "r_state.hpp"
 // Data.
-#include "sounds.h"
+#include "sounds.hpp"
 }
 
 int32_t tmbbox[4];

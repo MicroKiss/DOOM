@@ -23,7 +23,7 @@
 // We are referring to sprite numbers.
 extern "C"
 {
-#include "info.h"
+#include "info.hpp"
 
 #ifdef __GNUG__
 #pragma implementation "d_items.hpp"

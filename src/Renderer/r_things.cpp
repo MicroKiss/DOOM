@@ -26,16 +26,16 @@
 
 extern "C"
 {
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "m_swap.hpp"
 
 #include "i_system.hpp"
 #include "z_zone.hpp"
-#include "w_wad.h"
+#include "w_wad.hpp"
 
 #include "r_local.hpp"
 
-#include "doomstat.h"
+#include "doomstat.hpp"
 
 #define MINZ (FRACUNIT * 4)
 #define BASEYCENTER 100

@@ -30,7 +30,7 @@ extern "C"
 
 #include "m_bbox.hpp"
 
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "p_local.hpp"
 
 // State.

@@ -27,8 +27,8 @@ extern "C"
 {
 #include "i_system.hpp"
 
-#include "doomdef.h"
-#include "doomstat.h"
+#include "doomdef.hpp"
+#include "doomstat.hpp"
 
 #include "r_local.hpp"
 #include "r_sky.hpp"

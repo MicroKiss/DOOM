@@ -25,12 +25,12 @@
 
 extern "C"
 {
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "d_event.hpp"
 
 #include "p_local.hpp"
 
-#include "doomstat.h"
+#include "doomstat.hpp"
 }
 
 // Index of the special effects (INVUL inverse) map.

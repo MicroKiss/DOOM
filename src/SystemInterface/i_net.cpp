@@ -23,7 +23,7 @@
 
 extern "C"
 {
-#include "doomstat.h"
+#include "doomstat.hpp"
 #include "d_net.hpp"
 #include "i_net.hpp"
 #include "i_system.hpp"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "doomtype.h"
+#include "doomtype.hpp"
 
 #include "m_fixed.hpp"
 

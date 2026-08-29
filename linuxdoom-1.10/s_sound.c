@@ -25,7 +25,7 @@
 
 #include "i_system.hpp"
 #include "i_sound.hpp"
-#include "sounds.h"
+#include "sounds.hpp"
 #include "s_sound.h"
 
 #include "z_zone.hpp"

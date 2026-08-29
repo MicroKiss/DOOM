@@ -25,11 +25,11 @@
 
 extern "C"
 {
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 #include "i_system.hpp"
 #include "z_zone.hpp"
-#include "w_wad.h"
+#include "w_wad.hpp"
 
 #include "r_local.hpp"
 
@@ -37,7 +37,7 @@ extern "C"
 #include "v_video.hpp"
 
 // State.
-#include "doomstat.h"
+#include "doomstat.hpp"
 
 // ?
 #define MAXWIDTH 1120

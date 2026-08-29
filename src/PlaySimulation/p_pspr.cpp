@@ -24,18 +24,18 @@
 
 extern "C"
 {
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "d_event.hpp"
 
 #include "m_random.hpp"
 #include "p_local.hpp"
-#include "s_sound.h"
+#include "s_sound.hpp"
 
 // State.
-#include "doomstat.h"
+#include "doomstat.hpp"
 
 // Data.
-#include "sounds.h"
+#include "sounds.hpp"
 
 #include "p_pspr.hpp"
 }

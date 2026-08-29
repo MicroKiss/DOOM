@@ -1,4 +1,4 @@
-#include "doomdef.h"
+#include "doomdef.hpp"
 
 #include <SDL.h>
 #include <string.h>

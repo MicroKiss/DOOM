@@ -29,7 +29,7 @@ extern "C"
 #include "p_saveg.hpp"
 
 // State.
-#include "doomstat.h"
+#include "doomstat.hpp"
 #include "r_state.hpp"
 }
 

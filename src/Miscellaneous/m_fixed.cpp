@@ -1,6 +1,6 @@
-#include "stdlib.h"
+#include <stdlib.h>
 
-#include "doomtype.h"
+#include "doomtype.hpp"
 #include "i_system.hpp"
 #include "m_fixed.hpp"
 

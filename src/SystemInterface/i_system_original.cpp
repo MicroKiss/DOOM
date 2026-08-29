@@ -26,15 +26,15 @@
 
 #include <stdarg.h>
 #include <sys/time.h>
-#include <unistd.h>
+#include <unistd.hpp>
 
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "m_misc.hpp"
 #include "i_video.hpp"
 #include "i_sound.hpp"
 
 #include "d_net.hpp"
-#include "g_game.h"
+#include "g_game.hpp"
 
 #ifdef __GNUG__
 #pragma implementation "i_system.hpp"

@@ -30,9 +30,9 @@ extern "C"
 #include "i_system.hpp"
 #include "i_video.hpp"
 #include "i_net.hpp"
-#include "g_game.h"
-#include "doomdef.h"
-#include "doomstat.h"
+#include "g_game.hpp"
+#include "doomdef.hpp"
+#include "doomstat.hpp"
 
 #define NCMD_EXIT 0x80000000
 #define NCMD_RETRANSMIT 0x40000000

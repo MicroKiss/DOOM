@@ -27,16 +27,16 @@ extern "C"
 #include "z_zone.hpp"
 #include "m_random.hpp"
 
-#include "doomdef.h"
+#include "doomdef.hpp"
 #include "p_local.hpp"
-#include "sounds.h"
+#include "sounds.hpp"
 
-#include "st_stuff.h"
-#include "hu_stuff.h"
+#include "st_stuff.hpp"
+#include "hu_stuff.hpp"
 
-#include "s_sound.h"
+#include "s_sound.hpp"
 
-#include "doomstat.h"
+#include "doomstat.hpp"
 
     void G_PlayerReborn(int player);
     void P_SpawnMapThing(mapthing_t *mthing);

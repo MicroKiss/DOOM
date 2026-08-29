@@ -32,7 +32,7 @@
 
 // Data.
 #include "dstrings.h"
-#include "sounds.h"
+#include "sounds.hpp"
 
 #include "doomstat.h"
 #include "r_state.hpp"

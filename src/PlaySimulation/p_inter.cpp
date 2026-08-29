@@ -24,11 +24,11 @@
 // Data.
 extern "C"
 {
-#include "doomdef.h"
-#include "dstrings.h"
-#include "sounds.h"
+#include "doomdef.hpp"
+#include "dstrings.hpp"
+#include "sounds.hpp"
 
-#include "doomstat.h"
+#include "doomstat.hpp"
 
 #include "m_random.hpp"
 #include "i_system.hpp"
@@ -37,7 +37,7 @@ extern "C"
 
 #include "p_local.hpp"
 
-#include "s_sound.h"
+#include "s_sound.hpp"
 
 #ifdef __GNUG__
 #pragma implementation "p_inter.hpp"

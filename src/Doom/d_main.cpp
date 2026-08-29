@@ -40,7 +40,7 @@
 
 #ifdef NORMALUNIX
 #include <stdio.h>
-#include <unistd.h>
+#include <unistd.hpp>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -48,20 +48,20 @@
 
 extern "C"
 {
-#include "unistd.h"
-#include "doomdef.h"
-#include "doomstat.h"
+#include "unistd.hpp"
+#include "doomdef.hpp"
+#include "doomstat.hpp"
 
-#include "dstrings.h"
-#include "sounds.h"
+#include "dstrings.hpp"
+#include "sounds.hpp"
 
 #include "z_zone.hpp"
-#include "w_wad.h"
-#include "s_sound.h"
+#include "w_wad.hpp"
+#include "s_sound.hpp"
 #include "v_video.hpp"
 
-#include "f_finale.h"
-#include "f_wipe.h"
+#include "f_finale.hpp"
+#include "f_wipe.hpp"
 
 #include "m_argv.hpp"
 #include "m_misc.hpp"
@@ -71,11 +71,11 @@ extern "C"
 #include "i_sound.hpp"
 #include "i_video.hpp"
 
-#include "g_game.h"
+#include "g_game.hpp"
 
-#include "hu_stuff.h"
-#include "wi_stuff.h"
-#include "st_stuff.h"
+#include "hu_stuff.hpp"
+#include "wi_stuff.hpp"
+#include "st_stuff.hpp"
 #include "am_map.hpp"
 
 #include "p_setup.hpp"

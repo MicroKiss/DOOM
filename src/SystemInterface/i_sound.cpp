@@ -17,10 +17,10 @@
 
 extern "C"
 {
-#include "doomstat.h"
+#include "doomstat.hpp"
 #include "i_sound.hpp"
-#include "sounds.h"
-#include "w_wad.h"
+#include "sounds.hpp"
+#include "w_wad.hpp"
 #include "z_zone.hpp"
 
 #define OUTPUT_RATE 44100

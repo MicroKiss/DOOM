@@ -40,7 +40,7 @@
 #include "doomstat.h"
 
 // Data.
-#include "sounds.h"
+#include "sounds.hpp"
 
 // Needs access to LFB.
 #include "v_video.hpp"

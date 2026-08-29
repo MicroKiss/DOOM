@@ -25,18 +25,18 @@
 
 extern "C"
 {
-#include "doomdef.h"
-#include "st_stuff.h"
+#include "doomdef.hpp"
+#include "st_stuff.hpp"
 #include "p_local.hpp"
-#include "w_wad.h"
+#include "w_wad.hpp"
 #include "i_system.hpp"
 
 	// State.
-#include "doomstat.h"
+#include "doomstat.hpp"
 #include "r_state.hpp"
 
 	// Data.
-#include "dstrings.h"
+#include "dstrings.hpp"
 }
 
 #include "z_zone.hpp"
