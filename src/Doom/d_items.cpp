@@ -20,9 +20,6 @@
 //
 //-----------------------------------------------------------------------------
 
-static const char
-	rcsid[] = "$Id:$";
-
 // We are referring to sprite numbers.
 extern "C"
 {
