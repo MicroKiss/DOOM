@@ -22,7 +22,7 @@
 #include <SDL.h>
 #include <string.h>
 
-#include "d_main.h"
+#include "d_main.hpp"
 #include "doomdef.h"
 #include "i_system.h"
 #include "i_video.h"

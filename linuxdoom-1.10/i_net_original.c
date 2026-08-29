@@ -36,8 +36,8 @@ static const char
 #include <sys/ioctl.h>
 
 #include "i_system.h"
-#include "d_event.h"
-#include "d_net.h"
+#include "d_event.hpp"
+#include "d_net.hpp"
 #include "m_argv.hpp"
 
 #include "doomstat.h"

@@ -41,7 +41,7 @@ static const char
 #include "p_saveg.hpp"
 #include "p_tick.hpp"
 
-#include "d_main.h"
+#include "d_main.hpp"
 
 #include "wi_stuff.h"
 #include "hu_stuff.h"

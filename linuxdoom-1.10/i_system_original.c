@@ -36,7 +36,7 @@ static const char
 #include "i_video.h"
 #include "i_sound.h"
 
-#include "d_net.h"
+#include "d_net.hpp"
 #include "g_game.h"
 
 #ifdef __GNUG__

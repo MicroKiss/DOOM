@@ -23,7 +23,7 @@
 #define __R_STATE__
 
 // Need data structure definitions.
-#include "d_player.h"
+#include "d_player.hpp"
 #include "r_data.h"
 
 #ifdef __GNUG__

@@ -22,7 +22,7 @@
 #include <string.h>
 
 #include "doomstat.h"
-#include "d_net.h"
+#include "d_net.hpp"
 #include "i_net.h"
 #include "i_system.h"
 

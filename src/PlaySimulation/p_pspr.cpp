@@ -28,7 +28,7 @@ static const char
 extern "C"
 {
 #include "doomdef.h"
-#include "d_event.h"
+#include "d_event.hpp"
 
 #include "m_random.hpp"
 #include "p_local.hpp"

@@ -31,7 +31,7 @@
 
 // We rely on the thinker data struct
 // to handle sound origins in sectors.
-#include "d_think.h"
+#include "d_think.hpp"
 // SECTORS do store MObjs anyway.
 #include "p_mobj.hpp"
 

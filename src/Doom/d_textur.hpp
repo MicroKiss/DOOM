@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -15,34 +15,35 @@
 // for more details.
 //
 // DESCRIPTION:
-//	Items: key cards, artifacts, weapon, ammunition.
+//	Typedefs related to to textures etc.,
+//	 isolated here to make it easier separating modules.
 //
 //-----------------------------------------------------------------------------
 
+#ifndef __D_TEXTUR__
+#define __D_TEXTUR__
 
-#ifndef __D_ITEMS__
-#define __D_ITEMS__
+#include "doomtype.h"
 
-#include "doomdef.h"
-
-#ifdef __GNUG__
-#pragma interface
+#ifdef __cplusplus
+extern "C"
+{
 #endif
 
+    //
+    // Flats?
+    //
+    // a pic is an unmasked block of pixels
+    typedef struct
+    {
+        byte width;
+        byte height;
+        byte data;
+    } pic_t;
 
-// Weapon info: sprite frames, ammunition use.
-typedef struct
-{
-    ammotype_t	ammo;
-    int		upstate;
-    int		downstate;
-    int		readystate;
-    int		atkstate;
-    int		flashstate;
-
-} weaponinfo_t;
-
-extern  weaponinfo_t    weaponinfo[NUMWEAPONS];
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 //-----------------------------------------------------------------------------

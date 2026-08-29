@@ -10,7 +10,7 @@ extern "C"
 #include "doomdef.h"
 #include "dstrings.h"
 
-#include "d_main.h"
+#include "d_main.hpp"
 
 #include "i_system.h"
 #include "i_video.h"

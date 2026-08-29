@@ -27,7 +27,7 @@
 #include "m_fixed.hpp"
 
 // We need the thinker_t stuff.
-#include "d_think.h"
+#include "d_think.hpp"
 
 // We need the WAD data structure for Map things,
 // from the THINGS lump.

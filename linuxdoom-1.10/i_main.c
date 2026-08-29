@@ -29,7 +29,7 @@ static const char
 #include <string.h>
 
 #include "m_argv.hpp"
-#include "d_main.h"
+#include "d_main.hpp"
 #include "i_system.h"
 #include "i_video.h"
 #include "v_video.hpp"

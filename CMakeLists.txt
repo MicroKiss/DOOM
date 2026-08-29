@@ -24,9 +24,6 @@ set(DOOM_PORTABLE_SOURCES
     tables.c
     f_finale.c
     f_wipe.c
-    d_main.c
-    d_net.c
-    d_items.c
     g_game.c
     r_bsp.c
     r_data.c
@@ -52,6 +49,9 @@ list(TRANSFORM DOOM_PORTABLE_SOURCES PREPEND "${DOOM_SOURCE_DIR}/")
 
 set(DOOM_CPP_SOURCES
     ${DOOM_CPP_SOURCE_DIR}/AutoMap/am_map.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Doom/d_items.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Doom/d_main.cpp
+    ${DOOM_CPP_SOURCE_DIR}/Doom/d_net.cpp
     ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_ceilng.cpp
     ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_doors.cpp
     ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_enemy.cpp
@@ -90,6 +90,7 @@ target_include_directories(doom PRIVATE
     "${DOOM_SOURCE_DIR}"
     "${DOOM_CPP_SOURCE_DIR}"
     "${DOOM_CPP_SOURCE_DIR}/AutoMap"
+    "${DOOM_CPP_SOURCE_DIR}/Doom"
     "${DOOM_CPP_SOURCE_DIR}/PlaySimulation"
     "${DOOM_CPP_SOURCE_DIR}/Miscellaneous"
     "${DOOM_CPP_SOURCE_DIR}/ZoneMemory"

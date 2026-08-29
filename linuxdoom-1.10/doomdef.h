@@ -275,7 +275,7 @@ typedef enum
 // #include "tables.h"
 
 // Event type.
-// #include "d_event.h"
+// #include "d_event.hpp"
 
 // Game function, skills.
 // #include "g_game.h"
@@ -290,10 +290,10 @@ typedef enum
 // Player is a special actor.
 // struct player_s;
 
-// #include "d_items.h"
-// #include "d_player.h"
+// #include "d_items.hpp"
+// #include "d_player.hpp"
 // #include "p_mobj.hpp"
-// #include "d_net.h"
+// #include "d_net.hpp"
 
 // PLAY
 // #include "p_tick.hpp"

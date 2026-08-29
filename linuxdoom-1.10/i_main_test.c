@@ -3,9 +3,9 @@
 #include <SDL.h>
 #include <string.h>
 
-#include "d_event.h"
+#include "d_event.hpp"
 #include "m_argv.hpp"
-#include "d_main.h"
+#include "d_main.hpp"
 #include "i_system.h"
 #include "i_video.h"
 #include "v_video.hpp"
