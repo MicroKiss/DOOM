@@ -34,7 +34,7 @@ static const char rcsid[] = "$Id: r_main.c,v 1.5 1997/02/03 22:45:12 b1 Exp $";
 #include "m_bbox.hpp"
 
 #include "r_local.hpp"
-#include "r_sky.h"
+#include "r_sky.hpp"
 
 // Fineangles in the SCREENWIDTH wide window.
 #define FIELDOFVIEW 2048

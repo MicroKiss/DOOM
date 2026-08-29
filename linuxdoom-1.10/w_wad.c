@@ -33,7 +33,7 @@ static const char
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include "r_defs.h"
+#include "r_defs.hpp"
 
 #ifdef _WIN32
 #include <io.h>

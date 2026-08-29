@@ -32,7 +32,7 @@ static const char
 #include "doomstat.h"
 
 #include "r_local.hpp"
-#include "r_sky.h"
+#include "r_sky.hpp"
 
 // OPTIMIZE: closed two sided lines as single sided
 

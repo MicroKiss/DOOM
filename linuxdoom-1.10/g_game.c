@@ -62,8 +62,8 @@ static const char
 #include "sounds.h"
 
 // SKY handling - still the wrong place.
-#include "r_data.h"
-#include "r_sky.h"
+#include "r_data.hpp"
+#include "r_sky.hpp"
 
 #include "g_game.h"
 

@@ -36,7 +36,7 @@ extern "C"
 #include "sounds.h"
 
 // State.
-#include "r_state.h"
+#include "r_state.hpp"
 }
 
 //

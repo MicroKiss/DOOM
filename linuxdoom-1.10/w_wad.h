@@ -23,7 +23,7 @@
 #define __W_WAD__
 
 #include <stdint.h>
-#include "r_defs.h"
+#include "r_defs.hpp"
 #ifdef __GNUG__
 #pragma interface
 #endif

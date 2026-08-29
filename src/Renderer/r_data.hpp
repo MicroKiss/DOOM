@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -15,30 +15,48 @@
 // for more details.
 //
 // DESCRIPTION:
-//	Sky rendering.
+//  Refresh module, data I/O, caching, retrieval of graphics
+//  by name.
 //
 //-----------------------------------------------------------------------------
 
+#ifndef __R_DATA__
+#define __R_DATA__
 
-#ifndef __R_SKY__
-#define __R_SKY__
-
+#include "r_defs.hpp"
+#include "r_state.hpp"
 
 #ifdef __GNUG__
 #pragma interface
 #endif
 
-// SKY, store the number for name.
-#define			SKYFLATNAME  "F_SKY1"
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-// The sky map is 256*128*4 maps.
-#define ANGLETOSKYSHIFT		22
+    // Retrieve column data for span blitting.
+    byte *
+    R_GetColumn(int tex,
+                int col);
 
-extern  int		skytexture;
-extern int		skytexturemid;
+    // I/O, setting up the stuff.
+    void R_InitData(void);
+    void R_PrecacheLevel(void);
 
-// Called whenever the view size changes.
-void R_InitSkyMap (void);
+    // Retrieval.
+    // Floor/ceiling opaque texture tiles,
+    // lookup by name. For animation?
+    int R_FlatNumForName(char *name);
+
+    // Called by P_Ticker for switches and animations,
+    // returns the texture number for the texture name.
+    int R_TextureNumForName(char *name);
+    int R_CheckTextureNumForName(char *name);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 //-----------------------------------------------------------------------------

@@ -5,7 +5,7 @@
 #include "m_bbox.hpp"
 
 // Needed because we are refering to patches.
-#include "r_data.h"
+#include "r_data.hpp"
 
 #define CENTERY (SCREENHEIGHT / 2)
 

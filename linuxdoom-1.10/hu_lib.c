@@ -32,7 +32,7 @@ static const char
 
 #include "hu_lib.h"
 #include "r_local.hpp"
-#include "r_draw.h"
+#include "r_draw.hpp"
 
 // boolean : whether the screen is always erased
 #define noterased viewwindowx

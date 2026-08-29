@@ -34,7 +34,7 @@ extern "C"
 
 // State.
 #include "doomstat.h"
-#include "r_state.h"
+#include "r_state.hpp"
 // Data.
 #include "sounds.h"
 }

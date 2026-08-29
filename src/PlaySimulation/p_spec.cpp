@@ -49,7 +49,7 @@ extern "C"
 #include "s_sound.h"
 
 // State.
-#include "r_state.h"
+#include "r_state.hpp"
 
 // Data.
 #include "sounds.h"

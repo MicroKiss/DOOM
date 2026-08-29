@@ -37,7 +37,7 @@ extern "C"
 #include "p_local.hpp"
 
 // State.
-#include "r_state.h"
+#include "r_state.hpp"
 }
 
 //
