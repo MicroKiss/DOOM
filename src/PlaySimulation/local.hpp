@@ -1,22 +1,16 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //	Play functions, animation, global header.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __P_LOCAL__
@@ -58,10 +52,8 @@
 // follow a player exlusively for 3 seconds
 #define BASETHRESHOLD 100
 
-    //
-    // P_TICK
-    //
-
+        // P_TICK
+    
     // both the head and tail of the thinker list
     extern thinker_t thinkercap;
 
@@ -69,21 +61,15 @@
     void P_AddThinker(thinker_t *thinker);
     void P_RemoveThinker(thinker_t *thinker);
 
-    //
-    // P_PSPR
-    //
-    void P_SetupPsprites(player_t *curplayer);
+        // P_PSPR
+        void P_SetupPsprites(player_t *curplayer);
     void P_MovePsprites(player_t *curplayer);
     void P_DropWeapon(player_t *player);
 
-    //
-    // P_USER
-    //
-    void P_PlayerThink(player_t *player);
+        // P_USER
+        void P_PlayerThink(player_t *player);
 
-//
 // P_MOBJ
-//
 #define ONFLOORZ MININT
 #define ONCEILINGZ MAXINT
 
@@ -112,15 +98,11 @@
     mobj_t *P_SpawnMissile(mobj_t *source, mobj_t *dest, mobjtype_t type);
     void P_SpawnPlayerMissile(mobj_t *source, mobjtype_t type);
 
-    //
-    // P_ENEMY
-    //
-    void P_NoiseAlert(mobj_t *target, mobj_t *emmiter);
+        // P_ENEMY
+        void P_NoiseAlert(mobj_t *target, mobj_t *emmiter);
 
-    //
-    // P_MAPUTL
-    //
-    typedef struct
+        // P_MAPUTL
+        typedef struct
     {
         int32_t x;
         int32_t y;
@@ -181,10 +163,8 @@
     void P_UnsetThingPosition(mobj_t *thing);
     void P_SetThingPosition(mobj_t *thing);
 
-    //
-    // P_MAP
-    //
-
+        // P_MAP
+    
     // If "floatok" true, move would be ok
     // if within "tmfloorz - tmceilingz".
     extern boolean floatok;
@@ -222,10 +202,8 @@
                         mobj_t *source,
                         int damage);
 
-    //
-    // P_SETUP
-    //
-    extern byte *rejectmatrix;  // for fast sight rejection
+        // P_SETUP
+        extern byte *rejectmatrix;  // for fast sight rejection
     extern short *blockmaplump; // offsets in blockmap are from here
     extern short *blockmap;
     extern int bmapwidth;
@@ -234,10 +212,8 @@
     extern int32_t bmaporgy;    // origin of block map
     extern mobj_t **blocklinks; // for thing chains
 
-    //
-    // P_INTER
-    //
-    extern int maxammo[NUMAMMO];
+        // P_INTER
+        extern int maxammo[NUMAMMO];
     extern int clipammo[NUMAMMO];
 
     void P_TouchSpecialThing(mobj_t *special,
@@ -248,15 +224,11 @@
                       mobj_t *source,
                       int damage);
 
-//
 // P_SPEC
-//
 #include "PlaySimulation/spec.hpp"
 
 
 #endif // __P_LOCAL__
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

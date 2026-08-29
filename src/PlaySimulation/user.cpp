@@ -1,26 +1,8 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Player related stuff.
 //	Bobbing POV/weapon, movement.
 //	Pending weapon.
-//
 //-----------------------------------------------------------------------------
 
 #include "doomdef.hpp"
@@ -33,19 +15,15 @@
 // Index of the special effects (INVUL inverse) map.
 #define INVERSECOLORMAP 32
 
-//
 // Movement.
-//
 
 // 16 pixels of bob
 #define MAXBOB 0x100000
 
 boolean onground;
 
-//
 // P_Thrust
 // Moves the given origin along a given angle.
-//
 void P_Thrust(player_t *player,
 			  angle_t angle,
 			  int32_t move)
@@ -56,10 +34,8 @@ void P_Thrust(player_t *player,
 	player->mo->momy += FixedMul(move, finesine[angle]);
 }
 
-//
 // P_CalcHeight
 // Calculate the walking / running height adjustment
-//
 void P_CalcHeight(player_t *player)
 {
 	int angle;
@@ -124,9 +100,7 @@ void P_CalcHeight(player_t *player)
 		player->viewz = player->mo->ceilingz - 4 * FRACUNIT;
 }
 
-//
 // P_MovePlayer
-//
 void P_MovePlayer(player_t *player)
 {
 	ticcmd_t *cmd;
@@ -151,11 +125,9 @@ void P_MovePlayer(player_t *player)
 	}
 }
 
-//
 // P_DeathThink
 // Fall on your face when dying.
 // Decrease POV height to floor height.
-//
 #define ANG5 (ANG90 / 18)
 
 void P_DeathThink(player_t *player)
@@ -206,9 +178,7 @@ void P_DeathThink(player_t *player)
 		player->playerstate = PST_REBORN;
 }
 
-//
 // P_PlayerThink
-//
 void P_PlayerThink(player_t *player)
 {
 	ticcmd_t *cmd;

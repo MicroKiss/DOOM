@@ -1,22 +1,16 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 // 	The status bar widget code.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __STLIB__
@@ -26,15 +20,11 @@
 // We are referring to patches.
 #include "Renderer/defs.hpp"
 
-//
 // Background and foreground screen numbers
-//
 #define BG 4
 #define FG 0
 
-//
 // Typedefs of widgets
-//
 
 // Number widget
 
@@ -126,14 +116,11 @@ typedef struct
 
 } st_binicon_t;
 
-//
 // Widget creation, access, and update routines
-//
 
 // Initializes widget library.
 // More precisely, initialize STMINUS,
 //  everything else is done somewhere else.
-//
 void STlib_init(void);
 
 // Number widget routines
@@ -186,7 +173,5 @@ void STlib_updateBinIcon(st_binicon_t *bi,
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

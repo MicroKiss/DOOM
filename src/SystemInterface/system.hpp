@@ -1,22 +1,16 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //	System specific interface stuff.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __I_SYSTEM__
@@ -42,18 +36,15 @@
     // returns current time in tics.
     int I_GetTime(void);
 
-    //
-    // Called by D_DoomLoop,
+        // Called by D_DoomLoop,
     // called before processing any tics in a frame
     // (just after displaying a frame).
     // Time consuming syncronous operations
     // are performed here (joystick reading).
     // Can call D_PostEvent.
-    //
-    void I_StartFrame(void);
+        void I_StartFrame(void);
 
-    //
-    // Called by D_DoomLoop,
+        // Called by D_DoomLoop,
     // called before processing each tic in a frame.
     // Quick syncronous operations are performed here.
     // Can call D_PostEvent.
@@ -91,7 +82,5 @@
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

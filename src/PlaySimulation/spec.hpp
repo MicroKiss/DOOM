@@ -1,35 +1,27 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:  none
 //	Implements special effects:
 //	Texture animation, height or lighting changes
 //	 according to adjacent sectors, respective
 //	 utility functions, etc.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __P_SPEC__
 #define __P_SPEC__
 
 
-    //
-    // End-level timer (-TIMER option)
-    //
-    extern boolean levelTimer;
+        // End-level timer (-TIMER option)
+        extern boolean levelTimer;
     extern int levelTimeCount;
 
 //      Define values for map objects
@@ -92,15 +84,11 @@
     getNextSector(line_t *line,
                   sector_t *sec);
 
-    //
-    // SPECIAL
-    //
-    int EV_DoDonut(line_t *line);
+        // SPECIAL
+        int EV_DoDonut(line_t *line);
 
-    //
-    // P_LIGHTS
-    //
-    typedef struct
+        // P_LIGHTS
+        typedef struct
     {
         thinker_t thinker;
         sector_t *sector;
@@ -167,10 +155,8 @@
     void T_Glow(glow_t *g);
     void P_SpawnGlowingLight(sector_t *sector);
 
-    //
-    // P_SWITCH
-    //
-    typedef struct
+        // P_SWITCH
+        typedef struct
     {
         char name1[9];
         char name2[9];
@@ -212,10 +198,8 @@
 
     void P_InitSwitchList(void);
 
-    //
-    // P_PLATS
-    //
-    typedef enum
+        // P_PLATS
+        typedef enum
     {
         up,
         down,
@@ -268,10 +252,8 @@
     void EV_StopPlat(line_t *line);
     void P_ActivateInStasis(int tag);
 
-    //
-    // P_DOORS
-    //
-    typedef enum
+        // P_DOORS
+        typedef enum
     {
         normal,
         close30ThenOpen,
@@ -323,9 +305,7 @@
                                  int secnum);
 
 #if 0 // UNUSED
-//
 //      Sliding doors...
-//
 typedef enum
 {
     sd_opening,
@@ -404,10 +384,8 @@ EV_SlidingDoor
   mobj_t*	thing );
 #endif
 
-    //
-    // P_CEILNG
-    //
-    typedef enum
+        // P_CEILNG
+        typedef enum
     {
         lowerToFloor,
         raiseToHighest,
@@ -452,10 +430,8 @@ EV_SlidingDoor
     int EV_CeilingCrushStop(line_t *line);
     void P_ActivateInStasisCeiling(line_t *line);
 
-    //
-    // P_FLOOR
-    //
-    typedef enum
+        // P_FLOOR
+        typedef enum
     {
         // lower floor to highest surrounding floor
         lowerFloor,
@@ -537,17 +513,13 @@ EV_SlidingDoor
 
     void T_MoveFloor(floormove_t *floor);
 
-    //
-    // P_TELEPT
-    //
-    int EV_Teleport(line_t *line,
+        // P_TELEPT
+        int EV_Teleport(line_t *line,
                     int side,
                     mobj_t *thing);
 
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

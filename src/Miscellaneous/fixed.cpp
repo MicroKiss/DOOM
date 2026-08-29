@@ -10,9 +10,7 @@ int32_t FixedMul(int32_t a,
     return ((long long)a * (long long)b) >> FRACBITS;
 }
 
-//
 // FixedDiv, C version.
-//
 
 int32_t FixedDiv(int32_t a, int32_t b)
 {

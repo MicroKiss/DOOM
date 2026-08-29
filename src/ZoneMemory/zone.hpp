@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 
-//
 // ZONE MEMORY
 // PU - purge tags.
 // Tags < 100 are not overwritten until freed.
@@ -37,10 +36,8 @@
         struct memblock_s *prev;
     } memblock_t;
 
-//
 // This is used to get the local FILE:LINE info from CPP
 // prior to really call the function in question.
-//
 #define Z_ChangeTag(p, t)                                                       \
     {                                                                           \
         if (((memblock_t *)((byte *)(p) - sizeof(memblock_t)))->id != 0x1d4a11) \

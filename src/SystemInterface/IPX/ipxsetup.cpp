@@ -115,11 +115,9 @@ void LookForNodes(void)
 	char str[80];
 	int total, console;
 
-	//
-	// wait until we get [numnetnodes] packets, then start playing
+		// wait until we get [numnetnodes] packets, then start playing
 	// the playernumbers are assigned by netid
-	//
-	printf(STR_ATTEMPT, numnetnodes);
+		printf(STR_ATTEMPT, numnetnodes);
 
 	printf(STR_LOOKING);
 
@@ -127,28 +125,22 @@ void LookForNodes(void)
 	setup = (setupdata_t *)&doomcom.data;
 	localtime = -1; // in setup time, not game time
 
-	//
-	// build local setup info
-	//
-	nodesetup[0].nodesfound = 1;
+		// build local setup info
+		nodesetup[0].nodesfound = 1;
 	nodesetup[0].nodeswanted = numnetnodes;
 	doomcom.numnodes = 1;
 
 	do
 	{
-		//
-		// check for aborting
-		//
-		while (bioskey(1))
+				// check for aborting
+				while (bioskey(1))
 		{
 			if ((bioskey(0) & 0xff) == 27)
 				Error("\n\n" STR_NETABORT);
 		}
 
-		//
-		// listen to the network
-		//
-		while (GetPacket())
+				// listen to the network
+				while (GetPacket())
 		{
 			if (doomcom.remotenode == -1)
 				dest = &nodesetup[doomcom.numnodes];
@@ -170,15 +162,11 @@ void LookForNodes(void)
 			if (doomcom.remotenode != -1)
 				continue; // allready know that node address
 
-			//
-			// this is a new node
-			//
-			memcpy(&nodeadr[doomcom.numnodes], &remoteadr, sizeof(nodeadr[doomcom.numnodes]));
+						// this is a new node
+						memcpy(&nodeadr[doomcom.numnodes], &remoteadr, sizeof(nodeadr[doomcom.numnodes]));
 
-			//
-			// if this node has a lower address, take all startup info
-			//
-			if (memcmp(&remoteadr, &nodeadr[0], sizeof(&remoteadr)) < 0)
+						// if this node has a lower address, take all startup info
+						if (memcmp(&remoteadr, &nodeadr[0], sizeof(&remoteadr)) < 0)
 			{
 			}
 
@@ -189,20 +177,16 @@ void LookForNodes(void)
 			if (doomcom.numnodes < numnetnodes)
 				printf(STR_LOOKING);
 		}
-		//
-		// we are done if all nodes have found all other nodes
-		//
-		for (i = 0; i < doomcom.numnodes; i++)
+				// we are done if all nodes have found all other nodes
+				for (i = 0; i < doomcom.numnodes; i++)
 			if (nodesetup[i].nodesfound != nodesetup[i].nodeswanted)
 				break;
 
 		if (i == nodesetup[0].nodeswanted)
 			break; // got them all
 
-		//
-		// send out a broadcast packet every second
-		//
-		gettime(&time);
+				// send out a broadcast packet every second
+				gettime(&time);
 		if (time.ti_sec == oldsec)
 			continue;
 		oldsec = time.ti_sec;
@@ -218,10 +202,8 @@ void LookForNodes(void)
 
 	} while (1);
 
-	//
-	// count players
-	//
-	total = 0;
+		// count players
+		total = 0;
 	console = 0;
 
 	for (i = 0; i < numnetnodes; i++)
@@ -245,9 +227,7 @@ void LookForNodes(void)
 }
 
 //========================================================
-//
 //	Find a Response File
-//
 //========================================================
 void FindResponseFile(void)
 {
@@ -329,10 +309,8 @@ void main(void)
 	int i;
 	unsigned char far *vector;
 
-	//
-	// determine game parameters
-	//
-	gameid = 0;
+		// determine game parameters
+		gameid = 0;
 	numnetnodes = 2;
 	doomcom.ticdup = 1;
 	doomcom.extratics = 1;

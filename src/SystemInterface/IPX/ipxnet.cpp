@@ -84,26 +84,20 @@ void InitNetwork(void)
 {
      int i, j;
 
-     //
-     // get IPX function address
-     //
-     _AX = 0x7a00;
+          // get IPX function address
+          _AX = 0x7a00;
      geninterrupt(0x2f);
      if (_AL != 0xff)
           Error("IPX not detected\n");
      IPX = MK_FP(_ES, _DI);
 
-     //
-     // allocate a socket for sending and receiving
-     //
-     socketid = OpenSocket((socketid >> 8) + ((socketid & 255) << 8));
+          // allocate a socket for sending and receiving
+          socketid = OpenSocket((socketid >> 8) + ((socketid & 255) << 8));
 
      GetLocalAddress();
 
-     //
-     // set up several receiving ECBs
-     //
-     memset(packets, 0, NUMPACKETS * sizeof(packet_t));
+          // set up several receiving ECBs
+          memset(packets, 0, NUMPACKETS * sizeof(packet_t));
 
      for (i = 1; i < NUMPACKETS; i++)
      {
@@ -116,10 +110,8 @@ void InitNetwork(void)
           ListenForPacket(&packets[i].ecb);
      }
 
-     //
-     // set up a sending ECB
-     //
-     memset(&packets[0], 0, sizeof(packets[0]));
+          // set up a sending ECB
+          memset(&packets[0], 0, sizeof(packets[0]));
 
      packets[0].ecb.ECBSocket = socketid;
      packets[0].ecb.FragmentCount = 2;
@@ -252,10 +244,8 @@ int GetPacket(void)
 
      remotetime = besttic;
 
-     //
-     // got a good packet
-     //
-     if (packet->ecb.CompletionCode)
+          // got a good packet
+          if (packet->ecb.CompletionCode)
           Error("GetPacket: ecb.ComletionCode = 0x%x", packet->ecb.CompletionCode);
 
      // set remoteadr to the sender of the packet

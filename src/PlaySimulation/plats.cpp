@@ -1,24 +1,6 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Plats (i.e. elevator platforms) code, raising/lowering.
-//
 //-----------------------------------------------------------------------------
 
 #include "SystemInterface/system.hpp"
@@ -39,9 +21,7 @@
 
 plat_t *activeplats[MAXPLATS];
 
-//
 // Move a plat up and down
-//
 void T_PlatRaise(plat_t *plat)
 {
 	result_e res;
@@ -121,10 +101,8 @@ void T_PlatRaise(plat_t *plat)
 	}
 }
 
-//
 // Do Platforms
 //  "amount" is only used for SOME platforms.
-//
 int EV_DoPlat(line_t *line,
 			  plattype_e type,
 			  int amount)

@@ -3,10 +3,8 @@
 static int firsttime = 1;
 static unsigned char cheat_xlate_table[256];
 
-//
 // Called in st_stuff module, which handles the input.
 // Returns a 1 if the cheat was successful, 0 if failed.
-//
 int cht_CheckCheat(cheatseq_t *cht,
                    char key)
 {

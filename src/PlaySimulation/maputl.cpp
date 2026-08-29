@@ -1,27 +1,9 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Movement/collision utility functions,
 //	as used by function in p_map.c.
 //	BLOCKMAP Iterator functions,
 //	and some PIT_* functions to use for iteration.
-//
 //-----------------------------------------------------------------------------
 
 #include <stdlib.h>
@@ -34,10 +16,8 @@
 // State.
 #include "Renderer/state.hpp"
 
-//
 // P_AproxDistance
 // Gives an estimation of distance (not exact)
-//
 
 int32_t
 P_AproxDistance(int32_t dx,
@@ -50,10 +30,8 @@ P_AproxDistance(int32_t dx,
     return dx + dy - (dy >> 1);
 }
 
-//
 // P_PointOnLineSide
 // Returns 0 or 1
-//
 int P_PointOnLineSide(int32_t x,
                       int32_t y,
                       line_t *line)
@@ -89,11 +67,9 @@ int P_PointOnLineSide(int32_t x,
     return 1;     // back side
 }
 
-//
 // P_BoxOnLineSide
 // Considers the line to be infinite
 // Returns side 0 or 1, -1 if box crosses the line.
-//
 int P_BoxOnLineSide(int32_t *tmbox,
                     line_t *ld)
 {
@@ -138,10 +114,8 @@ int P_BoxOnLineSide(int32_t *tmbox,
     return -1;
 }
 
-//
 // P_PointOnDivlineSide
 // Returns 0 or 1.
-//
 int P_PointOnDivlineSide(int32_t x,
                          int32_t y,
                          divline_t *line)
@@ -185,9 +159,7 @@ int P_PointOnDivlineSide(int32_t x,
     return 1;     // back side
 }
 
-//
 // P_MakeDivline
-//
 void P_MakeDivline(line_t *li,
                    divline_t *dl)
 {
@@ -197,13 +169,11 @@ void P_MakeDivline(line_t *li,
     dl->dy = li->dy;
 }
 
-//
 // P_InterceptVector
 // Returns the fractional intercept point
 // along the first divline.
 // This is only called by the addthings
 // and addlines traversers.
-//
 int32_t
 P_InterceptVector(divline_t *v2,
                   divline_t *v1)
@@ -259,12 +229,10 @@ P_InterceptVector(divline_t *v2,
 #endif
 }
 
-//
 // P_LineOpening
 // Sets opentop and openbottom to the window
 // through a two sided line.
 // OPTIMIZE: keep this precalculated
-//
 int32_t opentop;
 int32_t openbottom;
 int32_t openrange;
@@ -304,17 +272,13 @@ void P_LineOpening(line_t *linedef)
     openrange = opentop - openbottom;
 }
 
-//
 // THING POSITION SETTING
-//
 
-//
 // P_UnsetThingPosition
 // Unlinks a thing from block map and sectors.
 // On each position change, BLOCKMAP and other
 // lookups maintaining lists ot things inside
 // these structures need to be updated.
-//
 void P_UnsetThingPosition(mobj_t *thing)
 {
     int blockx;
@@ -355,12 +319,10 @@ void P_UnsetThingPosition(mobj_t *thing)
     }
 }
 
-//
 // P_SetThingPosition
 // Links a thing into both a block and a subsector
 // based on it's x y.
 // Sets thing->subsector properly
-//
 void P_SetThingPosition(mobj_t *thing)
 {
     subsector_t *ss;
@@ -412,22 +374,18 @@ void P_SetThingPosition(mobj_t *thing)
     }
 }
 
-//
 // BLOCK MAP ITERATORS
 // For each line/thing in the given mapblock,
 // call the passed PIT_* function.
 // If the function returns false,
 // exit with false without checking anything else.
-//
 
-//
 // P_BlockLinesIterator
 // The validcount flags are used to avoid checking lines
 // that are marked in multiple mapblocks,
 // so increment validcount before the first call
 // to P_BlockLinesIterator, then make one or more calls
 // to it.
-//
 boolean
 P_BlockLinesIterator(int x,
                      int y,
@@ -461,9 +419,7 @@ P_BlockLinesIterator(int x,
     return true; // everything was checked
 }
 
-//
 // P_BlockThingsIterator
-//
 boolean
 P_BlockThingsIterator(int x,
                       int y,
@@ -486,9 +442,7 @@ P_BlockThingsIterator(int x,
     return true;
 }
 
-//
 // INTERCEPT ROUTINES
-//
 intercept_t intercepts[MAXINTERCEPTS];
 intercept_t *intercept_p;
 
@@ -496,16 +450,13 @@ divline_t trace;
 boolean earlyout;
 int ptflags;
 
-//
 // PIT_AddLineIntercepts.
 // Looks for lines in the given block
 // that intercept the given trace
 // to add to the intercepts list.
-//
 // A line is crossed if its endpoints
 // are on opposite sides of the trace.
 // Returns true if earlyout and a solid line hit.
-//
 boolean
 PIT_AddLineIntercepts(line_t *ld)
 {
@@ -550,9 +501,7 @@ PIT_AddLineIntercepts(line_t *ld)
     return true; // continue
 }
 
-//
 // PIT_AddThingIntercepts
-//
 boolean PIT_AddThingIntercepts(mobj_t *thing)
 {
     int32_t x1;
@@ -613,11 +562,9 @@ boolean PIT_AddThingIntercepts(mobj_t *thing)
     return true; // keep going
 }
 
-//
 // P_TraverseIntercepts
 // Returns true if the traverser function returns true
 // for all lines.
-//
 boolean
 P_TraverseIntercepts(traverser_t func,
                      int32_t maxfrac)
@@ -667,13 +614,11 @@ P_TraverseIntercepts(traverser_t func,
     return true; // everything was traversed
 }
 
-//
 // P_PathTraverse
 // Traces a line from x1,y1 to x2,y2,
 // calling the traverser function for each.
 // Returns true if the traverser function returns true
 // for all lines.
-//
 boolean
 P_PathTraverse(int32_t x1,
                int32_t y1,

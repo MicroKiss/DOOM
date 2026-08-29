@@ -1,24 +1,6 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	The status bar widget code.
-//
 //-----------------------------------------------------------------------------
 
 #include <ctype.h>
@@ -41,10 +23,8 @@
 // in AM_map.c
 extern boolean automapactive;
 
-//
 // Hack display negative frags.
 //  Loads and store the stminus lump.
-//
 patch_t *sttminus;
 
 void STlib_init(void)
@@ -70,11 +50,9 @@ void STlib_initNum(st_number_t *n,
     n->p = pl;
 }
 
-//
 // A fairly efficient way to draw a number
 //  based on differences from the old number.
 // Note: worth the trouble?
-//
 void STlib_drawNum(st_number_t *n,
                    boolean refresh)
 {
@@ -133,7 +111,6 @@ void STlib_drawNum(st_number_t *n,
         V_DrawPatch(x - 8, n->y, FG, sttminus);
 }
 
-//
 void STlib_updateNum(st_number_t *n,
                      boolean refresh)
 {
@@ -141,7 +118,6 @@ void STlib_updateNum(st_number_t *n,
         STlib_drawNum(n, refresh);
 }
 
-//
 void STlib_initPercent(st_percent_t *p,
                        int x,
                        int y,

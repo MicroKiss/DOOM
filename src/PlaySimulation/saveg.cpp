@@ -1,24 +1,6 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Archiving: SaveGame I/O.
-//
 //-----------------------------------------------------------------------------
 
 #include "SystemInterface/system.hpp"
@@ -78,9 +60,7 @@ static void SaveWrite32(int32_t value)
 //  so that the load/save works on SGI&Gecko.
 #define PADSAVEP() save_p += (4 - ((uintptr_t)save_p & 3u)) & 3u
 
-//
 // P_ArchivePlayers
-//
 void P_ArchivePlayers(void)
 {
 	int i;
@@ -151,9 +131,7 @@ void P_ArchivePlayers(void)
 	}
 }
 
-//
 // P_UnArchivePlayers
-//
 void P_UnArchivePlayers(void)
 {
 	int i;
@@ -227,9 +205,7 @@ void P_UnArchivePlayers(void)
 	}
 }
 
-//
 // P_ArchiveWorld
-//
 void P_ArchiveWorld(void)
 {
 	int i;
@@ -272,9 +248,7 @@ void P_ArchiveWorld(void)
 	}
 }
 
-//
 // P_UnArchiveWorld
-//
 void P_UnArchiveWorld(void)
 {
 	int i;
@@ -317,9 +291,7 @@ void P_UnArchiveWorld(void)
 	}
 }
 
-//
 // Thinkers
-//
 static void SaveWriteThinker(const thinker_t *thinker)
 {
 	SaveWrite32(0);
@@ -439,9 +411,7 @@ typedef enum
 
 } thinkerclass_t;
 
-//
 // P_ArchiveThinkers
-//
 void P_ArchiveThinkers(void)
 {
 	thinker_t *th;
@@ -464,9 +434,7 @@ void P_ArchiveThinkers(void)
 	SaveWrite8(tc_end);
 }
 
-//
 // P_UnArchiveThinkers
-//
 void P_UnArchiveThinkers(void)
 {
 	byte tclass;
@@ -516,9 +484,7 @@ void P_UnArchiveThinkers(void)
 	}
 }
 
-//
 // P_ArchiveSpecials
-//
 static void SaveWriteCeiling(const ceiling_t *value)
 {
 	SaveWriteThinker(&value->thinker);
@@ -704,9 +670,7 @@ enum
 
 } specials_e;
 
-//
 // Things to handle:
-//
 // T_MoveCeiling, (ceiling_t: sector_t * swizzle), - active list
 // T_VerticalDoor, (vldoor_t: sector_t * swizzle),
 // T_MoveFloor, (floormove_t: sector_t * swizzle),
@@ -714,7 +678,6 @@ enum
 // T_StrobeFlash, (strobe_t: sector_t *),
 // T_Glow, (glow_t: sector_t *),
 // T_PlatRaise, (plat_t: sector_t *), - active list
-//
 void P_ArchiveSpecials(void)
 {
 	thinker_t *th;
@@ -806,9 +769,7 @@ void P_ArchiveSpecials(void)
 	SaveWrite8(tc_endspecials);
 }
 
-//
 // P_UnArchiveSpecials
-//
 void P_UnArchiveSpecials(void)
 {
 	byte tclass;

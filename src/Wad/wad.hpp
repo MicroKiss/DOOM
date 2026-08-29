@@ -1,22 +1,16 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //	WAD I/O functions.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __W_WAD__
@@ -29,9 +23,7 @@
 #pragma interface
 #endif
 
-//
 // TYPES
-//
 typedef struct
 {
     // Should be "IWAD" or "PWAD".
@@ -52,9 +44,7 @@ typedef struct
 static_assert(sizeof(wadinfo_t) == 12, "wadinfo_t must match the WAD format");
 static_assert(sizeof(filelump_t) == 16, "filelump_t must match the WAD format");
 
-//
 // WADFILE I/O related stuff.
-//
 typedef struct
 {
     char name[8];
@@ -82,7 +72,5 @@ void *W_CacheLumpName(char *name, int tag);
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

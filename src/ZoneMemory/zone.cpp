@@ -2,16 +2,12 @@
 #include "SystemInterface/system.hpp"
 #include "doomdef.hpp"
 
-//
 // ZONE MEMORY ALLOCATION
-//
 // There is never any space between memblocks,
 //  and there will never be two contiguous free memblocks.
 // The rover can be left pointing at a non-empty block.
-//
 // It is of no value to free a cachable block,
 //  because it will get overwritten automatically if needed.
-//
 
 #define MEM_ALIGN sizeof(void *)
 #define ZONEID 0x1d4a11
@@ -30,9 +26,7 @@ typedef struct
 
 memzone_t *mainzone;
 
-//
 // Z_ClearZone
-//
 void Z_ClearZone(memzone_t *zone)
 {
     memblock_t *block;
@@ -54,9 +48,7 @@ void Z_ClearZone(memzone_t *zone)
     block->size = zone->size - sizeof(memzone_t);
 }
 
-//
 // Z_Init
-//
 void Z_Init(void)
 {
     memblock_t *block;
@@ -82,9 +74,7 @@ void Z_Init(void)
     block->size = mainzone->size - sizeof(memzone_t);
 }
 
-//
 // Z_Free
-//
 void Z_Free(void *ptr)
 {
     memblock_t *block;
@@ -137,10 +127,8 @@ void Z_Free(void *ptr)
     }
 }
 
-//
 // Z_Malloc
 // You can pass a NULL user if the tag is < PU_PURGELEVEL.
-//
 #define MINFRAGMENT 64
 
 void *
@@ -248,9 +236,7 @@ Z_Malloc(int size,
     return (void *)((byte *)base + sizeof(memblock_t));
 }
 
-//
 // Z_FreeTags
-//
 void Z_FreeTags(int lowtag,
                 int hightag)
 {
@@ -273,10 +259,8 @@ void Z_FreeTags(int lowtag,
     }
 }
 
-//
 // Z_DumpHeap
 // Note: TFileDumpHeap( stdout ) ?
-//
 void Z_DumpHeap(int lowtag,
                 int hightag)
 {
@@ -311,9 +295,7 @@ void Z_DumpHeap(int lowtag,
     }
 }
 
-//
 // Z_FileDumpHeap
-//
 void Z_FileDumpHeap(FILE *f)
 {
     memblock_t *block;
@@ -342,9 +324,7 @@ void Z_FileDumpHeap(FILE *f)
     }
 }
 
-//
 // Z_CheckHeap
-//
 void Z_CheckHeap(void)
 {
     memblock_t *block;
@@ -375,9 +355,7 @@ void Z_CheckHeap(void)
         I_Error("Z_CheckHeap: rover is not in the block list");
 }
 
-//
 // Z_ChangeTag
-//
 void Z_ChangeTag2(void *ptr,
                   int tag)
 {
@@ -394,9 +372,7 @@ void Z_ChangeTag2(void *ptr,
     block->tag = tag;
 }
 
-//
 // Z_FreeMemory
-//
 int Z_FreeMemory(void)
 {
     memblock_t *block;

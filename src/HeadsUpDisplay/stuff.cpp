@@ -1,23 +1,5 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:  Heads-up displays
-//
 //-----------------------------------------------------------------------------
 
 #include <ctype.h>
@@ -40,9 +22,7 @@
 #include "dstrings.hpp"
 #include "sounds.hpp"
 
-//
 // Locally used constants, shortcuts.
-//
 #define HU_TITLE (mapnames[(gameepisode - 1) * 9 + gamemap - 1])
 #define HU_TITLE2 (mapnames2[gamemap - 1])
 #define HU_TITLEP (mapnamesp[gamemap - 1])
@@ -99,10 +79,8 @@ extern boolean automapactive;
 
 static boolean headsupactive = false;
 
-//
 // Builtin map names.
 // The actual names can be found in DStrings.h.
-//
 
 char *mapnames[] = // DOOM shareware/registered/retail (Ultimate) names.
     {

@@ -1,23 +1,5 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION: Door animation code (opening/closing)
-//
 //-----------------------------------------------------------------------------
 
 #include "ZoneMemory/zone.hpp"
@@ -35,9 +17,7 @@
 #include "sounds.hpp"
 
 #if 0
-//
 // Sliding door frame information
-//
 slidename_t	slideFrameNames[MAXSLIDEDOORS] =
 {
     {"GDOORF1","GDOORF2","GDOORF3","GDOORF4",	// front
@@ -47,13 +27,9 @@ slidename_t	slideFrameNames[MAXSLIDEDOORS] =
 };
 #endif
 
-//
 // VERTICAL DOORS
-//
 
-//
 // T_VerticalDoor
-//
 void T_VerticalDoor(vldoor_t *door)
 {
 	result_e res;
@@ -191,10 +167,8 @@ void T_VerticalDoor(vldoor_t *door)
 	}
 }
 
-//
 // EV_DoLockedDoor
 // Move a locked door up/down
-//
 
 int EV_DoLockedDoor(line_t *line,
 					vldoor_e type,
@@ -332,9 +306,7 @@ int EV_DoDoor(line_t *line,
 	return rtn;
 }
 
-//
 // EV_VerticalDoor : open a door manually, no tag value
-//
 void EV_VerticalDoor(line_t *line,
 					 mobj_t *thing)
 {
@@ -480,9 +452,7 @@ void EV_VerticalDoor(line_t *line,
 	door->topheight -= 4 * FRACUNIT;
 }
 
-//
 // Spawn a door that closes after 30 seconds
-//
 void P_SpawnDoorCloseIn30(sector_t *sec)
 {
 	vldoor_t *door;
@@ -502,9 +472,7 @@ void P_SpawnDoorCloseIn30(sector_t *sec)
 	door->topcountdown = 30 * 35;
 }
 
-//
 // Spawn a door that opens after 5 minutes
-//
 void P_SpawnDoorRaiseIn5Mins(sector_t *sec,
 							 int secnum)
 {
@@ -532,10 +500,8 @@ void P_SpawnDoorRaiseIn5Mins(sector_t *sec,
 // Separate into p_slidoor.c?
 
 #if 0 // ABANDONED TO THE MISTS OF TIME!!!
-//
 // EV_SlidingDoor : slide a door horizontally
 // (animate midtexture, then set noblocking line)
-//
 
 
 slideframe_t slideFrames[MAXSLIDEDOORS];
@@ -580,10 +546,8 @@ void P_InitSlidingDoorFrames(void)
 }
 
 
-//
 // Return index into "slideFrames" array
 // for which door type to use
-//
 int P_FindSlidingDoorType(line_t*	line)
 {
     int		i;

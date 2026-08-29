@@ -1,24 +1,6 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Floor animation: raising stairs.
-//
 //-----------------------------------------------------------------------------
 
 #include "ZoneMemory/zone.hpp"
@@ -33,13 +15,9 @@
 // Data.
 #include "sounds.hpp"
 
-//
 // FLOORS
-//
 
-//
 // Move a plane (floor or ceiling) and check for crushing
-//
 result_e
 T_MovePlane(sector_t *sector,
 			int32_t speed,
@@ -195,9 +173,7 @@ T_MovePlane(sector_t *sector,
 	return ok;
 }
 
-//
 // MOVE A FLOOR TO IT'S DESTINATION (UP OR DOWN)
-//
 void T_MoveFloor(floormove_t *floor)
 {
 	result_e res;
@@ -244,9 +220,7 @@ void T_MoveFloor(floormove_t *floor)
 	}
 }
 
-//
 // HANDLE FLOOR TYPES
-//
 int EV_DoFloor(line_t *line,
 			   floor_e floortype)
 {
@@ -432,9 +406,7 @@ int EV_DoFloor(line_t *line,
 	return rtn;
 }
 
-//
 // BUILD A STAIRCASE!
-//
 int EV_BuildStairs(line_t *line,
 				   stair_e type)
 {

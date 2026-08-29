@@ -1,24 +1,16 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
-//
 // $Log:$
-//
 // DESCRIPTION:  the automap code
-//
 //-----------------------------------------------------------------------------
 
 #include <stdio.h>
@@ -146,11 +138,9 @@ typedef struct
 	int32_t slp, islp;
 } islope_t;
 
-//
 // The vector graphics for the automap.
 //  A line drawing of the player pointing right,
 //   starting from the middle.
-//
 #define R ((8 * PLAYERRADIUS) / 7)
 mline_t player_arrow[] = {
 	{{-R + R / 8, 0}, {R, 0}},	  // -----
@@ -228,9 +218,7 @@ static int32_t ftom_zoommul; // how far the window zooms in each tic (fb coords)
 static int32_t m_x, m_y;   // LL x,y where the window is on the map (map coords)
 static int32_t m_x2, m_y2; // UR x,y where the window is on the map (map coords)
 
-//
 // width/height of window on map (map coords)
-//
 static int32_t m_w;
 static int32_t m_h;
 
@@ -304,9 +292,6 @@ void AM_getIslope(mline_t *ml,
 		is->slp = FixedDiv(dy, dx);
 }
 
-//
-//
-//
 void AM_activateNewScale(void)
 {
 	m_x += m_w / 2;
@@ -319,9 +304,6 @@ void AM_activateNewScale(void)
 	m_y2 = m_y + m_h;
 }
 
-//
-//
-//
 void AM_saveScaleAndLoc(void)
 {
 	old_m_x = m_x;
@@ -330,9 +312,6 @@ void AM_saveScaleAndLoc(void)
 	old_m_h = m_h;
 }
 
-//
-//
-//
 void AM_restoreScaleAndLoc(void)
 {
 
@@ -356,9 +335,7 @@ void AM_restoreScaleAndLoc(void)
 	scale_ftom = FixedDiv(FRACUNIT, scale_mtof);
 }
 
-//
 // adds a marker at the current location
-//
 void AM_addMark(void)
 {
 	markpoints[markpointnum].x = m_x + m_w / 2;
@@ -366,10 +343,8 @@ void AM_addMark(void)
 	markpointnum = (markpointnum + 1) % AM_NUMMARKPOINTS;
 }
 
-//
 // Determines bounding box of all vertices,
 // sets global variables controlling zoom range.
-//
 void AM_findMinMaxBoundaries(void)
 {
 	int i;
@@ -405,9 +380,6 @@ void AM_findMinMaxBoundaries(void)
 	max_scale_mtof = FixedDiv(f_h << FRACBITS, 2 * PLAYERRADIUS);
 }
 
-//
-//
-//
 void AM_changeWindowLoc(void)
 {
 	if (m_paninc.x || m_paninc.y)
@@ -433,9 +405,6 @@ void AM_changeWindowLoc(void)
 	m_y2 = m_y + m_h;
 }
 
-//
-//
-//
 void AM_initVariables(void)
 {
 	int pnum;
@@ -476,9 +445,6 @@ void AM_initVariables(void)
 	ST_Responder(&st_notify);
 }
 
-//
-//
-//
 void AM_loadPics(void)
 {
 	int i;
@@ -508,10 +474,8 @@ void AM_clearMarks(void)
 	markpointnum = 0;
 }
 
-//
 // should be called at the start of every level
 // right now, i figure it out myself
-//
 void AM_LevelInit(void)
 {
 	leveljuststarted = 0;
@@ -529,9 +493,6 @@ void AM_LevelInit(void)
 	scale_ftom = FixedDiv(FRACUNIT, scale_mtof);
 }
 
-//
-//
-//
 void AM_Stop(void)
 {
 	static event_t st_notify = {ev_keydown, ev_keyup, AM_MSGEXITED};
@@ -542,9 +503,6 @@ void AM_Stop(void)
 	stopped = true;
 }
 
-//
-//
-//
 void AM_Start(void)
 {
 	static int lastlevel = -1, lastepisode = -1;
@@ -562,9 +520,7 @@ void AM_Start(void)
 	AM_loadPics();
 }
 
-//
 // set the window scale to the maximum size
-//
 void AM_minOutWindowScale(void)
 {
 	scale_mtof = min_scale_mtof;
@@ -572,9 +528,7 @@ void AM_minOutWindowScale(void)
 	AM_activateNewScale();
 }
 
-//
 // set the window scale to the minimum size
-//
 void AM_maxOutWindowScale(void)
 {
 	scale_mtof = max_scale_mtof;
@@ -582,9 +536,7 @@ void AM_maxOutWindowScale(void)
 	AM_activateNewScale();
 }
 
-//
 // Handle events (user inputs) in automap mode
-//
 boolean
 AM_Responder(event_t *ev)
 {
@@ -720,9 +672,7 @@ AM_Responder(event_t *ev)
 	return rc;
 }
 
-//
 // Zooming
-//
 void AM_changeWindowScale(void)
 {
 
@@ -738,9 +688,6 @@ void AM_changeWindowScale(void)
 		AM_activateNewScale();
 }
 
-//
-//
-//
 void AM_doFollowPlayer(void)
 {
 
@@ -760,9 +707,6 @@ void AM_doFollowPlayer(void)
 	}
 }
 
-//
-//
-//
 void AM_updateLightLev(void)
 {
 	static int nexttic = 0;
@@ -780,9 +724,7 @@ void AM_updateLightLev(void)
 	}
 }
 
-//
 // Updates on Game Tick
-//
 void AM_Ticker(void)
 {
 
@@ -806,21 +748,16 @@ void AM_Ticker(void)
 	// AM_updateLightLev();
 }
 
-//
 // Clear automap frame buffer.
-//
 void AM_clearFB(int color)
 {
 	memset(fb, color, f_w * f_h);
 }
 
-//
 // Automap clipping of lines.
-//
 // Based on Cohen-Sutherland clipping algorithm but with a slightly
 // faster reject and precalculated slopes.  If the speed is needed,
 // use a hash algorithm to handle  the common cases.
-//
 boolean
 AM_clipMline(mline_t *ml,
 			 fline_t *fl)
@@ -949,9 +886,7 @@ AM_clipMline(mline_t *ml,
 }
 #undef DOOUTCODE
 
-//
 // Classic Bresenham w/ whatever optimizations needed for speed
-//
 void AM_drawFline(fline_t *fl,
 				  int color)
 {
@@ -1023,9 +958,7 @@ void AM_drawFline(fline_t *fl,
 	}
 }
 
-//
 // Clip lines, draw visible part sof lines.
-//
 void AM_drawMline(mline_t *ml,
 				  int color)
 {
@@ -1035,9 +968,7 @@ void AM_drawMline(mline_t *ml,
 		AM_drawFline(&fl, color); // draws it on frame buffer using fb coords
 }
 
-//
 // Draws flat (floor/ceiling tile) aligned grid lines.
-//
 void AM_drawGrid(int color)
 {
 	int32_t x, y;
@@ -1077,10 +1008,8 @@ void AM_drawGrid(int color)
 	}
 }
 
-//
 // Determines visible lines, draws them.
 // This is LineDef based, not LineSeg based.
-//
 void AM_drawWalls(void)
 {
 	int i;
@@ -1135,10 +1064,8 @@ void AM_drawWalls(void)
 	}
 }
 
-//
 // Rotation in 2D.
 // Used to rotate player arrow line character.
-//
 void AM_rotate(int32_t *x,
 			   int32_t *y,
 			   angle_t a)

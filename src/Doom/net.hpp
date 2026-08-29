@@ -1,22 +1,16 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //	Networking stuff.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __D_NET__
@@ -29,14 +23,12 @@
 #endif
 
 
-    //
-    // Network play related stuff.
+        // Network play related stuff.
     // There is a data struct that stores network
     //  communication related stuff, and another
     //  one that defines the actual packets to
     //  be transmitted.
-    //
-
+    
 #define DOOMCOM_ID 0x12345678l
 
 // Max computers/players in a game.
@@ -52,10 +44,8 @@
 
     } command_t;
 
-    //
-    // Network packet data.
-    //
-    typedef struct
+        // Network packet data.
+        typedef struct
     {
         // High bit is retransmit request.
         unsigned checksum;
@@ -133,7 +123,5 @@
 #endif
 
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

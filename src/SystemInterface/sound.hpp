@@ -1,23 +1,16 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
-//
 // DESCRIPTION:
 //	System interface, sound.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __I_SOUND__
@@ -46,10 +39,8 @@ extern char *sndserver_filename;
     // ... shut down and relase at program termination.
     void I_ShutdownSound(void);
 
-    //
-    //  SFX I/O
-    //
-
+        //  SFX I/O
+    
     // Initialize channels?
     void I_SetChannels();
 
@@ -78,10 +69,8 @@ extern char *sndserver_filename;
                              int sep,
                              int pitch);
 
-    //
-    //  MUSIC I/O
-    //
-    void I_InitMusic(void);
+        //  MUSIC I/O
+        void I_InitMusic(void);
     void I_ShutdownMusic(void);
     // Volume.
     void I_SetMusicVolume(int volume);
@@ -104,7 +93,5 @@ extern char *sndserver_filename;
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

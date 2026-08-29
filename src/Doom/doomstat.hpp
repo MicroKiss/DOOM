@@ -1,19 +1,14 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //   All the global variables that store the internal state.
 //   Theoretically speaking, the internal state of the engine
@@ -21,7 +16,6 @@
 //    here, and every relevant module will have to include
 //    this header file.
 //   In practice, things are a bit messy.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __D_STATE__
@@ -42,7 +36,6 @@
 
 // ------------------------
 // Command line parameters.
-//
 extern boolean nomonsters;  // checkparm of -nomonsters
 extern boolean respawnparm; // checkparm of -respawn
 extern boolean fastparm;    // checkparm of -fast
@@ -51,7 +44,6 @@ extern boolean devparm; // DEBUG: launched with -devparm
 
 // -----------------------------------------------------
 // Game Mode - identify IWAD as shareware, retail etc.
-//
 extern GameMode_t gamemode;
 extern GameMission_t gamemission;
 
@@ -64,7 +56,6 @@ extern Language_t language;
 
 // -------------------------------------------
 // Selected skill type, map etc.
-//
 
 // Defaults for menu, methinks.
 extern skill_t startskill;
@@ -114,7 +105,6 @@ extern int snd_DesiredSfxDevice;
 
 // -------------------------
 // Status flags for refresh.
-//
 
 // Depending on view size - no status bar?
 // Note that there is no way to disable the
@@ -147,7 +137,6 @@ extern int displayplayer;
 // -------------------------------------
 // Scores, rating.
 // Statistics on a given map, for intermission.
-//
 extern int totalkills;
 extern int totalitems;
 extern int totalsecret;
@@ -204,7 +193,6 @@ extern int maxammo[NUMAMMO];
 
 //-----------------------------------------
 // Internal parameters, used for engine.
-//
 
 // File handling stuff.
 extern char basedefault[1024];
@@ -249,7 +237,5 @@ extern int ticdup;
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

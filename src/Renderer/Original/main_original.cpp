@@ -1,26 +1,8 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Rendering main loop and setup functions,
 //	 utility functions (BSP, geometry, trigonometry).
 //	See tables.c, too.
-//
 //-----------------------------------------------------------------------------
 
 #include <stdlib.h>
@@ -73,9 +55,7 @@ player_t *viewplayer;
 // 0 = high, 1 = low
 int detailshift;
 
-//
 // precalculated math tables
-//
 angle_t clipangle;
 
 // The viewangletox[viewangle + FINEANGLES/4] lookup
@@ -111,11 +91,9 @@ void (*fuzzcolfunc)(void);
 void (*transcolfunc)(void);
 void (*spanfunc)(void);
 
-//
 // R_AddPointToBox
 // Expand a given bbox
 // so that it encloses a given point.
-//
 void R_AddPointToBox(int x,
                      int y,
                      int32_t *box)
@@ -130,12 +108,10 @@ void R_AddPointToBox(int x,
         box[BOXTOP] = y;
 }
 
-//
 // R_PointOnSide
 // Traverse BSP (sub) tree,
 //  check point against partition plane.
 // Returns side 0 (front) or 1 (back).
-//
 int R_PointOnSide(int32_t x,
                   int32_t y,
                   node_t *node)
@@ -246,7 +222,6 @@ int R_PointOnSegSide(int32_t x,
     return 1;
 }
 
-//
 // R_PointToAngle
 // To get a global angle from cartesian coordinates,
 //  the coordinates are flipped until they are in
@@ -255,7 +230,6 @@ int R_PointOnSegSide(int32_t x,
 //  tangent (slope) value which is looked up in the
 //  tantoangle[] table.
 
-//
 
 angle_t
 R_PointToAngle(int32_t x,
@@ -381,9 +355,7 @@ R_PointToDist(int32_t x,
     return dist;
 }
 
-//
 // R_InitPointToAngle
-//
 void R_InitPointToAngle(void)
 {
     // UNUSED - now getting from tables.c
@@ -391,9 +363,7 @@ void R_InitPointToAngle(void)
     int	i;
     long	t;
     float	f;
-//
 // slope (tangent) to angle lookup
-//
     for (i=0 ; i<=SLOPERANGE ; i++)
     {
 	f = atan( (float)i/SLOPERANGE )/(3.141592657*2);
@@ -403,13 +373,11 @@ void R_InitPointToAngle(void)
 #endif
 }
 
-//
 // R_ScaleFromGlobalAngle
 // Returns the texture mapping scale
 //  for the current line (horizontal span)
 //  at the given angle.
 // rw_distance must be calculated first.
-//
 int32_t R_ScaleFromGlobalAngle(angle_t visangle)
 {
     int32_t scale;
@@ -461,9 +429,7 @@ int32_t R_ScaleFromGlobalAngle(angle_t visangle)
     return scale;
 }
 
-//
 // R_InitTables
-//
 void R_InitTables(void)
 {
     // UNUSED: now getting from tables.c
@@ -493,9 +459,7 @@ void R_InitTables(void)
 #endif
 }
 
-//
 // R_InitTextureMapping
-//
 void R_InitTextureMapping(void)
 {
     int i;
@@ -506,8 +470,7 @@ void R_InitTextureMapping(void)
     // Use tangent table to generate viewangletox:
     //  viewangletox will give the next greatest x
     //  after the view angle.
-    //
-    // Calc focallength
+        // Calc focallength
     //  so FIELDOFVIEW angles covers SCREENWIDTH.
     focallength = FixedDiv(centerxfrac,
                            finetangent[FINEANGLES / 4 + FIELDOFVIEW / 2]);
@@ -557,11 +520,9 @@ void R_InitTextureMapping(void)
     clipangle = xtoviewangle[0];
 }
 
-//
 // R_InitLightTables
 // Only inits the zlight table,
 //  because the scalelight table changes with view size.
-//
 #define DISTMAP 2
 
 void R_InitLightTables(void)
@@ -594,12 +555,10 @@ void R_InitLightTables(void)
     }
 }
 
-//
 // R_SetViewSize
 // Do not really change anything here,
 //  because it might be in the middle of a refresh.
 // The change will take effect next refresh.
-//
 boolean setsizeneeded;
 int setblocks;
 int setdetail;
@@ -612,9 +571,7 @@ void R_SetViewSize(int blocks,
     setdetail = detail;
 }
 
-//
 // R_ExecuteSetViewSize
-//
 void R_ExecuteSetViewSize(void)
 {
     int32_t cosadj;
@@ -707,9 +664,7 @@ void R_ExecuteSetViewSize(void)
     }
 }
 
-//
 // R_Init
-//
 extern int detailLevel;
 extern int screenblocks;
 
@@ -736,9 +691,7 @@ void R_Init(void)
     framecount = 0;
 }
 
-//
 // R_PointInSubsector
-//
 subsector_t *
 R_PointInSubsector(int32_t x,
                    int32_t y)
@@ -763,9 +716,7 @@ R_PointInSubsector(int32_t x,
     return &subsectors[nodenum & ~NF_SUBSECTOR];
 }
 
-//
 // R_SetupFrame
-//
 void R_SetupFrame(player_t *player)
 {
     int i;
@@ -800,9 +751,7 @@ void R_SetupFrame(player_t *player)
     validcount++;
 }
 
-//
 // R_RenderView
-//
 void R_RenderPlayerView(player_t *player)
 {
     R_SetupFrame(player);

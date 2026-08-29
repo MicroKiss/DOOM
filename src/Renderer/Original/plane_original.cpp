@@ -1,26 +1,8 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Here is a core component: drawing the floors and ceilings,
 //	 while maintaining a per column clipping list only.
 //	Moreover, the sky areas have to be determined.
-//
 //-----------------------------------------------------------------------------
 
 #include <stdlib.h>
@@ -38,9 +20,7 @@
 planefunction_t floorfunc;
 planefunction_t ceilingfunc;
 
-//
 // opening
-//
 
 // Here comes the obnoxious "visplane".
 #define MAXVISPLANES 128
@@ -54,24 +34,18 @@ visplane_t *ceilingplane;
 short openings[MAXOPENINGS];
 short *lastopening;
 
-//
 // Clip values are the solid pixel bounding the range.
 //  floorclip starts out SCREENHEIGHT
 //  ceilingclip starts out -1
-//
 short floorclip[SCREENWIDTH];
 short ceilingclip[SCREENWIDTH];
 
-//
 // spanstart holds the start of a plane span
 // initialized to 0 at start
-//
 int spanstart[SCREENHEIGHT];
 int spanstop[SCREENHEIGHT];
 
-//
 // texture mapping
-//
 lighttable_t **planezlight;
 int32_t planeheight;
 
@@ -85,18 +59,14 @@ int32_t cacheddistance[SCREENHEIGHT];
 int32_t cachedxstep[SCREENHEIGHT];
 int32_t cachedystep[SCREENHEIGHT];
 
-//
 // R_InitPlanes
 // Only at game startup.
-//
 void R_InitPlanes(void)
 {
     // Doh!
 }
 
-//
 // R_MapPlane
-//
 // Uses global vars:
 //  planeheight
 //  ds_source
@@ -104,9 +74,7 @@ void R_InitPlanes(void)
 //  baseyscale
 //  viewx
 //  viewy
-//
 // BASIC PRIMITIVE
-//
 void R_MapPlane(int y,
                 int x1,
                 int x2)
@@ -162,10 +130,8 @@ void R_MapPlane(int y,
     spanfunc();
 }
 
-//
 // R_ClearPlanes
 // At begining of frame.
-//
 void R_ClearPlanes(void)
 {
     int i;
@@ -192,9 +158,7 @@ void R_ClearPlanes(void)
     baseyscale = -FixedDiv(finesine[angle], centerxfrac);
 }
 
-//
 // R_FindPlane
-//
 visplane_t *
 R_FindPlane(int32_t height,
             int picnum,
@@ -235,9 +199,7 @@ R_FindPlane(int32_t height,
     return check;
 }
 
-//
 // R_CheckPlane
-//
 visplane_t *
 R_CheckPlane(visplane_t *pl,
              int start,
@@ -298,9 +260,7 @@ R_CheckPlane(visplane_t *pl,
     return pl;
 }
 
-//
 // R_MakeSpans
-//
 void R_MakeSpans(int x,
                  int t1,
                  int b1,
@@ -330,10 +290,8 @@ void R_MakeSpans(int x,
     }
 }
 
-//
 // R_DrawPlanes
 // At the end of each frame.
-//
 void R_DrawPlanes(void)
 {
     visplane_t *pl;

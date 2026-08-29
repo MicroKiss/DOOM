@@ -1,25 +1,7 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Do all the WAD I/O, get map description,
 //	set up initial state and misc. LUTs.
-//
 //-----------------------------------------------------------------------------
 
 #include <math.h>
@@ -44,10 +26,8 @@
 
 void P_SpawnMapThing(mapthing_t *mthing);
 
-//
 // MAP related Lookup tables.
 // Store VERTEXES, LINEDEFS, SIDEDEFS, etc.
-//
 int numvertexes;
 vertex_t *vertexes;
 
@@ -75,7 +55,6 @@ side_t *sides;
 // blocks of size ...
 // Used to speed up collision detection
 // by spatial subdivision in 2D.
-//
 // Blockmap size.
 int bmapwidth;
 int bmapheight;  // size in mapblocks
@@ -94,7 +73,6 @@ mobj_t **blocklinks;
 //  LineOf Sight calculation.
 // Without special effect, this could be
 //  used as a PVS lookup as well.
-//
 byte *rejectmatrix;
 
 // Maintain single and multi player starting spots.
@@ -104,9 +82,7 @@ mapthing_t deathmatchstarts[MAX_DEATHMATCH_STARTS];
 mapthing_t *deathmatch_p;
 mapthing_t playerstarts[MAXPLAYERS];
 
-//
 // P_LoadVertexes
-//
 void P_LoadVertexes(int lump)
 {
     byte *data;
@@ -139,9 +115,7 @@ void P_LoadVertexes(int lump)
     Z_Free(data);
 }
 
-//
 // P_LoadSegs
-//
 void P_LoadSegs(int lump)
 {
     byte *data;
@@ -181,9 +155,7 @@ void P_LoadSegs(int lump)
     Z_Free(data);
 }
 
-//
 // P_LoadSubsectors
-//
 void P_LoadSubsectors(int lump)
 {
     byte *data;
@@ -208,9 +180,7 @@ void P_LoadSubsectors(int lump)
     Z_Free(data);
 }
 
-//
 // P_LoadSectors
-//
 void P_LoadSectors(int lump)
 {
     byte *data;
@@ -240,9 +210,7 @@ void P_LoadSectors(int lump)
     Z_Free(data);
 }
 
-//
 // P_LoadNodes
-//
 void P_LoadNodes(int lump)
 {
     byte *data;
@@ -276,9 +244,7 @@ void P_LoadNodes(int lump)
     Z_Free(data);
 }
 
-//
 // P_LoadThings
-//
 void P_LoadThings(int lump)
 {
     byte *data;
@@ -330,10 +296,8 @@ void P_LoadThings(int lump)
     Z_Free(data);
 }
 
-//
 // P_LoadLineDefs
 // Also counts secret lines for intermissions.
-//
 void P_LoadLineDefs(int lump)
 {
     byte *data;
@@ -411,9 +375,7 @@ void P_LoadLineDefs(int lump)
     Z_Free(data);
 }
 
-//
 // P_LoadSideDefs
-//
 void P_LoadSideDefs(int lump)
 {
     byte *data;
@@ -441,9 +403,7 @@ void P_LoadSideDefs(int lump)
     Z_Free(data);
 }
 
-//
 // P_LoadBlockMap
-//
 void P_LoadBlockMap(int lump)
 {
     int i;
@@ -467,11 +427,9 @@ void P_LoadBlockMap(int lump)
     memset(blocklinks, 0, count);
 }
 
-//
 // P_GroupLines
 // Builds sector line lists and subsector sector numbers.
 // Finds block bounding boxes for sectors.
-//
 void P_GroupLines(void)
 {
     line_t **linebuffer;
@@ -551,9 +509,7 @@ void P_GroupLines(void)
     }
 }
 
-//
 // P_SetupLevel
-//
 void P_SetupLevel(int episode,
                   int map,
                   int playermask,
@@ -659,9 +615,7 @@ void P_SetupLevel(int episode,
     // printf ("free memory: 0x%x\n", Z_FreeMemory());
 }
 
-//
 // P_Init
-//
 void P_Init(void)
 {
     P_InitSwitchList();

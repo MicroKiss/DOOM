@@ -9,9 +9,7 @@
 // Include the refresh/render data structs.
 #include "Renderer/data.hpp"
 
-//
 // Separate header file for each module.
-//
 #include "Renderer/main.hpp"
 #include "Renderer/bsp.hpp"
 #include "Renderer/segs.hpp"

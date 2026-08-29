@@ -1,26 +1,8 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Enemy thinking, AI.
 //	Action Pointer Functions
 //	that are associated with states/frames.
-//
 //-----------------------------------------------------------------------------
 
 #include <stdlib.h>
@@ -57,9 +39,7 @@ typedef enum
 
 } dirtype_t;
 
-//
 // P_NewChaseDir related LUT.
-//
 dirtype_t opposite[] =
     {
         DI_WEST, DI_SOUTHWEST, DI_SOUTH, DI_SOUTHEAST,
@@ -71,19 +51,15 @@ dirtype_t diags[] =
 
 void A_Fall(mobj_t *actor);
 
-//
 // ENEMY THINKING
 // Enemies are allways spawned
 // with targetplayer = -1, threshold = 0
 // Most monsters are spawned unaware of all players,
 // but some can be made preaware
-//
 
-//
 // Called by P_NoiseAlert.
 // Recursively traverse adjacent sectors,
 // sound blocking lines cut off traversal.
-//
 
 mobj_t *soundtarget;
 
@@ -130,11 +106,9 @@ void P_RecursiveSound(sector_t *sec,
     }
 }
 
-//
 // P_NoiseAlert
 // If a monster yells at a player,
 // it will alert other monsters to the player.
-//
 void P_NoiseAlert(mobj_t *target,
                   mobj_t *emmiter)
 {
@@ -143,9 +117,7 @@ void P_NoiseAlert(mobj_t *target,
     P_RecursiveSound(emmiter->subsector->sector, 0);
 }
 
-//
 // P_CheckMeleeRange
-//
 boolean P_CheckMeleeRange(mobj_t *actor)
 {
     mobj_t *pl;
@@ -166,9 +138,7 @@ boolean P_CheckMeleeRange(mobj_t *actor)
     return true;
 }
 
-//
 // P_CheckMissileRange
-//
 boolean P_CheckMissileRange(mobj_t *actor)
 {
     int32_t dist;
@@ -227,11 +197,9 @@ boolean P_CheckMissileRange(mobj_t *actor)
     return true;
 }
 
-//
 // P_Move
 // Move in the current direction,
 // returns false if the move is blocked.
-//
 int32_t xspeed[8] = {FRACUNIT, 47000, 0, -47000, -FRACUNIT, -47000, 0, 47000};
 int32_t yspeed[8] = {0, 47000, FRACUNIT, 47000, 0, -47000, -FRACUNIT, -47000};
 
@@ -304,7 +272,6 @@ boolean P_Move(mobj_t *actor)
     return true;
 }
 
-//
 // TryWalk
 // Attempts to move actor on
 // in its current (ob->moveangle) direction.
@@ -314,7 +281,6 @@ boolean P_Move(mobj_t *actor)
 // returns TRUE and sets...
 // If a door is in the way,
 // an OpenDoor call is made to start it opening.
-//
 boolean P_TryWalk(mobj_t *actor)
 {
     if (!P_Move(actor))
@@ -452,11 +418,9 @@ void P_NewChaseDir(mobj_t *actor)
     actor->movedir = DI_NODIR; // can not move
 }
 
-//
 // P_LookForPlayers
 // If allaround is false, only look 180 degrees in front.
 // Returns true if a player is targeted.
-//
 boolean
 P_LookForPlayers(mobj_t *actor,
                  boolean allaround)
@@ -517,11 +481,9 @@ P_LookForPlayers(mobj_t *actor,
     return false;
 }
 
-//
 // A_KeenDie
 // DOOM II special, map 32.
 // Uses special tag 666.
-//
 void A_KeenDie(mobj_t *mo)
 {
     thinker_t *th;
@@ -549,14 +511,10 @@ void A_KeenDie(mobj_t *mo)
     EV_DoDoor(&junk, open);
 }
 
-//
 // ACTION ROUTINES
-//
 
-//
 // A_Look
 // Stay in state until a player is sighted.
-//
 void A_Look(mobj_t *actor)
 {
     mobj_t *targ;
@@ -616,11 +574,9 @@ seeyou:
     P_SetMobjState(actor, static_cast<statenum_t>(actor->info->seestate));
 }
 
-//
 // A_Chase
 // Actor has a melee attack,
 // so it tries to close as fast as possible
-//
 void A_Chase(mobj_t *actor)
 {
     int delta;
@@ -718,9 +674,7 @@ nomissile:
     }
 }
 
-//
 // A_FaceTarget
-//
 void A_FaceTarget(mobj_t *actor)
 {
     if (!actor->target)
@@ -737,9 +691,7 @@ void A_FaceTarget(mobj_t *actor)
         actor->angle += (P_Random() - P_Random()) << 21;
 }
 
-//
 // A_PosAttack
-//
 void A_PosAttack(mobj_t *actor)
 {
     int angle;
@@ -842,9 +794,7 @@ void A_BspiAttack(mobj_t *actor)
     P_SpawnMissile(actor, actor->target, MT_ARACHPLAZ);
 }
 
-//
 // A_TroopAttack
-//
 void A_TroopAttack(mobj_t *actor)
 {
     int damage;
@@ -927,9 +877,7 @@ void A_BruisAttack(mobj_t *actor)
     P_SpawnMissile(actor, actor->target, MT_BRUISERSHOT);
 }
 
-//
 // A_SkelMissile
-//
 void A_SkelMissile(mobj_t *actor)
 {
     mobj_t *mo;
@@ -1045,10 +993,8 @@ void A_SkelFist(mobj_t *actor)
     }
 }
 
-//
 // PIT_VileCheck
 // Detect a corpse that could be raised.
-//
 mobj_t *corpsehit;
 mobj_t *vileobj;
 int32_t viletryx;
@@ -1085,10 +1031,8 @@ boolean PIT_VileCheck(mobj_t *thing)
     return false; // got one, so stop checking
 }
 
-//
 // A_VileChase
 // Check for ressurecting a body
-//
 void A_VileChase(mobj_t *actor)
 {
     int xl;
@@ -1151,18 +1095,14 @@ void A_VileChase(mobj_t *actor)
     A_Chase(actor);
 }
 
-//
 // A_VileStart
-//
 void A_VileStart(mobj_t *actor)
 {
     S_StartSound(actor, sfx_vilatk);
 }
 
-//
 // A_Fire
 // Keep fire in front of player unless out of sight
-//
 void A_Fire(mobj_t *actor);
 
 void A_StartFire(mobj_t *actor)
@@ -1199,10 +1139,8 @@ void A_Fire(mobj_t *actor)
     P_SetThingPosition(actor);
 }
 
-//
 // A_VileTarget
 // Spawn the hellfire
-//
 void A_VileTarget(mobj_t *actor)
 {
     mobj_t *fog;
@@ -1222,9 +1160,7 @@ void A_VileTarget(mobj_t *actor)
     A_Fire(fog);
 }
 
-//
 // A_VileAttack
-//
 void A_VileAttack(mobj_t *actor)
 {
     mobj_t *fire;
@@ -1255,12 +1191,10 @@ void A_VileAttack(mobj_t *actor)
     P_RadiusAttack(fire, actor, 70);
 }
 
-//
 // Mancubus attack,
 // firing three missiles (bruisers)
 // in three different directions?
 // Doesn't look like it.
-//
 #define FATSPREAD (ANG90 / 8)
 
 void A_FatRaise(mobj_t *actor)
@@ -1323,10 +1257,8 @@ void A_FatAttack3(mobj_t *actor)
     mo->momy = FixedMul(mo->info->speed, finesine[an]);
 }
 
-//
 // SkullAttack
 // Fly at the player like a missile.
-//
 #define SKULLSPEED (20 * FRACUNIT)
 
 void A_SkullAttack(mobj_t *actor)
@@ -1354,10 +1286,8 @@ void A_SkullAttack(mobj_t *actor)
     actor->momz = (dest->z + (dest->height >> 1) - actor->z) / dist;
 }
 
-//
 // A_PainShootSkull
 // Spawn a lost soul and launch it at the target
-//
 void A_PainShootSkull(mobj_t *actor,
                       angle_t angle)
 {
@@ -1411,10 +1341,8 @@ void A_PainShootSkull(mobj_t *actor,
     A_SkullAttack(newmobj);
 }
 
-//
 // A_PainAttack
 // Spawn a lost soul and launch it at the target
-//
 void A_PainAttack(mobj_t *actor)
 {
     if (!actor->target)
@@ -1487,19 +1415,15 @@ void A_Fall(mobj_t *actor)
     // are meant to be obstacles.
 }
 
-//
 // A_Explode
-//
 void A_Explode(mobj_t *thingy)
 {
     P_RadiusAttack(thingy, thingy->target, 128);
 }
 
-//
 // A_BossDeath
 // Possibly trigger special effects
 // if on first boss level
-//
 void A_BossDeath(mobj_t *mo)
 {
     thinker_t *th;

@@ -1,24 +1,6 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	DOOM graphics stuff for X11, UNIX.
-//
 //-----------------------------------------------------------------------------
 
 #include <stdlib.h>
@@ -86,9 +68,7 @@ int doPointerWarp = POINTER_WARP_COUNTDOWN;
 // to use ....
 static int multiply = 1;
 
-//
 //  Translates the key currently in X_event
-//
 
 int xlatekey(void)
 {
@@ -216,9 +196,7 @@ void I_ShutdownGraphics(void)
 	image->data = NULL;
 }
 
-//
 // I_StartFrame
-//
 void I_StartFrame(void)
 {
 	// er?
@@ -329,9 +307,7 @@ createnullcursor(Display *display,
 	return cursor;
 }
 
-//
 // I_StartTic
-//
 void I_StartTic(void)
 {
 
@@ -362,17 +338,13 @@ void I_StartTic(void)
 	mousemoved = false;
 }
 
-//
 // I_UpdateNoBlit
-//
 void I_UpdateNoBlit(void)
 {
 	// what is this?
 }
 
-//
 // I_FinishUpdate
-//
 void I_FinishUpdate(void)
 {
 
@@ -529,17 +501,13 @@ void I_FinishUpdate(void)
 	}
 }
 
-//
 // I_ReadScreen
-//
 void I_ReadScreen(byte *scr)
 {
 	memcpy(scr, screens[0], SCREENWIDTH * SCREENHEIGHT);
 }
 
-//
 // Palette stuff.
-//
 static XColor colors[256];
 
 void UploadNewPalette(Colormap cmap, byte *palette)
@@ -578,21 +546,17 @@ void UploadNewPalette(Colormap cmap, byte *palette)
 	}
 }
 
-//
 // I_SetPalette
-//
 void I_SetPalette(byte *palette)
 {
 	UploadNewPalette(X_cmap, palette);
 }
 
-//
 // This function is probably redundant,
 //  if XShmDetach works properly.
 // ddt never detached the XShm memory,
 //  thus there might have been stale
 //  handles accumulating.
-//
 void grabsharedmemory(int size)
 {
 

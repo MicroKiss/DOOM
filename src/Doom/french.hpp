@@ -1,36 +1,26 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //	Printed strings, french translation.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __D_FRENCH__
 #define __D_FRENCH__
 
-//
 // D_Main.C
-//
 #define D_DEVSTR "MODE DEVELOPPEMENT ON.\n"
 #define D_CDROM "VERSION CD-ROM: DEFAULT.CFG DANS C:\\DOOMDATA\n"
 
-//
 //	M_Menu.C
-//
 #define PRESSKEY "APPUYEZ SUR UNE TOUCHE."
 #define PRESSYN "APPUYEZ SUR Y OU N"
 #define QUITMSG "VOUS VOULEZ VRAIMENT\nQUITTER CE SUPER JEU?"
@@ -65,9 +55,7 @@
 #define GAMMALVL4 "CORRECTION GAMMA NIVEAU 4"
 #define EMPTYSTRING "EMPLACEMENT VIDE"
 
-//
 //	P_inter.C
-//
 #define GOTARMOR "ARMURE RECUPEREE."
 #define GOTMEGA "MEGA-ARMURE RECUPEREE!"
 #define GOTHTHBONUS "BONUS DE SANTE RECUPERE."
@@ -110,9 +98,7 @@
 #define GOTSHOTGUN "VOUS AVEZ UN FUSIL!"
 #define GOTSHOTGUN2 "VOUS AVEZ UN SUPER FUSIL!"
 
-//
 // P_Doors.C
-//
 #define PD_BLUEO "IL VOUS FAUT UNE CLEF BLEUE"
 #define PD_REDO "IL VOUS FAUT UNE CLEF ROUGE"
 #define PD_YELLOWO "IL VOUS FAUT UNE CLEF JAUNE"
@@ -120,14 +106,10 @@
 #define PD_REDK PD_REDO
 #define PD_YELLOWK PD_YELLOWO
 
-//
 //	G_game.C
-//
 #define GGSAVED "JEU SAUVEGARDE."
 
-//
 //	HU_stuff.C
-//
 #define HUSTR_MSGU "[MESSAGE NON ENVOYE]"
 
 #define HUSTR_E1M1 "E1M1: HANGAR"
@@ -228,9 +210,7 @@
 #define HUSTR_KEYBROWN 'b'
 #define HUSTR_KEYRED 'r'
 
-//
 //	AM_map.C
-//
 
 #define AMSTR_FOLLOWON "MODE POURSUITE ON"
 #define AMSTR_FOLLOWOFF "MODE POURSUITE OFF"
@@ -241,9 +221,7 @@
 #define AMSTR_MARKEDSPOT "REPERE MARQUE "
 #define AMSTR_MARKSCLEARED "REPERES EFFACES "
 
-//
 //	ST_stuff.C
-//
 
 #define STSTR_MUS "CHANGEMENT DE MUSIQUE "
 #define STSTR_NOMUS "IMPOSSIBLE SELECTION"
@@ -262,9 +240,7 @@
 #define STSTR_CHOPPERS "... DOESN'T SUCK - GM"
 #define STSTR_CLEV "CHANGEMENT DE NIVEAU..."
 
-//
 //	F_Finale.C
-//
 #define E1TEXT "APRES AVOIR VAINCU LES GROS MECHANTS\n"      \
                "ET NETTOYE LA BASE LUNAIRE, VOUS AVEZ\n"     \
                "GAGNE, NON? PAS VRAI? OU EST DONC VOTRE\n"   \
@@ -396,9 +372,7 @@
                "LE NIVEAU SUPER SECRET! VOUS FERIEZ\n" \
                "MIEUX DE FONCER DANS CELUI-LA!\n"
 
-//
 // Character cast strings F_FINALE.C
-//
 #define CC_ZOMBIE "ZOMBIE"
 #define CC_SHOTGUN "TYPE AU FUSIL"
 #define CC_HEAVY "MEC SUPER-ARME"
@@ -419,7 +393,5 @@
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

@@ -1,22 +1,15 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
-//
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __D_PLAYER__
@@ -43,10 +36,8 @@
 #endif
 
 
-    //
-    // Player states.
-    //
-    typedef enum
+        // Player states.
+        typedef enum
     {
         // Playing or camping.
         PST_LIVE,
@@ -57,10 +48,8 @@
 
     } playerstate_t;
 
-    //
-    // Player internal flags, for cheats and debug.
-    //
-    typedef enum
+        // Player internal flags, for cheats and debug.
+        typedef enum
     {
         // No clipping, walk through barriers.
         CF_NOCLIP = 1,
@@ -71,10 +60,8 @@
 
     } cheat_t;
 
-    //
-    // Extended player object info: player_t
-    //
-    typedef struct player_s
+        // Extended player object info: player_t
+        typedef struct player_s
     {
         mobj_t *mo;
         playerstate_t playerstate;
@@ -159,11 +146,9 @@
 
     } player_t;
 
-    //
-    // INTERMISSION
+        // INTERMISSION
     // Structure passed e.g. to WI_Start(wb)
-    //
-    typedef struct
+        typedef struct
     {
         boolean in; // whether the player is in game
 
@@ -206,7 +191,5 @@
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

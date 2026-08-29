@@ -100,18 +100,14 @@ byte gammatable[5][256] =
 
 int usegamma;
 
-//
 // V_MarkRect
-//
 void V_MarkRect(int x, int y, int width, int height)
 {
     M_AddToBox(&dirtybox, x, y);
     M_AddToBox(&dirtybox, x + width - 1, y + height - 1);
 }
 
-//
 // V_CopyRect
-//
 void V_CopyRect(int srcx, int srcy, int srcscrn, int width, int height, int destx, int desty, int destscrn)
 {
     byte *src;
@@ -136,10 +132,8 @@ void V_CopyRect(int srcx, int srcy, int srcscrn, int width, int height, int dest
     }
 }
 
-//
 // V_DrawPatch
 // Masks a column based masked pic to the screen.
-//
 void V_DrawPatch(int x, int y, int scrn, patch_t *patch)
 {
 
@@ -192,11 +186,9 @@ void V_DrawPatch(int x, int y, int scrn, patch_t *patch)
     }
 }
 
-//
 // V_DrawPatchFlipped
 // Masks a column based masked pic to the screen.
 // Flips horizontally, e.g. to mirror face.
-//
 void V_DrawPatchFlipped(int x, int y, int scrn, patch_t *patch)
 {
 
@@ -247,19 +239,15 @@ void V_DrawPatchFlipped(int x, int y, int scrn, patch_t *patch)
     }
 }
 
-//
 // V_DrawPatchDirect
 // Draws directly to the screen on the pc.
-//
 void V_DrawPatchDirect(int x, int y, int scrn, patch_t *patch)
 {
     V_DrawPatch(x, y, scrn, patch);
 }
 
-//
 // V_DrawBlock
 // Draw a linear block of pixels into the view buffer.
-//
 void V_DrawBlock(int x, int y, int scrn, int width, int height, byte *src)
 {
     byte *dest;
@@ -283,10 +271,8 @@ void V_DrawBlock(int x, int y, int scrn, int width, int height, byte *src)
     }
 }
 
-//
 // V_GetBlock
 // Gets a linear block of pixels from the view buffer.
-//
 void V_GetBlock(int x, int y, int scrn, int width, int height, byte *dest)
 {
     byte *src;
@@ -308,9 +294,7 @@ void V_GetBlock(int x, int y, int scrn, int width, int height, byte *dest)
     }
 }
 
-//
 // V_Init
-//
 void V_Init(void)
 {
     int i;

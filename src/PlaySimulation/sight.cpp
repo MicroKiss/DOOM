@@ -1,24 +1,6 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	LineOfSight/Visibility checks, uses REJECT Lookup Table.
-//
 //-----------------------------------------------------------------------------
 
 #include "doomdef.hpp"
@@ -29,9 +11,7 @@
 // State.
 #include "Renderer/state.hpp"
 
-//
 // P_CheckSight
-//
 int32_t sightzstart; // eye z of looker
 int32_t topslope;
 int32_t bottomslope; // slopes to top and bottom of target
@@ -42,10 +22,8 @@ int32_t t2y;
 
 int sightcounts[2];
 
-//
 // P_DivlineSide
 // Returns side 0 (front), 1 (back), or 2 (on).
-//
 int P_DivlineSide(int32_t x,
                   int32_t y,
                   divline_t *node)
@@ -91,12 +69,10 @@ int P_DivlineSide(int32_t x,
     return 1; // back side
 }
 
-//
 // P_InterceptVector2
 // Returns the fractional intercept point
 // along the first divline.
 // This is only called by the addthings and addlines traversers.
-//
 int32_t
 P_InterceptVector2(divline_t *v2,
                    divline_t *v1)
@@ -118,11 +94,9 @@ P_InterceptVector2(divline_t *v2,
     return frac;
 }
 
-//
 // P_CrossSubsector
 // Returns true
 //  if strace crosses the given subsector successfully.
-//
 boolean P_CrossSubsector(int num)
 {
     seg_t *seg;
@@ -237,11 +211,9 @@ boolean P_CrossSubsector(int num)
     return true;
 }
 
-//
 // P_CrossBSPNode
 // Returns true
 //  if strace crosses the given node successfully.
-//
 boolean P_CrossBSPNode(int bspnum)
 {
     node_t *bsp;
@@ -277,12 +249,10 @@ boolean P_CrossBSPNode(int bspnum)
     return P_CrossBSPNode(bsp->children[side ^ 1]);
 }
 
-//
 // P_CheckSight
 // Returns true
 //  if a straight line between t1 and t2 is unobstructed.
 // Uses REJECT.
-//
 boolean
 P_CheckSight(mobj_t *t1,
              mobj_t *t2)

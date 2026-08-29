@@ -1,23 +1,5 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
-//
 //-----------------------------------------------------------------------------
 
 #include <stdlib.h>
@@ -68,10 +50,8 @@ byte *I_ZoneBase(int *size)
     return (byte *)malloc(*size);
 }
 
-//
 // I_GetTime
 // returns time in 1/70th second tics
-//
 int I_GetTime(void)
 {
     struct timeval tp;
@@ -86,18 +66,14 @@ int I_GetTime(void)
     return newtics;
 }
 
-//
 // I_Init
-//
 void I_Init(void)
 {
     I_InitSound();
     //  I_InitGraphics();
 }
 
-//
 // I_Quit
-//
 void I_Quit(void)
 {
     D_QuitNetGame();
@@ -138,9 +114,7 @@ byte *I_AllocLow(int length)
     return mem;
 }
 
-//
 // I_Error
-//
 extern boolean demorecording;
 
 void I_Error(char *error, ...)

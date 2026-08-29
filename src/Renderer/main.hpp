@@ -1,22 +1,16 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //	System specific interface stuff.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __R_MAIN__
@@ -30,10 +24,8 @@
 #endif
 
 
-    //
-    // POV related.
-    //
-    extern int32_t viewcos;
+        // POV related.
+        extern int32_t viewcos;
     extern int32_t viewsin;
 
     extern int viewwidth;
@@ -53,11 +45,9 @@
     extern int linecount;
     extern int loopcount;
 
-//
 // Lighting LUT.
 // Used for z-depth cuing per column/row,
 //  and other lighting effects (sector ambient, flash).
-//
 
 // Lighting constants.
 // Now why not 32 levels here?
@@ -85,18 +75,15 @@
     //  0 = high, 1 = low
     extern int detailshift;
 
-    //
-    // Function pointers to switch refresh/drawing functions.
+        // Function pointers to switch refresh/drawing functions.
     // Used to select shadow mode etc.
-    //
-    extern void (*colfunc)(void);
+        extern void (*colfunc)(void);
     extern void (*basecolfunc)(void);
     extern void (*fuzzcolfunc)(void);
     // No shadow effects on floors.
     extern void (*spanfunc)(void);
 
-    //
-    // Utility functions.
+        // Utility functions.
     int R_PointOnSide(int32_t x,
                       int32_t y,
                       node_t *node);
@@ -129,10 +116,8 @@
                          int y,
                          int32_t *box);
 
-    //
-    // REFRESH - the actual rendering functions.
-    //
-
+        // REFRESH - the actual rendering functions.
+    
     // Called by G_Drawer.
     void R_RenderPlayerView(player_t *player);
 
@@ -145,7 +130,5 @@
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

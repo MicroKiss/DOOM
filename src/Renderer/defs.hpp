@@ -1,22 +1,16 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //      Refresh/rendering module, shared data struct definitions.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __R_DEFS__
@@ -49,17 +43,13 @@
 
 #define MAXDRAWSEGS 256
 
-    //
-    // INTERNAL MAP TYPES
+        // INTERNAL MAP TYPES
     //  used by play and refresh
-    //
-
-    //
-    // Your plain vanilla vertex.
+    
+        // Your plain vanilla vertex.
     // Note: transformed values not buffered locally,
     //  like some DOOM-alikes ("wt", "WebView") did.
-    //
-    typedef struct
+        typedef struct
     {
         int32_t x;
         int32_t y;
@@ -84,11 +74,9 @@
 
     } degenmobj_t;
 
-    //
-    // The SECTORS record, at runtime.
+        // The SECTORS record, at runtime.
     // Stores things/mobjs.
-    //
-    typedef struct
+        typedef struct
     {
         int32_t floorheight;
         int32_t ceilingheight;
@@ -124,10 +112,8 @@
 
     } sector_t;
 
-    //
-    // The SideDef.
-    //
-
+        // The SideDef.
+    
     typedef struct
     {
         // add this to the calculated texture column
@@ -147,10 +133,8 @@
 
     } side_t;
 
-    //
-    // Move clipping aid for LineDefs.
-    //
-    typedef enum
+        // Move clipping aid for LineDefs.
+        typedef enum
     {
         ST_HORIZONTAL,
         ST_VERTICAL,
@@ -197,14 +181,12 @@
         void *specialdata;
     } line_t;
 
-    //
-    // A SubSector.
+        // A SubSector.
     // References a Sector.
     // Basically, this is a list of LineSegs,
     //  indicating the visible walls that define
     //  (all or some) sides of a convex BSP leaf.
-    //
-    typedef struct subsector_s
+        typedef struct subsector_s
     {
         sector_t *sector;
         short numlines;
@@ -212,10 +194,8 @@
 
     } subsector_t;
 
-    //
-    // The LineSeg.
-    //
-    typedef struct
+        // The LineSeg.
+        typedef struct
     {
         vertex_t *v1;
         vertex_t *v2;
@@ -235,10 +215,8 @@
 
     } seg_t;
 
-    //
-    // BSP node.
-    //
-    typedef struct
+        // BSP node.
+        typedef struct
     {
         // Partition line.
         int32_t x;
@@ -269,10 +247,8 @@
     // extern byte*	destview;
     // extern byte*	destscreen;
 
-    //
-    // OTHER TYPES
-    //
-
+        // OTHER TYPES
+    
     // This could be wider for >8 bit display.
     // Indeed, true color support is posibble
     //  precalculating 24bpp lightmap/colormap LUT.
@@ -280,10 +256,8 @@
     // Could even us emore than 32 levels.
     typedef byte lighttable_t;
 
-    //
-    // ?
-    //
-    typedef struct drawseg_s
+        // ?
+        typedef struct drawseg_s
     {
         seg_t *curline;
         int x1;
@@ -364,8 +338,7 @@
 
     } vissprite_t;
 
-    //
-    // Sprites are patches with a special naming convention
+        // Sprites are patches with a special naming convention
     //  so they can be recognized by R_InitSprites.
     // The base name is NNNNFx or NNNNFxFx, with
     //  x indicating the rotation, x = 0, 1-7.
@@ -378,8 +351,7 @@
     //  thus NNNNF2F5 defines a mirrored patch.
     // Some sprites will only have one picture used
     // for all views: NNNNF0
-    //
-    typedef struct
+        typedef struct
     {
         // If false use 0 for any position.
         // Note: as eight entries are available,
@@ -394,21 +366,17 @@
 
     } spriteframe_t;
 
-    //
-    // A sprite definition:
+        // A sprite definition:
     //  a number of animation frames.
-    //
-    typedef struct
+        typedef struct
     {
         int numframes;
         spriteframe_t *spriteframes;
 
     } spritedef_t;
 
-    //
-    // Now what is a visplane, anyway?
-    //
-    typedef struct
+        // Now what is a visplane, anyway?
+        typedef struct
     {
         int32_t height;
         int picnum;
@@ -433,7 +401,5 @@
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

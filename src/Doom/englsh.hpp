@@ -1,41 +1,29 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //	Printed strings for translation.
 //	English language support (default).
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __D_ENGLSH__
 #define __D_ENGLSH__
 
-//
 //	Printed strings for translation
-//
 
-//
 // D_Main.C
-//
 #define D_DEVSTR "Development mode ON.\n"
 #define D_CDROM "CD-ROM Version: default.cfg from c:\\doomdata\n"
 
-//
 //	M_Menu.C
-//
 #define PRESSKEY "press a key."
 #define PRESSYN "press y or n."
 #define QUITMSG "are you sure you want to\nquit this great game?"
@@ -74,9 +62,7 @@
 #define GAMMALVL4 "Gamma correction level 4"
 #define EMPTYSTRING "empty slot"
 
-//
 //	P_inter.C
-//
 #define GOTARMOR "Picked up the armor."
 #define GOTMEGA "Picked up the MegaArmor!"
 #define GOTHTHBONUS "Picked up a health bonus."
@@ -119,9 +105,7 @@
 #define GOTSHOTGUN "You got the shotgun!"
 #define GOTSHOTGUN2 "You got the super shotgun!"
 
-//
 // P_Doors.C
-//
 #define PD_BLUEO "You need a blue key to activate this object"
 #define PD_REDO "You need a red key to activate this object"
 #define PD_YELLOWO "You need a yellow key to activate this object"
@@ -129,14 +113,10 @@
 #define PD_REDK "You need a red key to open this door"
 #define PD_YELLOWK "You need a yellow key to open this door"
 
-//
 //	G_game.C
-//
 #define GGSAVED "game saved."
 
-//
 //	HU_stuff.C
-//
 #define HUSTR_MSGU "[Message unsent]"
 
 #define HUSTR_E1M1 "E1M1: Hangar"
@@ -319,9 +299,7 @@
 #define HUSTR_KEYBROWN 'b'
 #define HUSTR_KEYRED 'r'
 
-//
 //	AM_map.C
-//
 
 #define AMSTR_FOLLOWON "Follow Mode ON"
 #define AMSTR_FOLLOWOFF "Follow Mode OFF"
@@ -332,9 +310,7 @@
 #define AMSTR_MARKEDSPOT "Marked Spot"
 #define AMSTR_MARKSCLEARED "All Marks Cleared"
 
-//
 //	ST_stuff.C
-//
 
 #define STSTR_MUS "Music Change"
 #define STSTR_NOMUS "IMPOSSIBLE SELECTION"
@@ -353,9 +329,7 @@
 #define STSTR_CHOPPERS "... doesn't suck - GM"
 #define STSTR_CLEV "Changing Level..."
 
-//
 //	F_Finale.C
-//
 #define E1TEXT                                  \
     "Once you beat the big badasses and\n"      \
     "clean out the moon base you're supposed\n" \
@@ -652,9 +626,7 @@
     "As you step off the transport, you hear\n"    \
     "the stomp of a cyberdemon's iron shoe."
 
-//
 // Character cast strings F_FINALE.C
-//
 #define CC_ZOMBIE "ZOMBIEMAN"
 #define CC_SHOTGUN "SHOTGUN GUY"
 #define CC_HEAVY "HEAVY WEAPON DUDE"
@@ -675,7 +647,5 @@
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

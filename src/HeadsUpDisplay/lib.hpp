@@ -1,21 +1,15 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:  none
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __HULIB__
@@ -36,9 +30,7 @@
 #define HU_MAXLINES 4
 #define HU_MAXLINELENGTH 80
 
-//
 // Typedefs of widgets
-//
 
 // Text Line widget
 //  (parent of Scrolling Text and Input Text widgets)
@@ -87,16 +79,12 @@ typedef struct
 
 } hu_itext_t;
 
-//
 // Widget creation, access, and update routines
-//
 
 // initializes heads-up widget library
 void HUlib_init(void);
 
-//
 // textline code
-//
 
 // clear a line of text
 void HUlib_clearTextLine(hu_textline_t *t);
@@ -115,9 +103,7 @@ void HUlib_drawTextLine(hu_textline_t *l, boolean drawcursor);
 // erases text line
 void HUlib_eraseTextLine(hu_textline_t *l);
 
-//
 // Scrolling Text window widget routines
-//
 
 // ?
 void HUlib_initSText(hu_stext_t *s,
@@ -176,7 +162,5 @@ void HUlib_eraseIText(hu_itext_t *it);
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

@@ -1,25 +1,17 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
-//
 // $Log:$
-//
 // DESCRIPTION:
 //	Switches, buttons. Two-state animation. Exits.
-//
 //-----------------------------------------------------------------------------
 
 #include "SystemInterface/system.hpp"
@@ -37,9 +29,7 @@
 #include "doomstat.hpp"
 #include "Renderer/state.hpp"
 
-//
 // CHANGE THE TEXTURE OF A WALL SWITCH TO ITS OPPOSITE
-//
 switchlist_t alphSwitchList[] =
 	{
 		// Doom shareware episode 1 switches
@@ -94,10 +84,8 @@ int switchlist[MAXSWITCHES * 2];
 int numswitches;
 button_t buttonlist[MAXBUTTONS];
 
-//
 // P_InitSwitchList
 // Only called at game initialization.
-//
 void P_InitSwitchList(void)
 {
 	int i;
@@ -140,9 +128,7 @@ void P_InitSwitchList(void)
 	}
 }
 
-//
 // Start a button counting down till it turns off.
-//
 void P_StartButton(line_t *line,
 				   bwhere_e w,
 				   int texture,
@@ -176,10 +162,8 @@ void P_StartButton(line_t *line,
 	I_Error("P_StartButton: no button slots left!");
 }
 
-//
 // Function that changes wall texture.
 // Tell it if switch is ok to use again (1=yes, it's a button).
-//
 void P_ChangeSwitchTexture(line_t *line,
 						   int useAgain)
 {
@@ -243,11 +227,9 @@ void P_ChangeSwitchTexture(line_t *line,
 	}
 }
 
-//
 // P_UseSpecialLine
 // Called when a thing uses a special line.
 // Only the front sides of lines are usable.
-//
 boolean
 P_UseSpecialLine(mobj_t *thing,
 				 line_t *line,

@@ -1,24 +1,6 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	All the clipping: columns, horizontal spans, sky columns.
-//
 //-----------------------------------------------------------------------------
 
 #include <stdlib.h>
@@ -49,9 +31,7 @@ angle_t rw_normalangle;
 // angle to line origin
 int rw_angle1;
 
-//
 // regular wall
-//
 int rw_x;
 int rw_stopx;
 angle_t rw_centerangle;
@@ -83,9 +63,7 @@ lighttable_t **walllights;
 
 short *maskedtexturecol;
 
-//
 // R_RenderMaskedSegRange
-//
 void R_RenderMaskedSegRange(drawseg_t *ds,
 							int x1,
 							int x2)
@@ -174,14 +152,12 @@ void R_RenderMaskedSegRange(drawseg_t *ds,
 	}
 }
 
-//
 // R_RenderSegLoop
 // Draws zero, one, or two textures (and possibly a masked
 //  texture) for walls.
 // Can draw or mark the starting pixel of floor and ceiling
 //  textures.
 // CALLED: CORE LOOPING ROUTINE.
-//
 #define HEIGHTBITS 12
 #define HEIGHTUNIT (1 << HEIGHTBITS)
 
@@ -345,11 +321,9 @@ void R_RenderSegLoop(void)
 	}
 }
 
-//
 // R_StoreWallRange
 // A wall segment will be drawn
 //  between start and stop pixels (inclusive).
-//
 void R_StoreWallRange(int start,
 					  int stop)
 {

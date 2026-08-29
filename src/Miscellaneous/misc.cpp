@@ -29,12 +29,10 @@
 #include "dstrings.hpp"
 
 #include "Miscellaneous/misc.hpp"
-    //
-    // M_DrawText
+        // M_DrawText
     // Returns the final X coordinate
     // HU_Init must have been called to init the font
-    //
-    extern patch_t *hu_font[HU_FONTSIZE];
+        extern patch_t *hu_font[HU_FONTSIZE];
 
     int M_DrawText(int x,
                    int y,
@@ -67,9 +65,7 @@
         return x;
     }
 
-//
 // M_WriteFile
-//
 #ifndef O_BINARY
 #define O_BINARY 0
 #endif
@@ -93,10 +89,8 @@
         return true;
     }
 
-    //
-    // M_ReadFile
-    //
-    int M_ReadFile(char const *name,
+        // M_ReadFile
+        int M_ReadFile(char const *name,
                    byte **buffer)
     {
         int handle, count, length;
@@ -120,10 +114,8 @@
         return length;
     }
 
-    //
-    // DEFAULTS
-    //
-    int usemouse;
+        // DEFAULTS
+        int usemouse;
     int usejoystick;
 
     extern int key_right;
@@ -260,10 +252,8 @@
     int numdefaults;
     char *defaultfile;
 
-    //
-    // M_SaveDefaults
-    //
-    void M_SaveDefaults(void)
+        // M_SaveDefaults
+        void M_SaveDefaults(void)
     {
         int i;
         FILE *f;
@@ -289,10 +279,8 @@
         fclose(f);
     }
 
-    //
-    // M_LoadDefaults
-    //
-    extern byte scantokey[128];
+        // M_LoadDefaults
+        extern byte scantokey[128];
 
     void M_LoadDefaults(void)
     {
@@ -363,10 +351,8 @@
         }
     }
 
-    //
-    // SCREEN SHOTS
-    //
-
+        // SCREEN SHOTS
+    
     typedef struct
     {
         char manufacturer;
@@ -393,10 +379,8 @@
         unsigned char data; // unbounded
     } pcx_t;
 
-    //
-    // WritePCXfile
-    //
-    void WritePCXfile(char *filename,
+        // WritePCXfile
+        void WritePCXfile(char *filename,
                       byte *data,
                       int width,
                       int height,
@@ -451,10 +435,8 @@
         Z_Free(pcx);
     }
 
-    //
-    // M_ScreenShot
-    //
-    void M_ScreenShot(void)
+        // M_ScreenShot
+        void M_ScreenShot(void)
     {
         int i;
         byte *linear;

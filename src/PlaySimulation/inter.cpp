@@ -1,24 +1,6 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	Handling interactions (i.e., collisions).
-//
 //-----------------------------------------------------------------------------
 
 // Data.
@@ -49,16 +31,12 @@
 int maxammo[NUMAMMO] = {200, 50, 300, 50};
 int clipammo[NUMAMMO] = {10, 4, 20, 1};
 
-//
 // GET STUFF
-//
 
-//
 // P_GiveAmmo
 // Num is the number of clip loads,
 // not the individual count (0= 1/2 clip).
 // Returns false if the ammo can't be picked up at all
-//
 
 boolean
 P_GiveAmmo(player_t *player,
@@ -144,10 +122,8 @@ P_GiveAmmo(player_t *player,
 	return true;
 }
 
-//
 // P_GiveWeapon
 // The weapon name may have a MF_DROPPED flag ored in.
-//
 boolean
 P_GiveWeapon(player_t *player,
 			 weapontype_t weapon,
@@ -200,10 +176,8 @@ P_GiveWeapon(player_t *player,
 	return (gaveweapon || gaveammo);
 }
 
-//
 // P_GiveBody
 // Returns false if the body isn't needed at all
-//
 boolean
 P_GiveBody(player_t *player,
 		   int num)
@@ -219,11 +193,9 @@ P_GiveBody(player_t *player,
 	return true;
 }
 
-//
 // P_GiveArmor
 // Returns false if the armor is worse
 // than the current armor.
-//
 boolean
 P_GiveArmor(player_t *player,
 			int armortype)
@@ -240,9 +212,7 @@ P_GiveArmor(player_t *player,
 	return true;
 }
 
-//
 // P_GiveCard
-//
 void P_GiveCard(player_t *player,
 				card_t card)
 {
@@ -253,9 +223,7 @@ void P_GiveCard(player_t *player,
 	player->cards[card] = 1;
 }
 
-//
 // P_GivePower
-//
 boolean
 P_GivePower(player_t *player,
 			int /*powertype_t*/ power)
@@ -299,9 +267,7 @@ P_GivePower(player_t *player,
 	return true;
 }
 
-//
 // P_TouchSpecialThing
-//
 void P_TouchSpecialThing(mobj_t *special,
 						 mobj_t *toucher)
 {
@@ -622,9 +588,7 @@ void P_TouchSpecialThing(mobj_t *special,
 		S_StartSound(NULL, sound);
 }
 
-//
 // KillMobj
-//
 void P_KillMobj(mobj_t *source,
 				mobj_t *target)
 {
@@ -712,7 +676,6 @@ void P_KillMobj(mobj_t *source,
 	mo->flags |= MF_DROPPED; // special versions of items
 }
 
-//
 // P_DamageMobj
 // Damages both enemies and players
 // "inflictor" is the thing that caused the damage
@@ -722,7 +685,6 @@ void P_KillMobj(mobj_t *source,
 // Source and inflictor are the same for melee attacks.
 // Source can be NULL for slime, barrel explosions
 // and other environmental stuff.
-//
 void P_DamageMobj(mobj_t *target,
 				  mobj_t *inflictor,
 				  mobj_t *source,

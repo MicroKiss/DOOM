@@ -1,24 +1,6 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-//
-// $Id:$
-//
-// Copyright (C) 1993-1996 by id Software, Inc.
-//
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-//
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-//
-// $Log:$
-//
+
 // DESCRIPTION:
 //	System interface for sound.
-//
 //-----------------------------------------------------------------------------
 
 #include <stdio.h>
@@ -142,9 +124,7 @@ int vol_lookup[128 * 256];
 int *channelleftvol_lookup[NUM_CHANNELS];
 int *channelrightvol_lookup[NUM_CHANNELS];
 
-//
 // Safe ioctl, convenience.
-//
 void myioctl(int fd,
              int command,
              int *arg)
@@ -161,10 +141,8 @@ void myioctl(int fd,
   }
 }
 
-//
 // This function loads the sound data from the WAD lump,
 //  for single sound.
-//
 void *
 getsfx(char *sfxname,
        int *len)
@@ -231,13 +209,11 @@ getsfx(char *sfxname,
   return (void *)(paddedsfx + 8);
 }
 
-//
 // This function adds a sound to the
 //  list of currently active sounds,
 //  which is maintained as a given number
 //  (eight, usually) of internal channels.
 // Returns a handle.
-//
 int addsfx(int sfxid,
            int volume,
            int step,
@@ -349,7 +325,6 @@ int addsfx(int sfxid,
   return rc;
 }
 
-//
 // SFX API
 // Note: this was called by S_Init.
 // However, whatever they did in the
@@ -357,7 +332,6 @@ int addsfx(int sfxid,
 // were simply dummies in the Linux
 // version.
 // See soundserver initdata().
-//
 void I_SetChannels()
 {
   // Init internal lookups (raw data, mixing buffer, channels).
@@ -406,10 +380,8 @@ void I_SetMusicVolume(int volume)
   // Whatever( snd_MusciVolume );
 }
 
-//
 // Retrieve the raw data lump index
 //  for a given SFX name.
-//
 int I_GetSfxLumpNum(sfxinfo_t *sfx)
 {
   char namebuf[9];
@@ -417,7 +389,6 @@ int I_GetSfxLumpNum(sfxinfo_t *sfx)
   return W_GetNumForName(namebuf);
 }
 
-//
 // Starting a sound means adding it
 //  to the current list of active sounds
 //  in the internal channels.
@@ -428,7 +399,6 @@ int I_GetSfxLumpNum(sfxinfo_t *sfx)
 //  priority, it is ignored.
 // Pitching (that is, increased speed of playback)
 //  is set, but currently not used by mixing.
-//
 int I_StartSound(int id,
                  int vol,
                  int sep,
@@ -477,7 +447,6 @@ int I_SoundIsPlaying(int handle)
   return gametic < handle;
 }
 
-//
 // This function loops all active (internal) sound
 //  channels, retrieves a given number of samples
 //  from the raw sound data, modifies it according
@@ -487,9 +456,7 @@ int I_SoundIsPlaying(int handle)
 //  and sets up everything for transferring the
 //  contents of the mixbuffer to the (two)
 //  hardware channels (left and right, that is).
-//
 // This function currently supports only 16bit.
-//
 void I_UpdateSound(void)
 {
 #ifdef SNDINTR
@@ -606,14 +573,12 @@ void I_UpdateSound(void)
 #endif
 }
 
-//
 // This would be used to write out the mixbuffer
 //  during each game loop update.
 // Updates sound buffer and audio device at runtime.
 // It is called during Timer interrupt with SNDINTR.
 // Mixing now done synchronous, and
 //  only output be done asynchronous?
-//
 void I_SubmitSound(void)
 {
   // Write it to DSP device.
@@ -760,11 +725,9 @@ void I_InitSound()
 #endif
 }
 
-//
 // MUSIC API.
 // Still no music done.
 // Remains. Dummies.
-//
 void I_InitMusic(void) {}
 void I_ShutdownMusic(void) {}
 
@@ -821,14 +784,12 @@ int I_QrySongPlaying(int handle)
   return looping || musicdies > gametic;
 }
 
-//
 // Experimental stuff.
 // A Linux timer interrupt, for asynchronous
 //  sound output.
 // I ripped this out of the Timer class in
 //  our Difference Engine, including a few
 //  SUN remains...
-//
 #ifdef sun
 typedef sigset_t tSigSet;
 #else
