@@ -1,7 +1,7 @@
 #include "stdlib.h"
 
 #include "doomtype.h"
-#include "i_system.h"
+#include "i_system.hpp"
 #include "m_fixed.hpp"
 
 int32_t FixedMul(int32_t a,

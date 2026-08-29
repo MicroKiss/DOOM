@@ -8,14 +8,7 @@ find_package(libADLMIDI CONFIG REQUIRED)
 set(DOOM_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/linuxdoom-1.10")
 set(DOOM_CPP_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-set(DOOM_WINDOWS_SOURCES 
-    ${DOOM_SOURCE_DIR}/i_main.c
-    ${DOOM_SOURCE_DIR}/i_main_test.c
-    ${DOOM_SOURCE_DIR}/i_video.c
-    ${DOOM_SOURCE_DIR}/i_sound.c
-    ${DOOM_SOURCE_DIR}/i_system.c
-    ${DOOM_SOURCE_DIR}/i_net.c
-)
+set(DOOM_WINDOWS_SOURCES)
 
 set(DOOM_PORTABLE_SOURCES
     doomdef.c
@@ -34,7 +27,6 @@ set(DOOM_PORTABLE_SOURCES
     s_sound.c
     info.c
     sounds.c
-    i_main.c
 )
 
 list(TRANSFORM DOOM_PORTABLE_SOURCES PREPEND "${DOOM_SOURCE_DIR}/")
@@ -52,6 +44,12 @@ set(DOOM_CPP_SOURCES
     ${DOOM_CPP_SOURCE_DIR}/Renderer/r_segs.cpp
     ${DOOM_CPP_SOURCE_DIR}/Renderer/r_sky.cpp
     ${DOOM_CPP_SOURCE_DIR}/Renderer/r_things.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_main.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_main_test.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_net.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_sound.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_system.cpp
+    ${DOOM_CPP_SOURCE_DIR}/SystemInterface/i_video.cpp
     ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_ceilng.cpp
     ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_doors.cpp
     ${DOOM_CPP_SOURCE_DIR}/PlaySimulation/p_enemy.cpp
@@ -92,6 +90,7 @@ target_include_directories(doom PRIVATE
     "${DOOM_CPP_SOURCE_DIR}/AutoMap"
     "${DOOM_CPP_SOURCE_DIR}/Doom"
     "${DOOM_CPP_SOURCE_DIR}/Renderer"
+    "${DOOM_CPP_SOURCE_DIR}/SystemInterface"
     "${DOOM_CPP_SOURCE_DIR}/PlaySimulation"
     "${DOOM_CPP_SOURCE_DIR}/Miscellaneous"
     "${DOOM_CPP_SOURCE_DIR}/ZoneMemory"

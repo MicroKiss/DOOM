@@ -33,7 +33,7 @@ extern "C"
 
 #include "g_game.h"
 
-#include "i_system.h"
+#include "i_system.hpp"
 #include "w_wad.h"
 
 #include "doomdef.h"

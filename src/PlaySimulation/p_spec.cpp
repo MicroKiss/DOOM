@@ -32,7 +32,7 @@ extern "C"
 #include "doomdef.h"
 #include "doomstat.h"
 
-#include "i_system.h"
+#include "i_system.hpp"
 #include "z_zone.hpp"
 #include "m_argv.hpp"
 #include "m_random.hpp"

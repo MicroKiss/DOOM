@@ -25,7 +25,7 @@ extern "C"
 {
 #include "doomdef.h"
 
-#include "i_system.h"
+#include "i_system.hpp"
 #include "p_local.hpp"
 
 // State.

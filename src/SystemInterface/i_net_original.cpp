@@ -32,7 +32,7 @@
 #include <netdb.h>
 #include <sys/ioctl.h>
 
-#include "i_system.h"
+#include "i_system.hpp"
 #include "d_event.hpp"
 #include "d_net.hpp"
 #include "m_argv.hpp"

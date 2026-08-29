@@ -1,4 +1,4 @@
-// Emacs style mode select   -*- C++ -*- 
+// Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
 //
 // $Id:$
@@ -15,45 +15,30 @@
 // for more details.
 //
 // DESCRIPTION:
-//	System specific interface stuff.
+//	System specific network interface stuff.
 //
 //-----------------------------------------------------------------------------
 
-
-#ifndef __I_VIDEO__
-#define __I_VIDEO__
-
-
-#include "doomtype.h"
+#ifndef __I_NET__
+#define __I_NET__
 
 #ifdef __GNUG__
 #pragma interface
 #endif
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-// Called by D_DoomMain,
-// determines the hardware configuration
-// and sets up the video mode
-void I_InitGraphics (void);
+    // Called by D_DoomMain.
 
+    void I_InitNetwork(void);
+    void I_NetCmd(void);
 
-void I_ShutdownGraphics(void);
-
-// Takes full 8 bit values.
-void I_SetPalette (byte* palette);
-
-void I_UpdateNoBlit (void);
-void I_FinishUpdate (void);
-
-// Wait for vertical retrace or pause a bit.
-void I_WaitVBL(int count);
-
-void I_ReadScreen (byte* scr);
-
-void I_BeginRead (void);
-void I_EndRead (void);
-
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 //-----------------------------------------------------------------------------

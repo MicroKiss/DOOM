@@ -29,7 +29,7 @@ extern "C"
 #include "st_stuff.h"
 #include "p_local.hpp"
 #include "w_wad.h"
-#include "i_system.h"
+#include "i_system.hpp"
 
 	// State.
 #include "doomstat.h"

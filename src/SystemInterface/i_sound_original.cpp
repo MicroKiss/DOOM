@@ -47,8 +47,8 @@
 
 #include "z_zone.hpp"
 
-#include "i_system.h"
-#include "i_sound.h"
+#include "i_system.hpp"
+#include "i_sound.hpp"
 #include "m_argv.hpp"
 #include "m_misc.hpp"
 #include "w_wad.h"

@@ -24,7 +24,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL.h>
-#include "i_system.h"
+#include "i_system.hpp"
+#include "i_sound.hpp"
+#include "i_video.hpp"
+#include "d_net.hpp"
+#include "m_misc.hpp"
 #include "doomdef.h"
 
 int mb_used = sizeof(void *) == 8 ? 32 : 6;
@@ -190,7 +194,7 @@ void I_EndRead(void)
 byte *I_AllocLow(int length)
 {
     byte *mem;
-    mem = calloc(1, length);
+    mem = static_cast<byte *>(calloc(1, length));
     return mem;
 }
 

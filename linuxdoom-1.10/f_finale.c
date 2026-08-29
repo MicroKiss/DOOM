@@ -23,7 +23,7 @@
 #include <ctype.h>
 
 // Functions.
-#include "i_system.h"
+#include "i_system.hpp"
 #include "m_swap.hpp"
 #include "z_zone.hpp"
 #include "v_video.hpp"

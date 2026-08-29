@@ -18,8 +18,8 @@ extern "C"
 
 #include "w_wad.h"
 
-#include "i_system.h"
-#include "i_video.h"
+#include "i_system.hpp"
+#include "i_video.hpp"
 #include "v_video.hpp"
 
 #include "hu_stuff.h"

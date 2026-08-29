@@ -30,16 +30,16 @@
 
 #include "doomdef.h"
 #include "m_misc.hpp"
-#include "i_video.h"
-#include "i_sound.h"
+#include "i_video.hpp"
+#include "i_sound.hpp"
 
 #include "d_net.hpp"
 #include "g_game.h"
 
 #ifdef __GNUG__
-#pragma implementation "i_system.h"
+#pragma implementation "i_system.hpp"
 #endif
-#include "i_system.h"
+#include "i_system.hpp"
 
 int mb_used = 6;
 

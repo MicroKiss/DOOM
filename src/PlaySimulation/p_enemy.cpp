@@ -28,7 +28,7 @@ extern "C"
 #include <stdlib.h>
 
 #include "m_random.hpp"
-#include "i_system.h"
+#include "i_system.hpp"
 
 #include "doomdef.h"
 #include "p_local.hpp"

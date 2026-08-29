@@ -29,7 +29,7 @@ extern "C"
 #include "doomdef.h"
 #include "m_swap.hpp"
 
-#include "i_system.h"
+#include "i_system.hpp"
 #include "z_zone.hpp"
 #include "w_wad.h"
 

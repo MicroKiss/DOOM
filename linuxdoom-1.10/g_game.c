@@ -32,7 +32,7 @@
 #include "m_misc.hpp"
 #include "m_menu.hpp"
 #include "m_random.hpp"
-#include "i_system.h"
+#include "i_system.hpp"
 
 #include "p_setup.hpp"
 #include "p_saveg.hpp"

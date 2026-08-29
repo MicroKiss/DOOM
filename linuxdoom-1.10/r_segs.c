@@ -23,7 +23,7 @@
 
 #include <stdlib.h>
 
-#include "i_system.h"
+#include "i_system.hpp"
 
 #include "doomdef.h"
 #include "doomstat.h"

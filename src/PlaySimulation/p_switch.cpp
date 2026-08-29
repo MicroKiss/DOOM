@@ -24,7 +24,7 @@
 
 extern "C"
 {
-#include "i_system.h"
+#include "i_system.hpp"
 #include "doomdef.h"
 #include "p_local.hpp"
 

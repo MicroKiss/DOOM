@@ -67,9 +67,9 @@ extern "C"
 #include "m_misc.hpp"
 #include "m_menu.hpp"
 
-#include "i_system.h"
-#include "i_sound.h"
-#include "i_video.h"
+#include "i_system.hpp"
+#include "i_sound.hpp"
+#include "i_video.hpp"
 
 #include "g_game.h"
 

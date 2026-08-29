@@ -21,29 +21,32 @@
 
 #include <string.h>
 
+extern "C"
+{
 #include "doomstat.h"
 #include "d_net.hpp"
-#include "i_net.h"
-#include "i_system.h"
+#include "i_net.hpp"
+#include "i_system.hpp"
 
-static doomcom_t singleplayer_doomcom;
+    static doomcom_t singleplayer_doomcom;
 
-void I_InitNetwork(void)
-{
-    memset(&singleplayer_doomcom, 0, sizeof(singleplayer_doomcom));
+    void I_InitNetwork(void)
+    {
+        memset(&singleplayer_doomcom, 0, sizeof(singleplayer_doomcom));
 
-    singleplayer_doomcom.id = DOOMCOM_ID;
-    singleplayer_doomcom.remotenode = -1;
-    singleplayer_doomcom.numnodes = 1;
-    singleplayer_doomcom.ticdup = 1;
-    singleplayer_doomcom.consoleplayer = 0;
-    singleplayer_doomcom.numplayers = 1;
+        singleplayer_doomcom.id = DOOMCOM_ID;
+        singleplayer_doomcom.remotenode = -1;
+        singleplayer_doomcom.numnodes = 1;
+        singleplayer_doomcom.ticdup = 1;
+        singleplayer_doomcom.consoleplayer = 0;
+        singleplayer_doomcom.numplayers = 1;
 
-    doomcom = &singleplayer_doomcom;
-    netgame = false;
-}
+        doomcom = &singleplayer_doomcom;
+        netgame = false;
+    }
 
-void I_NetCmd(void)
-{
-    I_Error("I_NetCmd called while networking is disabled");
+    void I_NetCmd(void)
+    {
+        I_Error("I_NetCmd called while networking is disabled");
+    }
 }

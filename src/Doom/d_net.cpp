@@ -27,9 +27,9 @@
 extern "C"
 {
 #include "m_menu.hpp"
-#include "i_system.h"
-#include "i_video.h"
-#include "i_net.h"
+#include "i_system.hpp"
+#include "i_video.hpp"
+#include "i_net.hpp"
 #include "g_game.h"
 #include "doomdef.h"
 #include "doomstat.h"

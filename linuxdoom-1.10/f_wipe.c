@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 
 #include "z_zone.hpp"
-#include "i_video.h"
+#include "i_video.hpp"
 #include "v_video.hpp"
 #include "m_random.hpp"
 

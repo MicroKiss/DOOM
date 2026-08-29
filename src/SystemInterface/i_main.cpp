@@ -27,10 +27,10 @@
 
 #include "m_argv.hpp"
 #include "d_main.hpp"
-#include "i_system.h"
-#include "i_video.h"
+#include "i_system.hpp"
+#include "i_video.hpp"
 #include "v_video.hpp"
-#include "i_main_test.h"
+#include "i_main_test.hpp"
 
 int main(int argc, char **argv)
 {

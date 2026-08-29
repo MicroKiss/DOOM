@@ -27,7 +27,7 @@ extern "C"
 
 #include "m_bbox.hpp"
 
-#include "i_system.h"
+#include "i_system.hpp"
 
 #include "r_main.hpp"
 #include "r_plane.hpp"

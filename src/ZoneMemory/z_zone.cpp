@@ -1,5 +1,5 @@
 #include "z_zone.hpp"
-#include "i_system.h"
+#include "i_system.hpp"
 #include "doomdef.h"
 
 //

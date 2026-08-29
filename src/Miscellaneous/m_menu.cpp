@@ -12,8 +12,8 @@ extern "C"
 
 #include "d_main.hpp"
 
-#include "i_system.h"
-#include "i_video.h"
+#include "i_system.hpp"
+#include "i_video.hpp"
 #include "z_zone.hpp"
 #include "v_video.hpp"
 #include "w_wad.h"

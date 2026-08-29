@@ -1,4 +1,4 @@
-#include "i_system.h"
+#include "i_system.hpp"
 #include "r_local.hpp"
 
 #include "doomdef.h"

@@ -53,7 +53,7 @@
 
 #include "doomtype.h"
 #include "m_swap.hpp"
-#include "i_system.h"
+#include "i_system.hpp"
 #include "z_zone.hpp"
 
 #ifdef __GNUG__

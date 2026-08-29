@@ -27,7 +27,7 @@
 
 extern "C"
 {
-#include "i_system.h"
+#include "i_system.hpp"
 #include "z_zone.hpp"
 #include "w_wad.h"
 
