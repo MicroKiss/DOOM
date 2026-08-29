@@ -1,33 +1,25 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //	Created by the sound utility written by Dave Taylor.
 //	Kept as a sample, DOOM2  sounds. Frozen.
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __SOUNDS__
 #define __SOUNDS__
 
 
-    //
-    // SoundFX struct.
-    //
-    typedef struct sfxinfo_struct sfxinfo_t;
+        // SoundFX struct.
+        typedef struct sfxinfo_struct sfxinfo_t;
 
     struct sfxinfo_struct
     {
@@ -61,10 +53,8 @@
         int lumpnum;
     };
 
-    //
-    // MusicInfo struct.
-    //
-    typedef struct
+        // MusicInfo struct.
+        typedef struct
     {
         // up to 6-character name
         char *name;
@@ -86,10 +76,8 @@
     // the complete set of music
     extern musicinfo_t S_music[];
 
-    //
-    // Identifiers for all music in game.
-    //
-
+        // Identifiers for all music in game.
+    
     typedef enum
     {
         mus_None,
@@ -163,10 +151,8 @@
         NUMMUSIC
     } musicenum_t;
 
-    //
-    // Identifiers for all sfx in game.
-    //
-
+        // Identifiers for all sfx in game.
+    
     typedef enum
     {
         sfx_None,
@@ -284,7 +270,5 @@
 
 #endif
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------

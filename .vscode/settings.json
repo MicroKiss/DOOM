@@ -1,7 +1,8 @@
 {
     "C_Cpp.default.compilerPath": "A:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x64/cl.exe",
     "C_Cpp.default.includePath": [
-        "${workspaceFolder}/linuxdoom-1.10",
+        "${workspaceFolder}/src/**",
+        "A:/Dev/Git/vcpkg/installed/x64-windows/include",
         "A:/Dev/Git/vcpkg/installed/x64-windows/include/SDL2"
     ],
     "cmake.buildDirectory": "${workspaceFolder}/build-windows-vs18-sdl",

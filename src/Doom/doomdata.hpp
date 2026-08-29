@@ -1,24 +1,18 @@
 // Emacs style mode select   -*- C++ -*-
 //-----------------------------------------------------------------------------
-//
 // $Id:$
-//
 // Copyright (C) 1993-1996 by id Software, Inc.
-//
 // This source is available for distribution and/or modification
 // only under the terms of the DOOM Source Code License as
 // published by id Software. All rights reserved.
-//
 // The source is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
 // for more details.
-//
 // DESCRIPTION:
 //  all external data is defined here
 //  most of the data is loaded into different structures at run time
 //  some internal structures shared by many modules are here
-//
 //-----------------------------------------------------------------------------
 
 #ifndef __DOOMDATA__
@@ -33,11 +27,9 @@
 // Some global defines, that configure the game.
 #include "doomdef.hpp"
 
-//
 // Map level types.
 // The following data structures define the persistent format
 // used in the lumps of the WAD files.
-//
 
 // Lump order in a map WAD: each map needs a couple of lumps
 // to provide a complete scene geometry description.
@@ -89,9 +81,7 @@ typedef struct
   int16_t sidenum[2];
 } maplinedef_t;
 
-//
 // LineDef attributes.
-//
 
 // Solid, is an obstacle.
 #define ML_BLOCKING 1
@@ -208,7 +198,5 @@ static_assert(sizeof(mapthing_t) == 10, "mapthing_t must match the WAD format");
 
 #endif // __DOOMDATA__
 //-----------------------------------------------------------------------------
-//
 // $Log:$
-//
 //-----------------------------------------------------------------------------
