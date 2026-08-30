@@ -695,7 +695,7 @@ void R_DrawViewBorder(void)
     V_MarkRect(0, 0, SCREENWIDTH, SCREENHEIGHT - SBARHEIGHT);
 }
 
-void DrawLine(int x1, int y1, int x2, int y2)
+void DrawLine(int x1, int y1, int x2, int y2, uint8_t color = 0xFF)
 {
     int dx = std::abs(x2 - x1);
     int dy = std::abs(y2 - y1);
@@ -705,7 +705,7 @@ void DrawLine(int x1, int y1, int x2, int y2)
 
     while (true)
     {
-        screens[0][y1 * SCREENWIDTH + x1] = 0xFF;
+        screens[0][y1 * SCREENWIDTH + x1] = color;
         if (x1 == x2 && y1 == y2)
             break;
         int e2 = 2 * err;
