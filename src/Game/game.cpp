@@ -170,17 +170,6 @@ int bodyqueslot;
 
 void *statcopy; // for statistics driver
 
-int G_CmdChecksum(ticcmd_t *cmd)
-{
-    int i;
-    int sum = 0;
-
-    for (i = 0; i < sizeof(*cmd) / 4 - 1; i++)
-        sum += ((int *)cmd)[i];
-
-    return sum;
-}
-
 // G_BuildTiccmd
 // Builds a ticcmd from all of the available inputs
 void G_BuildTiccmd(ticcmd_t *cmd)
@@ -193,10 +182,7 @@ void G_BuildTiccmd(ticcmd_t *cmd)
     int forward;
     int side;
 
-    ticcmd_t *base;
-
-    base = I_BaseTiccmd(); // empty, or external driver
-    memcpy(cmd, base, sizeof(*cmd));
+    *cmd = {};
 
     cmd->consistancy =
         consistancy[consoleplayer][maketic % BACKUPTICS];
@@ -220,35 +206,14 @@ void G_BuildTiccmd(ticcmd_t *cmd)
     else
         tspeed = sprint;
 
-    // let movement keys cancel each other out
-    if (strafe)
-    {
-        if (gamekeydown[key_right])
-        {
-            // fprintf(stderr, "strafe right\n");
-            side += sidePsd;
-        }
-        if (gamekeydown[key_left])
-        {
-            //	fprintf(stderr, "strafe left\n");
-            side -= sidePsd;
-        }
-        if (joyxmove > 0)
-            side += sidePsd;
-        if (joyxmove < 0)
-            side -= sidePsd;
-    }
-    else
-    {
-        if (gamekeydown[key_right])
-            cmd->angleturn -= angleturn[tspeed];
-        if (gamekeydown[key_left])
-            cmd->angleturn += angleturn[tspeed];
-        if (joyxmove > 0)
-            cmd->angleturn -= angleturn[tspeed];
-        if (joyxmove < 0)
-            cmd->angleturn += angleturn[tspeed];
-    }
+    if (gamekeydown[key_right])
+        cmd->angleturn -= angleturn[tspeed];
+    if (gamekeydown[key_left])
+        cmd->angleturn += angleturn[tspeed];
+    if (joyxmove > 0)
+        cmd->angleturn -= angleturn[tspeed];
+    if (joyxmove < 0)
+        cmd->angleturn += angleturn[tspeed];
 
     if (gamekeydown[key_up] || gamekeydown[key_up_alt])
     {

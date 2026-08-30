@@ -45,12 +45,6 @@ void I_Tactile(int on,
     on = off = total = 0;
 }
 
-ticcmd_t emptycmd;
-ticcmd_t *I_BaseTiccmd(void)
-{
-    return &emptycmd;
-}
-
 int I_GetHeapSize(void)
 {
     return mb_used * 1024 * 1024;
