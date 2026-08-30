@@ -8,14 +8,14 @@
 #include "doomdef.hpp"
 
 #include "SystemInterface/system.hpp"
-#include "ZoneMemory/zone.hpp"
 #include "Wad/wad.hpp"
+#include "ZoneMemory/zone.hpp"
 
 #include "Renderer/local.hpp"
 
 // Needs access to LFB (guess what).
 #include "Renderer/video.hpp"
-
+#include <cmath>
 // State.
 #include "doomstat.hpp"
 
@@ -214,15 +214,9 @@ void R_DrawColumnLow(void)
 #define FUZZTABLE 50
 #define FUZZOFF (SCREENWIDTH)
 
-int fuzzoffset[FUZZTABLE] =
-    {
-        FUZZOFF, -FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF,
-        FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF,
-        FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF,
-        FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF,
-        FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF,
-        FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF,
-        FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF};
+int fuzzoffset[FUZZTABLE] = {
+    FUZZOFF, -FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF, FUZZOFF, -FUZZOFF, FUZZOFF
+};
 
 int fuzzpos = 0;
 
@@ -257,7 +251,9 @@ void R_DrawFuzzColumn(void)
     if ((unsigned)dc_x >= SCREENWIDTH || dc_yl < 0 || dc_yh >= SCREENHEIGHT)
     {
         I_Error("R_DrawFuzzColumn: %i to %i at %i",
-                dc_yl, dc_yh, dc_x);
+                dc_yl,
+                dc_yh,
+                dc_x);
     }
 #endif
 
@@ -338,7 +334,9 @@ void R_DrawTranslatedColumn(void)
     if ((unsigned)dc_x >= SCREENWIDTH || dc_yl < 0 || dc_yh >= SCREENHEIGHT)
     {
         I_Error("R_DrawColumn: %i to %i at %i",
-                dc_yl, dc_yh, dc_x);
+                dc_yl,
+                dc_yh,
+                dc_x);
     }
 
 #endif
@@ -453,7 +451,9 @@ void R_DrawSpan(void)
     if (ds_x2 < ds_x1 || ds_x1 < 0 || ds_x2 >= SCREENWIDTH || (unsigned)ds_y > SCREENHEIGHT)
     {
         I_Error("R_DrawSpan: %i to %i at %i",
-                ds_x1, ds_x2, ds_y);
+                ds_x1,
+                ds_x2,
+                ds_y);
     }
 //	dscount++;
 #endif
@@ -482,78 +482,6 @@ void R_DrawSpan(void)
     } while (count--);
 }
 
-// UNUSED.
-// Loop unrolled by 4.
-#if 0
-void R_DrawSpan (void) 
-{ 
-    unsigned	position, step;
-
-    byte*	source;
-    byte*	colormap;
-    byte*	dest;
-    
-    unsigned	count;
-    usingned	spot; 
-    unsigned	value;
-    unsigned	temp;
-    unsigned	xtemp;
-    unsigned	ytemp;
-		
-    position = ((ds_xfrac<<10)&0xffff0000) | ((ds_yfrac>>6)&0xffff);
-    step = ((ds_xstep<<10)&0xffff0000) | ((ds_ystep>>6)&0xffff);
-		
-    source = ds_source;
-    colormap = ds_colormap;
-    dest = ylookup[ds_y] + columnofs[ds_x1];	 
-    count = ds_x2 - ds_x1 + 1; 
-	
-    while (count >= 4) 
-    { 
-	ytemp = position>>4;
-	ytemp = ytemp & 4032;
-	xtemp = position>>26;
-	spot = xtemp | ytemp;
-	position += step;
-	dest[0] = colormap[source[spot]]; 
-
-	ytemp = position>>4;
-	ytemp = ytemp & 4032;
-	xtemp = position>>26;
-	spot = xtemp | ytemp;
-	position += step;
-	dest[1] = colormap[source[spot]];
-	
-	ytemp = position>>4;
-	ytemp = ytemp & 4032;
-	xtemp = position>>26;
-	spot = xtemp | ytemp;
-	position += step;
-	dest[2] = colormap[source[spot]];
-	
-	ytemp = position>>4;
-	ytemp = ytemp & 4032;
-	xtemp = position>>26;
-	spot = xtemp | ytemp;
-	position += step;
-	dest[3] = colormap[source[spot]]; 
-		
-	count -= 4;
-	dest += 4;
-    } 
-    while (count > 0) 
-    { 
-	ytemp = position>>4;
-	ytemp = ytemp & 4032;
-	xtemp = position>>26;
-	spot = xtemp | ytemp;
-	position += step;
-	*dest++ = colormap[source[spot]]; 
-	count--;
-    } 
-}
-#endif
-
 // Again..
 void R_DrawSpanLow(void)
 {
@@ -567,7 +495,9 @@ void R_DrawSpanLow(void)
     if (ds_x2 < ds_x1 || ds_x1 < 0 || ds_x2 >= SCREENWIDTH || (unsigned)ds_y > SCREENHEIGHT)
     {
         I_Error("R_DrawSpan: %i to %i at %i",
-                ds_x1, ds_x2, ds_y);
+                ds_x1,
+                ds_x2,
+                ds_y);
     }
 //	dscount++;
 #endif
@@ -763,4 +693,40 @@ void R_DrawViewBorder(void)
 
     // ?
     V_MarkRect(0, 0, SCREENWIDTH, SCREENHEIGHT - SBARHEIGHT);
+}
+
+void DrawLine(int x1, int y1, int x2, int y2)
+{
+    int dx = std::abs(x2 - x1);
+    int dy = std::abs(y2 - y1);
+    int sx = x1 < x2 ? 1 : -1;
+    int sy = y1 < y2 ? 1 : -1;
+    int err = dx - dy;
+
+    while (true)
+    {
+        screens[0][y1 * SCREENWIDTH + x1] = 0xFF;
+        if (x1 == x2 && y1 == y2)
+            break;
+        int e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x1 += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            y1 += sy;
+        }
+    }
+}
+
+void DrawCrosshair()
+{
+    uint16_t middleX = SCREENWIDTH / 2;
+    uint16_t middleY = (SCREENHEIGHT - SBARHEIGHT) / 2;
+
+    DrawLine(middleX - 5, middleY, middleX + 5, middleY);
+    DrawLine(middleX, middleY - 5, middleX, middleY + 5);
 }
