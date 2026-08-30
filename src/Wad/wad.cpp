@@ -29,10 +29,6 @@
 #define strcmpi strcasecmp
 #endif
 
-#ifndef O_BINARY
-#define O_BINARY 0
-#endif
-
 #include "doomtype.hpp"
 #include "Miscellaneous/swap.hpp"
 #include "SystemInterface/system.hpp"

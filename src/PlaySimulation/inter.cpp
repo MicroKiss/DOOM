@@ -124,7 +124,7 @@ bool P_GiveAmmo(player_t *player,
 // P_GiveWeapon
 // The weapon name may have a MF_DROPPED flag ored in.
 bool P_GiveWeapon(player_t *player,
-				  weapontype_t weapon,
+				  WeaponType weapon,
 				  bool dropped)
 {
 	bool gaveammo;

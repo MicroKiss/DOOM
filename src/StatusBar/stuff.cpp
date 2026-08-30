@@ -325,6 +325,7 @@ static st_binicon_t w_armsbg;
 
 // weapon ownership widgets
 static st_multicon_t w_arms[6];
+static int armsowned[6];
 
 // face status widget
 static st_multicon_t w_faces;
@@ -894,6 +895,8 @@ void ST_updateWidgets(void)
 
 	// used by w_arms[] widgets
 	st_armson = st_statusbaron && !deathmatch;
+	for (i = 0; i < 6; i++)
+		armsowned[i] = plyr->weaponowned[i + 1] ? 1 : 0;
 
 	// used by w_frags widget
 	st_fragson = deathmatch && st_statusbaron;
@@ -1233,10 +1236,11 @@ void ST_createWidgets(void)
 	// weapons owned
 	for (i = 0; i < 6; i++)
 	{
+		armsowned[i] = plyr->weaponowned[i + 1] ? 1 : 0;
 		STlib_initMultIcon(&w_arms[i],
 						   ST_ARMSX + (i % 3) * ST_ARMSXSPACE,
 						   ST_ARMSY + (i / 3) * ST_ARMSYSPACE,
-						   arms[i], (int *)&plyr->weaponowned[i + 1],
+						   arms[i], &armsowned[i],
 						   &st_armson);
 	}
 

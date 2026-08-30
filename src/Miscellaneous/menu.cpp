@@ -34,10 +34,6 @@
 
 #include "Miscellaneous/menu.hpp"
 
-#ifndef O_BINARY
-#define O_BINARY 0
-#endif
-
 extern patch_t *hu_font[HU_FONTSIZE];
 extern bool message_dontfuckwithme;
 

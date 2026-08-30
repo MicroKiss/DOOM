@@ -19,7 +19,7 @@
 // of other structs: items (internal inventory),
 // animation states (closely tied to the sprites
 // used to represent them, unfortunately).
-#include "Doom/items.hpp"
+#include "Doom/WeaponInfo.hpp"
 #include "PlaySimulation/pspr.hpp"
 
 // In addition, the player is just a special
@@ -91,10 +91,10 @@ typedef struct player_s
 
     // Frags, kills of other players.
     int frags[MAXPLAYERS];
-    weapontype_t readyweapon;
+    WeaponType readyweapon;
 
     // Is wp_nochange if not changing.
-    weapontype_t pendingweapon;
+    WeaponType pendingweapon;
 
     bool weaponowned[NUMWEAPONS];
     int ammo[NUMAMMO];

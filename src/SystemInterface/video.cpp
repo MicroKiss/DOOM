@@ -17,10 +17,10 @@
 #include <string.h>
 
 #include "Doom/main.hpp"
-#include "doomdef.hpp"
+#include "Renderer/video.hpp"
 #include "SystemInterface/system.hpp"
 #include "SystemInterface/video.hpp"
-#include "Renderer/video.hpp"
+#include "doomdef.hpp"
 
 #define DISPLAY_WIDTH SCREENWIDTH
 #define DISPLAY_HEIGHT (SCREENHEIGHT * 6 / 5)
@@ -35,7 +35,7 @@ static int mouse_buttons;
 
 static void I_PostKeyEvent(evtype_t type, int key)
 {
-    event_t event = {0};
+    event_t event = {};
 
     event.type = type;
     event.data1 = key;
@@ -47,12 +47,12 @@ static void I_PostKeyEvent(evtype_t type, int key)
 
 static void I_PostMouseEvent(int x, int y)
 {
-    event_t event = {0};
+    event_t event = {};
 
     event.type = ev_mouse;
     event.data1 = mouse_buttons;
-    event.data2 = x * 4;
-    event.data3 = -y * 4;
+    event.data2 = x;
+    event.data3 = -y;
     D_PostEvent(&event);
 }
 
@@ -178,14 +178,13 @@ void I_InitGraphics(void)
     window = SDL_CreateWindow("DOOM",
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,
-                              DISPLAY_WIDTH * 2,
-                              DISPLAY_HEIGHT * 2,
+                              DISPLAY_WIDTH * 3,
+                              DISPLAY_HEIGHT * 3,
                               SDL_WINDOW_RESIZABLE);
     if (!window)
         I_Error("I_InitGraphics: window creation failed: %s", SDL_GetError());
 
-    renderer = SDL_CreateRenderer(window, -1,
-                                  SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer)
         renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
 
@@ -210,8 +209,7 @@ void I_InitGraphics(void)
     if (SDL_SetRelativeMouseMode(SDL_TRUE) < 0)
     {
 #ifdef DOOM_DEBUG
-        fprintf(stderr, "I_InitGraphics: relative mouse mode unavailable: %s.\n",
-                SDL_GetError());
+        fprintf(stderr, "I_InitGraphics: relative mouse mode unavailable: %s.\n", SDL_GetError());
 #endif
     }
 
@@ -221,7 +219,10 @@ void I_InitGraphics(void)
         SDL_GetRendererInfo(renderer, &info);
         fprintf(stderr,
                 "I_InitGraphics: %dx%d indexed framebuffer, %dx%d window, renderer=%s.\n",
-                SCREENWIDTH, SCREENHEIGHT, DISPLAY_WIDTH * 2, DISPLAY_HEIGHT * 2,
+                SCREENWIDTH,
+                SCREENHEIGHT,
+                DISPLAY_WIDTH * 3,
+                DISPLAY_HEIGHT * 3,
                 info.name ? info.name : "unknown");
     }
 #endif
@@ -266,8 +267,7 @@ void I_StartTic(void)
         switch (sdl_event.type)
         {
         case SDL_KEYDOWN:
-        case SDL_KEYUP:
-        {
+        case SDL_KEYUP: {
             int key = I_TranslateKey(sdl_event.key.keysym.sym);
 
             if (key)
@@ -279,8 +279,7 @@ void I_StartTic(void)
         }
 
         case SDL_MOUSEBUTTONDOWN:
-        case SDL_MOUSEBUTTONUP:
-        {
+        case SDL_MOUSEBUTTONUP: {
             int button = 0;
 
             if (sdl_event.button.button == SDL_BUTTON_LEFT)
@@ -345,8 +344,7 @@ void I_FinishUpdate(void)
     for (pixel = 0; pixel < SCREENWIDTH * SCREENHEIGHT; ++pixel)
         rgba_framebuffer[pixel] = rgba_palette[screens[0][pixel]];
 
-    if (SDL_UpdateTexture(texture, NULL, rgba_framebuffer,
-                          SCREENWIDTH * sizeof(*rgba_framebuffer)) < 0)
+    if (SDL_UpdateTexture(texture, NULL, rgba_framebuffer, SCREENWIDTH * sizeof(*rgba_framebuffer)) < 0)
         I_Error("I_FinishUpdate: texture upload failed: %s", SDL_GetError());
 
     if (SDL_RenderClear(renderer) < 0)

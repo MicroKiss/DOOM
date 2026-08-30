@@ -46,7 +46,7 @@ typedef struct
 //      source animation definition
 typedef struct
 {
-	bool istexture; // if false, it is a flat
+	int istexture; // if false, it is a flat; -1 terminates the table
 	char endname[9];
 	char startname[9];
 	int speed;

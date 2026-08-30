@@ -5,11 +5,11 @@
 //	See tables.c, too.
 //-----------------------------------------------------------------------------
 
-#include <stdlib.h>
 #include <math.h>
+#include <stdlib.h>
 
-#include "doomdef.hpp"
 #include "Doom/net.hpp"
+#include "doomdef.hpp"
 
 #include "Miscellaneous/bbox.hpp"
 
@@ -776,6 +776,8 @@ void R_RenderPlayerView(player_t *player)
     NetUpdate();
 
     R_DrawMasked();
+
+    DrawCrosshair();
 
     // Check for new console commands.
     NetUpdate();

@@ -2,30 +2,30 @@
 // DESCRIPTION:  none
 //-----------------------------------------------------------------------------
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "doomdef.hpp"
 #include "doomstat.hpp"
 
-#include "ZoneMemory/zone.hpp"
 #include "Finale/finale.hpp"
 #include "Miscellaneous/argv.hpp"
-#include "Miscellaneous/misc.hpp"
 #include "Miscellaneous/menu.hpp"
+#include "Miscellaneous/misc.hpp"
 #include "Miscellaneous/random.hpp"
 #include "SystemInterface/system.hpp"
+#include "ZoneMemory/zone.hpp"
 
-#include "PlaySimulation/setup.hpp"
 #include "PlaySimulation/saveg.hpp"
+#include "PlaySimulation/setup.hpp"
 #include "PlaySimulation/tick.hpp"
 
 #include "Doom/main.hpp"
 
-#include "Intermission/stuff.hpp"
-#include "HeadsUpDisplay/stuff.hpp"
-#include "StatusBar/stuff.hpp"
 #include "AutoMap/map.hpp"
+#include "HeadsUpDisplay/stuff.hpp"
+#include "Intermission/stuff.hpp"
+#include "StatusBar/stuff.hpp"
 
 // Needs access to LFB.
 #include "Renderer/video.hpp"
@@ -85,8 +85,8 @@ int starttime;   // for comparative timing purposes
 
 bool viewactive;
 
-bool deathmatch; // only if started as net death
-bool netgame;    // only true if packets are broadcast
+short deathmatch; // only if started as net death
+bool netgame;     // only true if packets are broadcast
 bool playeringame[MAXPLAYERS];
 player_t players[MAXPLAYERS];
 
@@ -139,13 +139,16 @@ int joybstrafe;
 int joybuse;
 int joybspeed;
 
-#define MAXPLMOVE (forwardmove[1])
-
 #define TURBOTHRESHOLD 0x32
 
-int32_t forwardmove[2] = {0x19, 0x32};
-int32_t sidemove[2] = {0x18, 0x28};
-int32_t angleturn[3] = {640, 1280, 320}; // + slow turn
+int32_t forwardWalkSpeed = 25;
+int32_t forwardRunSpeed = 50;
+int32_t sideWalkSpeed = 24;
+int32_t sideRunSpeed = 40;
+
+#define MAXPLMOVE forwardRunSpeed
+
+int32_t angleturn[3] = { 640, 1280, 320 }; // + slow turn
 
 #define SLOWTURNTICS 6
 
@@ -162,10 +165,10 @@ int mousex;
 int mousey;
 
 int dclicktime;
-int dclickstate;
+bool dclickstate;
 int dclicks;
 int dclicktime2;
-int dclickstate2;
+bool dclickstate2;
 int dclicks2;
 
 // joystick values are repeated
@@ -204,7 +207,7 @@ void G_BuildTiccmd(ticcmd_t *cmd)
     int i;
     bool strafe;
     bool bstrafe;
-    int speed;
+    int sprint;
     int tspeed;
     int forward;
     int side;
@@ -218,7 +221,9 @@ void G_BuildTiccmd(ticcmd_t *cmd)
         consistancy[consoleplayer][maketic % BACKUPTICS];
 
     strafe = gamekeydown[key_strafe] || mousebuttons[mousebstrafe] || joybuttons[joybstrafe];
-    speed = gamekeydown[key_speed] || joybuttons[joybspeed];
+    sprint = gamekeydown[key_speed] || joybuttons[joybspeed];
+    int sidePsd = sprint ? sideRunSpeed : sideWalkSpeed;
+    int fwdSpd = sprint ? forwardRunSpeed : forwardWalkSpeed;
 
     forward = side = 0;
 
@@ -232,7 +237,7 @@ void G_BuildTiccmd(ticcmd_t *cmd)
     if (turnheld < SLOWTURNTICS)
         tspeed = 2; // slow turn
     else
-        tspeed = speed;
+        tspeed = sprint;
 
     // let movement keys cancel each other out
     if (strafe)
@@ -240,17 +245,17 @@ void G_BuildTiccmd(ticcmd_t *cmd)
         if (gamekeydown[key_right])
         {
             // fprintf(stderr, "strafe right\n");
-            side += sidemove[speed];
+            side += sidePsd;
         }
         if (gamekeydown[key_left])
         {
             //	fprintf(stderr, "strafe left\n");
-            side -= sidemove[speed];
+            side -= sidePsd;
         }
         if (joyxmove > 0)
-            side += sidemove[speed];
+            side += sidePsd;
         if (joyxmove < 0)
-            side -= sidemove[speed];
+            side -= sidePsd;
     }
     else
     {
@@ -267,21 +272,21 @@ void G_BuildTiccmd(ticcmd_t *cmd)
     if (gamekeydown[key_up] || gamekeydown[key_up_alt])
     {
         // fprintf(stderr, "up\n");
-        forward += forwardmove[speed];
+        forward += fwdSpd;
     }
     if (gamekeydown[key_down] || gamekeydown[key_down_alt])
     {
         // fprintf(stderr, "down\n");
-        forward -= forwardmove[speed];
+        forward -= fwdSpd;
     }
     if (joyymove < 0)
-        forward += forwardmove[speed];
+        forward += fwdSpd;
     if (joyymove > 0)
-        forward -= forwardmove[speed];
+        forward -= fwdSpd;
     if (gamekeydown[key_straferight] || gamekeydown[key_straferight_alt])
-        side += sidemove[speed];
+        side += sidePsd;
     if (gamekeydown[key_strafeleft] || gamekeydown[key_strafeleft_alt])
-        side -= sidemove[speed];
+        side -= sidePsd;
 
     // buttons
     cmd->chatchar = HU_dequeueChatChar();
@@ -442,6 +447,29 @@ void G_DoLoadLevel(void)
     memset(joybuttons, 0, sizeof(joybuttons));
 }
 
+bool SpyModeResponder(event_t *ev)
+{
+    do
+    {
+        displayplayer++;
+        if (displayplayer == MAXPLAYERS)
+            displayplayer = 0;
+    } while (!playeringame[displayplayer] && displayplayer != consoleplayer);
+    return true;
+}
+
+bool RemoResponder(event_t *ev)
+{
+    if (ev->type == ev_keydown ||
+        (ev->type == ev_mouse && ev->data1) ||
+        (ev->type == ev_joystick && ev->data1))
+    {
+        M_StartControlPanel();
+        return true;
+    }
+    return false;
+}
+
 // G_Responder
 // Get info needed to make ticcmd_ts for the players.
 bool G_Responder(event_t *ev)
@@ -449,51 +477,30 @@ bool G_Responder(event_t *ev)
     // allow spy mode changes even during the demo
     if (gamestate == GS_LEVEL && ev->type == ev_keydown && ev->data1 == KEY_F12 && (singledemo || !deathmatch))
     {
-        // spy mode
-        do
-        {
-            displayplayer++;
-            if (displayplayer == MAXPLAYERS)
-                displayplayer = 0;
-        } while (!playeringame[displayplayer] && displayplayer != consoleplayer);
-        return true;
+        return SpyModeResponder(ev);
     }
 
     // any other key pops up menu if in demos
     if (gameaction == ga_nothing && !singledemo &&
         (demoplayback || gamestate == GS_DEMOSCREEN))
     {
-        if (ev->type == ev_keydown ||
-            (ev->type == ev_mouse && ev->data1) ||
-            (ev->type == ev_joystick && ev->data1))
-        {
-            M_StartControlPanel();
-            return true;
-        }
-        return false;
-    }
-
-    if (gamestate == GS_LEVEL)
-    {
-#if 0 
-	if (devparm && ev->type == ev_keydown && ev->data1 == ';') 
-	{ 
-	    G_DeathMatchSpawnPlayer (0); 
-	    return true; 
-	}
-#endif
-        if (HU_Responder(ev))
-            return true; // chat ate the event
-        if (ST_Responder(ev))
-            return true; // status window ate it
-        if (AM_Responder(ev))
-            return true; // automap ate it
+        return RemoResponder(ev);
     }
 
     if (gamestate == GS_FINALE)
     {
         if (F_Responder(ev))
             return true; // finale ate the event
+    }
+
+    if (gamestate == GS_LEVEL)
+    {
+        if (HU_Responder(ev))
+            return true; // chat ate the event
+        if (ST_Responder(ev))
+            return true; // status window ate it
+        if (AM_Responder(ev))
+            return true; // automap ate it
     }
 
     switch (ev->type)
@@ -517,8 +524,8 @@ bool G_Responder(event_t *ev)
         mousebuttons[0] = ev->data1 & 1;
         mousebuttons[1] = ev->data1 & 2;
         mousebuttons[2] = ev->data1 & 4;
-        mousex = ev->data2 * (mouseSensitivity + 5) / 10;
-        mousey = ev->data3 * (mouseSensitivity + 5) / 10;
+        mousex = ev->data2 * (mouseSensitivity + 5) / 2;
+        mousey = ev->data3 * (mouseSensitivity + 5) / 2;
         return true; // eat events
 
     case ev_joystick:
@@ -619,7 +626,8 @@ void G_Ticker(void)
                 if (gametic > BACKUPTICS && consistancy[i][buf] != cmd->consistancy)
                 {
                     I_Error("consistency failure (%i should be %i)",
-                            cmd->consistancy, consistancy[i][buf]);
+                            cmd->consistancy,
+                            consistancy[i][buf]);
                 }
                 if (players[i].mo)
                     consistancy[i][buf] = players[i].mo->x;
@@ -722,7 +730,7 @@ void G_PlayerFinishLevel(int player)
 void G_PlayerReborn(int player)
 {
     player_t *p;
-    int i;
+
     int frags[MAXPLAYERS];
     int killcount;
     int itemcount;
@@ -741,15 +749,17 @@ void G_PlayerReborn(int player)
     players[player].itemcount = itemcount;
     players[player].secretcount = secretcount;
 
-    p->usedown = p->attackdown = true; // don't do anything immediately
+    p->usedown = true; // don't do anything immediately
+    p->attackdown = true;
     p->playerstate = PST_LIVE;
     p->health = MAXHEALTH;
-    p->readyweapon = p->pendingweapon = wp_pistol;
+    p->readyweapon = wp_pistol;
+    p->pendingweapon = wp_pistol;
     p->weaponowned[wp_fist] = true;
     p->weaponowned[wp_pistol] = true;
     p->ammo[am_clip] = 50;
 
-    for (i = 0; i < NUMAMMO; i++)
+    for (int i = 0; i < NUMAMMO; i++)
         p->maxammo[i] = maxammo[i];
 }
 
@@ -881,20 +891,38 @@ void G_ScreenShot(void)
 }
 
 // DOOM Par Times
-int pars[4][10] =
-    {
-        {0},
-        {0, 30, 75, 120, 90, 165, 180, 180, 30, 165},
-        {0, 90, 90, 90, 120, 90, 360, 240, 30, 170},
-        {0, 90, 45, 90, 150, 90, 90, 165, 30, 135}};
+int pars[4][10] = {
+    { 0 },
+    { 0, 30, 75, 120, 90, 165, 180, 180, 30, 165 },
+    { 0, 90, 90, 90, 120, 90, 360, 240, 30, 170 },
+    { 0, 90, 45, 90, 150, 90, 90, 165, 30, 135 }
+};
 
 // DOOM II Par Times
-int cpars[32] =
-    {
-        30, 90, 120, 120, 90, 150, 120, 120, 270, 90,     //  1-10
-        210, 150, 150, 150, 210, 150, 420, 150, 210, 150, // 11-20
-        240, 150, 180, 150, 150, 300, 330, 420, 300, 180, // 21-30
-        120, 30                                           // 31-32
+int cpars[32] = {
+    30, 90, 120, 120, 90, 150, 120, 120, 270, 90, //  1-10
+    210,
+    150,
+    150,
+    150,
+    210,
+    150,
+    420,
+    150,
+    210,
+    150, // 11-20
+    240,
+    150,
+    180,
+    150,
+    150,
+    300,
+    330,
+    420,
+    300,
+    180, // 21-30
+    120,
+    30 // 31-32
 };
 
 // G_DoCompleted
