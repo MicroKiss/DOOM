@@ -7,6 +7,7 @@
 
 #include "Doom/event.hpp"
 #include "doomdef.hpp"
+#include <iostream>
 
 #include "PlaySimulation/local.hpp"
 
@@ -181,6 +182,18 @@ void P_DeathThink(player_t *player)
         player->playerstate = PST_REBORN;
 }
 
+WeaponType NextAvailableWeapon(player_t *player)
+{
+    WeaponType current = player->readyweapon;
+    WeaponType next = static_cast<WeaponType>((static_cast<int>(current) + 1) % NUMWEAPONS);
+
+    while (!player->weaponowned[next])
+    {
+        next = static_cast<WeaponType>((static_cast<int>(next) + 1) % NUMWEAPONS);
+    }
+    return next;
+}
+
 // P_PlayerThink
 void P_PlayerThink(player_t *player)
 {
@@ -228,6 +241,11 @@ void P_PlayerThink(player_t *player)
     if (cmd->buttons & BT_SPECIAL)
         cmd->buttons = 0;
 
+    if (cmd->buttons & BTS_NEXTWEAPON)
+    {
+        player->pendingweapon = NextAvailableWeapon(player);
+    }
+
     if (cmd->buttons & BT_CHANGE)
     {
         // The actual changing of the weapon is done
@@ -247,12 +265,8 @@ void P_PlayerThink(player_t *player)
 
         if (player->weaponowned[newweapon] && newweapon != player->readyweapon)
         {
-            // Do not go to plasma or BFG in shareware,
-            //  even if cheated.
-            if ((newweapon != wp_plasma && newweapon != wp_bfg) || (gamemode != shareware))
-            {
-                player->pendingweapon = newweapon;
-            }
+
+            player->pendingweapon = newweapon;
         }
     }
 
