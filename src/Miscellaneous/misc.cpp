@@ -1,8 +1,8 @@
 
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.hpp>
 
 #include <ctype.h>
@@ -11,14 +11,14 @@
 
 #include "ZoneMemory/zone.hpp"
 
-#include "Miscellaneous/swap.hpp"
 #include "Miscellaneous/argv.hpp"
+#include "Miscellaneous/swap.hpp"
 
 #include "Wad/wad.hpp"
 
+#include "Renderer/video.hpp"
 #include "SystemInterface/system.hpp"
 #include "SystemInterface/video.hpp"
-#include "Renderer/video.hpp"
 
 #include "HeadsUpDisplay/stuff.hpp"
 
@@ -182,17 +182,6 @@ extern int showMessages;
 // machine-independent sound params
 extern int numChannels;
 
-// UNIX hack, to be removed.
-#ifdef SNDSERV
-extern char *sndserver_filename;
-extern int mb_used;
-#endif
-
-#ifdef LINUX
-char *mousetype;
-char *mousedev;
-#endif
-
 extern char *chat_macros[];
 
 typedef struct
@@ -204,71 +193,59 @@ typedef struct
     const char *string_default;
 } default_t;
 
-#define DEFAULT_NUMBER(name, location, value) {name, location, NULL, value, NULL}
-#define DEFAULT_STRING(name, location, value) {name, NULL, location, 0, value}
+#define DEFAULT_NUMBER(name, location, value) { name, location, NULL, value, NULL }
+#define DEFAULT_STRING(name, location, value) { name, NULL, location, 0, value }
 
-default_t defaults[] =
-    {
-        DEFAULT_NUMBER("mouse_sensitivity", &mouseSensitivity, 99),
-        DEFAULT_NUMBER("sfx_volume", &snd_SfxVolume, 8),
-        DEFAULT_NUMBER("music_volume", &snd_MusicVolume, 8),
-        DEFAULT_NUMBER("show_messages", &showMessages, 1),
+default_t defaults[] = {
+    DEFAULT_NUMBER("mouse_sensitivity", &mouseSensitivity, 99),
+    DEFAULT_NUMBER("sfx_volume", &snd_SfxVolume, 8),
+    DEFAULT_NUMBER("music_volume", &snd_MusicVolume, 8),
+    DEFAULT_NUMBER("show_messages", &showMessages, 1),
 
-        DEFAULT_NUMBER("key_right", &key_right, KEY_RIGHTARROW),
-        DEFAULT_NUMBER("key_left", &key_left, KEY_LEFTARROW),
-        DEFAULT_NUMBER("key_up", &key_up, KEY_UPARROW),
-        DEFAULT_NUMBER("key_down", &key_down, KEY_DOWNARROW),
-        DEFAULT_NUMBER("key_strafeleft", &key_strafeleft, ','),
-        DEFAULT_NUMBER("key_straferight", &key_straferight, '.'),
-        DEFAULT_NUMBER("key_up_alt", &key_up_alt, 'w'),
-        DEFAULT_NUMBER("key_down_alt", &key_down_alt, 's'),
-        DEFAULT_NUMBER("key_strafeleft_alt", &key_strafeleft_alt, 'a'),
-        DEFAULT_NUMBER("key_straferight_alt", &key_straferight_alt, 'd'),
+    DEFAULT_NUMBER("key_right", &key_right, KEY_RIGHTARROW),
+    DEFAULT_NUMBER("key_left", &key_left, KEY_LEFTARROW),
+    DEFAULT_NUMBER("key_up", &key_up, KEY_UPARROW),
+    DEFAULT_NUMBER("key_down", &key_down, KEY_DOWNARROW),
+    DEFAULT_NUMBER("key_strafeleft", &key_strafeleft, ','),
+    DEFAULT_NUMBER("key_straferight", &key_straferight, '.'),
+    DEFAULT_NUMBER("key_up_alt", &key_up_alt, 'w'),
+    DEFAULT_NUMBER("key_down_alt", &key_down_alt, 's'),
+    DEFAULT_NUMBER("key_strafeleft_alt", &key_strafeleft_alt, 'a'),
+    DEFAULT_NUMBER("key_straferight_alt", &key_straferight_alt, 'd'),
 
-        DEFAULT_NUMBER("key_fire", &key_fire, KEY_RCTRL),
-        DEFAULT_NUMBER("key_use", &key_use, ' '),
-        DEFAULT_NUMBER("key_strafe", &key_strafe, KEY_RALT),
-        DEFAULT_NUMBER("key_speed", &key_speed, KEY_RSHIFT),
+    DEFAULT_NUMBER("key_fire", &key_fire, KEY_RCTRL),
+    DEFAULT_NUMBER("key_use", &key_use, ' '),
+    DEFAULT_NUMBER("key_strafe", &key_strafe, KEY_RALT),
+    DEFAULT_NUMBER("key_speed", &key_speed, KEY_RSHIFT),
 
-// UNIX hack, to be removed.
-#if defined(NORMALUNIX) && defined(SNDSERV)
-        DEFAULT_STRING("sndserver", &sndserver_filename, "sndserver"),
-        DEFAULT_NUMBER("mb_used", &mb_used, 2),
-#endif
+    DEFAULT_NUMBER("use_mouse", &usemouse, 1),
+    DEFAULT_NUMBER("mouseb_fire", &mousebfire, 0),
+    DEFAULT_NUMBER("mouseb_strafe", &mousebstrafe, 1),
+    DEFAULT_NUMBER("mouseb_forward", &mousebforward, 2),
 
-#ifdef LINUX
-        DEFAULT_STRING("mousedev", &mousedev, "/dev/ttyS0"),
-        DEFAULT_STRING("mousetype", &mousetype, "microsoft"),
-#endif
+    DEFAULT_NUMBER("use_joystick", &usejoystick, 0),
+    DEFAULT_NUMBER("joyb_fire", &joybfire, 0),
+    DEFAULT_NUMBER("joyb_strafe", &joybstrafe, 1),
+    DEFAULT_NUMBER("joyb_use", &joybuse, 3),
+    DEFAULT_NUMBER("joyb_speed", &joybspeed, 2),
 
-        DEFAULT_NUMBER("use_mouse", &usemouse, 1),
-        DEFAULT_NUMBER("mouseb_fire", &mousebfire, 0),
-        DEFAULT_NUMBER("mouseb_strafe", &mousebstrafe, 1),
-        DEFAULT_NUMBER("mouseb_forward", &mousebforward, 2),
+    DEFAULT_NUMBER("screenblocks", &screenblocks, 9),
+    DEFAULT_NUMBER("detaillevel", &detailLevel, 0),
 
-        DEFAULT_NUMBER("use_joystick", &usejoystick, 0),
-        DEFAULT_NUMBER("joyb_fire", &joybfire, 0),
-        DEFAULT_NUMBER("joyb_strafe", &joybstrafe, 1),
-        DEFAULT_NUMBER("joyb_use", &joybuse, 3),
-        DEFAULT_NUMBER("joyb_speed", &joybspeed, 2),
+    DEFAULT_NUMBER("snd_channels", &numChannels, 3),
 
-        DEFAULT_NUMBER("screenblocks", &screenblocks, 9),
-        DEFAULT_NUMBER("detaillevel", &detailLevel, 0),
+    DEFAULT_NUMBER("usegamma", &usegamma, 0),
 
-        DEFAULT_NUMBER("snd_channels", &numChannels, 3),
-
-        DEFAULT_NUMBER("usegamma", &usegamma, 0),
-
-        DEFAULT_STRING("chatmacro0", &chat_macros[0], HUSTR_CHATMACRO0),
-        DEFAULT_STRING("chatmacro1", &chat_macros[1], HUSTR_CHATMACRO1),
-        DEFAULT_STRING("chatmacro2", &chat_macros[2], HUSTR_CHATMACRO2),
-        DEFAULT_STRING("chatmacro3", &chat_macros[3], HUSTR_CHATMACRO3),
-        DEFAULT_STRING("chatmacro4", &chat_macros[4], HUSTR_CHATMACRO4),
-        DEFAULT_STRING("chatmacro5", &chat_macros[5], HUSTR_CHATMACRO5),
-        DEFAULT_STRING("chatmacro6", &chat_macros[6], HUSTR_CHATMACRO6),
-        DEFAULT_STRING("chatmacro7", &chat_macros[7], HUSTR_CHATMACRO7),
-        DEFAULT_STRING("chatmacro8", &chat_macros[8], HUSTR_CHATMACRO8),
-        DEFAULT_STRING("chatmacro9", &chat_macros[9], HUSTR_CHATMACRO9)
+    DEFAULT_STRING("chatmacro0", &chat_macros[0], HUSTR_CHATMACRO0),
+    DEFAULT_STRING("chatmacro1", &chat_macros[1], HUSTR_CHATMACRO1),
+    DEFAULT_STRING("chatmacro2", &chat_macros[2], HUSTR_CHATMACRO2),
+    DEFAULT_STRING("chatmacro3", &chat_macros[3], HUSTR_CHATMACRO3),
+    DEFAULT_STRING("chatmacro4", &chat_macros[4], HUSTR_CHATMACRO4),
+    DEFAULT_STRING("chatmacro5", &chat_macros[5], HUSTR_CHATMACRO5),
+    DEFAULT_STRING("chatmacro6", &chat_macros[6], HUSTR_CHATMACRO6),
+    DEFAULT_STRING("chatmacro7", &chat_macros[7], HUSTR_CHATMACRO7),
+    DEFAULT_STRING("chatmacro8", &chat_macros[8], HUSTR_CHATMACRO8),
+    DEFAULT_STRING("chatmacro9", &chat_macros[9], HUSTR_CHATMACRO9)
 
 };
 
@@ -289,13 +266,11 @@ void M_SaveDefaults(void)
     {
         if (defaults[i].number_location)
         {
-            fprintf(f, "%s\t\t%i\n", defaults[i].name,
-                    *defaults[i].number_location);
+            fprintf(f, "%s\t\t%i\n", defaults[i].name, *defaults[i].number_location);
         }
         else
         {
-            fprintf(f, "%s\t\t\"%s\"\n", defaults[i].name,
-                    *defaults[i].string_location);
+            fprintf(f, "%s\t\t\"%s\"\n", defaults[i].name, *defaults[i].string_location);
         }
     }
 
@@ -483,9 +458,7 @@ void M_ScreenShot(void)
         I_Error("M_ScreenShot: Couldn't create a PCX");
 
     // save the pcx file
-    WritePCXfile(lbmname, linear,
-                 SCREENWIDTH, SCREENHEIGHT,
-                 static_cast<byte *>(W_CacheLumpName("PLAYPAL", PU_CACHE)));
+    WritePCXfile(lbmname, linear, SCREENWIDTH, SCREENHEIGHT, static_cast<byte *>(W_CacheLumpName("PLAYPAL", PU_CACHE)));
 
     players[consoleplayer].message = "screen shot";
 }
