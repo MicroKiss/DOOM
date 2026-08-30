@@ -11,7 +11,7 @@ set(DOOM_SOURCES
     ${DOOM_SOURCE_DIR}/AutoMap/map.cpp
     ${DOOM_SOURCE_DIR}/Doom/WeaponInfo.cpp
     ${DOOM_SOURCE_DIR}/Doom/main.cpp
-    ${DOOM_SOURCE_DIR}/Doom/net.cpp
+    ${DOOM_SOURCE_DIR}/Doom/tick.cpp
     ${DOOM_SOURCE_DIR}/Doom/doomdef.cpp
     ${DOOM_SOURCE_DIR}/Doom/doomstat.cpp
     ${DOOM_SOURCE_DIR}/Doom/dstrings.cpp
@@ -20,6 +20,7 @@ set(DOOM_SOURCES
     ${DOOM_SOURCE_DIR}/Finale/finale.cpp
     ${DOOM_SOURCE_DIR}/Finale/wipe.cpp
     ${DOOM_SOURCE_DIR}/Game/game.cpp
+    ${DOOM_SOURCE_DIR}/Inputs/InputHandler.cpp
     ${DOOM_SOURCE_DIR}/HeadsUpDisplay/lib.cpp
     ${DOOM_SOURCE_DIR}/HeadsUpDisplay/stuff.cpp
     ${DOOM_SOURCE_DIR}/Intermission/stuff.cpp
@@ -33,7 +34,6 @@ set(DOOM_SOURCES
     ${DOOM_SOURCE_DIR}/Renderer/things.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/main.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/main_test.cpp
-    ${DOOM_SOURCE_DIR}/SystemInterface/net.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/sound.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/system.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/video.cpp
@@ -82,6 +82,7 @@ target_include_directories(doom PRIVATE
     "${DOOM_SOURCE_DIR}/Doom"
     "${DOOM_SOURCE_DIR}/Finale"
     "${DOOM_SOURCE_DIR}/Game"
+    "${DOOM_SOURCE_DIR}/Inputs"
     "${DOOM_SOURCE_DIR}/HeadsUpDisplay"
     "${DOOM_SOURCE_DIR}/Intermission"
     "${DOOM_SOURCE_DIR}/Renderer"

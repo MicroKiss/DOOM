@@ -80,25 +80,20 @@ void P_RunThinkers(void)
 
 void P_Ticker(void)
 {
-    int i;
-
     // run the tic
     if (paused)
         return;
 
     // pause if in menu and at least one tic has been run
-    if (!netgame && menuactive && players[consoleplayer].viewz != 1)
+    if (menuactive && gamePlayer.viewz != 1)
     {
         return;
     }
 
-    for (i = 0; i < MAXPLAYERS; i++)
-        if (playeringame[i])
-            P_PlayerThink(&players[i]);
+    P_PlayerThink(&gamePlayer);
 
     P_RunThinkers();
     P_UpdateSpecials();
-    P_RespawnSpecials();
 
     // for par times
     leveltime++;

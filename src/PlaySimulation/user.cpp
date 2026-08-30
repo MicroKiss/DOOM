@@ -5,11 +5,9 @@
 //	Pending weapon.
 //-----------------------------------------------------------------------------
 
-#include "Doom/event.hpp"
-#include "doomdef.hpp"
-#include <iostream>
-
+#include "Inputs/InputHandler.hpp"
 #include "PlaySimulation/local.hpp"
+#include "doomstat.hpp"
 
 #include "doomstat.hpp"
 
@@ -20,6 +18,11 @@
 
 // 16 pixels of bob
 #define MAXBOB 0x100000
+
+int32_t forwardWalkSpeed = 25;
+int32_t forwardRunSpeed = 50;
+int32_t sideWalkSpeed = 24;
+int32_t sideRunSpeed = 40;
 
 bool onground;
 
@@ -104,11 +107,9 @@ void P_CalcHeight(player_t *player)
 // P_MovePlayer
 void P_MovePlayer(player_t *player)
 {
-    ticcmd_t *cmd;
-
-    cmd = &player->cmd;
-
-    player->mo->angle += (cmd->angleturn << 16);
+    const MouseMotion &mouse = inputHandler.GetMouseMotion();
+    int64_t mouseTurn = static_cast<int64_t>(mouse.x) * (mouseSensitivity + 5) * 4096 * 4;
+    player->mo->angle -= static_cast<angle_t>(mouseTurn);
 
     // Do not let the player control movement
     //  if not onground.
@@ -116,16 +117,22 @@ void P_MovePlayer(player_t *player)
 
     if (onground)
     {
-        if (cmd->forwardmove)
-            P_Thrust(player, player->mo->angle, cmd->forwardmove * 2048);
+        int32_t forwardDir = inputHandler.IsDown(INPUTS::MOVE_FORWARD) - inputHandler.IsDown(INPUTS::MOVE_BACKWARD);
+        int32_t forwardMovement = forwardDir * (inputHandler.IsDown(INPUTS::MOVE_SPRINT) ? forwardRunSpeed : forwardWalkSpeed);
 
-        if (cmd->sidemove)
-            P_Thrust(player, player->mo->angle - ANG90, cmd->sidemove * 2048);
-    }
+        int32_t sideDir = inputHandler.IsDown(INPUTS::MOVE_RIGHT) - inputHandler.IsDown(INPUTS::MOVE_LEFT);
+        int32_t sideMovement = sideDir * (inputHandler.IsDown(INPUTS::MOVE_SPRINT) ? sideRunSpeed : sideWalkSpeed);
 
-    if ((cmd->forwardmove || cmd->sidemove) && player->mo->state == &states[S_PLAY])
-    {
-        P_SetMobjState(player->mo, S_PLAY_RUN1);
+        if (forwardMovement)
+            P_Thrust(player, player->mo->angle, forwardMovement * 2048);
+
+        if (sideMovement)
+            P_Thrust(player, player->mo->angle - ANG90, sideMovement * 2048);
+
+        if ((forwardMovement || sideMovement) && player->mo->state == &states[S_PLAY])
+        {
+            P_SetMobjState(player->mo, S_PLAY_RUN1);
+        }
     }
 }
 
@@ -178,7 +185,7 @@ void P_DeathThink(player_t *player)
     else if (player->damagecount)
         player->damagecount--;
 
-    if (player->cmd.buttons & BT_USE)
+    if (inputHandler.IsDown(INPUTS::USE))
         player->playerstate = PST_REBORN;
 }
 
@@ -194,10 +201,21 @@ WeaponType NextAvailableWeapon(player_t *player)
     return next;
 }
 
+WeaponType PrevAvailableWeapon(player_t *player)
+{
+    WeaponType current = player->readyweapon;
+    WeaponType prev = static_cast<WeaponType>((static_cast<int>(current) - 1 + NUMWEAPONS) % NUMWEAPONS);
+
+    while (!player->weaponowned[prev])
+    {
+        prev = static_cast<WeaponType>((static_cast<int>(prev) - 1 + NUMWEAPONS) % NUMWEAPONS);
+    }
+    return prev;
+}
+
 // P_PlayerThink
 void P_PlayerThink(player_t *player)
 {
-    ticcmd_t *cmd;
     WeaponType newweapon;
 
     // fixme: do this in the cheat code
@@ -207,12 +225,10 @@ void P_PlayerThink(player_t *player)
         player->mo->flags &= ~MF_NOCLIP;
 
     // chain saw run forward
-    cmd = &player->cmd;
     if (player->mo->flags & MF_JUSTATTACKED)
     {
-        cmd->angleturn = 0;
-        cmd->forwardmove = 0xc800 / 512;
-        cmd->sidemove = 0;
+        if (player->mo->z <= player->mo->floorz)
+            P_Thrust(player, player->mo->angle, (0xc800 / 512) * 2048);
         player->mo->flags &= ~MF_JUSTATTACKED;
     }
 
@@ -226,9 +242,13 @@ void P_PlayerThink(player_t *player)
     // Reactiontime is used to prevent movement
     //  for a bit after a teleport.
     if (player->mo->reactiontime)
+    {
         player->mo->reactiontime--;
+    }
     else
+    {
         P_MovePlayer(player);
+    }
 
     P_CalcHeight(player);
 
@@ -237,22 +257,32 @@ void P_PlayerThink(player_t *player)
 
     // Check for weapon change.
 
-    // A special event has no other buttons.
-    if (cmd->buttons & BT_SPECIAL)
-        cmd->buttons = 0;
-
-    if (cmd->buttons & BTS_NEXTWEAPON)
+    if (inputHandler.IsPressed(INPUTS::NEXT_WEAPON))
     {
         player->pendingweapon = NextAvailableWeapon(player);
     }
 
-    if (cmd->buttons & BT_CHANGE)
+    if (inputHandler.IsPressed(INPUTS::PREV_WEAPON))
+    {
+        player->pendingweapon = PrevAvailableWeapon(player);
+    }
+
+    newweapon = wp_nochange;
+    for (int weapon = 0; weapon < NUMWEAPONS - 1; ++weapon)
+    {
+        INPUTS weaponInput = static_cast<INPUTS>(INPUTS::WEAPON_1 + weapon);
+        if (inputHandler.IsPressed(weaponInput))
+        {
+            newweapon = static_cast<WeaponType>(weapon);
+            break;
+        }
+    }
+
+    if (newweapon != wp_nochange)
     {
         // The actual changing of the weapon is done
         //  when the weapon psprite can do it
         //  (read: not in the middle of an attack).
-        newweapon = static_cast<decltype(newweapon)>((cmd->buttons & BT_WEAPONMASK) >> BT_WEAPONSHIFT);
-
         if (newweapon == wp_fist && player->weaponowned[wp_chainsaw] && !(player->readyweapon == wp_chainsaw && player->powers[pw_strength]))
         {
             newweapon = wp_chainsaw;
@@ -271,7 +301,7 @@ void P_PlayerThink(player_t *player)
     }
 
     // check for use
-    if (cmd->buttons & BT_USE)
+    if (inputHandler.IsDown(INPUTS::USE))
     {
         if (!player->usedown)
         {

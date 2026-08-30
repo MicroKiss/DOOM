@@ -10,16 +10,16 @@
 #include "Miscellaneous/random.hpp"
 #include "SystemInterface/system.hpp"
 
-#include "doomdef.hpp"
 #include "PlaySimulation/local.hpp"
+#include "doomdef.hpp"
 
 #include "Sound/sound.hpp"
 
 #include "Game/game.hpp"
 
 // State.
-#include "doomstat.hpp"
 #include "Renderer/state.hpp"
+#include "doomstat.hpp"
 
 // Data.
 #include "sounds.hpp"
@@ -40,21 +40,20 @@ typedef enum
 } dirtype_t;
 
 // P_NewChaseDir related LUT.
-dirtype_t opposite[] =
-    {
-        DI_WEST, DI_SOUTHWEST, DI_SOUTH, DI_SOUTHEAST,
-        DI_EAST, DI_NORTHEAST, DI_NORTH, DI_NORTHWEST, DI_NODIR};
+dirtype_t opposite[] = {
+    DI_WEST, DI_SOUTHWEST, DI_SOUTH, DI_SOUTHEAST, DI_EAST, DI_NORTHEAST, DI_NORTH, DI_NORTHWEST, DI_NODIR
+};
 
-dirtype_t diags[] =
-    {
-        DI_NORTHWEST, DI_NORTHEAST, DI_SOUTHWEST, DI_SOUTHEAST};
+dirtype_t diags[] = {
+    DI_NORTHWEST, DI_NORTHEAST, DI_SOUTHWEST, DI_SOUTHEAST
+};
 
 void A_Fall(mobj_t *actor);
 
 // ENEMY THINKING
 // Enemies are allways spawned
 // with targetplayer = -1, threshold = 0
-// Most monsters are spawned unaware of all players,
+// Most monsters are spawned unaware of the player,
 // but some can be made preaware
 
 // Called by P_NoiseAlert.
@@ -200,8 +199,8 @@ bool P_CheckMissileRange(mobj_t *actor)
 // P_Move
 // Move in the current direction,
 // returns false if the move is blocked.
-int32_t xspeed[8] = {FRACUNIT, 47000, 0, -47000, -FRACUNIT, -47000, 0, 47000};
-int32_t yspeed[8] = {0, 47000, FRACUNIT, 47000, 0, -47000, -FRACUNIT, -47000};
+int32_t xspeed[8] = { FRACUNIT, 47000, 0, -47000, -FRACUNIT, -47000, 0, 47000 };
+int32_t yspeed[8] = { 0, 47000, FRACUNIT, 47000, 0, -47000, -FRACUNIT, -47000 };
 
 #define MAXSPECIALCROSS 8
 
@@ -424,60 +423,35 @@ void P_NewChaseDir(mobj_t *actor)
 bool P_LookForPlayers(mobj_t *actor,
                       bool allaround)
 {
-    int c;
-    int stop;
-    player_t *player;
+    player_t *player = &gamePlayer;
     sector_t *sector;
     angle_t an;
     int32_t dist;
 
     sector = actor->subsector->sector;
 
-    c = 0;
-    stop = (actor->lastlook - 1) & 3;
+    if (player->health <= 0 || !P_CheckSight(actor, player->mo))
+        return false;
 
-    for (;; actor->lastlook = (actor->lastlook + 1) & 3)
+    if (!allaround)
     {
-        if (!playeringame[actor->lastlook])
-            continue;
+        an = R_PointToAngle2(actor->x,
+                             actor->y,
+                             player->mo->x,
+                             player->mo->y) -
+             actor->angle;
 
-        if (c++ == 2 || actor->lastlook == stop)
+        if (an > ANG90 && an < ANG270)
         {
-            // done looking
-            return false;
+            dist = P_AproxDistance(player->mo->x - actor->x,
+                                   player->mo->y - actor->y);
+            if (dist > MELEERANGE)
+                return false;
         }
-
-        player = &players[actor->lastlook];
-
-        if (player->health <= 0)
-            continue; // dead
-
-        if (!P_CheckSight(actor, player->mo))
-            continue; // out of sight
-
-        if (!allaround)
-        {
-            an = R_PointToAngle2(actor->x,
-                                 actor->y,
-                                 player->mo->x,
-                                 player->mo->y) -
-                 actor->angle;
-
-            if (an > ANG90 && an < ANG270)
-            {
-                dist = P_AproxDistance(player->mo->x - actor->x,
-                                       player->mo->y - actor->y);
-                // if real close, react anyway
-                if (dist > MELEERANGE)
-                    continue; // behind back
-            }
-        }
-
-        actor->target = player->mo;
-        return true;
     }
 
-    return false;
+    actor->target = player->mo;
+    return true;
 }
 
 // A_KeenDie
@@ -654,7 +628,7 @@ void A_Chase(mobj_t *actor)
     // ?
 nomissile:
     // possibly choose another target
-    if (netgame && !actor->threshold && !P_CheckSight(actor, actor->target))
+    if (!actor->threshold && !P_CheckSight(actor, actor->target))
     {
         if (P_LookForPlayers(actor, true))
             return; // got a new target
@@ -912,7 +886,8 @@ void A_Tracer(mobj_t *actor)
 
     th = P_SpawnMobj(actor->x - actor->momx,
                      actor->y - actor->momy,
-                     actor->z, MT_SMOKE);
+                     actor->z,
+                     MT_SMOKE);
 
     th->momz = FRACUNIT;
     th->tics -= P_Random() & 3;
@@ -1151,7 +1126,8 @@ void A_VileTarget(mobj_t *actor)
 
     fog = P_SpawnMobj(actor->target->x,
                       actor->target->x,
-                      actor->target->z, MT_FIRE);
+                      actor->target->z,
+                      MT_FIRE);
 
     actor->tracer = fog;
     fog->target = actor;
@@ -1493,12 +1469,7 @@ void A_BossDeath(mobj_t *mo)
         }
     }
 
-    // make sure there is a player alive for victory
-    for (i = 0; i < MAXPLAYERS; i++)
-        if (playeringame[i] && players[i].health > 0)
-            break;
-
-    if (i == MAXPLAYERS)
+    if (gamePlayer.health <= 0)
         return; // no one left alive, so do not end game
 
     // scan the remaining thinkers to see

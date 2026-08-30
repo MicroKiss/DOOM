@@ -13,14 +13,14 @@
 //     SDL video platform layer.
 //-----------------------------------------------------------------------------
 
-#include <SDL.h>
-#include <string.h>
-
-#include "Doom/main.hpp"
 #include "Renderer/video.hpp"
+#include "Doom/main.hpp"
+#include "Inputs/InputHandler.hpp"
 #include "SystemInterface/system.hpp"
 #include "SystemInterface/video.hpp"
 #include "doomdef.hpp"
+#include <SDL.h>
+#include <string.h>
 
 #define DISPLAY_WIDTH SCREENWIDTH
 #define DISPLAY_HEIGHT (SCREENHEIGHT * 6 / 5)
@@ -30,145 +30,114 @@ static SDL_Renderer *renderer;
 static SDL_Texture *texture;
 static Uint32 rgba_palette[256];
 static Uint32 rgba_framebuffer[SCREENWIDTH * SCREENHEIGHT];
-static bool keys_down[256];
-static int mouse_buttons;
-
-static void I_PostKeyEvent(evtype_t type, int key)
-{
-    event_t event = {};
-
-    event.type = type;
-    event.data1 = key;
-    D_PostEvent(&event);
-
-    if ((unsigned)key < sizeof(keys_down) / sizeof(keys_down[0]))
-        keys_down[key] = type == ev_keydown;
-}
-
-static void I_PostMouseEvent(int x, int y)
-{
-    event_t event = {};
-
-    event.type = ev_mouse;
-    event.data1 = mouse_buttons;
-    event.data2 = x;
-    event.data3 = -y;
-    D_PostEvent(&event);
-}
-
-static void I_PostMouseWheelEvent(int y)
-{
-    event_t event = {};
-
-    event.type = ev_mousewheel;
-    event.data1 = y;
-    D_PostEvent(&event);
-}
 
 static void I_ReleaseInput(void)
 {
-    int key;
+    inputHandler.ReleaseAll();
+}
 
-    for (key = 0; key < sizeof(keys_down) / sizeof(keys_down[0]); ++key)
+static INPUTS TranslateMouseButton(Uint8 button)
+{
+    switch (button)
     {
-        if (keys_down[key])
-            I_PostKeyEvent(ev_keyup, key);
-    }
-
-    if (mouse_buttons)
-    {
-        mouse_buttons = 0;
-        I_PostMouseEvent(0, 0);
+    case SDL_BUTTON_LEFT:
+        return INPUTS::MOUSE_LEFT;
+    case SDL_BUTTON_MIDDLE:
+        return INPUTS::MOUSE_MIDDLE;
+    case SDL_BUTTON_RIGHT:
+        return INPUTS::MOUSE_RIGHT;
+    default:
+        return INPUTS::NOTHING;
     }
 }
 
-static int I_TranslateKey(SDL_Keycode key)
+static INPUTS TranslateKey(SDL_Keycode key)
 {
     switch (key)
     {
     case SDLK_LEFT:
-        return KEY_LEFTARROW;
+        return INPUTS::MOVE_LEFT;
     case SDLK_RIGHT:
-        return KEY_RIGHTARROW;
+        return INPUTS::MOVE_RIGHT;
     case SDLK_DOWN:
-        return KEY_DOWNARROW;
+        return INPUTS::MOVE_BACKWARD;
     case SDLK_UP:
-        return KEY_UPARROW;
+        return INPUTS::MOVE_FORWARD;
     case SDLK_ESCAPE:
-        return KEY_ESCAPE;
+        return INPUTS::MENU;
     case SDLK_RETURN:
     case SDLK_KP_ENTER:
-        return KEY_ENTER;
+        return INPUTS::RETURN;
     case SDLK_TAB:
-        return KEY_TAB;
+        return INPUTS::TAB;
     case SDLK_F1:
-        return KEY_F1;
+        return INPUTS::F1;
     case SDLK_F2:
-        return KEY_F2;
+        return INPUTS::F2;
     case SDLK_F3:
-        return KEY_F3;
+        return INPUTS::F3;
     case SDLK_F4:
-        return KEY_F4;
+        return INPUTS::F4;
     case SDLK_F5:
-        return KEY_F5;
+        return INPUTS::F5;
     case SDLK_F6:
-        return KEY_F6;
+        return INPUTS::F6;
     case SDLK_F7:
-        return KEY_F7;
+        return INPUTS::F7;
     case SDLK_F8:
-        return KEY_F8;
+        return INPUTS::F8;
     case SDLK_F9:
-        return KEY_F9;
+        return INPUTS::F9;
     case SDLK_F10:
-        return KEY_F10;
+        return INPUTS::F10;
     case SDLK_F11:
-        return KEY_F11;
+        return INPUTS::F11;
     case SDLK_F12:
-        return KEY_F12;
+        return INPUTS::F12;
     case SDLK_BACKSPACE:
     case SDLK_DELETE:
-        return KEY_BACKSPACE;
+        return INPUTS::BACKSPACE;
     case SDLK_PAUSE:
-        return KEY_PAUSE;
+        return INPUTS::PAUSE;
     case SDLK_EQUALS:
     case SDLK_KP_EQUALS:
-        return KEY_EQUALS;
+        return INPUTS::EQUALS;
     case SDLK_MINUS:
     case SDLK_KP_MINUS:
-        return KEY_MINUS;
+        return INPUTS::MINUS;
     case SDLK_LSHIFT:
     case SDLK_RSHIFT:
-        return KEY_RSHIFT;
+        return INPUTS::SHIFT;
     case SDLK_LCTRL:
     case SDLK_RCTRL:
-        return KEY_RCTRL;
+        return INPUTS::CTRL;
     case SDLK_LALT:
     case SDLK_RALT:
-        return KEY_RALT;
+        return INPUTS::ALT;
     case SDLK_KP_0:
-        return '0';
+        return INPUTS::KP_0;
     case SDLK_KP_1:
-        return '1';
+        return INPUTS::KP_1;
     case SDLK_KP_2:
-        return '2';
+        return INPUTS::KP_2;
     case SDLK_KP_3:
-        return '3';
+        return INPUTS::KP_3;
     case SDLK_KP_4:
-        return '4';
+        return INPUTS::KP_4;
     case SDLK_KP_5:
-        return '5';
+        return INPUTS::KP_5;
     case SDLK_KP_6:
-        return '6';
+        return INPUTS::KP_6;
     case SDLK_KP_7:
-        return '7';
+        return INPUTS::KP_7;
     case SDLK_KP_8:
-        return '8';
+        return INPUTS::KP_8;
     case SDLK_KP_9:
-        return '9';
+        return INPUTS::KP_9;
     default:
         if (key >= SDLK_SPACE && key <= SDLK_z)
-            return (int)key;
-        return 0;
+            return static_cast<INPUTS>(key);
+        return INPUTS::NOTHING;
     }
 }
 
@@ -267,52 +236,46 @@ void I_StartFrame(void)
 {
 }
 
-void I_StartTic(void)
+void I_StartTic()
 {
     SDL_Event sdl_event;
+    inputHandler.Update();
 
     while (SDL_PollEvent(&sdl_event))
     {
         switch (sdl_event.type)
         {
-        case SDL_KEYDOWN:
+        case SDL_KEYDOWN: {
+            INPUTS input = TranslateKey(sdl_event.key.keysym.sym);
+            if (input != INPUTS::NOTHING)
+                inputHandler.Press(input);
+            break;
+        }
         case SDL_KEYUP: {
-            int key = I_TranslateKey(sdl_event.key.keysym.sym);
-
-            if (key)
-                I_PostKeyEvent(sdl_event.type == SDL_KEYDOWN
-                                   ? ev_keydown
-                                   : ev_keyup,
-                               key);
+            INPUTS input = TranslateKey(sdl_event.key.keysym.sym);
+            if (input != INPUTS::NOTHING)
+                inputHandler.Release(input);
             break;
         }
 
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP: {
-            int button = 0;
+            INPUTS button = TranslateMouseButton(sdl_event.button.button);
 
-            if (sdl_event.button.button == SDL_BUTTON_LEFT)
-                button = 1;
-            else if (sdl_event.button.button == SDL_BUTTON_MIDDLE)
-                button = 2;
-            else if (sdl_event.button.button == SDL_BUTTON_RIGHT)
-                button = 4;
-
-            if (button)
+            if (button != INPUTS::NOTHING)
             {
                 if (sdl_event.type == SDL_MOUSEBUTTONDOWN)
-                    mouse_buttons |= button;
+                    inputHandler.Press(button);
                 else
-                    mouse_buttons &= ~button;
-                I_PostMouseEvent(0, 0);
+                    inputHandler.Release(button);
             }
             break;
         }
 
         case SDL_MOUSEMOTION:
             if (sdl_event.motion.xrel || sdl_event.motion.yrel)
-                I_PostMouseEvent(sdl_event.motion.xrel,
-                                 sdl_event.motion.yrel);
+                inputHandler.AddMouseMotion(sdl_event.motion.xrel,
+                                            -sdl_event.motion.yrel);
             break;
         case SDL_MOUSEWHEEL:
             if (sdl_event.wheel.y)
@@ -320,7 +283,7 @@ void I_StartTic(void)
                 int y = sdl_event.wheel.y;
                 if (sdl_event.wheel.direction == SDL_MOUSEWHEEL_FLIPPED)
                     y = -y;
-                I_PostMouseWheelEvent(y);
+                inputHandler.AddMouseWheel(y);
             }
             break;
 

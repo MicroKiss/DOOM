@@ -19,6 +19,7 @@
 #include "Renderer/local.hpp"
 
 #include "HeadsUpDisplay/stuff.hpp"
+#include "Inputs/InputHandler.hpp"
 
 #include "Game/game.hpp"
 
@@ -36,8 +37,6 @@
 
 extern patch_t *hu_font[HU_FONTSIZE];
 extern bool message_dontfuckwithme;
-
-extern bool chat_on; // in heads-up code
 
 // defaulted values
 int mouseSensitivity; // has default
@@ -504,12 +503,6 @@ void M_LoadSelect(int choice)
 // Selected from DOOM menu
 void M_LoadGame(int choice)
 {
-    if (netgame)
-    {
-        M_StartMessage(LOADNET, NULL, false);
-        return;
-    }
-
     M_SetupNextMenu(&LoadDef);
     M_ReadSaveStrings();
 }
@@ -532,7 +525,7 @@ void M_DrawSave(void)
     }
 }
 
-// M_Responder calls this when user is finished
+// Called when the user finishes entering a save name.
 void M_DoSave(int slot)
 {
     G_SaveGame(slot, savegamestrings[slot]);
@@ -543,7 +536,7 @@ void M_DoSave(int slot)
         quickSaveSlot = slot;
 }
 
-// User wants to save. Start string input for M_Responder
+// User wants to save. Start string input handling.
 void M_SaveSelect(int choice)
 {
     // we are going to be intercepting all chars
@@ -607,12 +600,6 @@ void M_QuickLoadResponse(int ch)
 
 void M_QuickLoad(void)
 {
-    if (netgame)
-    {
-        M_StartMessage(QLOADNET, NULL, false);
-        return;
-    }
-
     if (quickSaveSlot < 0)
     {
         M_StartMessage(QSAVESPOT, NULL, false);
@@ -728,12 +715,6 @@ void M_DrawNewGame(void)
 
 void M_NewGame(int choice)
 {
-    if (netgame)
-    {
-        M_StartMessage(NEWGAME, NULL, false);
-        return;
-    }
-
     if (gamemode == commercial)
         M_SetupNextMenu(&NewDef);
     else
@@ -820,9 +801,9 @@ void M_ChangeMessages(int choice)
     showMessages = 1 - showMessages;
 
     if (!showMessages)
-        players[consoleplayer].message = MSGOFF;
+        gamePlayer.message = MSGOFF;
     else
-        players[consoleplayer].message = MSGON;
+        gamePlayer.message = MSGON;
 
     message_dontfuckwithme = true;
 }
@@ -841,12 +822,6 @@ void M_EndGameResponse(int ch)
 void M_EndGame(int choice)
 {
     choice = 0;
-    if (netgame)
-    {
-        M_StartMessage(NETEND, NULL, false);
-        return;
-    }
-
     M_StartMessage(ENDGAME, M_EndGameResponse, true);
 }
 
@@ -896,14 +871,11 @@ void M_QuitResponse(int ch)
 {
     if (ch != 'y')
         return;
-    if (!netgame)
-    {
-        if (gamemode == commercial)
-            S_StartSound(NULL, quitsounds2[(gametic >> 2) & 7]);
-        else
-            S_StartSound(NULL, quitsounds[(gametic >> 2) & 7]);
-        I_WaitVBL(105);
-    }
+    if (gamemode == commercial)
+        S_StartSound(NULL, quitsounds2[(gametic >> 2) & 7]);
+    else
+        S_StartSound(NULL, quitsounds[(gametic >> 2) & 7]);
+    I_WaitVBL(105);
     I_Quit();
 }
 
@@ -947,9 +919,9 @@ void M_ChangeDetail(int choice)
     /*R_SetViewSize (screenblocks, detailLevel);
 
     if (!detailLevel)
-    players[consoleplayer].message = DETAILHI;
+    gamePlayer.message = DETAILHI;
     else
-    players[consoleplayer].message = DETAILLO;*/
+    gamePlayer.message = DETAILLO;*/
 }
 
 void M_SizeDisplay(int choice)
@@ -1106,107 +1078,10 @@ void M_WriteText(int x,
 
 // CONTROL PANEL
 
-// M_Responder
-bool M_Responder(event_t *ev)
+static bool M_RespondToInput(INPUTS input)
 {
-    int ch;
+    int ch = static_cast<int>(input);
     int i;
-    static int joywait = 0;
-    static int mousewait = 0;
-    static int mousey = 0;
-    static int lasty = 0;
-    static int mousex = 0;
-    static int lastx = 0;
-
-    ch = -1;
-
-    if (ev->type == ev_joystick && joywait < I_GetTime())
-    {
-        if (ev->data3 == -1)
-        {
-            ch = KEY_UPARROW;
-            joywait = I_GetTime() + 5;
-        }
-        else if (ev->data3 == 1)
-        {
-            ch = KEY_DOWNARROW;
-            joywait = I_GetTime() + 5;
-        }
-
-        if (ev->data2 == -1)
-        {
-            ch = KEY_LEFTARROW;
-            joywait = I_GetTime() + 2;
-        }
-        else if (ev->data2 == 1)
-        {
-            ch = KEY_RIGHTARROW;
-            joywait = I_GetTime() + 2;
-        }
-
-        if (ev->data1 & 1)
-        {
-            ch = KEY_ENTER;
-            joywait = I_GetTime() + 5;
-        }
-        if (ev->data1 & 2)
-        {
-            ch = KEY_BACKSPACE;
-            joywait = I_GetTime() + 5;
-        }
-    }
-    else
-    {
-        if (ev->type == ev_mouse && mousewait < I_GetTime())
-        {
-            mousey += ev->data3;
-            if (mousey < lasty - 30)
-            {
-                ch = KEY_DOWNARROW;
-                mousewait = I_GetTime() + 5;
-                mousey = lasty -= 30;
-            }
-            else if (mousey > lasty + 30)
-            {
-                ch = KEY_UPARROW;
-                mousewait = I_GetTime() + 5;
-                mousey = lasty += 30;
-            }
-
-            mousex += ev->data2;
-            if (mousex < lastx - 30)
-            {
-                ch = KEY_LEFTARROW;
-                mousewait = I_GetTime() + 5;
-                mousex = lastx -= 30;
-            }
-            else if (mousex > lastx + 30)
-            {
-                ch = KEY_RIGHTARROW;
-                mousewait = I_GetTime() + 5;
-                mousex = lastx += 30;
-            }
-
-            if (ev->data1 & 1)
-            {
-                ch = KEY_ENTER;
-                mousewait = I_GetTime() + 15;
-            }
-
-            if (ev->data1 & 2)
-            {
-                ch = KEY_BACKSPACE;
-                mousewait = I_GetTime() + 15;
-            }
-        }
-        else if (ev->type == ev_keydown)
-        {
-            ch = ev->data1;
-        }
-    }
-
-    if (ch == -1)
-        return false;
 
     // Save Game string input
     if (saveStringEnter)
@@ -1278,14 +1153,14 @@ bool M_Responder(event_t *ev)
         switch (ch)
         {
         case KEY_MINUS: // Screen size down
-            if (automapactive || chat_on)
+            if (automapactive)
                 return false;
             M_SizeDisplay(0);
             S_StartSound(NULL, sfx_stnmov);
             return true;
 
         case KEY_EQUALS: // Screen size up
-            if (automapactive || chat_on)
+            if (automapactive)
                 return false;
             M_SizeDisplay(1);
             S_StartSound(NULL, sfx_stnmov);
@@ -1356,7 +1231,7 @@ bool M_Responder(event_t *ev)
             usegamma++;
             if (usegamma > 4)
                 usegamma = 0;
-            players[consoleplayer].message = gammamsg[usegamma];
+            gamePlayer.message = gammamsg[usegamma];
             I_SetPalette(reinterpret_cast<byte *>(W_CacheLumpName("PLAYPAL", PU_CACHE)));
             return true;
         }
@@ -1471,6 +1346,71 @@ bool M_Responder(event_t *ev)
     return false;
 }
 
+static void M_ProcessInput(void)
+{
+    static int mousewait;
+    static int mousex;
+    static int mousey;
+    static int lastx;
+    static int lasty;
+    const MouseMotion &mouse = inputHandler.GetMouseMotion();
+    const std::vector<INPUTS> &pressedInputs = inputHandler.GetPressedInputs();
+
+    if (gamestate == GS_MENUSCREEN && !menuactive &&
+        (!pressedInputs.empty() || inputHandler.IsPressed(INPUTS::MOUSE_LEFT)))
+    {
+        M_StartControlPanel();
+        return;
+    }
+
+    for (INPUTS input : pressedInputs)
+    {
+        if (input < INPUTS::MOUSE_LEFT)
+            M_RespondToInput(input);
+    }
+
+    if (mousewait >= I_GetTime())
+        return;
+
+    mousex += mouse.x;
+    mousey += mouse.y;
+
+    if (inputHandler.IsPressed(INPUTS::MOUSE_LEFT))
+    {
+        M_RespondToInput(INPUTS::RETURN);
+        mousewait = I_GetTime() + 15;
+    }
+    else if (inputHandler.IsPressed(INPUTS::MOUSE_MIDDLE))
+    {
+        M_RespondToInput(INPUTS::BACKSPACE);
+        mousewait = I_GetTime() + 15;
+    }
+    else if (mousey < lasty - 30)
+    {
+        M_RespondToInput(INPUTS::MOVE_BACKWARD);
+        mousewait = I_GetTime() + 5;
+        mousey = lasty -= 30;
+    }
+    else if (mousey > lasty + 30)
+    {
+        M_RespondToInput(INPUTS::MOVE_FORWARD);
+        mousewait = I_GetTime() + 5;
+        mousey = lasty += 30;
+    }
+    else if (mousex < lastx - 30)
+    {
+        M_RespondToInput(INPUTS::MOVE_LEFT);
+        mousewait = I_GetTime() + 5;
+        mousex = lastx -= 30;
+    }
+    else if (mousex > lastx + 30)
+    {
+        M_RespondToInput(INPUTS::MOVE_RIGHT);
+        mousewait = I_GetTime() + 5;
+        mousex = lastx += 30;
+    }
+}
+
 // M_StartControlPanel
 void M_StartControlPanel(void)
 {
@@ -1552,8 +1492,6 @@ void M_Drawer(void)
 void M_ClearMenus(void)
 {
     menuactive = 0;
-    // if (!netgame && paused)
-    //       sendpause = true;
 }
 
 // M_SetupNextMenu
@@ -1566,6 +1504,8 @@ void M_SetupNextMenu(menu_t *menudef)
 // M_Ticker
 void M_Ticker(void)
 {
+    M_ProcessInput();
+
     if (--skullAnimCounter <= 0)
     {
         whichSkull ^= 1;

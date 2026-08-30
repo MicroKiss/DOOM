@@ -2,16 +2,15 @@
 // DESCRIPTION:
 //-----------------------------------------------------------------------------
 
+#include "SystemInterface/system.hpp"
+#include "Miscellaneous/misc.hpp"
+#include "SystemInterface/sound.hpp"
+#include "SystemInterface/video.hpp"
+#include "doomdef.hpp"
+#include <SDL.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL.h>
-#include "SystemInterface/system.hpp"
-#include "SystemInterface/sound.hpp"
-#include "SystemInterface/video.hpp"
-#include "Doom/net.hpp"
-#include "Miscellaneous/misc.hpp"
-#include "doomdef.hpp"
 
 int mb_used = sizeof(void *) == 8 ? 32 : 6;
 
@@ -25,7 +24,6 @@ void I_Shutdown(void)
 
     shutdown_started = true;
 
-    D_QuitNetGame();
     I_ShutdownSound();
     I_ShutdownMusic();
     I_ShutdownGraphics();
@@ -43,12 +41,6 @@ void I_Tactile(int on,
 {
     // UNUSED.
     on = off = total = 0;
-}
-
-ticcmd_t emptycmd;
-ticcmd_t *I_BaseTiccmd(void)
-{
-    return &emptycmd;
 }
 
 int I_GetHeapSize(void)
@@ -100,10 +92,8 @@ void I_Init(void)
     {
         SDL_version version;
         SDL_GetVersion(&version);
-        fprintf(stderr, "I_Init: SDL %u.%u.%u timer initialized.\n",
-                version.major, version.minor, version.patch);
-        fprintf(stderr, "I_Init: timer frequency %llu Hz, game rate %d Hz.\n",
-                (unsigned long long)SDL_GetPerformanceFrequency(), TICRATE);
+        fprintf(stderr, "I_Init: SDL %u.%u.%u timer initialized.\n", version.major, version.minor, version.patch);
+        fprintf(stderr, "I_Init: timer frequency %llu Hz, game rate %d Hz.\n", (unsigned long long)SDL_GetPerformanceFrequency(), TICRATE);
         fprintf(stderr, "I_Init: zone heap %d MiB allocated through malloc.\n", mb_used);
     }
 #endif
@@ -148,7 +138,10 @@ bool I_RunTimerTest(void)
 
     fprintf(stderr,
             "I_TimerTest: start=%d end=%d elapsed=%.3f s rate=%.2f tics/s monotonic=%s.\n",
-            start_tic, end_tic, elapsed_seconds, measured_rate,
+            start_tic,
+            end_tic,
+            elapsed_seconds,
+            measured_rate,
             monotonic ? "yes" : "no");
 
     return monotonic && measured_rate >= 34.0 && measured_rate <= 36.0;

@@ -8,17 +8,17 @@
 
 #include "ZoneMemory/zone.hpp"
 
-#include "Miscellaneous/swap.hpp"
 #include "Miscellaneous/bbox.hpp"
+#include "Miscellaneous/swap.hpp"
 
 #include "Game/game.hpp"
 
 #include "SystemInterface/system.hpp"
 #include "Wad/wad.hpp"
 
-#include "doomdef.hpp"
 #include "PlaySimulation/local.hpp"
 #include "PlaySimulation/setup.hpp"
+#include "doomdef.hpp"
 
 #include "Sound/sound.hpp"
 
@@ -74,13 +74,6 @@ mobj_t **blocklinks;
 // Without special effect, this could be
 //  used as a PVS lookup as well.
 byte *rejectmatrix;
-
-// Maintain single and multi player starting spots.
-#define MAX_DEATHMATCH_STARTS 10
-
-mapthing_t deathmatchstarts[MAX_DEATHMATCH_STARTS];
-mapthing_t *deathmatch_p;
-mapthing_t playerstarts[MAXPLAYERS];
 
 // P_LoadVertexes
 void P_LoadVertexes(int lump)
@@ -512,23 +505,18 @@ void P_GroupLines(void)
 // P_SetupLevel
 void P_SetupLevel(int episode,
                   int map,
-                  int playermask,
                   skill_t skill)
 {
-    int i;
     char lumpname[9];
     int lumpnum;
 
     totalkills = totalitems = totalsecret = wminfo.maxfrags = 0;
     wminfo.partime = 180;
-    for (i = 0; i < MAXPLAYERS; i++)
-    {
-        players[i].killcount = players[i].secretcount = players[i].itemcount = 0;
-    }
+    gamePlayer.killcount = gamePlayer.secretcount = gamePlayer.itemcount = 0;
 
     // Initial height of PointOfView
     // will be set by player think.
-    players[consoleplayer].viewz = 1;
+    gamePlayer.viewz = 1;
 
     // Make sure all sounds are stopped before Z_FreeTags.
     S_Start();
@@ -585,22 +573,7 @@ void P_SetupLevel(int episode,
     P_GroupLines();
 
     bodyqueslot = 0;
-    deathmatch_p = deathmatchstarts;
     P_LoadThings(lumpnum + ML_THINGS);
-
-    // if deathmatch, randomly spawn the active players
-    if (deathmatch)
-    {
-        for (i = 0; i < MAXPLAYERS; i++)
-            if (playeringame[i])
-            {
-                players[i].mo = NULL;
-                G_DeathMatchSpawnPlayer(i);
-            }
-    }
-
-    // clear special respawning que
-    iquehead = iquetail = 0;
 
     // set up world state
     P_SpawnSpecials();

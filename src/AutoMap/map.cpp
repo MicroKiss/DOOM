@@ -28,6 +28,7 @@
 // Data.
 #include "dstrings.hpp"
 
+#include "Inputs/InputHandler.hpp"
 #include "Miscellaneous/cheat.hpp"
 #include "ZoneMemory/zone.hpp"
 
@@ -411,9 +412,6 @@ void AM_changeWindowLoc(void)
 
 void AM_initVariables(void)
 {
-    int pnum;
-    static event_t st_notify = { ev_keyup, AM_MSGENTERED };
-
     automapactive = true;
     fb = screens[0];
 
@@ -428,13 +426,7 @@ void AM_initVariables(void)
     m_w = FTOM(f_w);
     m_h = FTOM(f_h);
 
-    // find player to center on initially
-    if (!playeringame[pnum = consoleplayer])
-        for (pnum = 0; pnum < MAXPLAYERS; pnum++)
-            if (playeringame[pnum])
-                break;
-
-    plr = &players[pnum];
+    plr = &gamePlayer;
     m_x = plr->mo->x - m_w / 2;
     m_y = plr->mo->y - m_h / 2;
     AM_changeWindowLoc();
@@ -446,7 +438,7 @@ void AM_initVariables(void)
     old_m_h = m_h;
 
     // inform the status bar of the change
-    ST_Responder(&st_notify);
+    ST_SetAutomapState(true);
 }
 
 void AM_loadPics(void)
@@ -499,11 +491,9 @@ void AM_LevelInit(void)
 
 void AM_Stop(void)
 {
-    static event_t st_notify = { ev_keydown, ev_keyup, AM_MSGEXITED };
-
     AM_unloadPics();
     automapactive = false;
-    ST_Responder(&st_notify);
+    ST_SetAutomapState(false);
     stopped = true;
 }
 
@@ -540,139 +530,61 @@ void AM_maxOutWindowScale(void)
     AM_activateNewScale();
 }
 
-// Handle events (user inputs) in automap mode
-bool AM_Responder(event_t *ev)
+static void AM_ProcessInput(INPUTS input)
 {
-
-    int rc;
-    static int cheatstate = 0;
+    const int key = static_cast<int>(input);
     static int bigstate = 0;
     static char buffer[20];
 
-    rc = false;
-
     if (!automapactive)
     {
-        if (ev->type == ev_keydown && ev->data1 == AM_STARTKEY)
+        if (key == AM_STARTKEY)
         {
             AM_Start();
             viewactive = false;
-            rc = true;
         }
+        return;
     }
 
-    else if (ev->type == ev_keydown)
+    switch (key)
     {
-
-        rc = true;
-        switch (ev->data1)
+    case AM_ENDKEY:
+        bigstate = 0;
+        viewactive = true;
+        AM_Stop();
+        break;
+    case AM_GOBIGKEY:
+        bigstate = !bigstate;
+        if (bigstate)
         {
-        case AM_PANRIGHTKEY: // pan right
-            if (!followplayer)
-                m_paninc.x = FTOM(F_PANINC);
-            else
-                rc = false;
-            break;
-        case AM_PANLEFTKEY: // pan left
-            if (!followplayer)
-                m_paninc.x = -FTOM(F_PANINC);
-            else
-                rc = false;
-            break;
-        case AM_PANUPKEY: // pan up
-            if (!followplayer)
-                m_paninc.y = FTOM(F_PANINC);
-            else
-                rc = false;
-            break;
-        case AM_PANDOWNKEY: // pan down
-            if (!followplayer)
-                m_paninc.y = -FTOM(F_PANINC);
-            else
-                rc = false;
-            break;
-        case AM_ZOOMOUTKEY: // zoom out
-            mtof_zoommul = M_ZOOMOUT;
-            ftom_zoommul = M_ZOOMIN;
-            break;
-        case AM_ZOOMINKEY: // zoom in
-            mtof_zoommul = M_ZOOMIN;
-            ftom_zoommul = M_ZOOMOUT;
-            break;
-        case AM_ENDKEY:
-            bigstate = 0;
-            viewactive = true;
-            AM_Stop();
-            break;
-        case AM_GOBIGKEY:
-            bigstate = !bigstate;
-            if (bigstate)
-            {
-                AM_saveScaleAndLoc();
-                AM_minOutWindowScale();
-            }
-            else
-                AM_restoreScaleAndLoc();
-            break;
-        case AM_FOLLOWKEY:
-            followplayer = !followplayer;
-            f_oldloc.x = MAXINT;
-            plr->message = followplayer ? AMSTR_FOLLOWON : AMSTR_FOLLOWOFF;
-            break;
-        case AM_GRIDKEY:
-            grid = !grid;
-            plr->message = grid ? AMSTR_GRIDON : AMSTR_GRIDOFF;
-            break;
-        case AM_MARKKEY:
-            sprintf(buffer, "%s %d", AMSTR_MARKEDSPOT, markpointnum);
-            plr->message = buffer;
-            AM_addMark();
-            break;
-        case AM_CLEARMARKKEY:
-            AM_clearMarks();
-            plr->message = AMSTR_MARKSCLEARED;
-            break;
-        default:
-            cheatstate = 0;
-            rc = false;
+            AM_saveScaleAndLoc();
+            AM_minOutWindowScale();
         }
-        if (!deathmatch && cht_CheckCheat(&cheat_amap, ev->data1))
-        {
-            rc = false;
-            cheating = (cheating + 1) % 3;
-        }
+        else
+            AM_restoreScaleAndLoc();
+        break;
+    case AM_FOLLOWKEY:
+        followplayer = !followplayer;
+        f_oldloc.x = MAXINT;
+        plr->message = followplayer ? AMSTR_FOLLOWON : AMSTR_FOLLOWOFF;
+        break;
+    case AM_GRIDKEY:
+        grid = !grid;
+        plr->message = grid ? AMSTR_GRIDON : AMSTR_GRIDOFF;
+        break;
+    case AM_MARKKEY:
+        sprintf(buffer, "%s %d", AMSTR_MARKEDSPOT, markpointnum);
+        plr->message = buffer;
+        AM_addMark();
+        break;
+    case AM_CLEARMARKKEY:
+        AM_clearMarks();
+        plr->message = AMSTR_MARKSCLEARED;
+        break;
     }
 
-    else if (ev->type == ev_keyup)
-    {
-        rc = false;
-        switch (ev->data1)
-        {
-        case AM_PANRIGHTKEY:
-            if (!followplayer)
-                m_paninc.x = 0;
-            break;
-        case AM_PANLEFTKEY:
-            if (!followplayer)
-                m_paninc.x = 0;
-            break;
-        case AM_PANUPKEY:
-            if (!followplayer)
-                m_paninc.y = 0;
-            break;
-        case AM_PANDOWNKEY:
-            if (!followplayer)
-                m_paninc.y = 0;
-            break;
-        case AM_ZOOMOUTKEY:
-        case AM_ZOOMINKEY:
-            mtof_zoommul = FRACUNIT;
-            ftom_zoommul = FRACUNIT;
-            break;
-        }
-    }
-
-    return rc;
+    if (cht_CheckCheat(&cheat_amap, key))
+        cheating = (cheating + 1) % 3;
 }
 
 // Zooming
@@ -730,9 +642,40 @@ void AM_updateLightLev(void)
 // Updates on Game Tick
 void AM_Ticker(void)
 {
+    if (!menuactive)
+    {
+        for (INPUTS input : inputHandler.GetPressedInputs())
+        {
+            if (input < INPUTS::MOUSE_LEFT)
+                AM_ProcessInput(input);
+        }
+    }
 
     if (!automapactive)
         return;
+
+    if (!menuactive && !followplayer)
+    {
+        m_paninc.x = (inputHandler.IsDown(INPUTS::MOVE_RIGHT) ? FTOM(F_PANINC) : 0) -
+                     (inputHandler.IsDown(INPUTS::MOVE_LEFT) ? FTOM(F_PANINC) : 0);
+        m_paninc.y = (inputHandler.IsDown(INPUTS::MOVE_FORWARD) ? FTOM(F_PANINC) : 0) -
+                     (inputHandler.IsDown(INPUTS::MOVE_BACKWARD) ? FTOM(F_PANINC) : 0);
+    }
+    else
+        m_paninc.x = m_paninc.y = 0;
+
+    if (!menuactive && inputHandler.IsDown(INPUTS::EQUALS))
+    {
+        mtof_zoommul = M_ZOOMIN;
+        ftom_zoommul = M_ZOOMOUT;
+    }
+    else if (!menuactive && inputHandler.IsDown(INPUTS::MINUS))
+    {
+        mtof_zoommul = M_ZOOMOUT;
+        ftom_zoommul = M_ZOOMIN;
+    }
+    else
+        mtof_zoommul = ftom_zoommul = FRACUNIT;
 
     amclock++;
 
@@ -1132,39 +1075,10 @@ void AM_drawLineCharacter(mline_t *lineguy,
 
 void AM_drawPlayers(void)
 {
-    int i;
-    player_t *p;
-    static int their_colors[] = { GREENS, GRAYS, BROWNS, REDS };
-    int their_color = -1;
-    int color;
-
-    if (!netgame)
-    {
-        if (cheating)
-            AM_drawLineCharacter(cheat_player_arrow, NUMCHEATPLYRLINES, 0, plr->mo->angle, WHITE, plr->mo->x, plr->mo->y);
-        else
-            AM_drawLineCharacter(player_arrow, NUMPLYRLINES, 0, plr->mo->angle, WHITE, plr->mo->x, plr->mo->y);
-        return;
-    }
-
-    for (i = 0; i < MAXPLAYERS; i++)
-    {
-        their_color++;
-        p = &players[i];
-
-        if (deathmatch && p != plr)
-            continue;
-
-        if (!playeringame[i])
-            continue;
-
-        if (p->powers[pw_invisibility])
-            color = 246; // *close* to black
-        else
-            color = their_colors[their_color];
-
-        AM_drawLineCharacter(player_arrow, NUMPLYRLINES, 0, p->mo->angle, color, p->mo->x, p->mo->y);
-    }
+    if (cheating)
+        AM_drawLineCharacter(cheat_player_arrow, NUMCHEATPLYRLINES, 0, plr->mo->angle, WHITE, plr->mo->x, plr->mo->y);
+    else
+        AM_drawLineCharacter(player_arrow, NUMPLYRLINES, 0, plr->mo->angle, WHITE, plr->mo->x, plr->mo->y);
 }
 
 void AM_drawThings(int colors,

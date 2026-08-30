@@ -16,26 +16,22 @@
 #ifndef __G_GAME__
 #define __G_GAME__
 
-#include "Doom/event.hpp"
 #include "doomdef.hpp"
-
-// GAME
-void G_DeathMatchSpawnPlayer(int playernum);
 
 void G_InitNew(skill_t skill, int episode, int map);
 
-// Can be called by the startup code or M_Responder.
+// Can be called by startup or menu code.
 // A normal game starts at map 1,
 // but a warp test can start elsewhere
 void G_DeferedInitNew(skill_t skill, int episode, int map);
 
-// Can be called by the startup code or M_Responder,
+// Can be called by startup or menu code,
 // calls P_SetupLevel or W_EnterWorld.
 void G_LoadGame(char *name);
 
 void G_DoLoadGame(void);
 
-// Called by M_Responder.
+// Called by menu code.
 void G_SaveGame(int slot, char *description);
 
 void G_ExitLevel(void);
@@ -44,7 +40,6 @@ void G_SecretExitLevel(void);
 void G_WorldDone(void);
 
 void G_Ticker(void);
-bool G_Responder(event_t *ev);
 
 void G_ScreenShot(void);
 

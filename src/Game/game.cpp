@@ -24,6 +24,7 @@
 
 #include "AutoMap/map.hpp"
 #include "HeadsUpDisplay/stuff.hpp"
+#include "Inputs/InputHandler.hpp"
 #include "Intermission/stuff.hpp"
 #include "StatusBar/stuff.hpp"
 
@@ -49,10 +50,10 @@
 #define SAVEGAMESIZE 0x2c000
 #define SAVESTRINGSIZE 24
 
-void G_PlayerReborn(int player);
+void G_PlayerReborn(void);
 void G_InitNew(skill_t skill, int episode, int map);
 
-void G_DoReborn(int playernum);
+void G_DoReborn(void);
 
 void G_DoLoadLevel(void);
 void G_DoNewGame(void);
@@ -75,13 +76,8 @@ bool sendsave;  // send a save event next tic
 
 bool viewactive;
 
-short deathmatch; // only if started as net death
-bool netgame;     // only true if packets are broadcast
-bool playeringame[MAXPLAYERS];
-player_t players[MAXPLAYERS];
+player_t gamePlayer;
 
-int consoleplayer; // player taking events and displaying
-int displayplayer; // view being displayed
 int gametic;
 int levelstarttic;                       // gametic at level start
 int totalkills, totalitems, totalsecret; // for intermission
@@ -90,14 +86,10 @@ bool precache = true; // if true, load all graphics at start
 
 wbstartstruct_t wminfo; // parms for world map / intermission
 
-short consistancy[MAXPLAYERS][BACKUPTICS];
-
 byte *savebuffer;
 
-// controls (have defaults)
 int key_right;
 int key_left;
-
 int key_up;
 int key_down;
 int key_strafeleft;
@@ -114,38 +106,10 @@ int key_speed;
 int mousebfire;
 int mousebstrafe;
 int mousebforward;
-int mousewheelup;
-int mousewheeldown;
-
 int joybfire;
 int joybstrafe;
 int joybuse;
 int joybspeed;
-
-#define TURBOTHRESHOLD 0x32
-
-int32_t forwardWalkSpeed = 25;
-int32_t forwardRunSpeed = 50;
-int32_t sideWalkSpeed = 24;
-int32_t sideRunSpeed = 40;
-
-#define MAXPLMOVE forwardRunSpeed
-
-int32_t angleturn[3] = { 640, 1280, 320 }; // + slow turn
-
-#define SLOWTURNTICS 6
-
-#define NUMKEYS 256
-
-bool gamekeydown[NUMKEYS];
-int turnheld; // for accelerative turning
-
-bool mousearray[4];
-bool *mousebuttons = &mousearray[1]; // allow [-1]
-
-// mouse values are used once
-int mousex;
-int mousey;
 
 int dclicktime;
 bool dclickstate;
@@ -155,11 +119,6 @@ bool dclickstate2;
 int dclicks2;
 
 // joystick values are repeated
-int joyxmove;
-int joyymove;
-bool joyarray[5];
-bool *joybuttons = &joyarray[1]; // allow [-1]
-
 int savegameslot;
 char savedescription[32];
 
@@ -169,223 +128,6 @@ mobj_t *bodyque[BODYQUESIZE];
 int bodyqueslot;
 
 void *statcopy; // for statistics driver
-
-int G_CmdChecksum(ticcmd_t *cmd)
-{
-    int i;
-    int sum = 0;
-
-    for (i = 0; i < sizeof(*cmd) / 4 - 1; i++)
-        sum += ((int *)cmd)[i];
-
-    return sum;
-}
-
-// G_BuildTiccmd
-// Builds a ticcmd from all of the available inputs
-void G_BuildTiccmd(ticcmd_t *cmd)
-{
-    int i;
-    bool strafe;
-    bool bstrafe;
-    int sprint;
-    int tspeed;
-    int forward;
-    int side;
-
-    ticcmd_t *base;
-
-    base = I_BaseTiccmd(); // empty, or external driver
-    memcpy(cmd, base, sizeof(*cmd));
-
-    cmd->consistancy =
-        consistancy[consoleplayer][maketic % BACKUPTICS];
-
-    strafe = gamekeydown[key_strafe] || mousebuttons[mousebstrafe] || joybuttons[joybstrafe];
-    sprint = gamekeydown[key_speed] || joybuttons[joybspeed];
-    int sidePsd = sprint ? sideRunSpeed : sideWalkSpeed;
-    int fwdSpd = sprint ? forwardRunSpeed : forwardWalkSpeed;
-
-    forward = side = 0;
-
-    // use two stage accelerative turning
-    // on the keyboard and joystick
-    if (joyxmove < 0 || joyxmove > 0 || gamekeydown[key_right] || gamekeydown[key_left])
-        turnheld += ticdup;
-    else
-        turnheld = 0;
-
-    if (turnheld < SLOWTURNTICS)
-        tspeed = 2; // slow turn
-    else
-        tspeed = sprint;
-
-    // let movement keys cancel each other out
-    if (strafe)
-    {
-        if (gamekeydown[key_right])
-        {
-            // fprintf(stderr, "strafe right\n");
-            side += sidePsd;
-        }
-        if (gamekeydown[key_left])
-        {
-            //	fprintf(stderr, "strafe left\n");
-            side -= sidePsd;
-        }
-        if (joyxmove > 0)
-            side += sidePsd;
-        if (joyxmove < 0)
-            side -= sidePsd;
-    }
-    else
-    {
-        if (gamekeydown[key_right])
-            cmd->angleturn -= angleturn[tspeed];
-        if (gamekeydown[key_left])
-            cmd->angleturn += angleturn[tspeed];
-        if (joyxmove > 0)
-            cmd->angleturn -= angleturn[tspeed];
-        if (joyxmove < 0)
-            cmd->angleturn += angleturn[tspeed];
-    }
-
-    if (gamekeydown[key_up] || gamekeydown[key_up_alt])
-    {
-        // fprintf(stderr, "up\n");
-        forward += fwdSpd;
-    }
-    if (gamekeydown[key_down] || gamekeydown[key_down_alt])
-    {
-        // fprintf(stderr, "down\n");
-        forward -= fwdSpd;
-    }
-    if (joyymove < 0)
-        forward += fwdSpd;
-    if (joyymove > 0)
-        forward -= fwdSpd;
-    if (gamekeydown[key_straferight] || gamekeydown[key_straferight_alt])
-        side += sidePsd;
-    if (gamekeydown[key_strafeleft] || gamekeydown[key_strafeleft_alt])
-        side -= sidePsd;
-
-    // buttons
-    cmd->chatchar = HU_dequeueChatChar();
-
-    if (gamekeydown[key_fire] || mousebuttons[mousebfire] || joybuttons[joybfire])
-        cmd->buttons |= BT_ATTACK;
-
-    if (gamekeydown[key_use] || joybuttons[joybuse])
-    {
-        cmd->buttons |= BT_USE;
-        // clear double clicks if hit use button
-        dclicks = 0;
-    }
-
-    for (i = 0; i < NUMWEAPONS - 1; i++)
-    {
-        if (gamekeydown['1' + i])
-        {
-            cmd->buttons |= BT_CHANGE;
-            cmd->buttons |= i << BT_WEAPONSHIFT;
-            break;
-        }
-    }
-
-    if (!(cmd->buttons & BT_CHANGE))
-    {
-        if (mousewheelup || mousewheeldown)
-        {
-            cmd->buttons |= BTS_NEXTWEAPON;
-            if (mousewheelup)
-                mousewheelup--;
-            else
-                mousewheeldown--;
-        }
-    }
-
-    // forward double click
-    if (mousebuttons[mousebforward] != dclickstate && dclicktime > 1)
-    {
-        dclickstate = mousebuttons[mousebforward];
-        if (dclickstate)
-            dclicks++;
-        if (dclicks == 2)
-        {
-            cmd->buttons |= BT_USE;
-            dclicks = 0;
-        }
-        else
-            dclicktime = 0;
-    }
-    else
-    {
-        dclicktime += ticdup;
-        if (dclicktime > 20)
-        {
-            dclicks = 0;
-            dclickstate = 0;
-        }
-    }
-
-    // strafe double click
-    bstrafe =
-        mousebuttons[mousebstrafe] || joybuttons[joybstrafe];
-    if (bstrafe != dclickstate2 && dclicktime2 > 1)
-    {
-        dclickstate2 = bstrafe;
-        if (dclickstate2)
-            dclicks2++;
-        if (dclicks2 == 2)
-        {
-            cmd->buttons |= BT_USE;
-            dclicks2 = 0;
-        }
-        else
-            dclicktime2 = 0;
-    }
-    else
-    {
-        dclicktime2 += ticdup;
-        if (dclicktime2 > 20)
-        {
-            dclicks2 = 0;
-            dclickstate2 = 0;
-        }
-    }
-
-    if (strafe)
-        side += mousex * 2;
-    else
-        cmd->angleturn -= mousex * 0x8;
-
-    mousex = mousey = 0;
-
-    if (forward > MAXPLMOVE)
-        forward = MAXPLMOVE;
-    else if (forward < -MAXPLMOVE)
-        forward = -MAXPLMOVE;
-    if (side > MAXPLMOVE)
-        side = MAXPLMOVE;
-    else if (side < -MAXPLMOVE)
-        side = -MAXPLMOVE;
-
-    cmd->forwardmove += forward;
-    cmd->sidemove += side;
-
-    // special buttons
-    if (sendpause)
-    {
-        sendpause = false;
-        cmd->buttons = BT_SPECIAL | BTS_PAUSE;
-    }
-
-    if (sendsave)
-    {
-        sendsave = false;
-        cmd->buttons = BT_SPECIAL | BTS_SAVEGAME | (savegameslot << BTS_SAVESHIFT);
-    }
-}
 
 // G_DoLoadLevel
 extern gamestate_t wipegamestate;
@@ -419,135 +161,28 @@ void G_DoLoadLevel(void)
 
     gamestate = GS_LEVEL;
 
-    for (i = 0; i < MAXPLAYERS; i++)
-    {
-        if (playeringame[i] && players[i].playerstate == PST_DEAD)
-            players[i].playerstate = PST_REBORN;
-        memset(players[i].frags, 0, sizeof(players[i].frags));
-    }
+    if (gamePlayer.playerstate == PST_DEAD)
+        gamePlayer.playerstate = PST_REBORN;
 
-    P_SetupLevel(gameepisode, gamemap, 0, gameskill);
-    displayplayer = consoleplayer; // view the guy you are playing
+    P_SetupLevel(gameepisode, gamemap, gameskill);
     gameaction = ga_nothing;
     Z_CheckHeap();
 
     // clear cmd building stuff
-    memset(gamekeydown, 0, sizeof(gamekeydown));
-    joyxmove = joyymove = 0;
-    mousex = mousey = 0;
+    inputHandler.ReleaseAll();
     sendpause = sendsave = paused = false;
-    memset(mousebuttons, 0, sizeof(mousebuttons));
-    memset(joybuttons, 0, sizeof(joybuttons));
-}
-
-bool SpyModeResponder(event_t *ev)
-{
-    do
-    {
-        displayplayer++;
-        if (displayplayer == MAXPLAYERS)
-            displayplayer = 0;
-    } while (!playeringame[displayplayer] && displayplayer != consoleplayer);
-    return true;
-}
-
-// G_Responder
-// Get info needed to make ticcmd_ts for the players.
-bool G_Responder(event_t *ev)
-{
-    if (gamestate == GS_LEVEL && ev->type == ev_keydown && ev->data1 == KEY_F12 && !deathmatch)
-    {
-        return SpyModeResponder(ev);
-    }
-
-    if (gamestate == GS_MENUSCREEN)
-    {
-        if (ev->type == ev_keydown ||
-            (ev->type == ev_mouse && ev->data1) ||
-            (ev->type == ev_joystick && ev->data1))
-        {
-            M_StartControlPanel();
-            return true;
-        }
-        return false;
-    }
-
-    if (gamestate == GS_FINALE)
-    {
-        if (F_Responder(ev))
-            return true; // finale ate the event
-    }
-
-    if (gamestate == GS_LEVEL)
-    {
-        if (HU_Responder(ev))
-            return true; // chat ate the event
-        if (ST_Responder(ev))
-            return true; // status window ate it
-        if (AM_Responder(ev))
-            return true; // automap ate it
-    }
-
-    switch (ev->type)
-    {
-    case ev_keydown:
-        if (ev->data1 == KEY_PAUSE)
-        {
-            sendpause = true;
-            return true;
-        }
-        if (ev->data1 < NUMKEYS)
-            gamekeydown[ev->data1] = true;
-        return true; // eat key down events
-
-    case ev_keyup:
-        if (ev->data1 < NUMKEYS)
-            gamekeydown[ev->data1] = false;
-        return false; // always let key up events filter down
-
-    case ev_mouse:
-        mousebuttons[0] = ev->data1 & 1;
-        mousebuttons[1] = ev->data1 & 2;
-        mousebuttons[2] = ev->data1 & 4;
-        mousex = ev->data2 * (mouseSensitivity + 5) / 2;
-        mousey = ev->data3 * (mouseSensitivity + 5) / 2;
-        return true; // eat events
-
-    case ev_mousewheel:
-        if (ev->data1 > 0)
-            mousewheelup += ev->data1;
-        else
-            mousewheeldown -= ev->data1;
-        return true;
-
-    case ev_joystick:
-        joybuttons[0] = ev->data1 & 1;
-        joybuttons[1] = ev->data1 & 2;
-        joybuttons[2] = ev->data1 & 4;
-        joybuttons[3] = ev->data1 & 8;
-        joyxmove = ev->data2;
-        joyymove = ev->data3;
-        return true; // eat events
-
-    default:
-        break;
-    }
-
-    return false;
 }
 
 // G_Ticker
-// Make ticcmd_ts for the players.
+// Advance the game state by one tick.
 void G_Ticker(void)
 {
-    int i;
-    int buf;
-    ticcmd_t *cmd;
+    if (!menuactive && inputHandler.IsPressed(INPUTS::PAUSE))
+        sendpause = true;
 
     // do player reborns if needed
-    for (i = 0; i < MAXPLAYERS; i++)
-        if (playeringame[i] && players[i].playerstate == PST_REBORN)
-            G_DoReborn(i);
+    if (gamePlayer.playerstate == PST_REBORN)
+        G_DoReborn();
 
     // do things to change the game state
     while (gameaction != ga_nothing)
@@ -584,70 +219,20 @@ void G_Ticker(void)
         }
     }
 
-    // get commands, check consistancy,
-    // and build new consistancy check
-    buf = (gametic / ticdup) % BACKUPTICS;
-
-    for (i = 0; i < MAXPLAYERS; i++)
+    if (sendpause)
     {
-        if (playeringame[i])
-        {
-            cmd = &players[i].cmd;
-
-            memcpy(cmd, &netcmds[i][buf], sizeof(ticcmd_t));
-
-            // check for turbo cheats
-            if (cmd->forwardmove > TURBOTHRESHOLD && !(gametic & 31) && ((gametic >> 5) & 3) == i)
-            {
-                static char turbomessage[80];
-                extern char *player_names[4];
-                sprintf(turbomessage, "%s is turbo!", player_names[i]);
-                players[consoleplayer].message = turbomessage;
-            }
-
-            if (netgame && !(gametic % ticdup))
-            {
-                if (gametic > BACKUPTICS && consistancy[i][buf] != cmd->consistancy)
-                {
-                    I_Error("consistency failure (%i should be %i)",
-                            cmd->consistancy,
-                            consistancy[i][buf]);
-                }
-                if (players[i].mo)
-                    consistancy[i][buf] = players[i].mo->x;
-                else
-                    consistancy[i][buf] = rndindex;
-            }
-        }
+        sendpause = false;
+        paused ^= 1;
+        if (paused)
+            S_PauseSound();
+        else
+            S_ResumeSound();
     }
 
-    // check for special buttons
-    for (i = 0; i < MAXPLAYERS; i++)
+    if (sendsave)
     {
-        if (playeringame[i])
-        {
-            if (players[i].cmd.buttons & BT_SPECIAL)
-            {
-                switch (players[i].cmd.buttons & BT_SPECIALMASK)
-                {
-                case BTS_PAUSE:
-                    paused ^= 1;
-                    if (paused)
-                        S_PauseSound();
-                    else
-                        S_ResumeSound();
-                    break;
-
-                case BTS_SAVEGAME:
-                    if (!savedescription[0])
-                        strcpy(savedescription, "NET GAME");
-                    savegameslot =
-                        (players[i].cmd.buttons & BTS_SAVEMASK) >> BTS_SAVESHIFT;
-                    gameaction = ga_savegame;
-                    break;
-                }
-            }
-        }
+        sendsave = false;
+        gameaction = ga_savegame;
     }
 
     // do main actions
@@ -673,30 +258,13 @@ void G_Ticker(void)
     }
 }
 
-// PLAYER STRUCTURE FUNCTIONS
-// also see P_SpawnPlayer in P_Things
-
-// G_InitPlayer
-// Called at the start.
-// Called by the game initialization functions.
-void G_InitPlayer(int player)
-{
-    player_t *p;
-
-    // set up the saved info
-    p = &players[player];
-
-    // clear everything else to defaults
-    G_PlayerReborn(player);
-}
-
 // G_PlayerFinishLevel
 // Can when a player completes a level.
-void G_PlayerFinishLevel(int player)
+void G_PlayerFinishLevel(void)
 {
     player_t *p;
 
-    p = &players[player];
+    p = &gamePlayer;
 
     memset(p->powers, 0, sizeof(p->powers));
     memset(p->cards, 0, sizeof(p->cards));
@@ -710,27 +278,24 @@ void G_PlayerFinishLevel(int player)
 // G_PlayerReborn
 // Called after a player dies
 // almost everything is cleared and initialized
-void G_PlayerReborn(int player)
+void G_PlayerReborn(void)
 {
     player_t *p;
 
-    int frags[MAXPLAYERS];
     int killcount;
     int itemcount;
     int secretcount;
 
-    memcpy(frags, players[player].frags, sizeof(frags));
-    killcount = players[player].killcount;
-    itemcount = players[player].itemcount;
-    secretcount = players[player].secretcount;
+    killcount = gamePlayer.killcount;
+    itemcount = gamePlayer.itemcount;
+    secretcount = gamePlayer.secretcount;
 
-    p = &players[player];
+    p = &gamePlayer;
     memset(p, 0, sizeof(*p));
 
-    memcpy(players[player].frags, frags, sizeof(players[player].frags));
-    players[player].killcount = killcount;
-    players[player].itemcount = itemcount;
-    players[player].secretcount = secretcount;
+    gamePlayer.killcount = killcount;
+    gamePlayer.itemcount = itemcount;
+    gamePlayer.secretcount = secretcount;
 
     p->usedown = true; // don't do anything immediately
     p->attackdown = true;
@@ -746,126 +311,10 @@ void G_PlayerReborn(int player)
         p->maxammo[i] = maxammo[i];
 }
 
-// G_CheckSpot
-// Returns false if the player cannot be respawned
-// at the given mapthing_t spot
-// because something is occupying it
-void P_SpawnPlayer(mapthing_t *mthing);
-
-bool G_CheckSpot(int playernum,
-                 mapthing_t *mthing)
-{
-    int32_t x;
-    int32_t y;
-    subsector_t *ss;
-    unsigned an;
-    mobj_t *mo;
-    int i;
-
-    if (!players[playernum].mo)
-    {
-        // first spawn of level, before corpses
-        for (i = 0; i < playernum; i++)
-            if (players[i].mo->x == mthing->x << FRACBITS && players[i].mo->y == mthing->y << FRACBITS)
-                return false;
-        return true;
-    }
-
-    x = mthing->x << FRACBITS;
-    y = mthing->y << FRACBITS;
-
-    if (!P_CheckPosition(players[playernum].mo, x, y))
-        return false;
-
-    // flush an old corpse if needed
-    if (bodyqueslot >= BODYQUESIZE)
-        P_RemoveMobj(bodyque[bodyqueslot % BODYQUESIZE]);
-    bodyque[bodyqueslot % BODYQUESIZE] = players[playernum].mo;
-    bodyqueslot++;
-
-    // spawn a teleport fog
-    ss = R_PointInSubsector(x, y);
-    an = (ANG45 * (mthing->angle / 45)) >> ANGLETOFINESHIFT;
-
-    mo = P_SpawnMobj(x + 20 * finecosine[an], y + 20 * finesine[an], ss->sector->floorheight, MT_TFOG);
-
-    if (players[consoleplayer].viewz != 1)
-        S_StartSound(mo, sfx_telept); // don't start sound on first frame
-
-    return true;
-}
-
-// G_DeathMatchSpawnPlayer
-// Spawns a player at one of the random death match spots
-// called at level load and each death
-void G_DeathMatchSpawnPlayer(int playernum)
-{
-    int i, j;
-    int selections;
-
-    selections = deathmatch_p - deathmatchstarts;
-    if (selections < 4)
-        I_Error("Only %i deathmatch spots, 4 required", selections);
-
-    for (j = 0; j < 20; j++)
-    {
-        i = P_Random() % selections;
-        if (G_CheckSpot(playernum, &deathmatchstarts[i]))
-        {
-            deathmatchstarts[i].type = playernum + 1;
-            P_SpawnPlayer(&deathmatchstarts[i]);
-            return;
-        }
-    }
-
-    // no good spot, so the player will probably get stuck
-    P_SpawnPlayer(&playerstarts[playernum]);
-}
-
 // G_DoReborn
-void G_DoReborn(int playernum)
+void G_DoReborn(void)
 {
-    int i;
-
-    if (!netgame)
-    {
-        // reload the level from scratch
-        gameaction = ga_loadlevel;
-    }
-    else
-    {
-        // respawn at the start
-
-        // first dissasociate the corpse
-        players[playernum].mo->player = NULL;
-
-        // spawn at random spot if in death match
-        if (deathmatch)
-        {
-            G_DeathMatchSpawnPlayer(playernum);
-            return;
-        }
-
-        if (G_CheckSpot(playernum, &playerstarts[playernum]))
-        {
-            P_SpawnPlayer(&playerstarts[playernum]);
-            return;
-        }
-
-        // try to spawn at one of the other players spots
-        for (i = 0; i < MAXPLAYERS; i++)
-        {
-            if (G_CheckSpot(playernum, &playerstarts[i]))
-            {
-                playerstarts[i].type = playernum + 1; // fake as other player
-                P_SpawnPlayer(&playerstarts[i]);
-                playerstarts[i].type = i + 1; // restore
-                return;
-            }
-            // he's going to be inside something.  Too bad.
-        }
-        P_SpawnPlayer(&playerstarts[playernum]);
-    }
+    gameaction = ga_loadlevel;
 }
 
 void G_ScreenShot(void)
@@ -930,13 +379,9 @@ void G_SecretExitLevel(void)
 
 void G_DoCompleted(void)
 {
-    int i;
-
     gameaction = ga_nothing;
 
-    for (i = 0; i < MAXPLAYERS; i++)
-        if (playeringame[i])
-            G_PlayerFinishLevel(i); // take away cards and stuff
+    G_PlayerFinishLevel(); // take away cards and stuff
 
     if (automapactive)
         AM_Stop();
@@ -948,8 +393,7 @@ void G_DoCompleted(void)
             gameaction = ga_victory;
             return;
         case 9:
-            for (i = 0; i < MAXPLAYERS; i++)
-                players[i].didsecret = true;
+            gamePlayer.didsecret = true;
             break;
         }
 
@@ -964,12 +408,11 @@ void G_DoCompleted(void)
     if ((gamemap == 9) && (gamemode != commercial))
     {
         // exit secret level
-        for (i = 0; i < MAXPLAYERS; i++)
-            players[i].didsecret = true;
+        gamePlayer.didsecret = true;
     }
     // #endif
 
-    wminfo.didsecret = players[consoleplayer].didsecret;
+    wminfo.didsecret = gamePlayer.didsecret;
     wminfo.epsd = gameepisode - 1;
     wminfo.last = gamemap - 1;
 
@@ -1032,17 +475,10 @@ void G_DoCompleted(void)
         wminfo.partime = 35 * cpars[gamemap - 1];
     else
         wminfo.partime = 35 * pars[gameepisode][gamemap];
-    wminfo.pnum = consoleplayer;
-
-    for (i = 0; i < MAXPLAYERS; i++)
-    {
-        wminfo.plyr[i].in = playeringame[i];
-        wminfo.plyr[i].skills = players[i].killcount;
-        wminfo.plyr[i].sitems = players[i].itemcount;
-        wminfo.plyr[i].ssecret = players[i].secretcount;
-        wminfo.plyr[i].stime = leveltime;
-        memcpy(wminfo.plyr[i].frags, players[i].frags, sizeof(wminfo.plyr[i].frags));
-    }
+    wminfo.player.skills = gamePlayer.killcount;
+    wminfo.player.sitems = gamePlayer.itemcount;
+    wminfo.player.ssecret = gamePlayer.secretcount;
+    wminfo.player.stime = leveltime;
 
     gamestate = GS_INTERMISSION;
     viewactive = false;
@@ -1060,7 +496,7 @@ void G_WorldDone(void)
     gameaction = ga_worlddone;
 
     if (secretexit)
-        players[consoleplayer].didsecret = true;
+        gamePlayer.didsecret = true;
 
     if (gamemode == commercial)
     {
@@ -1126,8 +562,7 @@ void G_DoLoadGame(void)
     gameskill = static_cast<skill_t>(*save_p++);
     gameepisode = *save_p++;
     gamemap = *save_p++;
-    for (i = 0; i < MAXPLAYERS; i++)
-        playeringame[i] = *save_p++;
+    save_p += 4; // legacy player-presence bytes
 
     // load a base level
     G_InitNew(gameskill, gameepisode, gamemap);
@@ -1194,8 +629,10 @@ void G_DoSaveGame(void)
     *save_p++ = gameskill;
     *save_p++ = gameepisode;
     *save_p++ = gamemap;
-    for (i = 0; i < MAXPLAYERS; i++)
-        *save_p++ = playeringame[i];
+    *save_p++ = 1;
+    *save_p++ = 0;
+    *save_p++ = 0;
+    *save_p++ = 0;
     *save_p++ = leveltime >> 16;
     *save_p++ = leveltime >> 8;
     *save_p++ = leveltime;
@@ -1214,7 +651,7 @@ void G_DoSaveGame(void)
     gameaction = ga_nothing;
     savedescription[0] = 0;
 
-    players[consoleplayer].message = GGSAVED;
+    gamePlayer.message = GGSAVED;
 
     // draw the pattern into the back screen
     R_FillBackScreen();
@@ -1222,7 +659,6 @@ void G_DoSaveGame(void)
 
 // G_InitNew
 // Can be called by the startup code or the menu task,
-// consoleplayer, displayplayer, playeringame[] should be set.
 skill_t d_skill;
 int d_episode;
 int d_map;
@@ -1239,13 +675,9 @@ void G_DeferedInitNew(skill_t skill,
 
 void G_DoNewGame(void)
 {
-    netgame = false;
-    deathmatch = false;
-    playeringame[1] = playeringame[2] = playeringame[3] = 0;
     respawnparm = false;
     fastparm = false;
     nomonsters = false;
-    consoleplayer = 0;
     G_InitNew(d_skill, d_episode, d_map);
     gameaction = ga_nothing;
 }
@@ -1320,9 +752,7 @@ void G_InitNew(skill_t skill,
         mobjinfo[MT_TROOPSHOT].speed = 10 * FRACUNIT;
     }
 
-    // force players to be initialized upon first level load
-    for (i = 0; i < MAXPLAYERS; i++)
-        players[i].playerstate = PST_REBORN;
+    gamePlayer.playerstate = PST_REBORN;
 
     paused = false;
     automapactive = false;

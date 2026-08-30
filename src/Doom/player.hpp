@@ -26,11 +26,6 @@
 // case of the generic moving object/actor.
 #include "PlaySimulation/mobj.hpp"
 
-// Finally, for odd reasons, the player input
-// is buffered within the player data struct,
-// as commands per game tick.
-#include "Doom/ticcmd.hpp"
-
 #ifdef __GNUG__
 #pragma interface
 #endif
@@ -64,7 +59,6 @@ typedef struct player_s
 {
     mobj_t *mo;
     playerstate_t playerstate;
-    ticcmd_t cmd;
 
     // Determine POV,
     //  including viewpoint bobbing during movement.
@@ -89,8 +83,6 @@ typedef struct player_s
     bool cards[NUMCARDS];
     bool backpack;
 
-    // Frags, kills of other players.
-    int frags[MAXPLAYERS];
     WeaponType readyweapon;
 
     // Is wp_nochange if not changing.
@@ -149,16 +141,11 @@ typedef struct player_s
 // Structure passed e.g. to WI_Start(wb)
 typedef struct
 {
-    bool in; // whether the player is in game
-
     // Player stats, kills, collected items etc.
     int skills;
     int sitems;
     int ssecret;
     int stime;
-    int frags[4];
-    int score; // current score on entry, modified on return
-
 } wbplayerstruct_t;
 
 typedef struct
@@ -180,10 +167,7 @@ typedef struct
     // the par time
     int partime;
 
-    // index of this player in game
-    int pnum;
-
-    wbplayerstruct_t plyr[MAXPLAYERS];
+    wbplayerstruct_t player;
 
 } wbstartstruct_t;
 

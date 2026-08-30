@@ -42,7 +42,7 @@ int viewwindowy;
 byte *ylookup[MAXHEIGHT];
 int columnofs[MAXWIDTH];
 
-// Color tables for different players,
+// Color translation tables,
 //  translate a limited part to another
 //  (color ramps used for  suit colors).
 byte translations[3][256];
@@ -225,7 +225,7 @@ int fuzzpos = 0;
 //  from adjacent ones to left and right.
 // Used with an all black colormap, this
 //  could create the SHADOW effect,
-//  i.e. spectres and invisible players.
+//  i.e. spectres and an invisible player.
 void R_DrawFuzzColumn(void)
 {
     int count;

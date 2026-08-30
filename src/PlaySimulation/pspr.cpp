@@ -4,8 +4,9 @@
 //	Action functions for weapons.
 //-----------------------------------------------------------------------------
 
+#include "Inputs/InputHandler.hpp"
 #include "doomdef.hpp"
-#include "Doom/event.hpp"
+#include "doomstat.hpp"
 
 #include "Miscellaneous/random.hpp"
 #include "PlaySimulation/local.hpp"
@@ -250,7 +251,7 @@ void A_WeaponReady(player_t *player,
 
     // check for fire
     //  the missile launcher and bfg do not auto fire
-    if (player->cmd.buttons & BT_ATTACK)
+    if (inputHandler.IsDown(INPUTS::ATTACK))
     {
         if (!player->attackdown || (player->readyweapon != wp_missile && player->readyweapon != wp_bfg))
         {
@@ -278,7 +279,7 @@ void A_ReFire(player_t *player,
 
     // check for fire
     //  (if a weaponchange is pending, let it go through instead)
-    if ((player->cmd.buttons & BT_ATTACK) && player->pendingweapon == wp_nochange && player->health)
+    if (inputHandler.IsDown(INPUTS::ATTACK) && player->pendingweapon == wp_nochange && player->health)
     {
         player->refire++;
         P_FireWeapon(player);
@@ -418,8 +419,7 @@ void A_Saw(player_t *player,
     S_StartSound(player->mo, sfx_sawhit);
 
     // turn to face target
-    angle = R_PointToAngle2(player->mo->x, player->mo->y,
-                            linetarget->x, linetarget->y);
+    angle = R_PointToAngle2(player->mo->x, player->mo->y, linetarget->x, linetarget->y);
     if (angle - player->mo->angle > ANG180)
     {
         if (angle - player->mo->angle < -ANG90 / 20)
@@ -572,7 +572,8 @@ void A_FireShotgun2(player_t *player,
         P_LineAttack(player->mo,
                      angle,
                      MISSILERANGE,
-                     bulletslope + ((P_Random() - P_Random()) << 5), damage);
+                     bulletslope + ((P_Random() - P_Random()) << 5),
+                     damage);
     }
 }
 

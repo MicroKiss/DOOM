@@ -23,7 +23,6 @@
 
 // We need globally shared data structures,
 //  for defining the global state variables.
-#include "Doom/net.hpp"
 #include "doomdata.hpp"
 
 // We need the playr data structure as well.
@@ -70,13 +69,6 @@ extern int gamemap;
 
 // Nightmare mode flag, single player.
 extern bool respawnmonsters;
-
-// Netgame? Only true if >1 player.
-extern bool netgame;
-
-// Flag: true only if started as net deathmatch.
-// An enum might handle altdeath/cooperative better.
-extern short deathmatch;
 
 // -------------------------
 // Internal parameters for sound rendering.
@@ -126,10 +118,6 @@ extern int scaledviewwidth;
 // ANG90 = left side, ANG270 = right
 extern int viewangleoffset;
 
-// Player taking events, and displaying.
-extern int consoleplayer;
-extern int displayplayer;
-
 // -------------------------------------
 // Scores, rating.
 // Statistics on a given map, for intermission.
@@ -143,6 +131,7 @@ extern int leveltime;     // tics in game play for par
 
 //?
 extern gamestate_t gamestate;
+extern gameaction_t gameaction;
 
 //-----------------------------
 // Internal parameters, fixed.
@@ -152,19 +141,7 @@ extern gamestate_t gamestate;
 
 extern int gametic;
 
-// Bookkeeping on players - state.
-extern player_t players[MAXPLAYERS];
-
-// Alive? Disconnected?
-extern bool playeringame[MAXPLAYERS];
-
-// Player spawn spots for deathmatch.
-#define MAX_DM_STARTS 10
-extern mapthing_t deathmatchstarts[MAX_DM_STARTS];
-extern mapthing_t *deathmatch_p;
-
-// Player spawn spots.
-extern mapthing_t playerstarts[MAXPLAYERS];
+extern player_t gamePlayer;
 
 // Intermission stats.
 // Parameters for world map / intermission.
@@ -200,22 +177,7 @@ extern int bodyqueslot;
 //  as well as tracking projectiles etc.
 extern int skyflatnum;
 
-// Netgame stuff (buffers and pointers, i.e. indices).
-
-// This is ???
-extern doomcom_t *doomcom;
-
-// This points inside doomcom.
-extern doomdata_t *netbuffer;
-
-extern ticcmd_t localcmds[BACKUPTICS];
 extern int rndindex;
-
-extern int maketic;
-extern int nettics[MAXNETNODES];
-
-extern ticcmd_t netcmds[MAXPLAYERS][BACKUPTICS];
-extern int ticdup;
 
 #endif
 //-----------------------------------------------------------------------------
