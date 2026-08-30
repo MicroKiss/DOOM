@@ -169,7 +169,7 @@ typedef enum
     // No pending weapon change.
     wp_nochange
 
-} weapontype_t;
+} WeaponType;
 
 // Ammunition types defined.
 typedef enum

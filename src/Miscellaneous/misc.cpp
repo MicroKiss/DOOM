@@ -65,14 +65,12 @@ int M_DrawText(int x,
     return x;
 }
 
-
-
 bool M_WriteFile(char const *name, void *source, int length)
 {
     int handle;
     int count;
 
-    handle = open(name, O_WRONLY | O_CREAT | O_TRUNC | 0, 0666);
+    handle = open(name, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666);
 
     if (handle == -1)
         return false;
@@ -91,10 +89,13 @@ int M_ReadFile(char const *name,
                byte **buffer)
 {
     int handle, count, length;
+    int readpos, writepos;
+    bool has_linefeeds;
+    bool all_linefeeds_are_crlf;
     struct stat fileinfo;
     byte *buf;
 
-    handle = open(name, O_RDONLY | 0, 0666);
+    handle = open(name, O_RDONLY | O_BINARY, 0666);
     if (handle == -1)
         I_Error("Couldn't read file %s", name);
     if (fstat(handle, &fileinfo) == -1)
@@ -106,6 +107,31 @@ int M_ReadFile(char const *name,
 
     if (count < length)
         I_Error("Couldn't read file %s", name);
+
+    // Recover saves produced by the old Windows text-mode writer.
+    has_linefeeds = false;
+    all_linefeeds_are_crlf = true;
+    for (readpos = 0; readpos < length; readpos++)
+    {
+        if (buf[readpos] != '\n')
+            continue;
+
+        has_linefeeds = true;
+        if (readpos == 0 || buf[readpos - 1] != '\r')
+            all_linefeeds_are_crlf = false;
+    }
+
+    if (has_linefeeds && all_linefeeds_are_crlf)
+    {
+        for (readpos = writepos = 0; readpos < length; readpos++, writepos++)
+        {
+            if (buf[readpos] == '\r' && readpos + 1 < length && buf[readpos + 1] == '\n')
+                readpos++;
+
+            buf[writepos] = buf[readpos];
+        }
+        length = writepos;
+    }
 
     *buffer = buf;
     return length;

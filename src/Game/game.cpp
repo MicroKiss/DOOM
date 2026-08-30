@@ -85,8 +85,8 @@ int starttime;   // for comparative timing purposes
 
 bool viewactive;
 
-bool deathmatch; // only if started as net death
-bool netgame;    // only true if packets are broadcast
+short deathmatch; // only if started as net death
+bool netgame;     // only true if packets are broadcast
 bool playeringame[MAXPLAYERS];
 player_t players[MAXPLAYERS];
 
@@ -722,7 +722,7 @@ void G_PlayerFinishLevel(int player)
 void G_PlayerReborn(int player)
 {
     player_t *p;
-    int i;
+
     int frags[MAXPLAYERS];
     int killcount;
     int itemcount;
@@ -741,15 +741,17 @@ void G_PlayerReborn(int player)
     players[player].itemcount = itemcount;
     players[player].secretcount = secretcount;
 
-    p->usedown = p->attackdown = true; // don't do anything immediately
+    p->usedown = true; // don't do anything immediately
+    p->attackdown = true;
     p->playerstate = PST_LIVE;
     p->health = MAXHEALTH;
-    p->readyweapon = p->pendingweapon = wp_pistol;
+    p->readyweapon = wp_pistol;
+    p->pendingweapon = wp_pistol;
     p->weaponowned[wp_fist] = true;
     p->weaponowned[wp_pistol] = true;
     p->ammo[am_clip] = 50;
 
-    for (i = 0; i < NUMAMMO; i++)
+    for (int i = 0; i < NUMAMMO; i++)
         p->maxammo[i] = maxammo[i];
 }
 

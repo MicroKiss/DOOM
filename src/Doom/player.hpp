@@ -91,10 +91,10 @@ typedef struct player_s
 
     // Frags, kills of other players.
     int frags[MAXPLAYERS];
-    weapontype_t readyweapon;
+    WeaponType readyweapon;
 
     // Is wp_nochange if not changing.
-    weapontype_t pendingweapon;
+    WeaponType pendingweapon;
 
     bool weaponowned[NUMWEAPONS];
     int ammo[NUMAMMO];

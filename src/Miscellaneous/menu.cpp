@@ -34,7 +34,6 @@
 
 #include "Miscellaneous/menu.hpp"
 
-
 extern patch_t *hu_font[HU_FONTSIZE];
 extern bool message_dontfuckwithme;
 
@@ -440,7 +439,7 @@ void M_ReadSaveStrings(void)
         else
             sprintf(name, SAVEGAMENAME "%d.dsg", i);
 
-        handle = open(name, O_RDONLY | 0, 0666);
+        handle = open(name, O_RDONLY | O_BINARY, 0666);
         if (handle == -1)
         {
             strcpy(&savegamestrings[i][0], EMPTYSTRING);

@@ -1,0 +1,5 @@
+BasedOnStyle: Microsoft
+Cpp11BracedListStyle: false
+ColumnLimit: 0
+BinPackArguments: false
+BinPackParameters: false
