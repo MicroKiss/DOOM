@@ -7,8 +7,8 @@
 #include "PlaySimulation/local.hpp"
 #include "doomstat.hpp"
 
-#include "ZoneMemory/zone.hpp"
 #include "PlaySimulation/tick.hpp"
+#include "ZoneMemory/zone.hpp"
 
 int leveltime;
 
@@ -87,7 +87,7 @@ void P_Ticker(void)
         return;
 
     // pause if in menu and at least one tic has been run
-    if (!netgame && menuactive && !demoplayback && players[consoleplayer].viewz != 1)
+    if (!netgame && menuactive && players[consoleplayer].viewz != 1)
     {
         return;
     }

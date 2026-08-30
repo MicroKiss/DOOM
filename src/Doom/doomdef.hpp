@@ -107,13 +107,13 @@ typedef enum
 
 // The current state of the game: whether we are
 // playing, gazing at the intermission screen,
-// the game final animation, or a demo.
+// the game final animation, or the menu.
 typedef enum
 {
     GS_LEVEL,
     GS_INTERMISSION,
     GS_FINALE,
-    GS_DEMOSCREEN
+    GS_MENUSCREEN
 } gamestate_t;
 
 // Difficulty/skill settings/filters.

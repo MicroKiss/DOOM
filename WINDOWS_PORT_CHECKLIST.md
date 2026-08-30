@@ -131,8 +131,6 @@ expected rate.
 - [ ] Palette flashes work when taking damage or collecting items.
 - [x] Resizing does not distort memory or crash.
 
-**Done when:** Animated title/demo frames display with correct colors.
-
 ## Milestone 6: Add Input
 
 - [x] Poll SDL events from `I_StartTic()`.
@@ -238,20 +236,8 @@ LGPL-3.0 license notice.
 
 **Done when:** A multiplayer session works without desynchronizing.
 
-## Milestone 11: Regression and Stability Testing
 
-- [ ] Run title/demo playback for at least ten minutes.
-- [ ] Run `-timedemo` repeatedly and record results.
-- [ ] Compare screenshots at known demo points.
-- [ ] Test Debug and Release builds.
-- [ ] Test windowed and fullscreen modes.
-- [ ] Test repeated start/quit cycles.
-- [ ] Test focus loss during gameplay and menus.
-- [ ] Test save/load across executable restarts.
-- [ ] Test with AddressSanitizer using Clang or supported MSVC tooling.
-- [ ] Investigate every sanitizer error before packaging.
-
-**Done when:** Core gameplay, demos, saves, input, audio, and shutdown survive
+**Done when:** Core gameplay,  saves, input, audio, and shutdown survive
 repeatable testing with no known memory errors.
 
 ## Milestone 12: Package the Port

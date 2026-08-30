@@ -56,6 +56,15 @@ static void I_PostMouseEvent(int x, int y)
     D_PostEvent(&event);
 }
 
+static void I_PostMouseWheelEvent(int y)
+{
+    event_t event = {};
+
+    event.type = ev_mousewheel;
+    event.data1 = y;
+    D_PostEvent(&event);
+}
+
 static void I_ReleaseInput(void)
 {
     int key;
@@ -304,6 +313,15 @@ void I_StartTic(void)
             if (sdl_event.motion.xrel || sdl_event.motion.yrel)
                 I_PostMouseEvent(sdl_event.motion.xrel,
                                  sdl_event.motion.yrel);
+            break;
+        case SDL_MOUSEWHEEL:
+            if (sdl_event.wheel.y)
+            {
+                int y = sdl_event.wheel.y;
+                if (sdl_event.wheel.direction == SDL_MOUSEWHEEL_FLIPPED)
+                    y = -y;
+                I_PostMouseWheelEvent(y);
+            }
             break;
 
         case SDL_WINDOWEVENT:

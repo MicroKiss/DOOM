@@ -2,12 +2,12 @@
 
 #include "doomtype.hpp"
 
-    extern int rndindex;
+extern int rndindex;
 
-    int M_Random(void);
+int M_Random(void);
 
-    // As M_Random, but used only by the play simulation.
-    int P_Random(void);
+// As M_Random, but used only by the play simulation.
+int P_Random(void);
 
-    // Fix randoms for demos.
-    void M_ClearRandom(void);
+// Deterministic random sequence.
+void M_ClearRandom(void);

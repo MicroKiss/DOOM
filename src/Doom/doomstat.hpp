@@ -23,8 +23,8 @@
 
 // We need globally shared data structures,
 //  for defining the global state variables.
-#include "doomdata.hpp"
 #include "Doom/net.hpp"
+#include "doomdata.hpp"
 
 // We need the playr data structure as well.
 #include "Doom/player.hpp"
@@ -116,9 +116,6 @@ extern bool paused;        // Game Pause?
 
 extern bool viewactive;
 
-extern bool nodrawers;
-extern bool noblit;
-
 extern int viewwindowx;
 extern int viewwindowy;
 extern int viewheight;
@@ -143,19 +140,6 @@ extern int totalsecret;
 // Timer, for scores.
 extern int levelstarttic; // gametic at level start
 extern int leveltime;     // tics in game play for par
-
-// --------------------------------------
-// DEMO playback/recording related stuff.
-// No demo, there is a human player in charge?
-// Disable save/end game?
-extern bool usergame;
-
-//?
-extern bool demoplayback;
-extern bool demorecording;
-
-// Quit after playing a demo from cmdline.
-extern bool singledemo;
 
 //?
 extern gamestate_t gamestate;

@@ -14,12 +14,12 @@
 
 #include "Wad/wad.hpp"
 
-#include "doomdef.hpp"
-#include "Renderer/local.hpp"
 #include "PlaySimulation/local.hpp"
+#include "Renderer/local.hpp"
+#include "doomdef.hpp"
 
-#include "doomstat.hpp"
 #include "Renderer/sky.hpp"
+#include "doomstat.hpp"
 
 #ifdef _WIN32
 #include <malloc.h>
@@ -465,7 +465,8 @@ void R_InitTextures(void)
 
         texture = textures[i] = static_cast<texture_t *>(
             Z_Malloc(sizeof(texture_t) + sizeof(texpatch_t) * (SHORT(mtexture->patchcount) - 1),
-                     PU_STATIC, 0));
+                     PU_STATIC,
+                     0));
 
         texture->width = SHORT(mtexture->width);
         texture->height = SHORT(mtexture->height);
@@ -662,9 +663,6 @@ void R_PrecacheLevel(void)
     texture_t *texture;
     thinker_t *th;
     spriteframe_t *sf;
-
-    if (demoplayback)
-        return;
 
     // Precache flats.
     flatpresent = static_cast<char *>(alloca(numflats));
