@@ -147,7 +147,10 @@ void D_Display(void)
         if (!gametic)
             break;
         if (automapactive)
+        {
+            R_MarkVisibleLines(&gamePlayer);
             AM_Drawer();
+        }
         if (wipe || (viewheight != 200 && fullscreen))
             redrawsbar = true;
         if (inhelpscreensstate && !inhelpscreens)

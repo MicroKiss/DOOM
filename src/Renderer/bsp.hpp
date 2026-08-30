@@ -39,6 +39,7 @@ extern bool skymap;
 
 extern drawseg_t drawsegs[MAXDRAWSEGS];
 extern drawseg_t *ds_p;
+extern bool markvisiblelinesonly;
 
 extern lighttable_t **hscalelight;
 extern lighttable_t **vscalelight;

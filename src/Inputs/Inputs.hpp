@@ -51,6 +51,7 @@ enum INPUTS : int
     MOUSE_RIGHT,
     ATTACK,
     USE,
+    JUMP,
     NEXT_WEAPON,
     PREV_WEAPON,
     WEAPON_1,

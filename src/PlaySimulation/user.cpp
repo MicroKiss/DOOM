@@ -133,6 +133,13 @@ void P_MovePlayer(player_t *player)
         {
             P_SetMobjState(player->mo, S_PLAY_RUN1);
         }
+
+        // jump
+        if (inputHandler.IsDown(INPUTS::JUMP))
+        {
+            auto jumpHeight = GRAVITY * 35;
+            player->mo->z += jumpHeight;
+        }
     }
 }
 

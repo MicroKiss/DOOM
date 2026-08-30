@@ -119,6 +119,7 @@ void R_AddPointToBox(int x,
 
 // Called by G_Drawer.
 void R_RenderPlayerView(player_t *player);
+void R_MarkVisibleLines(player_t *player);
 
 // Called by startup code.
 void R_Init(void);

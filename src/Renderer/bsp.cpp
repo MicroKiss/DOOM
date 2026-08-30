@@ -14,8 +14,8 @@
 #include "Renderer/things.hpp"
 
 // State.
-#include "doomstat.hpp"
 #include "Renderer/state.hpp"
+#include "doomstat.hpp"
 
 // #include "Renderer/local.hpp"
 
@@ -27,6 +27,7 @@ sector_t *backsector;
 
 drawseg_t drawsegs[MAXDRAWSEGS];
 drawseg_t *ds_p;
+bool markvisiblelinesonly = false;
 
 void R_StoreWallRange(int start,
                       int stop);
@@ -295,19 +296,19 @@ clipsolid:
 // Checks BSP node/subtree bounding box.
 // Returns true
 //  if some part of the bbox might be visible.
-int checkcoord[12][4] =
-    {
-        {3, 0, 2, 1},
-        {3, 0, 2, 0},
-        {3, 1, 2, 0},
-        {0},
-        {2, 0, 2, 1},
-        {0, 0, 0, 0},
-        {3, 1, 3, 0},
-        {0},
-        {2, 0, 3, 1},
-        {2, 1, 3, 1},
-        {2, 1, 3, 0}};
+int checkcoord[12][4] = {
+    { 3, 0, 2, 1 },
+    { 3, 0, 2, 0 },
+    { 3, 1, 2, 0 },
+    { 0 },
+    { 2, 0, 2, 1 },
+    { 0, 0, 0, 0 },
+    { 3, 1, 3, 0 },
+    { 0 },
+    { 2, 0, 3, 1 },
+    { 2, 1, 3, 1 },
+    { 2, 1, 3, 0 }
+};
 
 bool R_CheckBBox(int32_t *bspcoord)
 {
@@ -438,25 +439,28 @@ void R_Subsector(int num)
     count = sub->numlines;
     line = &segs[sub->firstline];
 
-    if (frontsector->floorheight < viewz)
+    if (!markvisiblelinesonly)
     {
-        floorplane = R_FindPlane(frontsector->floorheight,
-                                 frontsector->floorpic,
-                                 frontsector->lightlevel);
-    }
-    else
-        floorplane = NULL;
+        if (frontsector->floorheight < viewz)
+        {
+            floorplane = R_FindPlane(frontsector->floorheight,
+                                     frontsector->floorpic,
+                                     frontsector->lightlevel);
+        }
+        else
+            floorplane = NULL;
 
-    if (frontsector->ceilingheight > viewz || frontsector->ceilingpic == skyflatnum)
-    {
-        ceilingplane = R_FindPlane(frontsector->ceilingheight,
-                                   frontsector->ceilingpic,
-                                   frontsector->lightlevel);
-    }
-    else
-        ceilingplane = NULL;
+        if (frontsector->ceilingheight > viewz || frontsector->ceilingpic == skyflatnum)
+        {
+            ceilingplane = R_FindPlane(frontsector->ceilingheight,
+                                       frontsector->ceilingpic,
+                                       frontsector->lightlevel);
+        }
+        else
+            ceilingplane = NULL;
 
-    R_AddSprites(frontsector);
+        R_AddSprites(frontsector);
+    }
 
     while (count--)
     {

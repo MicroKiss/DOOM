@@ -749,6 +749,16 @@ void R_SetupFrame(player_t *player)
     validcount++;
 }
 
+void R_MarkVisibleLines(player_t *player)
+{
+    R_SetupFrame(player);
+    R_ClearClipSegs();
+
+    markvisiblelinesonly = true;
+    R_RenderBSPNode(numnodes - 1);
+    markvisiblelinesonly = false;
+}
+
 // R_RenderView
 void R_RenderPlayerView(player_t *player)
 {

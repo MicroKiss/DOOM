@@ -12,8 +12,10 @@ bool InputHandler::IsPressed(INPUTS input) const
     switch (input)
     {
     case INPUTS::ATTACK:
-        return IsPressed(INPUTS::CTRL) || IsPressed(INPUTS::MOUSE_LEFT);
+        return IsPressed(INPUTS::MOUSE_LEFT);
     case INPUTS::USE:
+        return IsPressed(static_cast<INPUTS>('e'));
+    case INPUTS::JUMP:
         return IsPressed(static_cast<INPUTS>(' '));
     case INPUTS::NEXT_WEAPON:
         return mouseMotion.wheel > 0;
@@ -48,8 +50,10 @@ bool InputHandler::IsDown(INPUTS input) const
     case INPUTS::MOVE_RIGHT:
         return inputs.find(INPUTS::MOVE_RIGHT) != inputs.end() || inputs.find(INPUTS::D) != inputs.end();
     case INPUTS::ATTACK:
-        return IsDown(INPUTS::CTRL) || IsDown(INPUTS::MOUSE_LEFT);
+        return IsDown(INPUTS::MOUSE_LEFT);
     case INPUTS::USE:
+        return IsDown(static_cast<INPUTS>('e'));
+    case INPUTS::JUMP:
         return IsDown(static_cast<INPUTS>(' '));
     default:
         break;
