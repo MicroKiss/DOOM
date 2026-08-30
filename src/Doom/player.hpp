@@ -26,11 +26,6 @@
 // case of the generic moving object/actor.
 #include "PlaySimulation/mobj.hpp"
 
-// Finally, for odd reasons, the player input
-// is buffered within the player data struct,
-// as commands per game tick.
-#include "Doom/ticcmd.hpp"
-
 #ifdef __GNUG__
 #pragma interface
 #endif
@@ -64,7 +59,6 @@ typedef struct player_s
 {
     mobj_t *mo;
     playerstate_t playerstate;
-    ticcmd_t cmd;
 
     // Determine POV,
     //  including viewpoint bobbing during movement.

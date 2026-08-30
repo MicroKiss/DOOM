@@ -45,5 +45,19 @@ enum INPUTS : int
     KP_6 = '6',
     KP_7 = '7',
     KP_8 = '8',
-    KP_9 = '9'
+    KP_9 = '9',
+    MOUSE_LEFT = 256,
+    MOUSE_MIDDLE,
+    MOUSE_RIGHT,
+    ATTACK,
+    USE,
+    NEXT_WEAPON,
+    WEAPON_1,
+    WEAPON_2,
+    WEAPON_3,
+    WEAPON_4,
+    WEAPON_5,
+    WEAPON_6,
+    WEAPON_7,
+    WEAPON_8
 };

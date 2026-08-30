@@ -205,16 +205,9 @@ extern int skyflatnum;
 // This is ???
 extern doomcom_t *doomcom;
 
-// This points inside doomcom.
-extern doomdata_t *netbuffer;
-
-extern ticcmd_t localcmds[BACKUPTICS];
 extern int rndindex;
 
 extern int maketic;
-extern int nettics[MAXNETNODES];
-
-extern ticcmd_t netcmds[MAXPLAYERS][BACKUPTICS];
 extern int ticdup;
 
 #endif

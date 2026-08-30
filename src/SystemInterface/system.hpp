@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Doom/event.hpp"
-#include "Doom/ticcmd.hpp"
 #include "Inputs/InputHandler.hpp"
 
 #ifdef __GNUG__
@@ -37,12 +36,6 @@ void I_StartTic();
 // Asynchronous interrupt functions should maintain private queues
 // that are read by the synchronous functions
 // to be converted into events.
-
-// Either returns a null ticcmd,
-// or calls a loadable driver to build it.
-// This ticcmd will then be modified by the gameloop
-// for normal input.
-ticcmd_t *I_BaseTiccmd(void);
 
 // Called by M_Responder when quit is selected.
 // Clean exit, displays sell blurb.

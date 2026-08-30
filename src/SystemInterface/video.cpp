@@ -30,36 +30,24 @@ static SDL_Renderer *renderer;
 static SDL_Texture *texture;
 static Uint32 rgba_palette[256];
 static Uint32 rgba_framebuffer[SCREENWIDTH * SCREENHEIGHT];
-static int mouse_buttons;
-
-static void I_PostMouseEvent(int x, int y)
-{
-    event_t event = {};
-
-    event.type = ev_mouse;
-    event.data1 = mouse_buttons;
-    event.data2 = x;
-    event.data3 = -y;
-    D_PostEvent(&event);
-}
-
-static void I_PostMouseWheelEvent(int y)
-{
-    event_t event = {};
-
-    event.type = ev_mousewheel;
-    event.data1 = y;
-    D_PostEvent(&event);
-}
 
 static void I_ReleaseInput(void)
 {
     inputHandler.ReleaseAll();
+}
 
-    if (mouse_buttons)
+static INPUTS TranslateMouseButton(Uint8 button)
+{
+    switch (button)
     {
-        mouse_buttons = 0;
-        I_PostMouseEvent(0, 0);
+    case SDL_BUTTON_LEFT:
+        return INPUTS::MOUSE_LEFT;
+    case SDL_BUTTON_MIDDLE:
+        return INPUTS::MOUSE_MIDDLE;
+    case SDL_BUTTON_RIGHT:
+        return INPUTS::MOUSE_RIGHT;
+    default:
+        return INPUTS::NOTHING;
     }
 }
 
@@ -272,30 +260,22 @@ void I_StartTic()
 
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP: {
-            int button = 0;
+            INPUTS button = TranslateMouseButton(sdl_event.button.button);
 
-            if (sdl_event.button.button == SDL_BUTTON_LEFT)
-                button = 1;
-            else if (sdl_event.button.button == SDL_BUTTON_MIDDLE)
-                button = 2;
-            else if (sdl_event.button.button == SDL_BUTTON_RIGHT)
-                button = 4;
-
-            if (button)
+            if (button != INPUTS::NOTHING)
             {
                 if (sdl_event.type == SDL_MOUSEBUTTONDOWN)
-                    mouse_buttons |= button;
+                    inputHandler.Press(button);
                 else
-                    mouse_buttons &= ~button;
-                I_PostMouseEvent(0, 0);
+                    inputHandler.Release(button);
             }
             break;
         }
 
         case SDL_MOUSEMOTION:
             if (sdl_event.motion.xrel || sdl_event.motion.yrel)
-                I_PostMouseEvent(sdl_event.motion.xrel,
-                                 sdl_event.motion.yrel);
+                inputHandler.AddMouseMotion(sdl_event.motion.xrel,
+                                            -sdl_event.motion.yrel);
             break;
         case SDL_MOUSEWHEEL:
             if (sdl_event.wheel.y)
@@ -303,7 +283,7 @@ void I_StartTic()
                 int y = sdl_event.wheel.y;
                 if (sdl_event.wheel.direction == SDL_MOUSEWHEEL_FLIPPED)
                     y = -y;
-                I_PostMouseWheelEvent(y);
+                inputHandler.AddMouseWheel(y);
             }
             break;
 

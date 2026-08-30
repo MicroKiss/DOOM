@@ -3,16 +3,16 @@
 //	Moving object handling. Spawn functions.
 //-----------------------------------------------------------------------------
 
+#include "Miscellaneous/random.hpp"
 #include "SystemInterface/system.hpp"
 #include "ZoneMemory/zone.hpp"
-#include "Miscellaneous/random.hpp"
 
-#include "doomdef.hpp"
 #include "PlaySimulation/local.hpp"
+#include "doomdef.hpp"
 #include "sounds.hpp"
 
-#include "StatusBar/stuff.hpp"
 #include "HeadsUpDisplay/stuff.hpp"
+#include "StatusBar/stuff.hpp"
 
 #include "Sound/sound.hpp"
 
@@ -182,7 +182,7 @@ void P_XYMovement(mobj_t *mo)
         }
     }
 
-    if (mo->momx > -STOPSPEED && mo->momx < STOPSPEED && mo->momy > -STOPSPEED && mo->momy < STOPSPEED && (!player || (player->cmd.forwardmove == 0 && player->cmd.sidemove == 0)))
+    if (mo->momx > -STOPSPEED && mo->momx < STOPSPEED && mo->momy > -STOPSPEED && mo->momy < STOPSPEED)
     {
         // if in a walking frame, stop moving
         if (player && (unsigned)((player->mo->state - states) - S_PLAY_RUN1) < 4)
@@ -318,7 +318,8 @@ void P_NightmareRespawn(mobj_t *mobj)
     // because of removal of the body?
     mo = P_SpawnMobj(mobj->x,
                      mobj->y,
-                     mobj->subsector->sector->floorheight, MT_TFOG);
+                     mobj->subsector->sector->floorheight,
+                     MT_TFOG);
     // initiate teleport sound
     S_StartSound(mo, sfx_telept);
 
@@ -669,7 +670,8 @@ void P_SpawnMapThing(mapthing_t *mthing)
     if (i == NUMMOBJTYPES)
         I_Error("P_SpawnMapThing: Unknown type %i at (%i, %i)",
                 mthing->type,
-                mthing->x, mthing->y);
+                mthing->x,
+                mthing->y);
 
     // don't spawn keycards and players in deathmatch
     if (deathmatch && mobjinfo[i].flags & MF_NOTDMATCH)
@@ -783,7 +785,8 @@ P_SpawnMissile(mobj_t *source,
 
     th = P_SpawnMobj(source->x,
                      source->y,
-                     source->z + 4 * 8 * FRACUNIT, type);
+                     source->z + 4 * 8 * FRACUNIT,
+                     type);
 
     if (th->info->seesound)
         S_StartSound(th, th->info->seesound);

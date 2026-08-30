@@ -127,6 +127,7 @@ int KeyboardTest()
         event_t *mouse_down;
         event_t *mouse_motion;
         event_t *mouse_up;
+        event_t *mouse_wheel;
 
         mouse_event.type = SDL_MOUSEBUTTONDOWN;
         mouse_event.button.button = SDL_BUTTON_LEFT;
@@ -141,6 +142,11 @@ int KeyboardTest()
         mouse_event.button.button = SDL_BUTTON_LEFT;
         SDL_PushEvent(&mouse_event);
 
+        mouse_event.type = SDL_MOUSEWHEEL;
+        mouse_event.wheel.y = -2;
+        mouse_event.wheel.direction = SDL_MOUSEWHEEL_NORMAL;
+        SDL_PushEvent(&mouse_event);
+
         I_StartTic();
 
         mouse_down = &events[event_index];
@@ -149,11 +155,19 @@ int KeyboardTest()
         event_index = (event_index + 1) & (MAXEVENTS - 1);
         mouse_up = &events[event_index];
         event_index = (event_index + 1) & (MAXEVENTS - 1);
+        mouse_wheel = &events[event_index];
+        event_index = (event_index + 1) & (MAXEVENTS - 1);
 
         if (mouse_down->type != ev_mouse || mouse_down->data1 != 1 ||
             mouse_motion->type != ev_mouse || mouse_motion->data1 != 1 ||
-            mouse_motion->data2 != 12 || mouse_motion->data3 != 8 ||
+            mouse_motion->data2 != 3 || mouse_motion->data3 != 2 ||
             mouse_up->type != ev_mouse || mouse_up->data1 != 0 ||
+            mouse_wheel->type != ev_mousewheel || mouse_wheel->data1 != -2 ||
+            inputHandler.IsDown(INPUTS::MOUSE_LEFT) ||
+            !inputHandler.IsPressed(INPUTS::MOUSE_LEFT) ||
+            inputHandler.GetMouseMotion().x != 3 ||
+            inputHandler.GetMouseMotion().y != 2 ||
+            inputHandler.GetMouseMotion().wheel != -2 ||
             eventhead != event_index)
             I_Error("KeyboardTest: incorrect mouse events");
     }

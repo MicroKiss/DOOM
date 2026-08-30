@@ -114,9 +114,6 @@ int key_speed;
 int mousebfire;
 int mousebstrafe;
 int mousebforward;
-int mousewheelup;
-int mousewheeldown;
-
 int joybfire;
 int joybstrafe;
 int joybuse;
@@ -136,13 +133,6 @@ int32_t angleturn[3] = { 640, 1280, 320 }; // + slow turn
 #define SLOWTURNTICS 6
 
 int turnheld; // for accelerative turning
-
-bool mousearray[4];
-bool *mousebuttons = &mousearray[1]; // allow [-1]
-
-// mouse values are used once
-int mousex;
-int mousey;
 
 int dclicktime;
 bool dclickstate;
@@ -166,169 +156,6 @@ mobj_t *bodyque[BODYQUESIZE];
 int bodyqueslot;
 
 void *statcopy; // for statistics driver
-
-// G_BuildTiccmd
-// Builds a ticcmd from all of the available inputs
-void G_BuildTiccmd(ticcmd_t *cmd)
-{
-    int i;
-    bool strafe;
-    bool bstrafe;
-    int sprint;
-    int tspeed;
-    int forward;
-    int side;
-
-    *cmd = {};
-
-    cmd->consistancy =
-        consistancy[consoleplayer][maketic % BACKUPTICS];
-
-    strafe = mousebuttons[mousebstrafe] || joybuttons[joybstrafe];
-    sprint = joybuttons[joybspeed];
-    int sidePsd = sprint ? sideRunSpeed : sideWalkSpeed;
-    int fwdSpd = sprint ? forwardRunSpeed : forwardWalkSpeed;
-
-    forward = side = 0;
-
-    // use two stage accelerative turning
-    // on the keyboard and joystick
-    if (joyxmove < 0 || joyxmove > 0)
-        turnheld += ticdup;
-    else
-        turnheld = 0;
-
-    if (turnheld < SLOWTURNTICS)
-        tspeed = 2; // slow turn
-    else
-        tspeed = sprint;
-
-    if (joyxmove > 0)
-        cmd->angleturn -= angleturn[tspeed];
-    if (joyxmove < 0)
-        cmd->angleturn += angleturn[tspeed];
-
-    if (joyymove < 0)
-        forward += fwdSpd;
-    if (joyymove > 0)
-        forward -= fwdSpd;
-    // buttons
-    cmd->chatchar = HU_dequeueChatChar();
-
-    if (inputHandler.IsDown(static_cast<INPUTS>(key_fire)) || mousebuttons[mousebfire] || joybuttons[joybfire])
-        cmd->buttons |= BT_ATTACK;
-
-    if (inputHandler.IsDown(static_cast<INPUTS>(key_use)) || joybuttons[joybuse])
-    {
-        cmd->buttons |= BT_USE;
-        // clear double clicks if hit use button
-        dclicks = 0;
-    }
-
-    for (i = 0; i < NUMWEAPONS - 1; i++)
-    {
-        if (inputHandler.IsDown(static_cast<INPUTS>('1' + i)))
-        {
-            cmd->buttons |= BT_CHANGE;
-            cmd->buttons |= i << BT_WEAPONSHIFT;
-            break;
-        }
-    }
-
-    if (!(cmd->buttons & BT_CHANGE))
-    {
-        if (mousewheelup || mousewheeldown)
-        {
-            cmd->buttons |= BTS_NEXTWEAPON;
-            if (mousewheelup)
-                mousewheelup--;
-            else
-                mousewheeldown--;
-        }
-    }
-
-    // forward double click
-    if (mousebuttons[mousebforward] != dclickstate && dclicktime > 1)
-    {
-        dclickstate = mousebuttons[mousebforward];
-        if (dclickstate)
-            dclicks++;
-        if (dclicks == 2)
-        {
-            cmd->buttons |= BT_USE;
-            dclicks = 0;
-        }
-        else
-            dclicktime = 0;
-    }
-    else
-    {
-        dclicktime += ticdup;
-        if (dclicktime > 20)
-        {
-            dclicks = 0;
-            dclickstate = 0;
-        }
-    }
-
-    // strafe double click
-    bstrafe =
-        mousebuttons[mousebstrafe] || joybuttons[joybstrafe];
-    if (bstrafe != dclickstate2 && dclicktime2 > 1)
-    {
-        dclickstate2 = bstrafe;
-        if (dclickstate2)
-            dclicks2++;
-        if (dclicks2 == 2)
-        {
-            cmd->buttons |= BT_USE;
-            dclicks2 = 0;
-        }
-        else
-            dclicktime2 = 0;
-    }
-    else
-    {
-        dclicktime2 += ticdup;
-        if (dclicktime2 > 20)
-        {
-            dclicks2 = 0;
-            dclickstate2 = 0;
-        }
-    }
-
-    if (strafe)
-        side += mousex * 2;
-    else
-        cmd->angleturn -= mousex * 0x8;
-
-    mousex = mousey = 0;
-
-    if (forward > MAXPLMOVE)
-        forward = MAXPLMOVE;
-    else if (forward < -MAXPLMOVE)
-        forward = -MAXPLMOVE;
-    if (side > MAXPLMOVE)
-        side = MAXPLMOVE;
-    else if (side < -MAXPLMOVE)
-        side = -MAXPLMOVE;
-
-    cmd->forwardmove += forward;
-    cmd->sidemove += side;
-
-    // special buttons
-    if (sendpause)
-    {
-        sendpause = false;
-        cmd->buttons = BT_SPECIAL | BTS_PAUSE;
-    }
-
-    if (sendsave)
-    {
-        sendsave = false;
-        cmd->buttons = BT_SPECIAL | BTS_SAVEGAME | (savegameslot << BTS_SAVESHIFT);
-    }
-}
 
 // G_DoLoadLevel
 extern gamestate_t wipegamestate;
@@ -377,9 +204,7 @@ void G_DoLoadLevel(void)
     // clear cmd building stuff
     inputHandler.ReleaseAll();
     joyxmove = joyymove = 0;
-    mousex = mousey = 0;
     sendpause = sendsave = paused = false;
-    memset(mousebuttons, 0, sizeof(mousebuttons));
     memset(joybuttons, 0, sizeof(joybuttons));
 }
 
@@ -395,7 +220,7 @@ bool SpyModeResponder(event_t *ev)
 }
 
 // G_Responder
-// Get info needed to make ticcmd_ts for the players.
+// Handle game input events.
 bool G_Responder(event_t *ev)
 {
     if (gamestate == GS_LEVEL && ev->type == ev_keydown && ev->data1 == KEY_F12 && !deathmatch)
@@ -445,18 +270,9 @@ bool G_Responder(event_t *ev)
         return false; // always let key up events filter down
 
     case ev_mouse:
-        mousebuttons[0] = ev->data1 & 1;
-        mousebuttons[1] = ev->data1 & 2;
-        mousebuttons[2] = ev->data1 & 4;
-        mousex = ev->data2 * (mouseSensitivity + 5) / 2;
-        mousey = ev->data3 * (mouseSensitivity + 5) / 2;
         return true; // eat events
 
     case ev_mousewheel:
-        if (ev->data1 > 0)
-            mousewheelup += ev->data1;
-        else
-            mousewheeldown -= ev->data1;
         return true;
 
     case ev_joystick:
@@ -476,12 +292,10 @@ bool G_Responder(event_t *ev)
 }
 
 // G_Ticker
-// Make ticcmd_ts for the players.
+// Advance the game state by one tick.
 void G_Ticker(void)
 {
     int i;
-    int buf;
-    ticcmd_t *cmd;
 
     // do player reborns if needed
     for (i = 0; i < MAXPLAYERS; i++)
@@ -523,70 +337,20 @@ void G_Ticker(void)
         }
     }
 
-    // get commands, check consistancy,
-    // and build new consistancy check
-    buf = (gametic / ticdup) % BACKUPTICS;
-
-    for (i = 0; i < MAXPLAYERS; i++)
+    if (sendpause)
     {
-        if (playeringame[i])
-        {
-            cmd = &players[i].cmd;
-
-            memcpy(cmd, &netcmds[i][buf], sizeof(ticcmd_t));
-
-            // check for turbo cheats
-            if (cmd->forwardmove > TURBOTHRESHOLD && !(gametic & 31) && ((gametic >> 5) & 3) == i)
-            {
-                static char turbomessage[80];
-                extern char *player_names[4];
-                sprintf(turbomessage, "%s is turbo!", player_names[i]);
-                players[consoleplayer].message = turbomessage;
-            }
-
-            if (netgame && !(gametic % ticdup))
-            {
-                if (gametic > BACKUPTICS && consistancy[i][buf] != cmd->consistancy)
-                {
-                    I_Error("consistency failure (%i should be %i)",
-                            cmd->consistancy,
-                            consistancy[i][buf]);
-                }
-                if (players[i].mo)
-                    consistancy[i][buf] = players[i].mo->x;
-                else
-                    consistancy[i][buf] = rndindex;
-            }
-        }
+        sendpause = false;
+        paused ^= 1;
+        if (paused)
+            S_PauseSound();
+        else
+            S_ResumeSound();
     }
 
-    // check for special buttons
-    for (i = 0; i < MAXPLAYERS; i++)
+    if (sendsave)
     {
-        if (playeringame[i])
-        {
-            if (players[i].cmd.buttons & BT_SPECIAL)
-            {
-                switch (players[i].cmd.buttons & BT_SPECIALMASK)
-                {
-                case BTS_PAUSE:
-                    paused ^= 1;
-                    if (paused)
-                        S_PauseSound();
-                    else
-                        S_ResumeSound();
-                    break;
-
-                case BTS_SAVEGAME:
-                    if (!savedescription[0])
-                        strcpy(savedescription, "NET GAME");
-                    savegameslot =
-                        (players[i].cmd.buttons & BTS_SAVEMASK) >> BTS_SAVESHIFT;
-                    gameaction = ga_savegame;
-                    break;
-                }
-            }
-        }
+        sendsave = false;
+        gameaction = ga_savegame;
     }
 
     // do main actions
