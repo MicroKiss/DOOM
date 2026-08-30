@@ -1,23 +1,8 @@
-// Emacs style mode select   -*- C++ -*-
-//-----------------------------------------------------------------------------
-// $Id:$
-// Copyright (C) 1993-1996 by id Software, Inc.
-// This source is available for distribution and/or modification
-// only under the terms of the DOOM Source Code License as
-// published by id Software. All rights reserved.
-// The source is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// FITNESS FOR A PARTICULAR PURPOSE. See the DOOM Source Code License
-// for more details.
-// DESCRIPTION:
-//	System specific interface stuff.
-//-----------------------------------------------------------------------------
+#pragma once
 
-#ifndef __I_SYSTEM__
-#define __I_SYSTEM__
-
-#include "Doom/ticcmd.hpp"
 #include "Doom/event.hpp"
+#include "Doom/ticcmd.hpp"
+#include "Inputs/InputHandler.hpp"
 
 #ifdef __GNUG__
 #pragma interface
@@ -47,7 +32,7 @@ void I_StartFrame(void);
 // called before processing each tic in a frame.
 // Quick syncronous operations are performed here.
 // Can call D_PostEvent.
-void I_StartTic(void);
+void I_StartTic();
 
 // Asynchronous interrupt functions should maintain private queues
 // that are read by the synchronous functions
@@ -77,8 +62,3 @@ byte *I_AllocLow(int length);
 void I_Tactile(int on, int off, int total);
 
 void I_Error(char *error, ...);
-
-#endif
-//-----------------------------------------------------------------------------
-// $Log:$
-//-----------------------------------------------------------------------------

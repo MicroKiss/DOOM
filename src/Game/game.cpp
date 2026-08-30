@@ -135,9 +135,6 @@ int32_t angleturn[3] = { 640, 1280, 320 }; // + slow turn
 
 #define SLOWTURNTICS 6
 
-#define NUMKEYS 256
-
-bool gamekeydown[NUMKEYS];
 int turnheld; // for accelerative turning
 
 bool mousearray[4];
@@ -187,8 +184,8 @@ void G_BuildTiccmd(ticcmd_t *cmd)
     cmd->consistancy =
         consistancy[consoleplayer][maketic % BACKUPTICS];
 
-    strafe = gamekeydown[key_strafe] || mousebuttons[mousebstrafe] || joybuttons[joybstrafe];
-    sprint = gamekeydown[key_speed] || joybuttons[joybspeed];
+    strafe = mousebuttons[mousebstrafe] || joybuttons[joybstrafe];
+    sprint = joybuttons[joybspeed];
     int sidePsd = sprint ? sideRunSpeed : sideWalkSpeed;
     int fwdSpd = sprint ? forwardRunSpeed : forwardWalkSpeed;
 
@@ -196,7 +193,7 @@ void G_BuildTiccmd(ticcmd_t *cmd)
 
     // use two stage accelerative turning
     // on the keyboard and joystick
-    if (joyxmove < 0 || joyxmove > 0 || gamekeydown[key_right] || gamekeydown[key_left])
+    if (joyxmove < 0 || joyxmove > 0)
         turnheld += ticdup;
     else
         turnheld = 0;
@@ -206,41 +203,22 @@ void G_BuildTiccmd(ticcmd_t *cmd)
     else
         tspeed = sprint;
 
-    if (gamekeydown[key_right])
-        cmd->angleturn -= angleturn[tspeed];
-    if (gamekeydown[key_left])
-        cmd->angleturn += angleturn[tspeed];
     if (joyxmove > 0)
         cmd->angleturn -= angleturn[tspeed];
     if (joyxmove < 0)
         cmd->angleturn += angleturn[tspeed];
 
-    if (gamekeydown[key_up] || gamekeydown[key_up_alt])
-    {
-        // fprintf(stderr, "up\n");
-        forward += fwdSpd;
-    }
-    if (gamekeydown[key_down] || gamekeydown[key_down_alt])
-    {
-        // fprintf(stderr, "down\n");
-        forward -= fwdSpd;
-    }
     if (joyymove < 0)
         forward += fwdSpd;
     if (joyymove > 0)
         forward -= fwdSpd;
-    if (gamekeydown[key_straferight] || gamekeydown[key_straferight_alt])
-        side += sidePsd;
-    if (gamekeydown[key_strafeleft] || gamekeydown[key_strafeleft_alt])
-        side -= sidePsd;
-
     // buttons
     cmd->chatchar = HU_dequeueChatChar();
 
-    if (gamekeydown[key_fire] || mousebuttons[mousebfire] || joybuttons[joybfire])
+    if (inputHandler.IsDown(static_cast<INPUTS>(key_fire)) || mousebuttons[mousebfire] || joybuttons[joybfire])
         cmd->buttons |= BT_ATTACK;
 
-    if (gamekeydown[key_use] || joybuttons[joybuse])
+    if (inputHandler.IsDown(static_cast<INPUTS>(key_use)) || joybuttons[joybuse])
     {
         cmd->buttons |= BT_USE;
         // clear double clicks if hit use button
@@ -249,7 +227,7 @@ void G_BuildTiccmd(ticcmd_t *cmd)
 
     for (i = 0; i < NUMWEAPONS - 1; i++)
     {
-        if (gamekeydown['1' + i])
+        if (inputHandler.IsDown(static_cast<INPUTS>('1' + i)))
         {
             cmd->buttons |= BT_CHANGE;
             cmd->buttons |= i << BT_WEAPONSHIFT;
@@ -397,7 +375,7 @@ void G_DoLoadLevel(void)
     Z_CheckHeap();
 
     // clear cmd building stuff
-    memset(gamekeydown, 0, sizeof(gamekeydown));
+    inputHandler.ReleaseAll();
     joyxmove = joyymove = 0;
     mousex = mousey = 0;
     sendpause = sendsave = paused = false;
@@ -461,13 +439,9 @@ bool G_Responder(event_t *ev)
             sendpause = true;
             return true;
         }
-        if (ev->data1 < NUMKEYS)
-            gamekeydown[ev->data1] = true;
         return true; // eat key down events
 
     case ev_keyup:
-        if (ev->data1 < NUMKEYS)
-            gamekeydown[ev->data1] = false;
         return false; // always let key up events filter down
 
     case ev_mouse:

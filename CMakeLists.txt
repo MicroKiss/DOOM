@@ -20,6 +20,7 @@ set(DOOM_SOURCES
     ${DOOM_SOURCE_DIR}/Finale/finale.cpp
     ${DOOM_SOURCE_DIR}/Finale/wipe.cpp
     ${DOOM_SOURCE_DIR}/Game/game.cpp
+    ${DOOM_SOURCE_DIR}/Inputs/InputHandler.cpp
     ${DOOM_SOURCE_DIR}/HeadsUpDisplay/lib.cpp
     ${DOOM_SOURCE_DIR}/HeadsUpDisplay/stuff.cpp
     ${DOOM_SOURCE_DIR}/Intermission/stuff.cpp
@@ -82,6 +83,7 @@ target_include_directories(doom PRIVATE
     "${DOOM_SOURCE_DIR}/Doom"
     "${DOOM_SOURCE_DIR}/Finale"
     "${DOOM_SOURCE_DIR}/Game"
+    "${DOOM_SOURCE_DIR}/Inputs"
     "${DOOM_SOURCE_DIR}/HeadsUpDisplay"
     "${DOOM_SOURCE_DIR}/Intermission"
     "${DOOM_SOURCE_DIR}/Renderer"

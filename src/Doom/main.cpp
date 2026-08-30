@@ -20,14 +20,6 @@
 #define D_strcasecmp strcasecmp
 #endif
 
-#ifdef NORMALUNIX
-#include <fcntl.h>
-#include <stdio.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.hpp>
-#endif
-
 #include "doomdef.hpp"
 #include "doomstat.hpp"
 #include "unistd.hpp"

@@ -4,12 +4,12 @@
 #include <string.h>
 
 #include "Doom/event.hpp"
-#include "Miscellaneous/argv.hpp"
 #include "Doom/main.hpp"
+#include "Miscellaneous/argv.hpp"
+#include "Renderer/video.hpp"
 #include "SystemInterface/main_test.hpp"
 #include "SystemInterface/system.hpp"
 #include "SystemInterface/video.hpp"
-#include "Renderer/video.hpp"
 
 int TimerTest()
 {
@@ -53,31 +53,31 @@ int KeyboardTest()
         SDL_Keycode sdl_key;
         int doom_key;
     } keys[] = {
-        {SDLK_ESCAPE, KEY_ESCAPE},
-        {SDLK_RETURN, KEY_ENTER},
-        {SDLK_LEFT, KEY_LEFTARROW},
-        {SDLK_RIGHT, KEY_RIGHTARROW},
-        {SDLK_UP, KEY_UPARROW},
-        {SDLK_DOWN, KEY_DOWNARROW},
-        {SDLK_F1, KEY_F1},
-        {SDLK_F2, KEY_F2},
-        {SDLK_F3, KEY_F3},
-        {SDLK_F4, KEY_F4},
-        {SDLK_F5, KEY_F5},
-        {SDLK_F6, KEY_F6},
-        {SDLK_F7, KEY_F7},
-        {SDLK_F8, KEY_F8},
-        {SDLK_F9, KEY_F9},
-        {SDLK_F10, KEY_F10},
-        {SDLK_F11, KEY_F11},
-        {SDLK_F12, KEY_F12},
-        {SDLK_LCTRL, KEY_RCTRL},
-        {SDLK_LALT, KEY_RALT},
-        {SDLK_LSHIFT, KEY_RSHIFT},
-        {SDLK_w, 'w'},
-        {SDLK_a, 'a'},
-        {SDLK_s, 's'},
-        {SDLK_d, 'd'},
+        { SDLK_ESCAPE, KEY_ESCAPE },
+        { SDLK_RETURN, KEY_ENTER },
+        { SDLK_LEFT, KEY_LEFTARROW },
+        { SDLK_RIGHT, KEY_RIGHTARROW },
+        { SDLK_UP, KEY_UPARROW },
+        { SDLK_DOWN, KEY_DOWNARROW },
+        { SDLK_F1, KEY_F1 },
+        { SDLK_F2, KEY_F2 },
+        { SDLK_F3, KEY_F3 },
+        { SDLK_F4, KEY_F4 },
+        { SDLK_F5, KEY_F5 },
+        { SDLK_F6, KEY_F6 },
+        { SDLK_F7, KEY_F7 },
+        { SDLK_F8, KEY_F8 },
+        { SDLK_F9, KEY_F9 },
+        { SDLK_F10, KEY_F10 },
+        { SDLK_F11, KEY_F11 },
+        { SDLK_F12, KEY_F12 },
+        { SDLK_LCTRL, KEY_RCTRL },
+        { SDLK_LALT, KEY_RALT },
+        { SDLK_LSHIFT, KEY_RSHIFT },
+        { SDLK_w, 'w' },
+        { SDLK_a, 'a' },
+        { SDLK_s, 's' },
+        { SDLK_d, 'd' },
     };
     int key_index;
     int event_index = eventhead;
@@ -91,7 +91,7 @@ int KeyboardTest()
 
     for (key_index = 0; key_index < sizeof(keys) / sizeof(keys[0]); ++key_index)
     {
-        SDL_Event key_event = {0};
+        SDL_Event key_event = { 0 };
 
         key_event.type = SDL_KEYDOWN;
         key_event.key.keysym.sym = keys[key_index].sdl_key;
@@ -123,7 +123,7 @@ int KeyboardTest()
         I_Error("KeyboardTest: unexpected number of posted events");
 
     {
-        SDL_Event mouse_event = {0};
+        SDL_Event mouse_event = { 0 };
         event_t *mouse_down;
         event_t *mouse_motion;
         event_t *mouse_up;
@@ -159,7 +159,7 @@ int KeyboardTest()
     }
 
     {
-        SDL_Event input_event = {0};
+        SDL_Event input_event = { 0 };
         event_t *key_up;
         event_t *mouse_up;
 

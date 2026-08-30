@@ -6,9 +6,7 @@
 //-----------------------------------------------------------------------------
 
 #include "Doom/event.hpp"
-#include "doomdef.hpp"
-#include <iostream>
-
+#include "Inputs/InputHandler.hpp"
 #include "PlaySimulation/local.hpp"
 
 #include "doomstat.hpp"
@@ -20,6 +18,11 @@
 
 // 16 pixels of bob
 #define MAXBOB 0x100000
+
+static int32_t forwardWalkSpeed = 25;
+static int32_t forwardRunSpeed = 50;
+static int32_t sideWalkSpeed = 24;
+static int32_t sideRunSpeed = 40;
 
 bool onground;
 
@@ -116,16 +119,22 @@ void P_MovePlayer(player_t *player)
 
     if (onground)
     {
-        if (cmd->forwardmove)
-            P_Thrust(player, player->mo->angle, cmd->forwardmove * 2048);
+        int32_t forwardDir = inputHandler.IsDown(INPUTS::MOVE_FORWARD) - inputHandler.IsDown(INPUTS::MOVE_BACKWARD);
+        int32_t forwardMovement = forwardDir * (inputHandler.IsDown(INPUTS::MOVE_SPRINT) ? forwardRunSpeed : forwardWalkSpeed);
 
-        if (cmd->sidemove)
-            P_Thrust(player, player->mo->angle - ANG90, cmd->sidemove * 2048);
-    }
+        int32_t sideDir = inputHandler.IsDown(INPUTS::MOVE_RIGHT) - inputHandler.IsDown(INPUTS::MOVE_LEFT);
+        int32_t sideMovement = sideDir * (inputHandler.IsDown(INPUTS::MOVE_SPRINT) ? sideRunSpeed : sideWalkSpeed);
 
-    if ((cmd->forwardmove || cmd->sidemove) && player->mo->state == &states[S_PLAY])
-    {
-        P_SetMobjState(player->mo, S_PLAY_RUN1);
+        if (forwardMovement)
+            P_Thrust(player, player->mo->angle, forwardMovement * 2048);
+
+        if (sideMovement)
+            P_Thrust(player, player->mo->angle - ANG90, sideMovement * 2048);
+
+        if ((forwardMovement || sideMovement) && player->mo->state == &states[S_PLAY])
+        {
+            P_SetMobjState(player->mo, S_PLAY_RUN1);
+        }
     }
 }
 
@@ -226,9 +235,13 @@ void P_PlayerThink(player_t *player)
     // Reactiontime is used to prevent movement
     //  for a bit after a teleport.
     if (player->mo->reactiontime)
+    {
         player->mo->reactiontime--;
+    }
     else
+    {
         P_MovePlayer(player);
+    }
 
     P_CalcHeight(player);
 
