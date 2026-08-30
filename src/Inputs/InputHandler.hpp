@@ -2,6 +2,7 @@
 
 #include "Inputs.hpp"
 #include <set>
+#include <vector>
 
 struct MouseMotion
 {
@@ -23,11 +24,13 @@ class InputHandler
     void ReleaseAll();
     void AddMouseMotion(int x, int y);
     void AddMouseWheel(int amount);
+    const std::vector<INPUTS> &GetPressedInputs() const;
     const MouseMotion &GetMouseMotion() const;
 
   private:
     std::set<INPUTS> inputs;
     std::set<INPUTS> pressedThisFrame;
+    std::vector<INPUTS> pressedInputs;
     MouseMotion mouseMotion;
 };
 

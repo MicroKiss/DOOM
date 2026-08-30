@@ -83,8 +83,6 @@ typedef struct player_s
     bool cards[NUMCARDS];
     bool backpack;
 
-    // Frags, kills of other players.
-    int frags[MAXPLAYERS];
     WeaponType readyweapon;
 
     // Is wp_nochange if not changing.
@@ -143,16 +141,11 @@ typedef struct player_s
 // Structure passed e.g. to WI_Start(wb)
 typedef struct
 {
-    bool in; // whether the player is in game
-
     // Player stats, kills, collected items etc.
     int skills;
     int sitems;
     int ssecret;
     int stime;
-    int frags[4];
-    int score; // current score on entry, modified on return
-
 } wbplayerstruct_t;
 
 typedef struct
@@ -174,10 +167,7 @@ typedef struct
     // the par time
     int partime;
 
-    // index of this player in game
-    int pnum;
-
-    wbplayerstruct_t plyr[MAXPLAYERS];
+    wbplayerstruct_t player;
 
 } wbstartstruct_t;
 

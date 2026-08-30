@@ -4,9 +4,9 @@
 //	Action functions for weapons.
 //-----------------------------------------------------------------------------
 
-#include "Doom/event.hpp"
 #include "Inputs/InputHandler.hpp"
 #include "doomdef.hpp"
+#include "doomstat.hpp"
 
 #include "Miscellaneous/random.hpp"
 #include "PlaySimulation/local.hpp"

@@ -18,7 +18,7 @@
 
 #include "doomstat.hpp"
 
-void G_PlayerReborn(int player);
+void G_PlayerReborn(void);
 void P_SpawnMapThing(mapthing_t *mthing);
 
 // P_SetMobjState
@@ -436,7 +436,7 @@ P_SpawnMobj(int32_t x,
     if (gameskill != sk_nightmare)
         mobj->reactiontime = info->reactiontime;
 
-    mobj->lastlook = P_Random() % MAXPLAYERS;
+    mobj->lastlook = 0;
     // do not set the state with P_SetMobjState,
     // because action routines can not be called yet
     st = &states[info->spawnstate];
@@ -466,25 +466,8 @@ P_SpawnMobj(int32_t x,
     return mobj;
 }
 
-// P_RemoveMobj
-mapthing_t itemrespawnque[ITEMQUESIZE];
-int itemrespawntime[ITEMQUESIZE];
-int iquehead;
-int iquetail;
-
 void P_RemoveMobj(mobj_t *mobj)
 {
-    if ((mobj->flags & MF_SPECIAL) && !(mobj->flags & MF_DROPPED) && (mobj->type != MT_INV) && (mobj->type != MT_INS))
-    {
-        itemrespawnque[iquehead] = mobj->spawnpoint;
-        itemrespawntime[iquehead] = leveltime;
-        iquehead = (iquehead + 1) & (ITEMQUESIZE - 1);
-
-        // lose one off the end?
-        if (iquehead == iquetail)
-            iquetail = (iquetail + 1) & (ITEMQUESIZE - 1);
-    }
-
     // unlink from sector and block lists
     P_UnsetThingPosition(mobj);
 
@@ -493,61 +476,6 @@ void P_RemoveMobj(mobj_t *mobj)
 
     // free block
     P_RemoveThinker((thinker_t *)mobj);
-}
-
-// P_RespawnSpecials
-void P_RespawnSpecials(void)
-{
-    int32_t x;
-    int32_t y;
-    int32_t z;
-
-    subsector_t *ss;
-    mobj_t *mo;
-    mapthing_t *mthing;
-
-    int i;
-
-    // only respawn items in deathmatch
-    if (deathmatch != 2)
-        return;
-    // nothing left to respawn?
-    if (iquehead == iquetail)
-        return;
-
-    // wait at least 30 seconds
-    if (leveltime - itemrespawntime[iquetail] < 30 * 35)
-        return;
-
-    mthing = &itemrespawnque[iquetail];
-
-    x = mthing->x << FRACBITS;
-    y = mthing->y << FRACBITS;
-
-    // spawn a teleport fog at the new spot
-    ss = R_PointInSubsector(x, y);
-    mo = P_SpawnMobj(x, y, ss->sector->floorheight, MT_IFOG);
-    S_StartSound(mo, sfx_itmbk);
-
-    // find which type to spawn
-    for (i = 0; i < NUMMOBJTYPES; i++)
-    {
-        if (mthing->type == mobjinfo[i].doomednum)
-            break;
-    }
-
-    // spawn it
-    if (mobjinfo[i].flags & MF_SPAWNCEILING)
-        z = ONCEILINGZ;
-    else
-        z = ONFLOORZ;
-
-    mo = P_SpawnMobj(x, y, z, static_cast<mobjtype_t>(i));
-    mo->spawnpoint = *mthing;
-    mo->angle = ANG45 * (mthing->angle / 45);
-
-    // pull it from the que
-    iquetail = (iquetail + 1) & (ITEMQUESIZE - 1);
 }
 
 // P_SpawnPlayer
@@ -565,23 +493,18 @@ void P_SpawnPlayer(mapthing_t *mthing)
 
     int i;
 
-    // not playing?
-    if (!playeringame[mthing->type - 1])
+    if (mthing->type != 1)
         return;
 
-    p = &players[mthing->type - 1];
+    p = &gamePlayer;
 
     if (p->playerstate == PST_REBORN)
-        G_PlayerReborn(mthing->type - 1);
+        G_PlayerReborn();
 
     x = mthing->x << FRACBITS;
     y = mthing->y << FRACBITS;
     z = ONFLOORZ;
     mobj = P_SpawnMobj(x, y, z, MT_PLAYER);
-
-    // set color translations for player sprites
-    if (mthing->type > 1)
-        mobj->flags |= (mthing->type - 1) << MF_TRANSSHIFT;
 
     mobj->angle = ANG45 * (mthing->angle / 45);
     mobj->player = p;
@@ -600,18 +523,8 @@ void P_SpawnPlayer(mapthing_t *mthing)
     // setup gun psprite
     P_SetupPsprites(p);
 
-    // give all cards in death match mode
-    if (deathmatch)
-        for (i = 0; i < NUMCARDS; i++)
-            p->cards[i] = true;
-
-    if (mthing->type - 1 == consoleplayer)
-    {
-        // wake up the status bar
-        ST_Start();
-        // wake up the heads up text
-        HU_Start();
-    }
+    ST_Start();
+    HU_Start();
 }
 
 // P_SpawnMapThing
@@ -626,30 +539,20 @@ void P_SpawnMapThing(mapthing_t *mthing)
     int32_t y;
     int32_t z;
 
-    // count deathmatch start positions
+    // Ignore deathmatch start positions.
     if (mthing->type == 11)
-    {
-        if (deathmatch_p < &deathmatchstarts[10])
-        {
-            memcpy(deathmatch_p, mthing, sizeof(*mthing));
-            deathmatch_p++;
-        }
         return;
-    }
 
-    // check for players specially
+    // check for the player specially
     if (mthing->type <= 4)
     {
-        // save spots for respawning in network games
-        playerstarts[mthing->type - 1] = *mthing;
-        if (!deathmatch)
-            P_SpawnPlayer(mthing);
+        P_SpawnPlayer(mthing);
 
         return;
     }
 
     // check for apropriate skill level
-    if (!netgame && (mthing->options & 16))
+    if (mthing->options & 16)
         return;
 
     if (gameskill == sk_baby)
@@ -672,10 +575,6 @@ void P_SpawnMapThing(mapthing_t *mthing)
                 mthing->type,
                 mthing->x,
                 mthing->y);
-
-    // don't spawn keycards and players in deathmatch
-    if (deathmatch && mobjinfo[i].flags & MF_NOTDMATCH)
-        return;
 
     // don't spawn any monsters if -nomonsters
     if (nomonsters && (i == MT_SKULL || (mobjinfo[i].flags & MF_COUNTKILL)))

@@ -63,138 +63,127 @@ static void SaveWrite32(int32_t value)
 // P_ArchivePlayers
 void P_ArchivePlayers(void)
 {
-    int i;
     int j;
-    player_t *player;
+    player_t *player = &gamePlayer;
 
-    for (i = 0; i < MAXPLAYERS; i++)
+    PADSAVEP();
+    SaveWrite32(0);
+    SaveWrite32(player->playerstate);
+    SaveWrite32(0); // Preserve the legacy player save layout.
+    SaveWrite32(0);
+    SaveWrite32(player->viewz);
+    SaveWrite32(player->viewheight);
+    SaveWrite32(player->deltaviewheight);
+    SaveWrite32(player->bob);
+    SaveWrite32(player->health);
+    SaveWrite32(player->armorpoints);
+    SaveWrite32(player->armortype);
+    for (j = 0; j < NUMPOWERS; j++)
+        SaveWrite32(player->powers[j]);
+    for (j = 0; j < NUMCARDS; j++)
+        SaveWrite32(player->cards[j]);
+    SaveWrite32(player->backpack);
+    SaveWrite32(0);
+    SaveWrite32(0);
+    SaveWrite32(0);
+    SaveWrite32(0);
+    SaveWrite32(player->readyweapon);
+    SaveWrite32(player->pendingweapon);
+    for (j = 0; j < NUMWEAPONS; j++)
+        SaveWrite32(player->weaponowned[j]);
+    for (j = 0; j < NUMAMMO; j++)
+        SaveWrite32(player->ammo[j]);
+    for (j = 0; j < NUMAMMO; j++)
+        SaveWrite32(player->maxammo[j]);
+    SaveWrite32(player->attackdown);
+    SaveWrite32(player->usedown);
+    SaveWrite32(player->cheats);
+    SaveWrite32(player->refire);
+    SaveWrite32(player->killcount);
+    SaveWrite32(player->itemcount);
+    SaveWrite32(player->secretcount);
+    SaveWrite32(0);
+    SaveWrite32(player->damagecount);
+    SaveWrite32(player->bonuscount);
+    SaveWrite32(0);
+    SaveWrite32(player->extralight);
+    SaveWrite32(player->fixedcolormap);
+    SaveWrite32(player->colormap);
+    for (j = 0; j < NUMPSPRITES; j++)
     {
-        if (!playeringame[i])
-            continue;
-
-        PADSAVEP();
-        player = &players[i];
-        SaveWrite32(0);
-        SaveWrite32(player->playerstate);
-        SaveWrite32(0); // Preserve the legacy player save layout.
-        SaveWrite32(0);
-        SaveWrite32(player->viewz);
-        SaveWrite32(player->viewheight);
-        SaveWrite32(player->deltaviewheight);
-        SaveWrite32(player->bob);
-        SaveWrite32(player->health);
-        SaveWrite32(player->armorpoints);
-        SaveWrite32(player->armortype);
-        for (j = 0; j < NUMPOWERS; j++)
-            SaveWrite32(player->powers[j]);
-        for (j = 0; j < NUMCARDS; j++)
-            SaveWrite32(player->cards[j]);
-        SaveWrite32(player->backpack);
-        for (j = 0; j < MAXPLAYERS; j++)
-            SaveWrite32(player->frags[j]);
-        SaveWrite32(player->readyweapon);
-        SaveWrite32(player->pendingweapon);
-        for (j = 0; j < NUMWEAPONS; j++)
-            SaveWrite32(player->weaponowned[j]);
-        for (j = 0; j < NUMAMMO; j++)
-            SaveWrite32(player->ammo[j]);
-        for (j = 0; j < NUMAMMO; j++)
-            SaveWrite32(player->maxammo[j]);
-        SaveWrite32(player->attackdown);
-        SaveWrite32(player->usedown);
-        SaveWrite32(player->cheats);
-        SaveWrite32(player->refire);
-        SaveWrite32(player->killcount);
-        SaveWrite32(player->itemcount);
-        SaveWrite32(player->secretcount);
-        SaveWrite32(0);
-        SaveWrite32(player->damagecount);
-        SaveWrite32(player->bonuscount);
-        SaveWrite32(0);
-        SaveWrite32(player->extralight);
-        SaveWrite32(player->fixedcolormap);
-        SaveWrite32(player->colormap);
-        for (j = 0; j < NUMPSPRITES; j++)
-        {
-            SaveWrite32(player->psprites[j].state
-                            ? (int32_t)(player->psprites[j].state - states)
-                            : 0);
-            SaveWrite32(player->psprites[j].tics);
-            SaveWrite32(player->psprites[j].sx);
-            SaveWrite32(player->psprites[j].sy);
-        }
-        SaveWrite32(player->didsecret);
+        SaveWrite32(player->psprites[j].state
+                        ? (int32_t)(player->psprites[j].state - states)
+                        : 0);
+        SaveWrite32(player->psprites[j].tics);
+        SaveWrite32(player->psprites[j].sx);
+        SaveWrite32(player->psprites[j].sy);
     }
+    SaveWrite32(player->didsecret);
 }
 
 // P_UnArchivePlayers
 void P_UnArchivePlayers(void)
 {
-    int i;
     int j;
+    player_t *player = &gamePlayer;
 
-    for (i = 0; i < MAXPLAYERS; i++)
+    PADSAVEP();
+    SaveRead32();
+    player->playerstate = static_cast<decltype(player->playerstate)>(SaveRead32());
+    SaveRead32();
+    SaveRead32();
+    player->viewz = SaveRead32();
+    player->viewheight = SaveRead32();
+    player->deltaviewheight = SaveRead32();
+    player->bob = SaveRead32();
+    player->health = SaveRead32();
+    player->armorpoints = SaveRead32();
+    player->armortype = SaveRead32();
+    for (j = 0; j < NUMPOWERS; j++)
+        player->powers[j] = SaveRead32();
+    for (j = 0; j < NUMCARDS; j++)
+        player->cards[j] = SaveRead32();
+    player->backpack = SaveRead32();
+    SaveRead32();
+    SaveRead32();
+    SaveRead32();
+    SaveRead32();
+    player->readyweapon = static_cast<decltype(player->readyweapon)>(SaveRead32());
+    player->pendingweapon = static_cast<decltype(player->pendingweapon)>(SaveRead32());
+    for (j = 0; j < NUMWEAPONS; j++)
+        player->weaponowned[j] = SaveRead32();
+    for (j = 0; j < NUMAMMO; j++)
+        player->ammo[j] = SaveRead32();
+    for (j = 0; j < NUMAMMO; j++)
+        player->maxammo[j] = SaveRead32();
+    player->attackdown = SaveRead32();
+    player->usedown = SaveRead32();
+    player->cheats = SaveRead32();
+    player->refire = SaveRead32();
+    player->killcount = SaveRead32();
+    player->itemcount = SaveRead32();
+    player->secretcount = SaveRead32();
+    SaveRead32();
+    player->damagecount = SaveRead32();
+    player->bonuscount = SaveRead32();
+    SaveRead32();
+    player->extralight = SaveRead32();
+    player->fixedcolormap = SaveRead32();
+    player->colormap = SaveRead32();
+    for (j = 0; j < NUMPSPRITES; j++)
     {
-        if (!playeringame[i])
-            continue;
-
-        PADSAVEP();
-        player_t *player = &players[i];
-        SaveRead32();
-        player->playerstate = static_cast<decltype(player->playerstate)>(SaveRead32());
-        SaveRead32();
-        SaveRead32();
-        player->viewz = SaveRead32();
-        player->viewheight = SaveRead32();
-        player->deltaviewheight = SaveRead32();
-        player->bob = SaveRead32();
-        player->health = SaveRead32();
-        player->armorpoints = SaveRead32();
-        player->armortype = SaveRead32();
-        for (j = 0; j < NUMPOWERS; j++)
-            player->powers[j] = SaveRead32();
-        for (j = 0; j < NUMCARDS; j++)
-            player->cards[j] = SaveRead32();
-        player->backpack = SaveRead32();
-        for (j = 0; j < MAXPLAYERS; j++)
-            player->frags[j] = SaveRead32();
-        player->readyweapon = static_cast<decltype(player->readyweapon)>(SaveRead32());
-        player->pendingweapon = static_cast<decltype(player->pendingweapon)>(SaveRead32());
-        for (j = 0; j < NUMWEAPONS; j++)
-            player->weaponowned[j] = SaveRead32();
-        for (j = 0; j < NUMAMMO; j++)
-            player->ammo[j] = SaveRead32();
-        for (j = 0; j < NUMAMMO; j++)
-            player->maxammo[j] = SaveRead32();
-        player->attackdown = SaveRead32();
-        player->usedown = SaveRead32();
-        player->cheats = SaveRead32();
-        player->refire = SaveRead32();
-        player->killcount = SaveRead32();
-        player->itemcount = SaveRead32();
-        player->secretcount = SaveRead32();
-        SaveRead32();
-        player->damagecount = SaveRead32();
-        player->bonuscount = SaveRead32();
-        SaveRead32();
-        player->extralight = SaveRead32();
-        player->fixedcolormap = SaveRead32();
-        player->colormap = SaveRead32();
-        for (j = 0; j < NUMPSPRITES; j++)
-        {
-            int32_t state = SaveRead32();
-            player->psprites[j].state = state ? &states[state] : NULL;
-            player->psprites[j].tics = SaveRead32();
-            player->psprites[j].sx = SaveRead32();
-            player->psprites[j].sy = SaveRead32();
-        }
-        player->didsecret = SaveRead32();
-
-        // will be set when unarc thinker
-        player->mo = NULL;
-        player->message = NULL;
-        player->attacker = NULL;
+        int32_t state = SaveRead32();
+        player->psprites[j].state = state ? &states[state] : NULL;
+        player->psprites[j].tics = SaveRead32();
+        player->psprites[j].sx = SaveRead32();
+        player->psprites[j].sy = SaveRead32();
     }
+    player->didsecret = SaveRead32();
+
+    // will be set when unarc thinker
+    player->mo = NULL;
+    player->message = NULL;
+    player->attacker = NULL;
 }
 
 // P_ArchiveWorld
@@ -333,7 +322,7 @@ static void SaveWriteMobj(const mobj_t *mobj)
     SaveWrite32(0);
     SaveWrite32(mobj->reactiontime);
     SaveWrite32(mobj->threshold);
-    SaveWrite32(mobj->player ? (int32_t)(mobj->player - players + 1) : 0);
+    SaveWrite32(mobj->player ? 1 : 0);
     SaveWrite32(mobj->lastlook);
     SaveWrite16(mobj->spawnpoint.x);
     SaveWrite16(mobj->spawnpoint.y);
@@ -383,7 +372,7 @@ static void SaveReadMobj(mobj_t *mobj)
     mobj->reactiontime = SaveRead32();
     mobj->threshold = SaveRead32();
     playernum = SaveRead32();
-    mobj->player = playernum ? &players[playernum - 1] : NULL;
+    mobj->player = playernum ? &gamePlayer : NULL;
     if (mobj->player)
         mobj->player->mo = mobj;
     mobj->lastlook = SaveRead32();

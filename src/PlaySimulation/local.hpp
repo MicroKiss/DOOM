@@ -72,16 +72,6 @@ void P_PlayerThink(player_t *player);
 #define ONFLOORZ MININT
 #define ONCEILINGZ MAXINT
 
-// Time interval for item respawning.
-#define ITEMQUESIZE 128
-
-extern mapthing_t itemrespawnque[ITEMQUESIZE];
-extern int itemrespawntime[ITEMQUESIZE];
-extern int iquehead;
-extern int iquetail;
-
-void P_RespawnSpecials(void);
-
 mobj_t *
 P_SpawnMobj(int32_t x,
             int32_t y,
@@ -114,8 +104,7 @@ typedef struct
 {
     int32_t frac; // along trace line
     bool isaline;
-    union
-    {
+    union {
         mobj_t *thing;
         line_t *line;
     } d;

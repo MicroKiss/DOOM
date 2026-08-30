@@ -10,14 +10,14 @@
 #include "Miscellaneous/random.hpp"
 #include "SystemInterface/system.hpp"
 
-#include "doomdef.hpp"
 #include "PlaySimulation/local.hpp"
+#include "doomdef.hpp"
 
 #include "Sound/sound.hpp"
 
 // State.
-#include "doomstat.hpp"
 #include "Renderer/state.hpp"
+#include "doomstat.hpp"
 // Data.
 #include "sounds.hpp"
 
@@ -259,7 +259,7 @@ bool PIT_CheckThing(mobj_t *thing)
             if (thing->type != MT_PLAYER)
             {
                 // Explode, but do no damage.
-                // Let players missile other players.
+                // Let player missiles hit their targets.
                 return false;
             }
         }
@@ -647,12 +647,9 @@ retry:
 
     bestslidefrac = FRACUNIT + 1;
 
-    P_PathTraverse(leadx, leady, leadx + mo->momx, leady + mo->momy,
-                   PT_ADDLINES, PTR_SlideTraverse);
-    P_PathTraverse(trailx, leady, trailx + mo->momx, leady + mo->momy,
-                   PT_ADDLINES, PTR_SlideTraverse);
-    P_PathTraverse(leadx, traily, leadx + mo->momx, traily + mo->momy,
-                   PT_ADDLINES, PTR_SlideTraverse);
+    P_PathTraverse(leadx, leady, leadx + mo->momx, leady + mo->momy, PT_ADDLINES, PTR_SlideTraverse);
+    P_PathTraverse(trailx, leady, trailx + mo->momx, leady + mo->momy, PT_ADDLINES, PTR_SlideTraverse);
+    P_PathTraverse(leadx, traily, leadx + mo->momx, traily + mo->momy, PT_ADDLINES, PTR_SlideTraverse);
 
     // move up to the wall
     if (bestslidefrac == FRACUNIT + 1)
@@ -937,10 +934,7 @@ P_AimLineAttack(mobj_t *t1,
     attackrange = distance;
     linetarget = NULL;
 
-    P_PathTraverse(t1->x, t1->y,
-                   x2, y2,
-                   PT_ADDLINES | PT_ADDTHINGS,
-                   PTR_AimTraverse);
+    P_PathTraverse(t1->x, t1->y, x2, y2, PT_ADDLINES | PT_ADDTHINGS, PTR_AimTraverse);
 
     if (linetarget)
         return aimslope;
@@ -969,10 +963,7 @@ void P_LineAttack(mobj_t *t1,
     attackrange = distance;
     aimslope = slope;
 
-    P_PathTraverse(t1->x, t1->y,
-                   x2, y2,
-                   PT_ADDLINES | PT_ADDTHINGS,
-                   PTR_ShootTraverse);
+    P_PathTraverse(t1->x, t1->y, x2, y2, PT_ADDLINES | PT_ADDTHINGS, PTR_ShootTraverse);
 }
 
 // USE LINES
@@ -1164,7 +1155,8 @@ bool PIT_ChangeSector(mobj_t *thing)
         // spray blood in a random direction
         mo = P_SpawnMobj(thing->x,
                          thing->y,
-                         thing->z + thing->height / 2, MT_BLOOD);
+                         thing->z + thing->height / 2,
+                         MT_BLOOD);
 
         mo->momx = (P_Random() - P_Random()) << 12;
         mo->momy = (P_Random() - P_Random()) << 12;

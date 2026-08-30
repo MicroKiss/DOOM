@@ -65,7 +65,7 @@ char *finaleflat;
 
 void F_StartCast(void);
 void F_CastTicker(void);
-bool F_CastResponder(event_t *ev);
+void F_CastRespond(void);
 void F_CastDrawer(void);
 
 // F_StartFinale
@@ -162,21 +162,26 @@ void F_StartFinale(void)
     finalecount = 0;
 }
 
-bool F_Responder(event_t *event)
-{
-    if (finalestage == 2)
-        return F_CastResponder(event);
-
-    return false;
-}
-
 // F_Ticker
 void F_Ticker(void)
 {
+    if (!menuactive && finalestage == 2)
+    {
+        for (INPUTS input : inputHandler.GetPressedInputs())
+        {
+            if (input < INPUTS::MOUSE_LEFT)
+            {
+                F_CastRespond();
+                break;
+            }
+        }
+    }
+
     // check for skipping
     if ((gamemode == commercial) && (finalecount > 50))
     {
-        if (inputHandler.IsDown(INPUTS::ATTACK) || inputHandler.IsDown(INPUTS::USE))
+        if (!menuactive &&
+            (inputHandler.IsDown(INPUTS::ATTACK) || inputHandler.IsDown(INPUTS::USE)))
         {
             if (gamemap == 30)
                 F_StartCast();
@@ -473,15 +478,10 @@ void F_CastTicker(void)
         casttics = 15;
 }
 
-// F_CastResponder
-
-bool F_CastResponder(event_t *ev)
+void F_CastRespond(void)
 {
-    if (ev->type != ev_keydown)
-        return false;
-
     if (castdeath)
-        return true; // already in dying frames
+        return;
 
     // go into death frame
     castdeath = true;
@@ -491,8 +491,6 @@ bool F_CastResponder(event_t *ev)
     castattacking = false;
     if (mobjinfo[castorder[castnum].type].deathsound)
         S_StartSound(NULL, mobjinfo[castorder[castnum].type].deathsound);
-
-    return true;
 }
 
 void F_CastPrint(char *text)

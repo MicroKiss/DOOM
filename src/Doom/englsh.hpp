@@ -27,16 +27,10 @@
 #define PRESSKEY "press a key."
 #define PRESSYN "press y or n."
 #define QUITMSG "are you sure you want to\nquit this great game?"
-#define LOADNET "you can't do load while in a net game!\n\n" PRESSKEY
-#define QLOADNET "you can't quickload during a netgame!\n\n" PRESSKEY
 #define QSAVESPOT "you haven't picked a quicksave slot yet!\n\n" PRESSKEY
 #define SAVEDEAD "you can't save if you aren't playing!\n\n" PRESSKEY
 #define QSPROMPT "quicksave over your game named\n\n'%s'?\n\n" PRESSYN
 #define QLPROMPT "do you want to quickload the game named\n\n'%s'?\n\n" PRESSYN
-
-#define NEWGAME                    \
-    "you can't start a new game\n" \
-    "while in a network game.\n\n" PRESSKEY
 
 #define NIGHTMARE                      \
     "are you sure? this skill level\n" \
@@ -48,7 +42,6 @@
 
 #define MSGOFF "Messages OFF"
 #define MSGON "Messages ON"
-#define NETEND "you can't end a netgame!\n\n" PRESSKEY
 #define ENDGAME "are you sure you want to end the game?\n\n" PRESSYN
 
 #define DOSY "(press y to quit)"
@@ -115,9 +108,6 @@
 
 //	G_game.C
 #define GGSAVED "game saved."
-
-//	HU_stuff.C
-#define HUSTR_MSGU "[Message unsent]"
 
 #define HUSTR_E1M1 "E1M1: Hangar"
 #define HUSTR_E1M2 "E1M2: Nuclear Plant"
@@ -266,38 +256,6 @@
 
 #define THUSTR_31 "level 31: pharaoh"
 #define THUSTR_32 "level 32: caribbean"
-
-#define HUSTR_CHATMACRO1 "I'm ready to kick butt!"
-#define HUSTR_CHATMACRO2 "I'm OK."
-#define HUSTR_CHATMACRO3 "I'm not looking too good!"
-#define HUSTR_CHATMACRO4 "Help!"
-#define HUSTR_CHATMACRO5 "You suck!"
-#define HUSTR_CHATMACRO6 "Next time, scumbag..."
-#define HUSTR_CHATMACRO7 "Come here!"
-#define HUSTR_CHATMACRO8 "I'll take care of it."
-#define HUSTR_CHATMACRO9 "Yes"
-#define HUSTR_CHATMACRO0 "No"
-
-#define HUSTR_TALKTOSELF1 "You mumble to yourself"
-#define HUSTR_TALKTOSELF2 "Who's there?"
-#define HUSTR_TALKTOSELF3 "You scare yourself"
-#define HUSTR_TALKTOSELF4 "You start to rave"
-#define HUSTR_TALKTOSELF5 "You've lost it..."
-
-#define HUSTR_MESSAGESENT "[Message Sent]"
-
-// The following should NOT be changed unless it seems
-// just AWFULLY necessary
-
-#define HUSTR_PLRGREEN "Green: "
-#define HUSTR_PLRINDIGO "Indigo: "
-#define HUSTR_PLRBROWN "Brown: "
-#define HUSTR_PLRRED "Red: "
-
-#define HUSTR_KEYGREEN 'g'
-#define HUSTR_KEYINDIGO 'i'
-#define HUSTR_KEYBROWN 'b'
-#define HUSTR_KEYRED 'r'
 
 //	AM_map.C
 

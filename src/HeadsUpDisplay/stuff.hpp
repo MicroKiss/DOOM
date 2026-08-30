@@ -15,16 +15,12 @@
 #ifndef __HU_STUFF_H__
 #define __HU_STUFF_H__
 
-#include "Doom/event.hpp"
-
 // Globally visible constants.
 #define HU_FONTSTART '!' // the first font characters
 #define HU_FONTEND '_'   // the last font characters
 
 // Calculate # of glyphs in font.
 #define HU_FONTSIZE (HU_FONTEND - HU_FONTSTART + 1)
-
-#define HU_BROADCAST 5
 
 #define HU_MSGREFRESH KEY_ENTER
 #define HU_MSGX 0
@@ -39,11 +35,8 @@
 void HU_Init(void);
 void HU_Start(void);
 
-bool HU_Responder(event_t *ev);
-
 void HU_Ticker(void);
 void HU_Drawer(void);
-char HU_dequeueChatChar(void);
 void HU_Erase(void);
 
 #endif

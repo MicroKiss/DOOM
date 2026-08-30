@@ -182,8 +182,6 @@ extern int showMessages;
 // machine-independent sound params
 extern int numChannels;
 
-extern char *chat_macros[];
-
 typedef struct
 {
     const char *name;
@@ -234,18 +232,7 @@ default_t defaults[] = {
 
     DEFAULT_NUMBER("snd_channels", &numChannels, 3),
 
-    DEFAULT_NUMBER("usegamma", &usegamma, 0),
-
-    DEFAULT_STRING("chatmacro0", &chat_macros[0], HUSTR_CHATMACRO0),
-    DEFAULT_STRING("chatmacro1", &chat_macros[1], HUSTR_CHATMACRO1),
-    DEFAULT_STRING("chatmacro2", &chat_macros[2], HUSTR_CHATMACRO2),
-    DEFAULT_STRING("chatmacro3", &chat_macros[3], HUSTR_CHATMACRO3),
-    DEFAULT_STRING("chatmacro4", &chat_macros[4], HUSTR_CHATMACRO4),
-    DEFAULT_STRING("chatmacro5", &chat_macros[5], HUSTR_CHATMACRO5),
-    DEFAULT_STRING("chatmacro6", &chat_macros[6], HUSTR_CHATMACRO6),
-    DEFAULT_STRING("chatmacro7", &chat_macros[7], HUSTR_CHATMACRO7),
-    DEFAULT_STRING("chatmacro8", &chat_macros[8], HUSTR_CHATMACRO8),
-    DEFAULT_STRING("chatmacro9", &chat_macros[9], HUSTR_CHATMACRO9)
+    DEFAULT_NUMBER("usegamma", &usegamma, 0)
 
 };
 
@@ -460,5 +447,5 @@ void M_ScreenShot(void)
     // save the pcx file
     WritePCXfile(lbmname, linear, SCREENWIDTH, SCREENHEIGHT, static_cast<byte *>(W_CacheLumpName("PLAYPAL", PU_CACHE)));
 
-    players[consoleplayer].message = "screen shot";
+    gamePlayer.message = "screen shot";
 }

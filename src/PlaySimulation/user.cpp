@@ -5,12 +5,11 @@
 //	Pending weapon.
 //-----------------------------------------------------------------------------
 
-#include "Doom/event.hpp"
 #include "Inputs/InputHandler.hpp"
 #include "PlaySimulation/local.hpp"
+#include "doomstat.hpp"
 
 #include "doomstat.hpp"
-#include <iostream>
 
 // Index of the special effects (INVUL inverse) map.
 #define INVERSECOLORMAP 32
@@ -20,10 +19,10 @@
 // 16 pixels of bob
 #define MAXBOB 0x100000
 
-static int32_t forwardWalkSpeed = 25;
-static int32_t forwardRunSpeed = 50;
-static int32_t sideWalkSpeed = 24;
-static int32_t sideRunSpeed = 40;
+int32_t forwardWalkSpeed = 25;
+int32_t forwardRunSpeed = 50;
+int32_t sideWalkSpeed = 24;
+int32_t sideRunSpeed = 40;
 
 bool onground;
 
@@ -109,7 +108,6 @@ void P_CalcHeight(player_t *player)
 void P_MovePlayer(player_t *player)
 {
     const MouseMotion &mouse = inputHandler.GetMouseMotion();
-    std::cout << mouse.x << std::endl;
     int64_t mouseTurn = static_cast<int64_t>(mouse.x) * (mouseSensitivity + 5) * 4096 * 4;
     player->mo->angle -= static_cast<angle_t>(mouseTurn);
 
@@ -203,6 +201,18 @@ WeaponType NextAvailableWeapon(player_t *player)
     return next;
 }
 
+WeaponType PrevAvailableWeapon(player_t *player)
+{
+    WeaponType current = player->readyweapon;
+    WeaponType prev = static_cast<WeaponType>((static_cast<int>(current) - 1 + NUMWEAPONS) % NUMWEAPONS);
+
+    while (!player->weaponowned[prev])
+    {
+        prev = static_cast<WeaponType>((static_cast<int>(prev) - 1 + NUMWEAPONS) % NUMWEAPONS);
+    }
+    return prev;
+}
+
 // P_PlayerThink
 void P_PlayerThink(player_t *player)
 {
@@ -250,6 +260,11 @@ void P_PlayerThink(player_t *player)
     if (inputHandler.IsPressed(INPUTS::NEXT_WEAPON))
     {
         player->pendingweapon = NextAvailableWeapon(player);
+    }
+
+    if (inputHandler.IsPressed(INPUTS::PREV_WEAPON))
+    {
+        player->pendingweapon = PrevAvailableWeapon(player);
     }
 
     newweapon = wp_nochange;

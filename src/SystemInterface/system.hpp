@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Doom/event.hpp"
 #include "Inputs/InputHandler.hpp"
+#include "doomdef.hpp"
 
 #ifdef __GNUG__
 #pragma interface
@@ -22,22 +22,15 @@ int I_GetTime(void);
 // Called by D_DoomLoop,
 // called before processing any tics in a frame
 // (just after displaying a frame).
-// Time consuming syncronous operations
-// are performed here (joystick reading).
-// Can call D_PostEvent.
+// Time consuming synchronous operations are performed here.
 void I_StartFrame(void);
 
 // Called by D_DoomLoop,
 // called before processing each tic in a frame.
-// Quick syncronous operations are performed here.
-// Can call D_PostEvent.
+// Polls platform input into InputHandler.
 void I_StartTic();
 
-// Asynchronous interrupt functions should maintain private queues
-// that are read by the synchronous functions
-// to be converted into events.
-
-// Called by M_Responder when quit is selected.
+// Called when quit is selected.
 // Clean exit, displays sell blurb.
 void I_Quit(void);
 

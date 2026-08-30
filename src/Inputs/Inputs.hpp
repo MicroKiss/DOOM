@@ -52,6 +52,7 @@ enum INPUTS : int
     ATTACK,
     USE,
     NEXT_WEAPON,
+    PREV_WEAPON,
     WEAPON_1,
     WEAPON_2,
     WEAPON_3,

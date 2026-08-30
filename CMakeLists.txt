@@ -11,7 +11,7 @@ set(DOOM_SOURCES
     ${DOOM_SOURCE_DIR}/AutoMap/map.cpp
     ${DOOM_SOURCE_DIR}/Doom/WeaponInfo.cpp
     ${DOOM_SOURCE_DIR}/Doom/main.cpp
-    ${DOOM_SOURCE_DIR}/Doom/net.cpp
+    ${DOOM_SOURCE_DIR}/Doom/tick.cpp
     ${DOOM_SOURCE_DIR}/Doom/doomdef.cpp
     ${DOOM_SOURCE_DIR}/Doom/doomstat.cpp
     ${DOOM_SOURCE_DIR}/Doom/dstrings.cpp
@@ -34,7 +34,6 @@ set(DOOM_SOURCES
     ${DOOM_SOURCE_DIR}/Renderer/things.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/main.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/main_test.cpp
-    ${DOOM_SOURCE_DIR}/SystemInterface/net.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/sound.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/system.cpp
     ${DOOM_SOURCE_DIR}/SystemInterface/video.cpp

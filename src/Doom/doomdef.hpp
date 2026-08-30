@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "doomtype.hpp"
+
 // Global parameters/defines.
 // DOOM version
 enum
@@ -99,9 +101,6 @@ typedef enum
 #define SCREENHEIGHT 200
 //(int)(SCREEN_MUL*BASE_WIDTH*INV_ASPECT_RATIO) //200
 
-// The maximum number of players, multiplayer/networking.
-#define MAXPLAYERS 4
-
 // State updates, number of tics / second.
 #define TICRATE 35
 
@@ -115,6 +114,19 @@ typedef enum
     GS_FINALE,
     GS_MENUSCREEN
 } gamestate_t;
+
+typedef enum
+{
+    ga_nothing,
+    ga_loadlevel,
+    ga_newgame,
+    ga_loadgame,
+    ga_savegame,
+    ga_completed,
+    ga_victory,
+    ga_worlddone,
+    ga_screenshot
+} gameaction_t;
 
 // Difficulty/skill settings/filters.
 

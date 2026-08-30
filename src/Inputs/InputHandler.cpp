@@ -1,36 +1,9 @@
 #include "InputHandler.hpp"
-#include "Doom/main.hpp"
-
-static bool IsMouseButton(INPUTS input)
-{
-    return input == INPUTS::MOUSE_LEFT ||
-           input == INPUTS::MOUSE_MIDDLE ||
-           input == INPUTS::MOUSE_RIGHT;
-}
-
-static void PostKeyEvent(evtype_t type, INPUTS input)
-{
-    event_t event = {};
-    event.type = type;
-    event.data1 = static_cast<int>(input);
-    D_PostEvent(&event);
-}
-
-static void PostMouseEvent(const InputHandler &handler, int x, int y)
-{
-    event_t event = {};
-    event.type = ev_mouse;
-    event.data1 = (handler.IsDown(INPUTS::MOUSE_LEFT) ? 1 : 0) |
-                  (handler.IsDown(INPUTS::MOUSE_MIDDLE) ? 2 : 0) |
-                  (handler.IsDown(INPUTS::MOUSE_RIGHT) ? 4 : 0);
-    event.data2 = x;
-    event.data3 = y;
-    D_PostEvent(&event);
-}
 
 void InputHandler::Update()
 {
     pressedThisFrame.clear();
+    pressedInputs.clear();
     mouseMotion = {};
 }
 
@@ -43,7 +16,9 @@ bool InputHandler::IsPressed(INPUTS input) const
     case INPUTS::USE:
         return IsPressed(static_cast<INPUTS>(' '));
     case INPUTS::NEXT_WEAPON:
-        return mouseMotion.wheel != 0;
+        return mouseMotion.wheel > 0;
+    case INPUTS::PREV_WEAPON:
+        return mouseMotion.wheel < 0;
     case INPUTS::WEAPON_1:
     case INPUTS::WEAPON_2:
     case INPUTS::WEAPON_3:
@@ -86,22 +61,13 @@ bool InputHandler::IsDown(INPUTS input) const
 void InputHandler::Press(INPUTS input)
 {
     pressedThisFrame.insert(input);
+    pressedInputs.push_back(input);
     inputs.insert(input);
-
-    if (IsMouseButton(input))
-        PostMouseEvent(*this, 0, 0);
-    else
-        PostKeyEvent(ev_keydown, input);
 }
 
 void InputHandler::Release(INPUTS input)
 {
     inputs.erase(input);
-
-    if (IsMouseButton(input))
-        PostMouseEvent(*this, 0, 0);
-    else
-        PostKeyEvent(ev_keyup, input);
 }
 
 void InputHandler::ReleaseAll()
@@ -114,17 +80,16 @@ void InputHandler::AddMouseMotion(int x, int y)
 {
     mouseMotion.x += x;
     mouseMotion.y += y;
-    PostMouseEvent(*this, x, y);
 }
 
 void InputHandler::AddMouseWheel(int amount)
 {
-    event_t event = {};
-
     mouseMotion.wheel += amount;
-    event.type = ev_mousewheel;
-    event.data1 = amount;
-    D_PostEvent(&event);
+}
+
+const std::vector<INPUTS> &InputHandler::GetPressedInputs() const
+{
+    return pressedInputs;
 }
 
 const MouseMotion &InputHandler::GetMouseMotion() const

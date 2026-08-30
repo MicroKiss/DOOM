@@ -23,27 +23,26 @@
 #pragma interface
 #endif
 
+// POV related.
+extern int32_t viewcos;
+extern int32_t viewsin;
 
-        // POV related.
-        extern int32_t viewcos;
-    extern int32_t viewsin;
+extern int viewwidth;
+extern int viewheight;
+extern int viewwindowx;
+extern int viewwindowy;
 
-    extern int viewwidth;
-    extern int viewheight;
-    extern int viewwindowx;
-    extern int viewwindowy;
+extern int centerx;
+extern int centery;
 
-    extern int centerx;
-    extern int centery;
+extern int32_t centerxfrac;
+extern int32_t centeryfrac;
+extern int32_t projection;
 
-    extern int32_t centerxfrac;
-    extern int32_t centeryfrac;
-    extern int32_t projection;
+extern int validcount;
 
-    extern int validcount;
-
-    extern int linecount;
-    extern int loopcount;
+extern int linecount;
+extern int loopcount;
 
 // Lighting LUT.
 // Used for z-depth cuing per column/row,
@@ -59,74 +58,73 @@
 #define MAXLIGHTZ 128
 #define LIGHTZSHIFT 20
 
-    extern lighttable_t *scalelight[LIGHTLEVELS][MAXLIGHTSCALE];
-    extern lighttable_t *scalelightfixed[MAXLIGHTSCALE];
-    extern lighttable_t *zlight[LIGHTLEVELS][MAXLIGHTZ];
+extern lighttable_t *scalelight[LIGHTLEVELS][MAXLIGHTSCALE];
+extern lighttable_t *scalelightfixed[MAXLIGHTSCALE];
+extern lighttable_t *zlight[LIGHTLEVELS][MAXLIGHTZ];
 
-    extern int extralight;
-    extern lighttable_t *fixedcolormap;
+extern int extralight;
+extern lighttable_t *fixedcolormap;
 
 // Number of diminishing brightness levels.
 // There a 0-31, i.e. 32 LUT in the COLORMAP lump.
 #define NUMCOLORMAPS 32
 
-    // Blocky/low detail mode.
-    // B remove this?
-    //  0 = high, 1 = low
-    extern int detailshift;
+// Blocky/low detail mode.
+// B remove this?
+//  0 = high, 1 = low
+extern int detailshift;
 
-        // Function pointers to switch refresh/drawing functions.
-    // Used to select shadow mode etc.
-        extern void (*colfunc)(void);
-    extern void (*basecolfunc)(void);
-    extern void (*fuzzcolfunc)(void);
-    // No shadow effects on floors.
-    extern void (*spanfunc)(void);
+// Function pointers to switch refresh/drawing functions.
+// Used to select shadow mode etc.
+extern void (*colfunc)(void);
+extern void (*basecolfunc)(void);
+extern void (*fuzzcolfunc)(void);
+// No shadow effects on floors.
+extern void (*spanfunc)(void);
 
-        // Utility functions.
-    int R_PointOnSide(int32_t x,
-                      int32_t y,
-                      node_t *node);
+// Utility functions.
+int R_PointOnSide(int32_t x,
+                  int32_t y,
+                  node_t *node);
 
-    int R_PointOnSegSide(int32_t x,
-                         int32_t y,
-                         seg_t *line);
+int R_PointOnSegSide(int32_t x,
+                     int32_t y,
+                     seg_t *line);
 
-    angle_t
-    R_PointToAngle(int32_t x,
+angle_t
+R_PointToAngle(int32_t x,
+               int32_t y);
+
+angle_t
+R_PointToAngle2(int32_t x1,
+                int32_t y1,
+                int32_t x2,
+                int32_t y2);
+
+int32_t
+R_PointToDist(int32_t x,
+              int32_t y);
+
+int32_t R_ScaleFromGlobalAngle(angle_t visangle);
+
+subsector_t *
+R_PointInSubsector(int32_t x,
                    int32_t y);
 
-    angle_t
-    R_PointToAngle2(int32_t x1,
-                    int32_t y1,
-                    int32_t x2,
-                    int32_t y2);
+void R_AddPointToBox(int x,
+                     int y,
+                     int32_t *box);
 
-    int32_t
-    R_PointToDist(int32_t x,
-                  int32_t y);
+// REFRESH - the actual rendering functions.
 
-    int32_t R_ScaleFromGlobalAngle(angle_t visangle);
+// Called by G_Drawer.
+void R_RenderPlayerView(player_t *player);
 
-    subsector_t *
-    R_PointInSubsector(int32_t x,
-                       int32_t y);
+// Called by startup code.
+void R_Init(void);
 
-    void R_AddPointToBox(int x,
-                         int y,
-                         int32_t *box);
-
-        // REFRESH - the actual rendering functions.
-    
-    // Called by G_Drawer.
-    void R_RenderPlayerView(player_t *player);
-
-    // Called by startup code.
-    void R_Init(void);
-
-    // Called by M_Responder.
-    void R_SetViewSize(int blocks, int detail);
-
+// Called by menu input handling.
+void R_SetViewSize(int blocks, int detail);
 
 #endif
 //-----------------------------------------------------------------------------

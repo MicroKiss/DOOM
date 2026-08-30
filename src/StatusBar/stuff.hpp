@@ -19,7 +19,6 @@
 #define __STSTUFF_H__
 
 #include "doomtype.hpp"
-#include "Doom/event.hpp"
 
 // Size of statusbar.
 // Now sensitive for scaling.
@@ -30,10 +29,9 @@
 // STATUS BAR
 
 // Called by main loop.
-bool ST_Responder(event_t *ev);
-
-// Called by main loop.
 void ST_Ticker(void);
+
+void ST_SetAutomapState(bool active);
 
 // Called by main loop.
 void ST_Drawer(bool fullscreen, bool refresh);
@@ -51,17 +49,6 @@ typedef enum
     FirstPersonState
 
 } st_stateenum_t;
-
-// States for the chat code.
-typedef enum
-{
-    StartChatState,
-    WaitDestState,
-    GetChatState
-
-} st_chatstateenum_t;
-
-bool ST_Responder(event_t *ev);
 
 #endif
 //-----------------------------------------------------------------------------
