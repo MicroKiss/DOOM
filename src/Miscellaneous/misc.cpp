@@ -65,17 +65,14 @@ int M_DrawText(int x,
     return x;
 }
 
-// M_WriteFile
-#ifndef O_BINARY
-#define O_BINARY 0
-#endif
+
 
 bool M_WriteFile(char const *name, void *source, int length)
 {
     int handle;
     int count;
 
-    handle = open(name, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666);
+    handle = open(name, O_WRONLY | O_CREAT | O_TRUNC | 0, 0666);
 
     if (handle == -1)
         return false;
@@ -97,7 +94,7 @@ int M_ReadFile(char const *name,
     struct stat fileinfo;
     byte *buf;
 
-    handle = open(name, O_RDONLY | O_BINARY, 0666);
+    handle = open(name, O_RDONLY | 0, 0666);
     if (handle == -1)
         I_Error("Couldn't read file %s", name);
     if (fstat(handle, &fileinfo) == -1)

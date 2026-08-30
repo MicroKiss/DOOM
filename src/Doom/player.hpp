@@ -19,7 +19,7 @@
 // of other structs: items (internal inventory),
 // animation states (closely tied to the sprites
 // used to represent them, unfortunately).
-#include "Doom/items.hpp"
+#include "Doom/WeaponInfo.hpp"
 #include "PlaySimulation/pspr.hpp"
 
 // In addition, the player is just a special

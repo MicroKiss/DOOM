@@ -29,9 +29,6 @@
 #define strcmpi strcasecmp
 #endif
 
-#ifndef O_BINARY
-#define O_BINARY 0
-#endif
 
 #include "doomtype.hpp"
 #include "Miscellaneous/swap.hpp"
@@ -165,7 +162,7 @@ static void W_AddFile(char *filename, bool require_iwad)
         reloadlump = numlumps;
     }
 
-    if ((handle = open(filename, O_RDONLY | O_BINARY)) == -1)
+    if ((handle = open(filename, O_RDONLY | 0)) == -1)
         I_Error("Could not open data file \"%s\": %s",
                 filename, strerror(errno));
 
@@ -284,7 +281,7 @@ void W_Reload(void)
     if (!reloadname)
         return;
 
-    if ((handle = open(reloadname, O_RDONLY | O_BINARY)) == -1)
+    if ((handle = open(reloadname, O_RDONLY | 0)) == -1)
         I_Error("W_Reload: couldn't open %s", reloadname);
 
     read(handle, &header, sizeof(header));
@@ -445,7 +442,7 @@ void W_ReadLump(int lump,
     if (l->handle == -1)
     {
         // reloadable file, so use open / read / close
-        if ((handle = open(reloadname, O_RDONLY | O_BINARY)) == -1)
+        if ((handle = open(reloadname, O_RDONLY | 0)) == -1)
             I_Error("W_ReadLump: couldn't open %s", reloadname);
     }
     else

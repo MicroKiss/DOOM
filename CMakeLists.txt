@@ -9,7 +9,7 @@ set(DOOM_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 set(DOOM_SOURCES
     ${DOOM_SOURCE_DIR}/AutoMap/map.cpp
-    ${DOOM_SOURCE_DIR}/Doom/items.cpp
+    ${DOOM_SOURCE_DIR}/Doom/WeaponInfo.cpp
     ${DOOM_SOURCE_DIR}/Doom/main.cpp
     ${DOOM_SOURCE_DIR}/Doom/net.cpp
     ${DOOM_SOURCE_DIR}/Doom/doomdef.cpp
